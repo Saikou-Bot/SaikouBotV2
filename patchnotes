@@ -1,0 +1,25 @@
+** 07/03/20 Saikou Discord Bot (14 commands | 3 fixes) ** 
+Alpha v1.0.0
+
+
++ Welcome embed redone from scratch
+
+
+Behind the scenes changes
+
++ Updated to discord.js v12
++ Event Handler redone and used for **all** discord.js events instead of being dumped in all the same file
++ Command Handler rewritten
++ 
+
+- removing command
+- removing command
+- removing command
+
+~ Bug fixes
+~ Bug fixes
+~ Bug fixes
+
+! Rebalancing
+! Rebalancing
+! Rebalancing
