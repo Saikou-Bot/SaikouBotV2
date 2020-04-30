@@ -2,12 +2,12 @@
 Alpha v1.0.0
 
 
-+ Welcome embed redone from scratch
++ Leave message completely redone from scratch, will now give a unique message depending on what follower role the user has.
 
 
 Behind the scenes changes
 
-+ Updated to discord.js v12
++ Updated to discord.js v12.2.0
 + Event Handler redone and used for **all** discord.js events instead of being dumped in all the same file
 + Command Handler rewritten
 + 
