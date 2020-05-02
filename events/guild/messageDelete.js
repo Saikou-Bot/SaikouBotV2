@@ -1,12 +1,12 @@
-module.exports = (client, message, args) => {
+module.exports = (client, message) => {
 const { MessageEmbed } = require('discord.js')
 const Colour = require('../../colours.json')
 
-if (message.guild.channels.cache.find((channel) => channel.name === '🔒classified')) return;
-if (message.guild.channels.cache.find((channel) => channel.name === '🔧project-untitled')) return;
-if (message.guild.channels.cache.find((channel) => channel.name === '👥management')) return;
-if (message.author.bot) return;
-if (message.content.length > 1900) return;
+ if (message.channel.name == "👥management") return;
+ if (message.channel.name == "🔧project-untitled") return;
+ if (message.channel.name == "🔒classified") return;
+ if (message.author.bot) return;
+ if (message.content.length > 1900) return;
 
 if(message.attachments.size > 0) {
 
