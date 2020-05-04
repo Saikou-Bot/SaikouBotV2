@@ -19,16 +19,10 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        var user = message.mentions.users.first() || message.author;
+        var user = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(m => m.user.username === `${args.join(" ").slice('.')}`) || message.author;
 
-
+        if (!user) user = message.author;
         if (user.bot) user = message.author;
-
-
-        if (args[0] && message.mentions.users.size == 0) {
-            user = message.guild.members.cache.get(args[0]).user;
-            if (user.bot) user = message.author;
-        }
 
         const statuses = [
             'Very Poor',
@@ -38,8 +32,6 @@ module.exports = {
             'Very Wealthy',
             'Rich',
             'Filthy Rich'
-
-
         ]
 
 
@@ -58,7 +50,7 @@ module.exports = {
                 newData.save().catch(err => console.log(err))
 
                 let BalanceEmbed1 = new MessageEmbed()
-                    .setTitle(`💰${user.username}'s balance`)
+                    .setTitle(`💰${user.username || user.displayName}'s balance`)
                     .addField(`Base`, `0`)
                     .setFooter(`Status: Very Poor`)
                     .setTimestamp()
@@ -79,13 +71,11 @@ module.exports = {
                 else { var status = new String(); status += `${statuses[0]}` }
 
                 let BalanceEmbed2 = new MessageEmbed()
-                    .setTitle(`💰${user.username}'s balance`)
+                    .setTitle(`💰${user.username || user.displayName}'s balance`)
                     .addField(`Base`, coinsData.coins.toLocaleString())
-                    .setColor(user.member.displayHexColor)
+                    .setColor(message.member.displayHexColor)
                     .setFooter(`Status: ${status}`)
                     .setTimestamp()
-
-                console.log({ status })
 
 
                 return message.channel.send(BalanceEmbed2)

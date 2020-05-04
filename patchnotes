@@ -22,8 +22,7 @@ Behind the scenes changes
 - removing command
 
 ~ Welcome message now tags the user to avoid the text messing up with users who have special characters in their name.
-~ Balance command now ignores other bots to avoid them being added in the database and taking up unnecessary space.
-~ Bug fixes
+~ Balance Command no longer errors if someone types in a random name, users can now choose from 3 options to find someones balance (Discord Username, Mention, ID)
 
 ! Rebalancing
 ! Rebalancing
