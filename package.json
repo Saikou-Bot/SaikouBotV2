@@ -24,6 +24,9 @@
   "dependencies": {
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "moment": "^2.25.0",
+    "mongoose": "^5.9.11",
+    "ordinal": "^1.0.3",
     "path": "^0.12.7"
   }
 }
