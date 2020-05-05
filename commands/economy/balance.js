@@ -1,12 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const mongoose = require("mongoose")
-
-mongoose.connect(process.env.MONGOPASSWORD, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-const CoinsData = require("../../models/coinsData.js")
+const userData = require("../../models/userData.js")
 
 
 module.exports = {
@@ -19,7 +12,7 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        var user = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(m => m.user.username === `${args.join(" ").slice('.')}`) || message.author;
+        var user = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(m => m.user.username === `${args.join(" ").slice('.').toLowerCase()}`) || message.author;
 
         if (!user) user = message.author;
         if (user.bot) user = message.author;
@@ -36,13 +29,13 @@ module.exports = {
 
 
 
-        CoinsData.findOne({
+        userData.findOne({
             userID: user.id
-        }, (err, coinsData) => {
+        }, (err, UserData) => {
             if (err) console.log(err)
 
-            if (!coinsData) {
-                const newData = new CoinsData({
+            if (!UserData) {
+                const newData = new userData({
                     username: user.username,
                     userID: user.id,
                     coins: 0,
@@ -52,6 +45,7 @@ module.exports = {
                 let BalanceEmbed1 = new MessageEmbed()
                     .setTitle(`💰${user.username || user.displayName}'s balance`)
                     .addField(`Base`, `0`)
+                    .setColor(message.member.displayHexColor)
                     .setFooter(`Status: Very Poor`)
                     .setTimestamp()
 
@@ -61,18 +55,18 @@ module.exports = {
             } else {
 
 
-                if (coinsData.coins > 0 && coinsData.coins < 1000) { var status = new String(); status += `${statuses[0]}` } // Very Poor
-                else if (coinsData.coins > 999 && coinsData.coins < 10000) { var status = new String(); status += `${statuses[1]}` } // Broke
-                else if (coinsData.coins > 9999 && coinsData.coins < 50000) { var status = new String(); status += `${statuses[2]}` } // Sustainable
-                else if (coinsData.coins > 49999 && coinsData.coins < 150000) { var status = new String(); status += `${statuses[3]}` } // Wealthy
-                else if (coinsData.coins > 149999 && coinsData.coins < 500000) { var status = new String(); status += `${statuses[4]}` } // Very Wealthy
-                else if (coinsData.coins > 499999 && coinsData.coins < 1000000) { var status = new String(); status += `${statuses[5]}` } // Rich
-                else if (coinsData.coins > 999999 && coinsData.coins < 1999999999) { var status = new String(); status += `${statuses[6]}` } // Filthy Rich
+                if (UserData.coins > 0 && UserData.coins < 1000) { var status = new String(); status += `${statuses[0]}` } // Very Poor
+                else if (UserData.coins > 999 && UserData.coins < 10000) { var status = new String(); status += `${statuses[1]}` } // Broke
+                else if (UserData.coins > 9999 && UserData.coins < 50000) { var status = new String(); status += `${statuses[2]}` } // Sustainable
+                else if (UserData.coins > 49999 && UserData.coins < 150000) { var status = new String(); status += `${statuses[3]}` } // Wealthy
+                else if (UserData.coins > 149999 && UserData.coins < 500000) { var status = new String(); status += `${statuses[4]}` } // Very Wealthy
+                else if (UserData.coins > 499999 && UserData.coins < 1000000) { var status = new String(); status += `${statuses[5]}` } // Rich
+                else if (UserData.coins > 999999 && UserData.coins < 1999999999) { var status = new String(); status += `${statuses[6]}` } // Filthy Rich
                 else { var status = new String(); status += `${statuses[0]}` }
 
                 let BalanceEmbed2 = new MessageEmbed()
                     .setTitle(`💰${user.username || user.displayName}'s balance`)
-                    .addField(`Base`, coinsData.coins.toLocaleString())
+                    .addField(`Base`, UserData.coins.toLocaleString())
                     .setColor(message.member.displayHexColor)
                     .setFooter(`Status: ${status}`)
                     .setTimestamp()
