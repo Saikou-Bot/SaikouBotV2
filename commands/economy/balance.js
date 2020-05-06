@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const userData = require("../../models/userData.js")
+const coinsData = require("../../models/userData.js")
 
 
 module.exports = {
@@ -29,13 +29,13 @@ module.exports = {
 
 
 
-        userData.findOne({
+        coinsData.findOne({
             userID: user.id
         }, (err, UserData) => {
             if (err) console.log(err)
 
             if (!UserData) {
-                const newData = new userData({
+                const newData = new coinsData({
                     username: user.username,
                     userID: user.id,
                     coins: 0,

@@ -19,7 +19,7 @@ module.exports = {
 
 
         bot.shop.forEach(a => {
-            itemDesc += `**${a.name}** **─**  ${a.cost.toLocaleString()} S$ **─** ${a.type}\n${a.description}\n\n`;
+            itemDesc += `${a.emoji} **${a.name}** **─**  ${a.cost.toLocaleString()} S$ **─** ${a.type}\n${a.description}\n\n`;
         })
 
         //   bot.shop.forEach(a => {
@@ -28,6 +28,7 @@ module.exports = {
 
         shopMenu.setDescription(`Welcome to the Military Market! Kit yourself out with some cool items and begin the journey to making powerful decisions. Buy an item with \`.buy itemname\``)
         shopMenu.addField(`Purchasable Items`, itemDesc)
+        shopMenu.setColor(message.member.displayHexColor)
         shopMenu.setFooter('Page 1/3')
 
         message.channel.send(shopMenu)

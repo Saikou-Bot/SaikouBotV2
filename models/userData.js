@@ -5,7 +5,7 @@ const userDataSchema = mongoose.Schema({
     userID: String,
     coins: Number,
     items: [
-        { itemName: String, itemID: String, itemQuantity: String, itemSell: Number }
+        { itemName: String, itemID: String, itemQuantity: Number, itemSell: Number }
     ]
 })
 

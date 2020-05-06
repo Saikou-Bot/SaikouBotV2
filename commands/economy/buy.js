@@ -1,8 +1,7 @@
 const { MessageEmbed } = require('discord.js')
-
-const mongoose = require("mongoose")
-
 const UserData = require("../../models/userData.js")
+const errors = require("../utils/errors")
+const colours = require("../../colours.json")
 
 
 module.exports = {
@@ -26,7 +25,7 @@ module.exports = {
         } else {
 
             UserData.findOne({
-                userID: message.author.id
+                userID: message.author.id,
             }, (err, userData) => {
                 if (err) console.log(err)
 
@@ -35,36 +34,47 @@ module.exports = {
                         username: message.author.username,
                         userID: message.author.id,
                         coins: 0,
-                        itemQuantity: 0,
                     })
                     newData.save().catch(err => console.log(err))
-                    return message.reply("You don't have any money to buy with.")
+
+                    return errors.noCoins(message, `${item.name}` || message, `${item.cost.toLocaleString()}`)
+
                 } else {
 
-                    var quantity = `inv_${message.author.id}.${item.id}.quantity` || 0
+                    if (userData.coins < item.cost) {
+                        return errors.noCoins(message, `${item.name}` || message, `${item.cost.toLocaleString()}`)
+                    }
+
 
                     UserData.updateOne({
                         userID: message.author.id,
                         $set: { modified_on: new Date() },
+                        //  $inc: { "items.$.itemQuantity": quantity },
                         $push: {
                             items: {
                                 'itemName': item.name,
                                 'itemID': item.id,
-                                'itemQuantity': quantity + 1,
+                                'itemQuantity': + 1,
                                 'itemSell': Math.floor(item.cost / 2)
-
-
                             }
                         }
-                    }
 
-                    ).catch(err => console.log(err))
+                    }).catch(err => console.log(err))
 
                 }
+                userData.coins -= item.cost
+                userData.save()
 
+                const success = new MessageEmbed()
+                    .setTitle(`✅ Success!`)
+                    .setDescription(`You successfully bought **${item.name}** for \`S$${item.cost}\` from the Military Market!`)
+                    .setFooter('Successful Purchase')
+                    .setTimestamp()
+                    .setColor(colours.green)
+
+                message.channel.send(success).then(message => { message.delete({ timeout: 15000 }) })
 
             })
-
         }
     }
 }
