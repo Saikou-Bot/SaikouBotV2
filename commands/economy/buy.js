@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js')
 const UserData = require("../../models/userData.js")
 const errors = require("../utils/errors")
 const colours = require("../../colours.json")
+const fs = require('fs')
 
 
 module.exports = {
@@ -14,14 +15,28 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        //     if (args[0]) return message.channel.send("You must specify something to buy.")
+        let items = JSON.parse(fs.readFileSync("items.json", "utf8"))
 
-        let itemName = args[0].toLowerCase();
-        let item = bot.shop.get(itemName)
+        let itemName = '';
+        let itemCost = 0;
+        let itemEmoji = '';
+        let itemID = '';
+        let itemType = '';
 
-        if (!item) {
-            return message.channel.send("You can't buy an invalid item??")
+        for (var i in items) {
+            if (args.join(" ").trim().toUpperCase() === items[i].name.toUpperCase()) {
+                itemName = items[i].name;
+                itemCost = items[i].cost;
+                itemEmoji = items[i].emoji;
+                itemID = items[i].id;
+                itemType = items[i].type;
+            }
+        }
 
+
+
+        if (!itemName.length) {
+            return message.channel.send("You must specify something to buy!")
         } else {
 
             UserData.findOne({
@@ -34,40 +49,42 @@ module.exports = {
                         username: message.author.username,
                         userID: message.author.id,
                         coins: 0,
+                        items: [{ itemName: 'Free Rations', itemID: 'FreeRations', itemQuantity: 1, itemSell: 0, itemEmoji: '<:rations:707207234848817163>', itemType: 'Freebie' }]
                     })
                     newData.save().catch(err => console.log(err))
 
-                    return errors.noCoins(message, `${item.name}` || message, `${item.cost.toLocaleString()}`)
+                    return errors.noCoins(message, `${itemName}` || message, `${itemCost.toLocaleString()}`)
 
                 } else {
 
-                    if (userData.coins < item.cost) {
-                        return errors.noCoins(message, `${item.name}` || message, `${item.cost.toLocaleString()}`)
+                    if (userData.coins < itemCost) {
+                        return errors.noCoins(message, `${itemName}` || message, `${itemCost.toLocaleString()}`)
                     }
 
 
-                    UserData.updateOne({
-                        userID: message.author.id,
-                        $set: { modified_on: new Date() },
-                        //  $inc: { "items.$.itemQuantity": quantity },
-                        $push: {
-                            items: {
-                                'itemName': item.name,
-                                'itemID': item.id,
-                                'itemQuantity': + 1,
-                                'itemSell': Math.floor(item.cost / 2)
+                    UserData.updateOne(
+                        { userID: message.author.id },
+                        {
+                            $push: {
+                                items: {
+                                    'itemName': itemName,
+                                    'itemID': itemID,
+                                    'itemQuantity': + 1,
+                                    'itemSell': Math.floor(itemCost / 2),
+                                    'itemEmoji': itemEmoji,
+                                    'itemType': itemType
+                                }
                             }
-                        }
 
-                    }).catch(err => console.log(err))
+                        }).catch(err => console.log(err))
 
                 }
-                userData.coins -= item.cost
+                userData.coins -= itemCost
                 userData.save()
 
                 const success = new MessageEmbed()
                     .setTitle(`✅ Success!`)
-                    .setDescription(`You successfully bought **${item.name}** for \`S$${item.cost}\` from the Military Market!`)
+                    .setDescription(`You successfully bought **${itemName}** for \`S$${itemCost}\` from the Military Market!`)
                     .setFooter('Successful Purchase')
                     .setTimestamp()
                     .setColor(colours.green)

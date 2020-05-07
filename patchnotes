@@ -9,6 +9,8 @@ Alpha v1.0.0
 + Message deletion logs, tags the user so moderators can find their profile faster.
 + Message edit logs, jump to message clickable link to be directed straight to the edited message.
 + Balance command redone, now gives a 'wealth status' depending on how much money you have! Also corresponds with your role colour.
++ Shop command, browse through the military market and buy an item of choice, who knows, they may give boosts or exclusive content when used!
++ Inventory command, browse through all your items and contemplate on which one you will use first.
 
 
 Behind the scenes changes

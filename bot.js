@@ -17,7 +17,8 @@ config({
 
 mongoose.connect(process.env.MONGOPASSWORD, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 items.forEach(a => {

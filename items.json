@@ -1,10 +1,10 @@
 [
     {
-        "name": "Force's Katana",
+        "name": "Forces Katana",
         "emoji": "<:goldenkatana:653258890409934869>",
         "description": "A katana so valuable and powerful, that only the most skilled soldiers have obtained.",
         "type": "Collectible",
-        "id": "katana",
+        "id": "Forces Katana",
         "cost": 10000000
     },
     {
@@ -12,7 +12,7 @@
         "emoji": "<:mascothappy:658686845911171072>",
         "description": "A mascot so cute, that your enemies will burst into cuteness overload. Grants the buyer [PERK].",
         "type": "Collectible",
-        "id": "mascot",
+        "id": "Saikou Mascot",
         "cost": 5000000
     },
     {
@@ -20,7 +20,7 @@
         "emoji": "<:rations:707207234848817163>",
         "description": "A flavourful tin of military rations. Perfect for a quick meal!",
         "type": "Item",
-        "id": "rations",
+        "id": "Military Rations",
         "cost": 10
     }
 ]
