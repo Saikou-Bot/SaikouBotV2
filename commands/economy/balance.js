@@ -38,6 +38,7 @@ module.exports = {
                 const newData = new coinsData({
                     username: user.username,
                     userID: user.id,
+                    lb: "all",
                     coins: 0,
                     items: [{ itemName: 'Free Rations', itemID: 'FreeRations', itemQuantity: 1, itemSell: 0, itemEmoji: '<:rations:707207234848817163>', itemType: 'Freebie' }]
                 })

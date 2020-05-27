@@ -11,5 +11,5 @@ module.exports.noCoins = (message, name, cost) => {
         .setFooter(`Insufficent Funds!`)
         .setTimestamp()
     // sends the embed
-    message.channel.send(embed).then(message => { message.delete({ timeout: 15000 }) })
+    message.channel.send(embed)
 };

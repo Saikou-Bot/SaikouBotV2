@@ -10,6 +10,7 @@ Alpha v1.0.0
 + Message edit logs, jump to message clickable link to be directed straight to the edited message.
 + Balance command redone, now gives a 'wealth status' depending on how much money you have! Also corresponds with your role colour.
 + Shop command, browse through the military market and buy an item of choice, who knows, they may give boosts or exclusive content when used!
++ Buy command, what good is a shop without a way to buy items? Works with lower and uppercase!
 + Inventory command, browse through all your items and contemplate on which one you will use first.
 
 
@@ -18,6 +19,7 @@ Behind the scenes changes
 + Updated to discord.js v12.2.0
 + Event Handler redone and used for **all** discord.js events instead of being dumped in all the same file
 + Colours.json file so all colours for embeds will now be the same instead of different shades.
++ items.json file for easier access to all the items in the shop.
 
 - Old database removed, replaced with a much more easier to use one. (This means your cash has been reset, sorry!)
 - removing command

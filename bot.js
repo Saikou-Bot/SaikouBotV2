@@ -5,7 +5,7 @@ const bot = new Client();
 const mongoose = require('mongoose')
 
 bot.shop = new Map()
-let items = require("./items.json")
+let items = require('./items/items.json')
 
 // -- Setting .env path
 config({
@@ -25,6 +25,7 @@ items.forEach(a => {
   bot.shop.set(a.id, a)
   console.log(`Loaded item ${a.id}`)
 })
+
 
 // ---Logging in with token or test token---
 const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;

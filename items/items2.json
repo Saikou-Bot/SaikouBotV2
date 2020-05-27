@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Wealthy Badge",
+        "emoji": "💰",
+        "description": "Looking to show how rich you are? Look no further, this badge is displayed on your profile for everyone to see!",
+        "type": "Badge",
+        "id": "wealthy",
+        "cost": 50000000
+    },
+    {
+        "name": "Gold Background",
+        "emoji": "<:Gold:708273772871942154>",
+        "description": "Make your profile more unique looking with this rare gold background!",
+        "type": "Cosmetic",
+        "id": "GoldBackground",
+        "cost": 10000000
+    }
+]

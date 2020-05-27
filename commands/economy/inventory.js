@@ -21,6 +21,7 @@ module.exports = {
                 const newData = new UserData({
                     username: message.author.username,
                     userID: message.author.id,
+                    lb: "all",
                     coins: 0,
                     items: [{ itemName: 'Free Rations', itemID: 'FreeRations', itemQuantity: 1, itemSell: 0, itemEmoji: '<:rations:707207234848817163>', itemType: 'Freebie' }]
                 })
