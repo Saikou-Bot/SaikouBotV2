@@ -12,7 +12,7 @@ module.exports = {
     run: async (bot, message, args) => {
         let questions = require('../../jsonFiles/trivia.json')
 
-        let q = questions[Math.floor(Math.random() * questions.length)]
+        let q = questions[Math.floor((Math.random() * questions.length))]
         let i = 0;
         let options = "";
 
