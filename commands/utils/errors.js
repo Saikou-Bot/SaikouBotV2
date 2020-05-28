@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const colours = require('../../colours.json')
+const colours = require('../../jsonFiles/colours.json')
 
 
 

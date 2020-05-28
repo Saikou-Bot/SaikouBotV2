@@ -1,32 +1,31 @@
-** 01/05/20 Saikou Discord Bot (N/A commands | 1 fixes) ** 
-Alpha v1.0.0
+** 28/05/20 Saikou Discord Bot (9 additions | 4 fixes) ** 
+Rewrite - Alpha v1.0.0
 
+```Economy```
++ Balance command revamped.
++ Shop command.
++ Buy command.
++ Inventory command.
 
-+ Welcome message redone, will now randomly pick from 7 different messages for a bit of variety.
-+ Ban leave message redone, will now show a neat little GIF to go along with the ban message!
-+ Leave message completely redone from scratch, will now give a unique message depending on what follower role the user has.
-+ New member logs, now tags the account that joined and has a much more readable date.
-+ Message deletion logs, tags the user so moderators can find their profile faster.
-+ Message edit logs, jump to message clickable link to be directed straight to the edited message.
-+ Balance command redone, now gives a 'wealth status' depending on how much money you have! Also corresponds with your role colour.
-+ Shop command, browse through the military market and buy an item of choice, who knows, they may give boosts or exclusive content when used!
-+ Buy command, what good is a shop without a way to buy items? Works with lower and uppercase!
-+ Inventory command, browse through all your items and contemplate on which one you will use first.
+```Fun Commands```
++ Trivia command.
 
+```General Changes```
++ Welcome message revamped.
++ Ban leave message revamped.
++ Leave message revamped.
++ Moderation logs.
 
-Behind the scenes changes
-
-+ Updated to discord.js v12.2.0
-+ Event Handler redone and used for **all** discord.js events instead of being dumped in all the same file
-+ Colours.json file so all colours for embeds will now be the same instead of different shades.
-+ items.json file for easier access to all the items in the shop.
-
+```Removals/Deletions```
 - Old database removed, replaced with a much more easier to use one. (This means your cash has been reset, sorry!)
 - removing command
 - removing command
 
+```Bug fixes```
 ~ Welcome message now tags the user to avoid the text messing up with users who have special characters in their name.
 ~ Balance Command no longer errors if someone types in a random name, users can now choose from 3 options to find someones balance (Discord Username, Mention, ID)
+~ Fixed the suggest command reactions reacting in a random order, they will now always be in the same order.
+~ Fixed the bot status only showing half the server members instead of them all.
 
 ! Rebalancing
 ! Rebalancing

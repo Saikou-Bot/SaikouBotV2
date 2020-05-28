@@ -5,7 +5,7 @@ const bot = new Client();
 const mongoose = require('mongoose')
 
 bot.shop = new Map()
-let items = require('./items/items.json')
+let items = require('./jsonFiles/items.json')
 
 // -- Setting .env path
 config({

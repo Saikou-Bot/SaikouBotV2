@@ -11,7 +11,7 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        let items2 = require('../../items/items2.json')
+        let items2 = require('../../jsonFiles/items2.json')
 
         var itemDesc = [""];
 

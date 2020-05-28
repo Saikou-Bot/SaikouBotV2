@@ -1,6 +1,6 @@
 module.exports = (client, message) => {
     const { MessageEmbed } = require('discord.js')
-    const Colour = require('../../colours.json')
+    const Colour = require('../../jsonFiles/colours.json')
 
     if (message.channel.name == "👥management") return;
     if (message.channel.name == "🔧project-untitled") return;

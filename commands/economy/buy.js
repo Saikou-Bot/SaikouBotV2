@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js')
 const UserData = require("../../models/userData.js")
 const errors = require("../utils/errors")
-const colours = require("../../colours.json")
+const colours = require("../../jsonFiles/colours.json")
 
 module.exports = {
     config: {
@@ -12,8 +12,8 @@ module.exports = {
         aliases: ['purchase']
     },
     run: async (bot, message, args) => {
-        let items = require('../../items/items.json')
-        let items2 = require('../../items/items2.json')
+        let items = require('../../jsonFiles/items.json')
+        let items2 = require('../../jsonFiles/items2.json')
 
         let Name = '';
         let itemCost = 0;
