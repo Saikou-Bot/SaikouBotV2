@@ -1,4 +1,4 @@
-** 28/05/20 Saikou Discord Bot (9 additions | 4 fixes) ** 
+** 28/05/20 Saikou Discord Bot (10 additions | 4 fixes) ** 
 Rewrite - Alpha v1.0.0
 
 ```Economy```
@@ -9,6 +9,8 @@ Rewrite - Alpha v1.0.0
 
 ```Fun Commands```
 + Trivia command.
++ Mission command.
++ 8ball command revamp (20 answers instead of 11)
 
 ```General Changes```
 + Welcome message revamped.
@@ -22,7 +24,7 @@ Rewrite - Alpha v1.0.0
 - removing command
 
 ```Bug fixes```
-~ Welcome message now tags the user to avoid the text messing up with users who have special characters in their name.
+~ Welcome message now tags the user to avoid the text messing up with users who have weird characters in their name.
 ~ Balance Command no longer errors if someone types in a random name, users can now choose from 3 options to find someones balance (Discord Username, Mention, ID)
 ~ Fixed the suggest command reactions reacting in a random order, they will now always be in the same order.
 ~ Fixed the bot status only showing half the server members instead of them all.

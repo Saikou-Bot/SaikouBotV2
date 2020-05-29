@@ -27,7 +27,7 @@ module.exports = {
             .setDescription(`Question\n**${q.question}**\n\n${options}\nSubmit your answer with \`1-4\``)
             .setColor(colours.blurple)
             .setThumbnail(message.author.displayAvatarURL())
-            .setFooter(`Trivia requested by: ${message.author.tag}`)
+            .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL())
             .setTimestamp()
 
         message.channel.send(Embed)
@@ -54,7 +54,13 @@ module.exports = {
                 return message.channel.send(incorrect)
             }
         } catch (e) {
-            return;
+            const notime = new MessageEmbed()
+                .setTitle(`⏱ Out of time!`)
+                .setDescription(`You ran out of time to answer the Trivia!`)
+                .setColor(colours.blurple)
+                .setThumbnail(message.author.displayAvatarURL())
+
+            return message.channel.send(notime)
         }
     }
 }

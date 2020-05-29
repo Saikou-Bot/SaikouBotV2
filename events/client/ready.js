@@ -7,9 +7,9 @@ module.exports = (bot) => {
 
   const statuses = [`${guild.memberCount} users | .help`, `${bot.channels.cache.size} channels`, `Saikou Staff | .help`];
 
-  bot.user.setStatus('idle')
+
   setInterval(() => {
     let status = statuses[Math.floor(Math.random() * statuses.length)];
-    bot.user.setActivity(status, { type: 'LISTENING' });
+    bot.user.setActivity(status, { type: 'STREAMING', url: "https://twitch.tv/doingthisforthestatuslol" });
   }, 15000);
 };
