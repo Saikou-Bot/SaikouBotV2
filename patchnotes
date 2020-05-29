@@ -1,16 +1,16 @@
 ** 28/05/20 Saikou Discord Bot (10 additions | 4 fixes) ** 
 Rewrite - Alpha v1.0.0
 
-```Economy```
+```Commands```
 + Balance command revamped.
 + Shop command.
 + Buy command.
 + Inventory command.
-
-```Fun Commands```
 + Trivia command.
 + Mission command.
-+ 8ball command revamp (20 answers instead of 11)
++ 8ball command revamp (20 answers instead of 11).
++ Serverinfo command revamp.
+
 
 ```General Changes```
 + Welcome message revamped.
@@ -28,6 +28,7 @@ Rewrite - Alpha v1.0.0
 ~ Balance Command no longer errors if someone types in a random name, users can now choose from 3 options to find someones balance (Discord Username, Mention, ID)
 ~ Fixed the suggest command reactions reacting in a random order, they will now always be in the same order.
 ~ Fixed the bot status only showing half the server members instead of them all.
+~ Fixed the userinfo command showing the join date as the current day.
 
 ! Rebalancing
 ! Rebalancing
