@@ -2,10 +2,10 @@
 const { Client, Collection } = require('discord.js');
 const { config } = require('dotenv');
 const bot = new Client();
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-bot.shop = new Map()
-let items = require('./jsonFiles/items.json')
+bot.shop = new Map();
+const items = require('./jsonFiles/items.json');
 
 // -- Setting .env path
 config({
@@ -22,9 +22,9 @@ mongoose.connect(process.env.MONGOPASSWORD, {
 });
 
 items.forEach(a => {
-  bot.shop.set(a.id, a)
-  console.log(`Loaded item ${a.id}`)
-})
+  bot.shop.set(a.id, a);
+  console.log(`Loaded item ${a.id}`);
+});
 
 
 // ---Logging in with token or test token---

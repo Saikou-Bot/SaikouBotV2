@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose');
 
 const userDataSchema = mongoose.Schema({
     username: String,
@@ -6,8 +6,8 @@ const userDataSchema = mongoose.Schema({
     lb: String,
     coins: Number,
     items: [
-        { itemName: String, itemID: String, itemQuantity: Number, itemSell: Number, itemEmoji: String, itemType: String, }
-    ]
-})
+        { itemName: String, itemID: String, itemQuantity: Number, itemSell: Number, itemEmoji: String, itemType: String },
+    ],
+});
 
-module.exports = mongoose.model("userData", userDataSchema)
+module.exports = mongoose.model('userData', userDataSchema);

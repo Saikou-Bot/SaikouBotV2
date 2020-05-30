@@ -1,10 +1,10 @@
 module.exports = (client, message) => {
-    const { MessageEmbed } = require('discord.js')
-    const Colour = require('../../jsonFiles/colours.json')
+    const { MessageEmbed } = require('discord.js');
+    const Colour = require('../../jsonFiles/colours.json');
 
-    if (message.channel.name == "👥management") return;
-    if (message.channel.name == "🔧project-untitled") return;
-    if (message.channel.name == "🔒classified") return;
+    if (message.channel.name == '👥management') return;
+    if (message.channel.name == '🔧project-untitled') return;
+    if (message.channel.name == '🔒classified') return;
     if (message.author.bot) return;
 
     const shortenMessage = message.content.length > 1900 ? message.content.substring(0, 1800) + '...' : message.content;
@@ -21,12 +21,13 @@ module.exports = (client, message) => {
             .setTimestamp();
 
         if (message.content) {
-            attachmentlogembed.addField('Message Content', shortenAttachment, true)
+            attachmentlogembed.addField('Message Content', shortenAttachment, true);
         }
 
         client.channels.cache.get('409832539360854019').send(attachmentlogembed);
 
-    } else {
+    }
+    else {
 
         const logembed = new MessageEmbed()
             .setTitle(':warning: Warning!')

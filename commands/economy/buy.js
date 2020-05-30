@@ -1,7 +1,7 @@
-const { MessageEmbed } = require('discord.js')
-const UserData = require("../../models/userData.js")
-const errors = require("../utils/errors")
-const colours = require("../../jsonFiles/colours.json")
+const { MessageEmbed } = require('discord.js');
+const UserData = require('../../models/userData.js');
+const errors = require('../utils/errors');
+const colours = require('../../jsonFiles/colours.json');
 
 module.exports = {
     config: {
@@ -9,11 +9,11 @@ module.exports = {
         description: 'Purchase an item in the shop.',
         usage: '?buy itemName',
         accessableby: 'Public',
-        aliases: ['purchase']
+        aliases: ['purchase'],
     },
     run: async (bot, message, args) => {
-        let items = require('../../jsonFiles/items.json')
-        let items2 = require('../../jsonFiles/items2.json')
+        const items = require('../../jsonFiles/items.json');
+        const items2 = require('../../jsonFiles/items2.json');
 
         let Name = '';
         let itemCost = 0;
@@ -21,64 +21,66 @@ module.exports = {
         let itemID = '';
         let itemType = '';
 
-        for (var i in items) {
-            if (args.join(" ").trim().toUpperCase() === items[i].name.toUpperCase()) {
+        for (const i in items) {
+            if (args.join(' ').trim().toUpperCase() === items[i].name.toUpperCase()) {
                 Name = items[i].name;
                 itemCost = items[i].cost;
                 itemEmoji = items[i].emoji;
                 itemID = items[i].id;
                 itemType = items[i].type;
-            } else {
-                for (var i in items2) {
-                    if (args.join(" ").trim().toUpperCase() === items2[i].name.toUpperCase()) {
-                        Name = items2[i].name;
-                        itemCost = items2[i].cost;
-                        itemEmoji = items2[i].emoji;
-                        itemID = items2[i].id;
-                        itemType = items2[i].type;
+            }
+            else {
+                for (const e in items2) {
+                    if (args.join(' ').trim().toUpperCase() === items2[e].name.toUpperCase()) {
+                        Name = items2[e].name;
+                        itemCost = items2[e].cost;
+                        itemEmoji = items2[e].emoji;
+                        itemID = items2[e].id;
+                        itemType = items2[e].type;
                     }
                 }
             }
         }
 
 
-
         if (!Name.length) {
             const noItem = new MessageEmbed()
-                .setTitle(`🔎 Item doesn't exist!`)
-                .setDescription(`Please specify a valid item to buy, for a list of items you can do \`.shop\``)
+                .setTitle('🔎 Item doesn\'t exist!')
+                .setDescription('Please specify a valid item to buy, for a list of items you can do `.shop`')
                 .setColor(colours.red)
                 .setFooter('Invalid item')
-                .setTimestamp()
+                .setTimestamp();
 
-            return message.channel.send(noItem)
-        } else {
+            return message.channel.send(noItem);
+        }
+        else {
 
             UserData.findOne({
                 userID: message.author.id,
             }, (err, userData) => {
-                if (err) console.log(err)
+                if (err) console.log(err);
 
                 if (!userData) {
                     const newData = new UserData({
                         username: message.author.username,
                         userID: message.author.id,
-                        lb: "all",
+                        lb: 'all',
                         coins: 0,
-                        items: [{ itemName: 'Free Rations', itemID: 'FreeRations', itemQuantity: 1, itemSell: 0, itemEmoji: '<:rations:707207234848817163>', itemType: 'Freebie' }]
-                    })
-                    newData.save().catch(err => console.log(err))
+                        items: [{ itemName: 'Free Rations', itemID: 'FreeRations', itemQuantity: 1, itemSell: 0, itemEmoji: '<:rations:707207234848817163>', itemType: 'Freebie' }],
+                    });
+                    newData.save().catch(err => console.log(err));
 
-                    return errors.noCoins(message, `${Name}` || message, `${itemCost.toLocaleString()}`)
+                    return errors.noCoins(message, `${Name}` || message, `${itemCost.toLocaleString()}`);
 
-                } else {
+                }
+                else {
 
                     if (userData.coins < itemCost) {
-                        return errors.noCoins(message, `${Name}` || message, `${itemCost.toLocaleString()}`)
+                        return errors.noCoins(message, `${Name}` || message, `${itemCost.toLocaleString()}`);
                     }
 
                     if (userData.items.itemName > 3) {
-                        return message.channel.send('You can only have 3 of one item.')
+                        return message.channel.send('You can only have 3 of one item.');
                     }
 
                     UserData.updateOne(
@@ -91,25 +93,25 @@ module.exports = {
                                     'itemQuantity': 1,
                                     'itemSell': Math.floor(itemCost / 2),
                                     'itemEmoji': itemEmoji,
-                                    'itemType': itemType
-                                }
-                            }
+                                    'itemType': itemType,
+                                },
+                            },
 
-                        }).catch(err => console.log(err))
+                        }).catch(err => console.log(err));
 
                 }
-                userData.coins -= itemCost
-                userData.save()
+                userData.coins -= itemCost;
+                userData.save();
 
                 const success = new MessageEmbed()
-                    .setTitle(`✅ Success!`)
+                    .setTitle('✅ Success!')
                     .setDescription(`You successfully bought **${Name}** for \`S$${itemCost}\` from the Military Market!`)
                     .setFooter('Successful Purchase')
                     .setTimestamp()
-                    .setColor(colours.green)
+                    .setColor(colours.green);
 
-                message.channel.send(success)
-            })
+                message.channel.send(success);
+            });
         }
-    }
-}
+    },
+};
