@@ -1,7 +1,7 @@
 /* eslint-disable no-inline-comments */
-/* eslint-disable no-var */
 const { MessageEmbed } = require('discord.js');
 const coinsData = require('../../models/userData.js');
+const { getMember } = require('../utils/getMember');
 
 
 module.exports = {
@@ -14,10 +14,7 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        let user = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.guild.members.cache.find(m => m.user.username === `${args.join(' ').slice('.').toLowerCase()}`) || message.author;
-
-        if (!user) user = message.author;
-        if (user.bot) user = message.author;
+        const user = getMember(message, args.join(' '));
 
         const statuses = [
             'Very Poor',
@@ -37,7 +34,7 @@ module.exports = {
 
             if (!UserData) {
                 const newData = new coinsData({
-                    username: user.username,
+                    username: user.user.username,
                     userID: user.id,
                     lb: 'all',
                     coins: 0,
@@ -46,9 +43,9 @@ module.exports = {
                 newData.save().catch(err => console.log(err));
 
                 const BalanceEmbed1 = new MessageEmbed()
-                    .setTitle(`💰${user.username || user.displayName}'s balance`)
+                    .setTitle(`💰${user.displayName}'s balance`)
                     .addField('Base', '0')
-                    .setColor(message.member.displayHexColor)
+                    .setColor(user.displayHexColor)
                     .setFooter('Status: Very Poor')
                     .setTimestamp();
 
@@ -58,7 +55,7 @@ module.exports = {
             }
             else {
 
-                var status = new String();
+                let status = new String();
                 if (UserData.coins > 0 && UserData.coins < 1000) { status += `${statuses[0]}`; } // Very Poor
                 else if (UserData.coins > 999 && UserData.coins < 10000) { status += `${statuses[1]}`; } // Broke
                 else if (UserData.coins > 9999 && UserData.coins < 50000) { status += `${statuses[2]}`; } // Sustainable
@@ -69,9 +66,9 @@ module.exports = {
                 else { status += `${statuses[0]}`; }
 
                 const BalanceEmbed2 = new MessageEmbed()
-                    .setTitle(`💰${user.username || user.displayName}'s balance`)
+                    .setTitle(`💰${user.displayName}'s balance`)
                     .addField('Base', UserData.coins.toLocaleString())
-                    .setColor(message.member.displayHexColor)
+                    .setColor(user.displayHexColor)
                     .setFooter(`Status: ${status}`)
                     .setTimestamp();
 
