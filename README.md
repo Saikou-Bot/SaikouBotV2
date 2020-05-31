@@ -4,7 +4,6 @@
   
 **Saikou** is a Discord bot built in javascript, with the intention of improving the user experience in the Saikou Discord server. 
 
-![build](https://img.shields.io/github/workflow/status/Dragonfire1859/SaikouBotV2/CI)
 ![issues](https://img.shields.io/github/issues/Dragonfire1859/SaikouBotV2)
 ![pr](https://img.shields.io/github/issues-pr/Dragonfire1859/SaikouBotV2)
 ![stars](https://img.shields.io/github/stars/Dragonfire1859/SaikouBotV2?style=social)
@@ -12,3 +11,6 @@
 
 </div>
 
+# Contributing
+
+All contributions to this repository are greatly appreciated, whether it's small changes or big. You can fork this repo and make a pull request, which will be reviewed.
