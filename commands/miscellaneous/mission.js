@@ -1,4 +1,3 @@
-const colours = require('../../jsonFiles/colours.json');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
@@ -18,7 +17,7 @@ module.exports = {
         const MissionEmbed = new MessageEmbed()
             .setTitle('Here\'s your mission Soldier...')
             .setDescription(missions[pickedMission])
-            .setColor(colours.blurple)
+            .setColor(message.member.displayHexColor)
             .setTimestamp()
             .setFooter('Your mission')
             .setThumbnail(message.author.displayAvatarURL());

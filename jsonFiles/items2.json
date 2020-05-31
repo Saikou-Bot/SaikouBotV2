@@ -5,6 +5,7 @@
         "description": "Looking to show how rich you are? Look no further, this badge is displayed on your profile for everyone to see!",
         "type": "Badge",
         "id": "wealthy",
+        "multipurchase": "false",
         "cost": 50000000
     },
     {
@@ -13,6 +14,7 @@
         "description": "Make your profile more unique looking with this rare gold background!",
         "type": "Cosmetic",
         "id": "GoldBackground",
+        "multipurchase": "false",
         "cost": 10000000
     }
 ]

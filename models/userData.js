@@ -5,8 +5,9 @@ const userDataSchema = mongoose.Schema({
     userID: String,
     lb: String,
     coins: Number,
+    medals: Number,
     items: [
-        { itemName: String, itemID: String, itemQuantity: Number, itemSell: Number, itemEmoji: String, itemType: String },
+        { itemName: String, itemID: String, itemQuantity: Number, itemSell: Number, itemEmoji: String, itemType: String, multipurchase: Boolean },
     ],
 });
 

@@ -38,13 +38,14 @@ module.exports = {
                     userID: user.id,
                     lb: 'all',
                     coins: 0,
-                    items: [{ itemName: 'Free Rations', itemID: 'FreeRations', itemQuantity: 1, itemSell: 0, itemEmoji: '<:rations:707207234848817163>', itemType: 'Freebie' }],
+                    medals: 0,
+                    items: [{ itemName: 'Wooden Walls', itemID: 'WoodenWall', itemQuantity: 1, itemSell: 0, itemEmoji: '<:WoodenWall:716625054351360010>', itemType: 'Wall Defence' }],
                 });
                 newData.save().catch(err => console.log(err));
 
                 const BalanceEmbed1 = new MessageEmbed()
                     .setTitle(`💰${user.displayName}'s balance`)
-                    .addField('Base', '0')
+                    .setDescription('**Credits:** 0\n**Medals:** 0\n**Total:** 0')
                     .setColor(user.displayHexColor)
                     .setFooter('Status: Very Poor')
                     .setTimestamp();
@@ -65,9 +66,12 @@ module.exports = {
                 else if (UserData.coins > 999999 && UserData.coins < 1999999999) { status += `${statuses[6]}`; } // Filthy Rich
                 else { status += `${statuses[0]}`; }
 
+
+                const total = parseInt(UserData.coins) + parseInt(UserData.medals);
+
                 const BalanceEmbed2 = new MessageEmbed()
                     .setTitle(`💰${user.displayName}'s balance`)
-                    .addField('Base', UserData.coins.toLocaleString())
+                    .setDescription(`**Credits:** ${UserData.coins.toLocaleString()} \n**Medals:** ${UserData.medals.toLocaleString()}\n**Total:** ${total.toLocaleString()}`)
                     .setColor(user.displayHexColor)
                     .setFooter(`Status: ${status}`)
                     .setTimestamp();

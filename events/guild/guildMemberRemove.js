@@ -52,7 +52,7 @@ module.exports = (client, member) => {
     WelcomeChannel.send(RemoveEmbed);
 
     const logleaveembed = new MessageEmbed()
-      .setColor(Colour.blue)
+      .setColor(Colour.blurple)
       .setTitle(':information_source: User left')
       .setDescription(`**${member.user.tag}** has left.`);
 

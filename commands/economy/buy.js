@@ -66,7 +66,8 @@ module.exports = {
                         userID: message.author.id,
                         lb: 'all',
                         coins: 0,
-                        items: [{ itemName: 'Free Rations', itemID: 'FreeRations', itemQuantity: 1, itemSell: 0, itemEmoji: '<:rations:707207234848817163>', itemType: 'Freebie' }],
+                        medals: 0,
+                        items: [{ itemName: 'Wooden Walls', itemID: 'WoodenWall', itemQuantity: 1, itemSell: 0, itemEmoji: '<:WoodenWall:716625054351360010>', itemType: 'Wall Defence' }],
                     });
                     newData.save().catch(err => console.log(err));
 
@@ -79,38 +80,63 @@ module.exports = {
                         return errors.noCoins(message, `${Name}` || message, `${itemCost.toLocaleString()}`);
                     }
 
-                    if (userData.items.itemName > 3) {
-                        return message.channel.send('You can only have 3 of one item.');
-                    }
 
-                    UserData.updateOne(
-                        { userID: message.author.id },
-                        {
-                            $push: {
-                                items: {
-                                    'itemName': Name,
-                                    'itemID': itemID,
-                                    'itemQuantity': 1,
-                                    'itemSell': Math.floor(itemCost / 2),
-                                    'itemEmoji': itemEmoji,
-                                    'itemType': itemType,
+                    UserData.findOne({ userID: message.author.id, 'items.itemName': Name }, (err, itemData) => {
+                        if (err) console.log(err);
+
+                        if (!itemData) {
+                            UserData.updateOne(
+                                { userID: message.author.id },
+                                {
+                                    $push: {
+                                        items: {
+                                            'itemName': Name,
+                                            'itemID': itemID,
+                                            'itemQuantity': 1,
+                                            'itemSell': Math.floor(itemCost / 2),
+                                            'itemEmoji': itemEmoji,
+                                            'itemType': itemType,
+                                        },
+                                    },
                                 },
-                            },
+                            ).catch(err => console.log(err));
 
-                        }).catch(err => console.log(err));
+                            userData.coins -= itemCost;
+                            userData.save();
 
+                            const success = new MessageEmbed()
+                                .setTitle('✅ Success!')
+                                .setDescription(`You successfully bought **${Name}** for \`S$${itemCost}\` from the Military Market!`)
+                                .setFooter('Successful Purchase')
+                                .setTimestamp()
+                                .setColor(colours.green);
+
+                            message.channel.send(success);
+                        }
+                        else {
+                            UserData.updateOne(
+                                { userID: message.author.id, 'items.itemName': Name },
+                                {
+                                    $inc: {
+                                        'items.$.itemQuantity': 1,
+                                    },
+                                },
+                            ).catch(err => console.log(err));
+
+                            userData.coins -= itemCost;
+                            userData.save();
+
+                            const success2 = new MessageEmbed()
+                                .setTitle('✅ Success!')
+                                .setDescription(`You successfully bought **${Name}** for \`S$${itemCost}\` from the Military Market!`)
+                                .setFooter('Successful Purchase')
+                                .setTimestamp()
+                                .setColor(colours.green);
+
+                            message.channel.send(success2);
+                        }
+                    });
                 }
-                userData.coins -= itemCost;
-                userData.save();
-
-                const success = new MessageEmbed()
-                    .setTitle('✅ Success!')
-                    .setDescription(`You successfully bought **${Name}** for \`S$${itemCost}\` from the Military Market!`)
-                    .setFooter('Successful Purchase')
-                    .setTimestamp()
-                    .setColor(colours.green);
-
-                message.channel.send(success);
             });
         }
     },

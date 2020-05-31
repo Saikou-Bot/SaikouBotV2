@@ -26,8 +26,8 @@ module.exports = {
         });
 
 
-        shopMenu.setDescription('Welcome to the Military Market! Kit yourself out with some cool items and begin the journey to making powerful decisions. Buy an item with `.buy itemname`');
-        shopMenu.addField('Purchasable Powerups:', itemDesc);
+        shopMenu.setDescription('Welcome to the Military Market! Kit your base out with some defences to stop those pesky raiders, and to turn your base into the ultimate field of operations. Buy an item with `.buy itemname`');
+        shopMenu.addField('Purchasable Defences:', itemDesc);
         shopMenu.setColor(message.member.displayHexColor);
         shopMenu.setFooter('Page 1/3');
 

@@ -34,7 +34,7 @@ module.exports = (client, member) => {
 
   // -- Log join embed
   const logjoinembed = new MessageEmbed()
-    .setColor(Colour.blue)
+    .setColor(Colour.blurple)
     .setTitle(':information_source: Member Joined')
     .setDescription(`<@${member.user.id}> has joined the server.`)
     .addField('Username', member.user.username, true)

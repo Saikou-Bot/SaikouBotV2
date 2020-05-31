@@ -1,4 +1,3 @@
-const colours = require('../../jsonFiles/colours.json');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
@@ -25,7 +24,7 @@ module.exports = {
         const Embed = new MessageEmbed()
             .setTitle('Trivia Question')
             .setDescription(`Question\n**${q.question}**\n\n${options}\nSubmit your answer with \`1-4\``)
-            .setColor(colours.blurple)
+            .setColor(message.member.displayHexColor)
             .setThumbnail(message.author.displayAvatarURL())
             .setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL())
             .setTimestamp();
@@ -39,7 +38,7 @@ module.exports = {
                 const correct = new MessageEmbed()
                     .setTitle('Trivia Results')
                     .setDescription(`You answered the trivia ||correctly, good job!||\n\n**Your Answer**\n\`${msgs.first().content}\``)
-                    .setColor(colours.blurple)
+                    .setColor(message.member.displayHexColor)
                     .setThumbnail(message.author.displayAvatarURL());
 
                 return message.channel.send(correct);
@@ -49,7 +48,7 @@ module.exports = {
                 const incorrect = new MessageEmbed()
                     .setTitle('Trivia Results')
                     .setDescription(`You answered the trivia ||incorrectly, good try!||\n\n**Your Answer**\n\`${msgs.first().content}\``)
-                    .setColor(colours.blurple)
+                    .setColor(message.member.displayHexColor)
                     .setThumbnail(message.author.displayAvatarURL());
 
                 return message.channel.send(incorrect);
@@ -59,7 +58,7 @@ module.exports = {
             const notime = new MessageEmbed()
                 .setTitle('⏱ Out of time!')
                 .setDescription('You ran out of time to answer the Trivia!')
-                .setColor(colours.blurple)
+                .setColor(message.member.displayHexColor)
                 .setThumbnail(message.author.displayAvatarURL());
 
             return message.channel.send(notime);

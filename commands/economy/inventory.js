@@ -25,7 +25,8 @@ module.exports = {
                     userID: user.id,
                     lb: 'all',
                     coins: 0,
-                    items: [{ itemName: 'Free Rations', itemID: 'FreeRations', itemQuantity: 1, itemSell: 0, itemEmoji: '<:rations:707207234848817163>', itemType: 'Freebie' }],
+                    medals: 0,
+                    items: [{ itemName: 'Wooden Walls', itemID: 'WoodenWall', itemQuantity: 1, itemSell: 0, itemEmoji: '<:WoodenWall:716625054351360010>', itemType: 'Wall Defence' }],
                 });
                 newData.save().catch(err => console.log(err));
 
