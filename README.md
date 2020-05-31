@@ -1,3 +1,14 @@
 # What is Saikou bot V2?
-Saikou bot V2 is a Discord bot built in javascript, with the intention of improving the user experience in the Saikou Discord server. 
+
+<div style="text-align: center;">
+  
+**Saikou** is a Discord bot built in javascript, with the intention of improving the user experience in the Saikou Discord server. 
+
+![build](https://img.shields.io/github/workflow/status/Dragonfire1859/SaikouBotV2/CI)
+![issues](https://img.shields.io/github/issues/Dragonfire1859/SaikouBotV2)
+![pr](https://img.shields.io/github/issues-pr/Dragonfire1859/SaikouBotV2)
+![stars](https://img.shields.io/github/stars/Dragonfire1859/SaikouBotV2?style=social)
+![forks](https://img.shields.io/github/forks/Dragonfire1859/SaikouBotV2?style=social)
+
+</div>
 
