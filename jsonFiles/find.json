@@ -1,0 +1,17 @@
+[
+    {
+        "message": "You searched under the **bunk beds** of your fellow soldiers and found a `S$100` note which is now in your pocket.",
+        "location": "Army Barracks",
+        "credits": 100
+    },
+    {
+        "message": "You searched underneath an **M1 Abrams tank** and found some loose change, you are now `S$56` more rich.",
+        "location": "Vehicle Bay",
+        "credits": 56
+    },
+    {
+        "message": "You inspected the **pre-made food** and found `S$41` on one of the plates! How did that get there?",
+        "location": "Military Canteen",
+        "credits": 41
+    }
+]

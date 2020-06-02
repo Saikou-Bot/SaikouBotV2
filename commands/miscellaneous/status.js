@@ -4,10 +4,10 @@ const colours = require('../../jsonFiles/colours.json');
 module.exports = {
     config: {
         name: 'status',
-        description: 'Looking to find how pro you really are? Let this command decide for you!',
-        usage: '.skillrate / .skillrate <user>',
+        description: 'Want to check if the bot is running into any issues? The status command will give some basic information on how it is doing!',
+        usage: '.status/stats/bot/botinfo',
         accessableby: 'Public',
-        aliases: ['prorate', 'skill', 'pro', 'rate'],
+        aliases: ['stats', 'bot', 'botinfo'],
     },
     run: async (bot, message) => {
 
@@ -18,6 +18,7 @@ module.exports = {
         const botLatency = msg.createdTimestamp - message.createdTimestamp;
         const MemoryUsage = process.memoryUsage().heapUsed / 1024 / 1024;
         let statusMsg = '';
+        let memoryMsg = '';
 
         function duration(ms) {
             const sec = Math.floor((ms / 1000) % 60).toString();
@@ -28,9 +29,24 @@ module.exports = {
 
         const status = new MessageEmbed()
             .setTitle('Saikou Bot Status')
-            .setDescription(`**${bot.user.username}** has been running for \`${duration(bot.uptime)}\`\nDown below lists some statistics.\n\n**Bot Latency:** \`${botLatency}ms\`\n\n**Memory Usage:** \`${Math.round(MemoryUsage)}%\` `)
+            .setDescription(`**${bot.user.username}** has been running for \`${duration(bot.uptime)}\`\nDown below lists some statistics.\n\n**Bot Latency:** \`${botLatency}ms\`\n**Version:** \`1.0.0\`\n**Memory Usage:** \`${Math.round(MemoryUsage)}%\` `)
             .setThumbnail(bot.user.displayAvatarURL());
 
+        // Memory Usage
+        if (MemoryUsage > 29 && MemoryUsage < 50) {
+            memoryMsg = '⚠️ Higher than average memory usage.';
+        }
+        else if (MemoryUsage > 0 && MemoryUsage < 30) {
+            memoryMsg = '✅ Normal memory usage.';
+        }
+        else if (MemoryUsage > 49 && MemoryUsage < 999999999) {
+            memoryMsg = '❗ Extremely high memory usage.';
+        }
+        else {
+            memoryMsg = '✅ Normal memory usage.';
+        }
+
+        // Bot latency
         if (botLatency > 199 && botLatency < 600) {
             status.setColor(colours.yellow);
             statusMsg = '⚠️ Higher than average bot latency.';
@@ -48,7 +64,7 @@ module.exports = {
             statusMsg = '✅ Normal bot latency.';
         }
 
-        status.addField('Acknowledgements', statusMsg);
+        status.addField('Acknowledgements', `${statusMsg}\n${memoryMsg}`);
 
         msg.edit(status);
 
