@@ -13,5 +13,35 @@
         "message": "You inspected the **pre-made food** and found `S$41` on one of the plates! How did that get there?",
         "location": "Military Canteen",
         "credits": 41
+    },
+    {
+        "message": "You ran up to the **climbing wall** and found someone's money on the floor, instead of finding who's it was, you took it and got `S$67`.",
+        "location": "Military Obstacle Course",
+        "credits": 67
+    },
+    {
+        "message": "You searched your **uniform** for your car keys, and ended up finding `S$32` hidden in one of it's pockets, huh...",
+        "location": "Uniform Room",
+        "credits": 32
+    },
+    {
+        "message": "You grabbed a **weapon** and found it was jammed, when you investigated further, you found `S$89` which was jamming it. Why was that there?",
+        "location": "Armoury",
+        "credits": 89
+    },
+    {
+        "message": "You searched the **body** of a recently killed enemy and found `S$75` tucked in their boxers, why were you even looking there?",
+        "location": "Battlefield",
+        "credits": 75
+    },
+    {
+        "message": "You were practising on some **targets** and found `S$66` laying under one of them, wonder how that got there.",
+        "location": "Shooting Range",
+        "credits": 66
+    },
+    {
+        "message": "You found a `S$50` note slotted in between the seats, you now have it in your pocket.",
+        "location": "Military Truck",
+        "credits": 66
     }
 ]

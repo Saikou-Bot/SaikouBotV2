@@ -7,9 +7,9 @@ module.exports = {
     config: {
         name: 'find',
         description: 'Looking to earn some extra credits? This command will allow you to get a few extra!',
-        usage: '.skillrate / .skillrate <user>',
+        usage: '.find/beg/look/search',
         accessableby: 'Public',
-        aliases: ['beg', 'look'],
+        aliases: ['beg', 'look', 'search'],
     },
     run: async (bot, message) => {
 

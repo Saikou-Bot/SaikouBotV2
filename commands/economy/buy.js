@@ -106,7 +106,7 @@ module.exports = {
 
                             const success = new MessageEmbed()
                                 .setTitle('✅ Success!')
-                                .setDescription(`You successfully bought **${Name}** for \`S$${itemCost}\` from the Military Market!`)
+                                .setDescription(`You successfully bought **${Name}** for \`S$${itemCost.toLocaleString()}\` from the Military Market!`)
                                 .setFooter('Successful Purchase')
                                 .setTimestamp()
                                 .setColor(colours.green);
@@ -128,7 +128,7 @@ module.exports = {
 
                             const success2 = new MessageEmbed()
                                 .setTitle('✅ Success!')
-                                .setDescription(`You successfully bought **${Name}** for \`S$${itemCost}\` from the Military Market!`)
+                                .setDescription(`You successfully bought **${Name}** for \`S$${itemCost.toLocaleString()}\` from the Military Market!`)
                                 .setFooter('Successful Purchase')
                                 .setTimestamp()
                                 .setColor(colours.green);
