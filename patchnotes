@@ -11,6 +11,7 @@ Rewrite - Alpha v1.0.0
 + 8ball command revamp (20 answers instead of 11).
 + Serverinfo command revamp.
 + Skillrate revamp.
++ Find command
 
 
 ```General Changes```
