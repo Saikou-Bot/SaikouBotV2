@@ -27,7 +27,7 @@ module.exports = async (bot, message) => {
 	if (commandfile) {
 		try {
 			var promise = commandfile.run(bot, message, args);
-			if (promise.catch) {
+			if (promise && promise.catch) {
 				promise.catch(alertError);
 			}
 		} catch (error) {
