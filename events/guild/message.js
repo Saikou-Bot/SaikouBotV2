@@ -12,12 +12,15 @@ module.exports = async (bot, message) => {
 
 	if (!message.content.startsWith(prefix)) return;
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
+	const alertError = (error) => {
+		console.log(error);
+		message.channel.send('Failed to run command');
+	}
 	if (commandfile) {
 		try {
-			commandfile.run(bot, message, args)
+			commandfile.run(bot, message, args).catch(alertError);
 		} catch (error) {
-			console.error(error);
-			message.channel.send('Failed to run command');
+			alertError(error);
 		}
 	};
 };
