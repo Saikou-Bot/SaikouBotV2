@@ -4,7 +4,7 @@
   "description": "Saikou Bot is a feature filled, easy to use Discord Multipurpose bot, built to deliver a better user experience for the Saikou Server.",
   "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon bot.js"
   },
   "repository": {
     "type": "git",
