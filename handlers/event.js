@@ -1,5 +1,5 @@
 const {
-	readdirSync
+	readdirSync,
 } = require('fs');
 
 module.exports = (client) => {
