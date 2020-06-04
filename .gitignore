@@ -3,3 +3,4 @@ node_modules/
 .envexample
 .envexample
 .eslintrc.json
+pnpm-lock.yaml
