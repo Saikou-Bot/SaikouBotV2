@@ -18,6 +18,16 @@ module.exports = async (bot, message) => {
 			return;
 		};
 	}
+
+	if (commandfile.cooldown) {
+		const cooldown = commandfile.cooldown;
+		if (cooldown.has(message.author.id)) {
+			return message.channel.send(cooldown.embed(message.author.id));
+		} else {
+			cooldown.add(message.author.id);
+		}
+	}
+
 	const alertError = (error) => {
 		console.log(error);
 		message.channel.send('Failed to run command');

@@ -1,5 +1,7 @@
 const extend = require('extend');
 
+const {MessageEmbed} = require('discord.js');
+
 const cooldownDefaults = {
 	name: '',
 	cooldown: 1000,
@@ -28,5 +30,14 @@ module.exports = class Cooldown {
 				return true;
 			}
 		}
+	}
+	embed(userid) {
+		const timestamp = this.users.get(userid);
+		const leftMs = timestamp - Date.now();
+		const left = ms(leftMs);
+		return new MessageEmbed({
+			title: 'Please wait for cooldown',
+			description: `You have to wait \`${left}\``
+		}).setColor('RED');
 	}
 }
