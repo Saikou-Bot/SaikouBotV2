@@ -12,5 +12,12 @@ module.exports = async (bot, message) => {
 
 	if (!message.content.startsWith(prefix)) return;
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
-	if (commandfile) commandfile.run(bot, message, args);
+	if (commandfile) {
+		try {
+			commandfile.run(bot, message, args)
+		} catch (error) {
+			console.error(error);
+			message.channel.send('Failed to run command');
+		}
+	};
 };
