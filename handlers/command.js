@@ -1,8 +1,6 @@
 const Cooldown = require('../commands/utils/cooldown');
 
-const {
-	readdirSync,
-} = require('fs');
+const { readdirSync } = require('fs');
 
 module.exports = (bot) => {
 	const load = dirs => {
@@ -13,7 +11,7 @@ module.exports = (bot) => {
 				pull.cooldown = new Cooldown({
 					name: pull.config.name,
 					cooldown: pull.config.cooldown === true ? undefined : pull.config.cooldown,
-					roles: pull.config.cooldownRoles
+					roles: pull.config.cooldownRoles,
 				});
 			}
 			bot.commands.set(pull.config.name, pull);
