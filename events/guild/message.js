@@ -18,14 +18,15 @@ module.exports = async (bot, message) => {
 				commandfile.error('incorrectChannel', message);
 			}
 			return;
-		};
+		}
 	}
 
 	if (commandfile.cooldown) {
 		const cooldown = commandfile.cooldown;
 		if (cooldown.has(message.author.id)) {
 			return message.channel.send(cooldown.embed(message.author.id));
-		} else {
+		}
+		else {
 			cooldown.add(message.member);
 		}
 	}
@@ -33,15 +34,16 @@ module.exports = async (bot, message) => {
 	const alertError = (error) => {
 		console.log(error);
 		message.channel.send('Failed to run command');
-	}
+	};
 	if (commandfile) {
 		try {
-			var promise = commandfile.run(bot, message, args);
+			const promise = commandfile.run(bot, message, args);
 			if (promise && promise.catch) {
 				promise.catch(alertError);
 			}
-		} catch (error) {
+		}
+		catch (error) {
 			alertError(error);
 		}
-	};
+	}
 };
