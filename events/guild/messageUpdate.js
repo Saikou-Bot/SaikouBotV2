@@ -21,6 +21,6 @@ module.exports = (client, oldMessage, newMessage) => {
         .setFooter(`User ID: ${oldMessage.author.id}`)
         .setTimestamp();
 
-    client.channels.cache.get('409832539360854019').send(messageEdit);
+    modLogs.send(messageEdit);
 
 };
