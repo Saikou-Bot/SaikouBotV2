@@ -1,6 +1,9 @@
 const extend = require('extend');
+const ms = require('ms');
 
-const {MessageEmbed} = require('discord.js');
+const {
+	MessageEmbed
+} = require('discord.js');
 
 const cooldownDefaults = {
 	name: '',
@@ -16,14 +19,19 @@ module.exports = class Cooldown {
 		this.options = extend({}, cooldownDefaults, options);
 		this.users = new Map();
 	}
-	add(userid) {
-		this.users.set(userid, Date.now());
+	add(member) {
+		const roles = Object.keys(this.options.roles);
+		var role = roles.find(roleName => {
+			return member.roles.cache.some(r => r.name == roleName);
+		});
+		var roleEffect = role ? this.options.roles[role] : 1;
+		this.users.set(member.id, Date.now() + this.options.cooldown * roleEffect);
 	}
 	has(userid) {
 		const timestamp = this.users.get(userid);
 		if (timestamp == undefined) return false;
 		else {
-			if (timestamp + this.options.cooldown < Date.now()) {
+			if (timestamp < Date.now()) {
 				this.users.delete(userid);
 				return false;
 			} else {

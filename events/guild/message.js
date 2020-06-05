@@ -10,7 +10,9 @@ module.exports = async (bot, message) => {
 
 	if (!message.content.startsWith(prefix)) return;
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
-	if (commandfile.config.channel) {
+
+	if (!commandfile) return;
+	if (commandfile.config && commandfile.config.channel) {
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			if (typeof commandfile.error == 'function') {
 				commandfile.error('incorrectChannel', message);
@@ -24,7 +26,7 @@ module.exports = async (bot, message) => {
 		if (cooldown.has(message.author.id)) {
 			return message.channel.send(cooldown.embed(message.author.id));
 		} else {
-			cooldown.add(message.author.id);
+			cooldown.add(message.member);
 		}
 	}
 
@@ -34,7 +36,10 @@ module.exports = async (bot, message) => {
 	}
 	if (commandfile) {
 		try {
-			commandfile.run(bot, message, args).catch(alertError);
+			const promise = commandfile.run(bot, message, args) | {};
+			if (promise.catch) {
+				promise.catch(alertError);
+			}
 		} catch (error) {
 			alertError(error);
 		}
