@@ -8,7 +8,7 @@ module.exports = {
         description: 'Displays bot and API latency.',
         usage: '.ping/latency',
         accessableby: 'Public',
-        aliases: ['latency'],
+        aliases: ['latency', 'botping', 'apilatency', 'botlatency'],
     },
     run: async (client, message) => {
 
@@ -18,7 +18,6 @@ module.exports = {
             .setColor(colours.blurple);
 
         const msg = await message.channel.send(pinging);
-        //    const botLatency = msg.createdTimestamp - message.createdTimestamp;
 
         const replies = ['Here you go! I hope it\'s okay...', 'Successfully fetched bot and API latency.', 'There you go! Is it bad...?'];
         const result = Math.floor((Math.random() * replies.length));

@@ -1,7 +1,7 @@
 const Cooldown = require('../utils/cooldown');
 
 const {
-	readdirSync
+	readdirSync,
 } = require('fs');
 
 module.exports = (bot) => {
