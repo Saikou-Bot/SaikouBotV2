@@ -1,5 +1,3 @@
-const dotenv = require('dotenv');
-dotenv.config();
 const env = process.env;
 const prefix = env.PREFIX;
 
@@ -12,7 +10,9 @@ module.exports = async (bot, message) => {
 
 	if (!message.content.startsWith(prefix)) return;
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
-	if (commandfile.config.channel) {
+
+	if (!commandfile) return;
+	if (commandfile.config && commandfile.config.channel) {
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			if (typeof commandfile.error == 'function') {
 				commandfile.error('incorrectChannel', message);
@@ -20,6 +20,16 @@ module.exports = async (bot, message) => {
 			return;
 		};
 	}
+
+	if (commandfile.cooldown) {
+		const cooldown = commandfile.cooldown;
+		if (cooldown.has(message.author.id)) {
+			return message.channel.send(cooldown.embed(message.author.id));
+		} else {
+			cooldown.add(message.member);
+		}
+	}
+
 	const alertError = (error) => {
 		console.log(error);
 		message.channel.send('Failed to run command');
