@@ -24,7 +24,7 @@ module.exports = (client, message) => {
             attachmentlogembed.addField('Message Content', shortenAttachment, true);
         }
 
-        client.channels.cache.get('409832539360854019').send(attachmentlogembed);
+        modLogs.send(attachmentlogembed);
 
     }
     else {
@@ -37,7 +37,7 @@ module.exports = (client, message) => {
             .setTimestamp();
 
 
-        client.channels.cache.get('409832539360854019').send(logembed);
+        modLogs.send(logembed);
 
     }
 };
