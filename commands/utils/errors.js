@@ -28,11 +28,35 @@ module.exports.noCoins = (message, name, cost) => {
 
     module.exports.noReason = (message, name) => {
         const embed = new MessageEmbed()
-            .setTitle('📝 No reason provided!')
+            .setTitle('📝 No reason provided')
             .setDescription(`Please provide a reason to **${name}** the user!`)
             .setColor(colours.red)
-            .setFooter('No reason!')
+            .setFooter('No reason detected')
             .setTimestamp();
+        // sends the embed
+        message.channel.send(embed);
+    },
+
+
+    module.exports.noPerms = (message, perms, name) => {
+        const embed = new MessageEmbed()
+            .setTitle('🔐 Incorrect Permissions')
+            .setDescription(`**Command Name:** ${name}\n**Permissions Needed:** ${perms}`)
+            .setColor(colours.red)
+            .setFooter('<> - Staff Perms ● Public Perms - [] ');
+        // sends the embed
+        message.channel.send(embed);
+    },
+
+
+    module.exports.equalPerms = (message, perms) => {
+        const embed = new MessageEmbed()
+            .setTitle('⚙️ Equal Permissions')
+            .setDescription(`The user you are trying to perform this action on has equal permissions to you, consider..\n
+            • Changing the user's permissions
+            • Changing the user's roles`)
+            .setColor(colours.red)
+            .setFooter(`Equal Permission(s): ${perms}`);
         // sends the embed
         message.channel.send(embed);
     };
