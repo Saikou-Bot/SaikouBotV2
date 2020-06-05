@@ -1,4 +1,4 @@
-const Cooldown = require('../utils/cooldown');
+const Cooldown = require('../commands/utils/cooldown');
 
 const {
 	readdirSync,
