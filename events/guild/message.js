@@ -1,7 +1,9 @@
 const env = process.env;
 const prefix = env.PREFIX;
 
-const { MessageEmbed } = require('discord.js');
+const {
+	MessageEmbed
+} = require('discord.js');
 
 function parseArguments(arguments) {
 	const entries = Object.entries(arguments);
@@ -18,7 +20,7 @@ function parseArguments(arguments) {
 module.exports = async (bot, message) => {
 	if (message.author.bot || message.channel.type === 'dm') return;
 	if (!message.content.startsWith(prefix)) return;
-	
+
 	const args = message.content.slice(prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
 
@@ -28,13 +30,12 @@ module.exports = async (bot, message) => {
 	let arguments;
 
 	if (commandfile.config.arguments) {
-		if (args.length < Object.keys(commandfile.config.arguments).length) {
+		let requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
+		if (args.length < requiredArgs.length) {
 			console.log('not enough args')
 			if (!commandfile.config.defaultIncorrectArgs && typeof commandfile.error == 'function') {
-				console.log('bad');
 				commandfile.error('incorrectArguments', message);
 			} else {
-				console.log('good');
 				// im not good at embeds, you can change it to something more proper
 				let usage = `${prefix}${commandfile.config.name} ${parseArguments(commandfile.config.arguments)}`;
 				const embed = new MessageEmbed({
@@ -44,7 +45,12 @@ module.exports = async (bot, message) => {
 				return message.channel.send(embed);
 			}
 		};
-		arguments = Object.entries((commandfile.config.arguments)).map((entry, index) => entry[1] = args[index]);
+		arguments = Object.keys(commandfile.config.arguments).reduce((obj, key, index) => {
+			return {
+				...obj,
+				[key]: args[index]
+			};
+		}, {});
 	} else {
 		arguments = args;
 	}
