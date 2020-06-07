@@ -10,10 +10,10 @@ function parseArguments(arguments) {
 	console.log(entries);
 	return entries.map((entry) => {
 		if (entry[1]) {
-			return `[${entry[0]}]`;
+			return `<${entry[0]}>`;
 		}
 		else {
-			return `<${entry[0]}>`;
+			return `[${entry[0]}]`;
 		}
 	}).join(' ');
 }
@@ -33,7 +33,7 @@ module.exports = async (bot, message) => {
 	if (commandfile.config.arguments) {
 		const requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
 		if (args.length < requiredArgs.length) {
-			console.log('not enough args');
+
 			if (!commandfile.config.defaultIncorrectArgs && typeof commandfile.error == 'function') {
 				commandfile.error('incorrectArguments', message);
 			}
