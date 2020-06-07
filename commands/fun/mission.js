@@ -5,7 +5,7 @@ module.exports = {
         name: 'mission',
         description: 'Gives you a mission you can do in Military Warfare Tycoon if you are running out of ideas!',
         usage: '.mission',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['quest'],
     },
     run: async (bot, message) => {

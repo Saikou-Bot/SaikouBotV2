@@ -5,8 +5,8 @@ module.exports = {
     config: {
         name: 'skillrate',
         description: 'Looking to find how pro you really are? Let this command decide for you!',
-        usage: '.skillrate / .skillrate <user>',
-        accessableby: 'Public',
+        usage: '.skillrate || .skillrate <user>',
+        accessableby: 'Followers+',
         aliases: ['prorate', 'skill', 'pro', 'rate'],
     },
     run: async (bot, message, args) => {

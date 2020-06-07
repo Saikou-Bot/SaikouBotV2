@@ -9,8 +9,8 @@ const colours = require('../../jsonFiles/colours.json');
 module.exports = {
     config: {
         name: 'warn',
-        description: 'Reserved for the staff team to warn a user',
-        usage: '.warn/givewarn <user>',
+        description: 'Reserved for the staff team to warn a user.',
+        usage: '.warn <user> <reason>',
         accessableby: 'Staff',
         aliases: ['givewarn'],
     },

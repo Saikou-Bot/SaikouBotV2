@@ -3,9 +3,9 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     config: {
         name: 'trivia',
-        description: 'Answer questions on Military Warfare Tycoon.',
+        description: 'Answer questions based off Military Warfare Tycoon, how good is your knowledge?',
         usage: '.trivia',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['quiz'],
     },
     run: async (bot, message) => {

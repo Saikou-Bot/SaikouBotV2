@@ -7,7 +7,7 @@ module.exports = {
         name: 'inventory',
         description: 'Shows a users inventory.',
         usage: '.inventory',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['inv'],
     },
     run: async (bot, message, args) => {

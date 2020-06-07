@@ -8,7 +8,7 @@ module.exports = {
         name: 'buy',
         description: 'Purchase an item in the shop.',
         usage: '?buy itemName',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['purchase'],
     },
     run: async (bot, message, args) => {

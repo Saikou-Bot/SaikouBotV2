@@ -9,7 +9,7 @@ module.exports = {
         name: 'balance',
         description: 'Displays the users balance.',
         usage: '?bal',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['bal', 'b', 'money', 'coins', 'cash'],
     },
     run: async (bot, message, args) => {

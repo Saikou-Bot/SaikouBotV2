@@ -6,9 +6,9 @@ const moment = require('moment');
 module.exports = {
     config: {
         name: 'userinfo',
-        description: 'Shows the user statistics.',
+        description: 'Shows a whole bunch of user information.',
         usage: '.userinfo || .userinfo <user>',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['user', 'whois'],
     },
     run: async (bot, message, args) => {
