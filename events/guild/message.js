@@ -1,9 +1,9 @@
+/* eslint-disable no-shadow-restricted-names */
+const { MessageEmbed } = require('discord.js');
+const colours = require('../../jsonFiles/colours.json');
+
 const env = process.env;
 const prefix = env.PREFIX;
-
-const {
-	MessageEmbed
-} = require('discord.js');
 
 function parseArguments(arguments) {
 	const entries = Object.entries(arguments);
@@ -11,7 +11,8 @@ function parseArguments(arguments) {
 	return entries.map((entry) => {
 		if (entry[1]) {
 			return `[${entry[0]}]`;
-		} else {
+		}
+		else {
 			return `<${entry[0]}>`;
 		}
 	}).join(' ');
@@ -30,28 +31,31 @@ module.exports = async (bot, message) => {
 	let arguments;
 
 	if (commandfile.config.arguments) {
-		let requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
+		const requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
 		if (args.length < requiredArgs.length) {
-			console.log('not enough args')
+			console.log('not enough args');
 			if (!commandfile.config.defaultIncorrectArgs && typeof commandfile.error == 'function') {
 				commandfile.error('incorrectArguments', message);
-			} else {
+			}
+			else {
 				// im not good at embeds, you can change it to something more proper
-				let usage = `${prefix}${commandfile.config.name} ${parseArguments(commandfile.config.arguments)}`;
-				const embed = new MessageEmbed({
-					title: 'Incorrect Usage',
-					description: `Usage: \`${usage}\``
-				}).setColor('RED');
+				const usage = `${prefix}${commandfile.config.name} ${parseArguments(commandfile.config.arguments)}`;
+				const embed = new MessageEmbed()
+					.setTitle('📋 Incorrect Usage')
+					.setDescription(`**Command Name:** ${commandfile.config.name}\n**Usage:** ${usage}`)
+					.setColor(colours.red)
+					.setFooter('<> - Required ● Optional - [] ');
 				return message.channel.send(embed);
 			}
-		};
+		}
 		arguments = Object.keys(commandfile.config.arguments).reduce((obj, key, index) => {
 			return {
 				...obj,
-				[key]: args[index]
+				[key]: args[index],
 			};
 		}, {});
-	} else {
+	}
+	else {
 		arguments = args;
 	}
 
@@ -68,7 +72,8 @@ module.exports = async (bot, message) => {
 		const cooldown = commandfile.cooldown;
 		if (cooldown.has(message.author.id)) {
 			return message.channel.send(cooldown.embed(message.author.id));
-		} else {
+		}
+		else {
 			cooldown.add(message.member);
 		}
 	}
@@ -83,7 +88,8 @@ module.exports = async (bot, message) => {
 			if (promise && promise.catch) {
 				promise.catch(alertError);
 			}
-		} catch (error) {
+		}
+		catch (error) {
 			alertError(error);
 		}
 	}
