@@ -18,9 +18,10 @@ module.exports = (client, oldMessage, newMessage) => {
         .setDescription(`**Message sent by <@${oldMessage.author.id}> edited in ${oldMessage.channel}** [Jump to message](${newMessage.url})`)
         .addField('Before', oldMessageShorten)
         .addField('After', newMessageShorten)
-        .setFooter(`User ID: ${oldMessage.author.id}`)
+        .setFooter(`User ID: ${oldMessage.author.id} | Message ID: ${newMessage.id}`)
         .setTimestamp();
 
+    // eslint-disable-next-line no-undef
     modLogs.send(messageEdit);
 
 };

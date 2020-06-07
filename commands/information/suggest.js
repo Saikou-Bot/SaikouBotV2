@@ -6,7 +6,7 @@ module.exports = {
         name: 'suggest',
         description: 'Lets you suggest in suggestions.',
         usage: '.suggest <suggestion>',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['suggestion'],
     },
     run: async (bot, message, args) => {

@@ -7,8 +7,8 @@ module.exports = {
     config: {
         name: 'shop',
         description: 'Displays a shop where people can purchase items.',
-        usage: '.shop/market/store',
-        accessableby: 'Public',
+        usage: '.shop',
+        accessableby: 'Followers+',
         aliases: ['market', 'store'],
     },
     run: async (bot, message) => {

@@ -9,8 +9,8 @@ const colours = require('../../jsonFiles/colours.json');
 module.exports = {
     config: {
         name: 'warn',
-        description: 'Reserved for the staff team to warn a user',
-        usage: '.warn/givewarn <user>',
+        description: 'Reserved for the staff team to warn a user.',
+        usage: '.warn <user> <reason>',
         accessableby: 'Staff',
         aliases: ['givewarn'],
     },
@@ -76,6 +76,27 @@ module.exports = {
                     .setColor(colours.green);
 
                 message.channel.send(embed);
+
+                member.send(new MessageEmbed()
+                    .setTitle('Warning')
+                    .setDescription('You have received a **Warning** in Saikou due to your behaviour within our server. Improve how you act otherwise you will be punished again.')
+                    .addField('Warned By', `${message.author.tag}`)
+                    .addField('Reason', `${args.slice(1).join(' ')}`)
+                    .setColor(colours.red)
+                    .setFooter('You can block Saikou if you don\'t want to recieve any further notices.')
+                    .setTimestamp()).catch(() => { return; });
+
+
+                // eslint-disable-next-line no-undef
+                modLogs.send(new MessageEmbed()
+                    .setAuthor(`Case ${warnings.warns.length + 1} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
+                    .addField('User:', `<@${member.id}>`, true)
+                    .addField('Moderator', `<@${message.author.id}>`, true)
+                    .addField('Reason', `${args.slice(1).join(' ')}`, true)
+                    .setColor(colours.red)
+                    .setFooter(`Warned User ID: ${member.id}`)
+                    .setTimestamp());
+
             }
 
         },

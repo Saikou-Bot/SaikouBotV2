@@ -8,15 +8,19 @@ const colours = require('../../jsonFiles/colours.json');
 module.exports = {
     config: {
         name: 'warnings',
-        description: 'Reserved for the staff team to warn a user',
-        usage: '.warn/givewarn <user>',
-        accessableby: 'Public',
+        description: 'Reserved for the staff team to check a users warnings.',
+        usage: '.warnings <user>',
+        accessableby: 'Staff',
         aliases: ['viewwarns', 'checkwarns'],
     },
     run: async (bot, message, args) => {
 
         const member = getUserMod(message, args[0]);
         let i = 0;
+
+        if (!message.member.hasPermission('MANAGE_MESSAGES')) {
+            return errors.noPerms(message, '<Manage Messages>' || message, '.warnings');
+        }
 
         if (!member) {
             return errors.noUser(message, 'view warns');
