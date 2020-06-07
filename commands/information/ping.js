@@ -6,8 +6,8 @@ module.exports = {
     config: {
         name: 'ping',
         description: 'Displays bot and API latency.',
-        usage: '.ping/latency',
-        accessableby: 'Public',
+        usage: '.ping',
+        accessableby: 'Followers+',
         aliases: ['latency', 'botping', 'apilatency', 'botlatency'],
     },
     run: async (client, message) => {

@@ -6,7 +6,7 @@ module.exports = {
     name: '8ball',
     description: 'Ask any question you desire and have it answered by the 8ball.',
     usage: '.8ball <question>',
-    accessableby: 'Public',
+    accessableby: 'Followers+',
     aliases: ['question'],
   },
   run: async (bot, message, args) => {

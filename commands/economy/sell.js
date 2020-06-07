@@ -5,7 +5,7 @@ module.exports = {
         name: 'sell',
         description: 'Sell an item if you are low on cash.',
         usage: '.sell <item>',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['remove'],
     },
     run: async (bot, message, args) => {

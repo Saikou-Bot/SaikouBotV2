@@ -7,7 +7,7 @@ module.exports = {
         name: 'serverinfo',
         description: 'Shows the server statistics.',
         usage: '.serverinfo',
-        accessableby: 'Public',
+        accessableby: 'Followers+',
         aliases: ['server', 'guild', 'guildinfo'],
     },
     run: async (bot, message) => {

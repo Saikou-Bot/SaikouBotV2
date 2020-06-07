@@ -5,8 +5,8 @@ module.exports = {
     config: {
         name: 'status',
         description: 'Want to check if the bot is running into any issues? The status command will give some basic information on how it is doing!',
-        usage: '.status/stats/bot/botinfo',
-        accessableby: 'Public',
+        usage: '.status',
+        accessableby: 'Followers+',
         aliases: ['stats', 'bot', 'botinfo'],
     },
     run: async (bot, message) => {
