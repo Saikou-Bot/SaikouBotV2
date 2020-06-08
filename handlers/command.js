@@ -7,6 +7,7 @@ module.exports = (bot) => {
 		const commands = readdirSync(`./commands/${dirs}/`).filter(d => d.endsWith('.js'));
 		for (const file of commands) {
 			const pull = require(`../commands/${dirs}/${file}`);
+			if (!pull || !pull.config) continue;
 			if (pull.config.cooldown) {
 				pull.cooldown = new Cooldown({
 					name: pull.config.name,
