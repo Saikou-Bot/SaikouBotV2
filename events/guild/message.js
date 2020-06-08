@@ -44,11 +44,7 @@ module.exports = async (bot, message) => {
 	if (commandfile.config.arguments) {
 		const requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
 		if (args.length < requiredArgs.length) {
-
-			if (!commandfile.config.defaultIncorrectArgs && typeof commandfile.error == 'function') {
-				commandfile.error('incorrectArguments', message);
-			}
-			else {
+			return error('incorrectArguments', commandfile, () => {
 				// im not good at embeds, you can change it to something more proper
 				const usage = `${prefix}${commandfile.config.name} ${parseArguments(commandfile.config.arguments)}`;
 				const embed = new MessageEmbed()
@@ -56,8 +52,8 @@ module.exports = async (bot, message) => {
 					.setDescription(`**Command Name:** ${commandfile.config.name}\n**Usage:** ${usage}`)
 					.setColor(colours.red)
 					.setFooter('<> - Required ● Optional - [] ');
-				return message.channel.send(embed);
-			}
+				message.channel.send(embed);
+			}, message);
 		}
 		arguments = Object.keys(commandfile.config.arguments).reduce((obj, key, index) => {
 			return {
