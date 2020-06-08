@@ -3,6 +3,8 @@ module.exports = (bot) => {
 	guild.members.fetch();
 
 	global.modLogs = guild.channels.cache.find(c => c.name.includes('mod-logs'));
+	global.moderation = guild.channels.cache.find(c => c.name.includes('moderation'));
+	global.joinleaves = guild.channels.cache.find(c => c.name.includes('join-and-leaves'));
 
 	console.log(`\n${bot.user.username} has loaded successfully and is online. \nServers: ${bot.guilds.cache.size}   Users: ${guild.memberCount}   Channels: ${bot.channels.cache.size}`);
 
