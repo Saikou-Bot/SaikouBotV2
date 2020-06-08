@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 
@@ -56,6 +57,7 @@ module.exports = {
                 message.channel.send(embed);
 
             }
+
             else {
                 warnData.updateOne(
                     { userID: member.id },
@@ -83,11 +85,10 @@ module.exports = {
                     .addField('Warned By', `${message.author.tag}`)
                     .addField('Reason', `${args.slice(1).join(' ')}`)
                     .setColor(colours.red)
-                    .setFooter('You can block Saikou if you don\'t want to recieve any further notices.')
+                    .setFooter('THIS IS AN AUTOMATED MESSAGE')
                     .setTimestamp()).catch(() => { return; });
 
 
-                // eslint-disable-next-line no-undef
                 modLogs.send(new MessageEmbed()
                     .setAuthor(`Case ${warnings.warns.length + 1} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
                     .addField('User:', `<@${member.id}>`, true)
@@ -96,6 +97,7 @@ module.exports = {
                     .setColor(colours.red)
                     .setFooter(`Warned User ID: ${member.id}`)
                     .setTimestamp());
+
 
             }
 
