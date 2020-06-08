@@ -72,10 +72,9 @@ module.exports = async (bot, message) => {
 		const cooldown = commandfile.cooldown;
 		if (cooldown.has(message.author.id)) {
 			return message.channel.send(cooldown.embed(message.author.id));
-		} else {
-			if (commandfile.config.autoCooldown) {
-				commandfile.cooldown.add(message.member);
-			}
+		}
+		else if (commandfile.config.autoCooldown) {
+			commandfile.cooldown.add(message.member);
 		}
 	}
 
@@ -89,8 +88,9 @@ module.exports = async (bot, message) => {
 			if (promise && promise.catch) {
 				promise.catch(alertError);
 			}
-		} catch (error) {
+		}
+		catch (error) {
 			alertError(error);
 		}
 	}
-}
+};

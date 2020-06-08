@@ -15,7 +15,7 @@ module.exports = (bot) => {
 		const status = statuses[Math.floor(Math.random() * statuses.length)];
 		bot.user.setActivity(status, {
 			type: 'STREAMING',
-			url: 'https://twitch.tv/doingthisforthestatuslol'
+			url: 'https://twitch.tv/doingthisforthestatuslol',
 		});
 	}
 	updateStatus();
