@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = (client, member) => {
   const ordinal = require('ordinal');
   const { MessageEmbed } = require('discord.js');
@@ -5,7 +6,6 @@ module.exports = (client, member) => {
   const moment = require('moment');
 
 
-  const WelcomeChannel = member.guild.channels.cache.get('635196002596290611');
   const Server = client.guilds.cache.get('397791695514894341');
   const MemberCount = Server.memberCount;
 
@@ -30,7 +30,7 @@ module.exports = (client, member) => {
     .setTimestamp();
 
 
-  WelcomeChannel.send(WelcomeEmbed);
+  joinleaves.send(WelcomeEmbed);
 
   // -- Log join embed
   const logjoinembed = new MessageEmbed()
@@ -42,7 +42,7 @@ module.exports = (client, member) => {
     .setFooter(`ID: ${member.user.id}`)
     .setTimestamp();
 
-  member.guild.channels.cache.get('409832539360854019').send(logjoinembed);
+  modLogs.send(logjoinembed);
 
 
 };

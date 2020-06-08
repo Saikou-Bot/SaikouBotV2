@@ -1,9 +1,8 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-inline-comments */
 module.exports = (client, member) => {
   const { MessageEmbed } = require('discord.js');
   const Colour = require('../../jsonFiles/colours.json');
-
-  const WelcomeChannel = member.guild.channels.cache.get('635196002596290611');
 
   // -- Ban user embed
   member.guild.fetchBan(member).then(() => {
@@ -16,7 +15,7 @@ module.exports = (client, member) => {
       .setFooter('User banned')
       .setTimestamp();
 
-    WelcomeChannel.send(userBannedEmbed);
+    joinleaves.send(userBannedEmbed);
   }).catch(() => {
 
     const RoleMessages = [
@@ -49,14 +48,14 @@ module.exports = (client, member) => {
       .setFooter('User left')
       .setTimestamp();
 
-    WelcomeChannel.send(RemoveEmbed);
+    joinleaves.send(RemoveEmbed);
 
     const logleaveembed = new MessageEmbed()
       .setColor(Colour.blurple)
       .setTitle(':information_source: User left')
       .setDescription(`**${member.user.tag}** has left.`);
 
-    member.guild.channels.cache.get('409832539360854019').send(logleaveembed);
+    modLogs.send(logleaveembed);
 
   });
 };
