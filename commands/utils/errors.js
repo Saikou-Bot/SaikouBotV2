@@ -59,4 +59,28 @@ module.exports.noCoins = (message, name, cost) => {
             .setFooter(`Equal Permission(s): ${perms}`);
         // sends the embed
         message.channel.send(embed);
+    },
+
+
+    module.exports.yourself = (message, name) => {
+        const embed = new MessageEmbed()
+            .setTitle(`🔐 Cannot ${name} yourself`)
+            .setDescription(`You cannot ${name} yourself, please input a correct user to provide the punishment to.`)
+            .setColor(colours.red)
+            .setFooter(`Unable to ${name} user.`);
+        // sends the embed
+        message.channel.send(embed);
+    },
+
+
+    module.exports.unable = (message, name) => {
+        const embed = new MessageEmbed()
+            .setTitle(`❌ Unable to ${name} user`)
+            .setDescription(`The user you are trying to perform this action on is unable to be ${name} consider..\n
+            • Making sure Saikou's role is higher than theirs
+            • User doesn't have an admin/moderator role`)
+            .setColor(colours.red)
+            .setFooter(`Unable to ${name} user.`);
+        // sends the embed
+        message.channel.send(embed);
     };
