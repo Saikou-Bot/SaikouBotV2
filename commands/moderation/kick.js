@@ -29,7 +29,7 @@ module.exports = {
         }
 
         if (member.id === message.author.id) {
-            return message.channel.send('You cant kick yourself.')
+            return errors.yourself(message, 'kick');
         }
 
         if (member.hasPermission('KICK_MEMBERS')) {
@@ -37,7 +37,7 @@ module.exports = {
         }
 
         if (!member.kickable) {
-            return message.channel.send('This user cant be kicked, either due to them being a mod, or having a higher role to saikou.')
+            return errors.unable(message, 'kick');
         }
 
         if (!reason) {
@@ -98,7 +98,6 @@ module.exports = {
                     .setColor(colours.red)
                     .setFooter('THIS IS AN AUTOMATED MESSAGE')
                     .setTimestamp()).catch(() => { return; });
-
 
 
                 modLogs.send(new MessageEmbed()
