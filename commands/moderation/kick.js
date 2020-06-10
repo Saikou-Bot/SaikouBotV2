@@ -55,7 +55,7 @@ module.exports = {
                 const newWarnData = new warnData({
                     userID: member.id,
                     guild: message.guild.id,
-                    warns: [{ Moderator: message.author.id, Time: moment().format('MMMM Do YYYY'), Reason: `**Kicked** - ${reason}` }],
+                    warns: [{ Moderator: message.author.id, Time: moment().format('MMMM Do YYYY'), Reason: `[**Kicked**] ${reason}` }],
                 });
                 newWarnData.save();
                 member.kick(reason);
@@ -77,7 +77,7 @@ module.exports = {
                             warns: {
                                 'Moderator': message.author.id,
                                 'Time': moment().format('MMMM Do YYYY'),
-                                'Reason': `**Kicked** - ${reason}`,
+                                'Reason': `[**Kicked**] ${reason}`,
                             },
                         },
                     },
