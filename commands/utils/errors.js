@@ -65,7 +65,7 @@ module.exports.noCoins = (message, name, cost) => {
     module.exports.yourself = (message, name) => {
         const embed = new MessageEmbed()
             .setTitle(`🔐 Cannot ${name} yourself`)
-            .setDescription(`You cannot ${name} yourself, please input a correct user to provide the punishment to.`)
+            .setDescription(`You cannot ${name} yourself, please input a correct user to use the command on.`)
             .setColor(colours.red)
             .setFooter(`Unable to ${name} user.`);
         // sends the embed
