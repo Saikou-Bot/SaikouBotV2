@@ -44,7 +44,10 @@ module.exports = {
                 }, (err, chooseQuest) => {
 
                     if (chooseQuest) {
-                        return message.channel.send('Completed quest.');
+                        return message.channel.send(new MessageEmbed()
+                            .setTitle('❌ Quest Completed')
+                            .setDescription('You have already completed that quest, please select one that isn\'t currently complete.')
+                            .setColor(colours.red));
                     }
 
                     Userquests.findOne({
@@ -54,7 +57,10 @@ module.exports = {
                     }, (err, multiQuest) => {
 
                         if (multiQuest) {
-                            return message.channel.send('You cant start the same quest twice.');
+                            return message.channel.send(new MessageEmbed()
+                                .setTitle('❗ Already started quest')
+                                .setDescription('You have already started that quest, please select one that isn\'t currently active.')
+                                .setColor(colours.red));
                         }
 
 
