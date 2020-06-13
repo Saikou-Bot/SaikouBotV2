@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const warnDataSchema = mongoose.Schema({
     userID: String,
     warns: [
-        { Moderator: String, Time: String, Reason: String },
+        { Moderator: String, Time: Date, Reason: String },
     ],
     guild: String,
 });
