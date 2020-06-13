@@ -1,7 +1,7 @@
 // -- Requiring modules
 const { Client, Collection } = require('discord.js');
 const { config } = require('dotenv');
-const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS'] } });
+const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES'] } });
 const mongoose = require('mongoose');
 
 const Filter = require('bad-words');
