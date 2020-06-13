@@ -6,7 +6,7 @@ module.exports = {
         description: 'Adds a quest to the list!',
         usage: '.addquest <QuestTitle> <difficulty> <reward> <description>',
         accessableby: 'Bot Developer',
-        aliases: [],
+        aliases: ['removal'],
     },
     run: async (bot, message, args) => {
 
