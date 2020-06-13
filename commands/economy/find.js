@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const creditsData = require('../../models/userData.js');
+const userQuests = require('../../models/userQuests');
 const find = require('../../jsonFiles/find.json');
 
 
@@ -19,7 +20,7 @@ module.exports = {
             if (err) console.log(err);
 
             creditData.coins += findMessage.credits;
-            creditData.save();
+            // creditData.save();
 
             const Embed = new MessageEmbed()
                 .setTitle('🔍 Find Outcome!')
@@ -32,6 +33,28 @@ module.exports = {
 
             message.channel.send(Embed);
 
+
+            userQuests.findOne({
+                UserID: message.author.id,
+                Quest: 'Investigator',
+                completed: false,
+            }, (err, findQuest) => {
+
+
+                if (findMessage.credits >= 100 && findQuest) {
+                    message.channel.send(`You completed the quest **Investigator** and was rewarded ${findQuest.Reward.toLocaleString()} credits.`);
+
+                    creditData.coins += findQuest.Reward;
+
+                    findQuest.completed = true;
+                    findQuest.save();
+
+
+                }
+
+                creditData.save();
+
+            });
         });
 
     },

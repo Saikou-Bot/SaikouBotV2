@@ -2,6 +2,8 @@
 const { MessageEmbed } = require('discord.js');
 const coinsData = require('../../models/userData.js');
 const { getMember } = require('../utils/getMember');
+const userQuests = require('../../models/userQuests');
+const userData = require('../../models/userData.js');
 
 
 module.exports = {
@@ -77,9 +79,39 @@ module.exports = {
                     .setTimestamp();
 
 
-                return message.channel.send(BalanceEmbed2);
+                message.channel.send(BalanceEmbed2);
+
+                userQuests.findOne({ UserID: message.author.id, Quest: 'Wealthy Soldier', completed: false }, (err, WealthySoldier) => {
+
+                    if (UserData.coins >= 50000 && WealthySoldier) {
+                        message.channel.send(`You completed the quest **Wealthy Soldier** and was rewarded ${WealthySoldier.Reward.toLocaleString()} credits.`);
+
+                        UserData.coins += WealthySoldier.Reward;
+
+                        WealthySoldier.completed = true;
+                        WealthySoldier.save();
+
+
+                    }
+                });
+
+                userQuests.findOne({ UserID: message.author.id, Quest: 'Starter Soldier', completed: false }, (err, StarterSoldier) => {
+
+                    if (UserData.coins >= 250 && StarterSoldier) {
+                        message.channel.send(`You completed the quest **Starter Soldier** and was rewarded ${StarterSoldier.Reward.toLocaleString()} credits.`);
+
+                        UserData.coins += StarterSoldier.Reward;
+
+                        StarterSoldier.completed = true;
+                        StarterSoldier.save();
+
+
+                    }
+                });
             }
+            UserData.save();
         });
+
     },
 
 
