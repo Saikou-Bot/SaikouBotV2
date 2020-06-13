@@ -28,5 +28,5 @@ items.forEach(a => {
 
 
 // ---Logging in with token or test token---
-const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
+const token = process.env.TEST === 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
 bot.login(token);
