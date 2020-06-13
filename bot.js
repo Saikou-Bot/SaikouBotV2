@@ -8,7 +8,6 @@ const Filter = require('bad-words');
 const badWords = new Filter();
 
 function filter(message) {
-	console.log(message.content);
 	if (badWords.isProfane(message.content)) {
 		message.delete()
 			.catch(err => {
