@@ -5,6 +5,8 @@ const { getUserMod } = require('../utils/getUserMod');
 const warnData = require('../../models/warnData');
 const colours = require('../../jsonFiles/colours.json');
 
+const moment = require('moment');
+
 module.exports = {
     config: {
         name: 'warnings',
@@ -47,13 +49,11 @@ module.exports = {
 
             warnings.warns.forEach(a => {
                 i++;
-                warnEmbed.addField(`Warning: ${i} | Moderator: ${message.guild.members.cache.get(a.Moderator).user.tag}`, `${a.Reason} - ${a.Time}`);
+                warnEmbed.addField(`Warning: ${i} | Moderator: ${message.guild.members.cache.get(a.Moderator).user.tag}`, `${a.Reason} - ${moment(a.Time).format('MMMM Do YYYY')}`);
             });
 
             message.channel.send(warnEmbed);
 
-
         });
-
     },
 };

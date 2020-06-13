@@ -1,9 +1,13 @@
 /* eslint-disable no-undef */
-const { MessageEmbed } = require('discord.js');
+const {
+    MessageEmbed
+} = require('discord.js');
 const moment = require('moment');
 
-const { getUserMod } = require('../utils/getUserMod');
-const warnData = require('../../models/warnData');
+const {
+    getUserMod
+} = require('../utils/getUserMod');
+const warnUtil = require('../utils/warn');
 const errors = require('.././utils/errors');
 const colours = require('../../jsonFiles/colours.json');
 
@@ -31,79 +35,47 @@ module.exports = {
             return errors.equalPerms(message, 'Manage Messages');
         }
 
-        if (!args.slice(1).join(' ')) {
+        const reason = args.slice(1).join(' ')
+
+        if (!reason) {
             return errors.noReason(message, 'warn');
         }
 
-        warnData.findOne({
-            userID: member.id,
+        const warnings = await warnUtil.addWarn({
+            user: member.id,
             guild: message.guild.id,
-        }, (err, warnings) => {
-            if (err) console.log(err);
-
-            if (!warnings) {
-                const newWarnData = new warnData({
-                    userID: member.id,
-                    guild: message.guild.id,
-                    warns: [{ Moderator: message.author.id, Time: moment().format('MMMM Do YYYY'), Reason: args.slice(1).join(' ') }],
-                });
-                newWarnData.save();
-
-                const embed = new MessageEmbed()
-                    .setDescription(`✅ **${member.displayName} has been warned**`)
-                    .addField('Warnings:', '1', true)
-                    .setColor(colours.green);
-
-                message.channel.send(embed);
-
+            warn: {
+                moderator: message.author.id,
+                reason: reason
             }
+        });
 
-            else {
-                warnData.updateOne(
-                    { userID: member.id },
-                    {
-                        $push: {
-                            warns: {
-                                'Moderator': message.author.id,
-                                'Time': moment().format('MMMM Do YYYY'),
-                                'Reason': args.slice(1).join(' '),
-                            },
-                        },
-                    },
-                ).catch(err => console.log(err));
+        const embed = new MessageEmbed()
+            .setDescription(`✅ **${member.displayName} has been warned**`)
+            .addField('Warnings:', warnings.warns.length, true)
+            .setColor(colours.green);
 
-                const embed = new MessageEmbed()
-                    .setDescription(`✅ **${member.displayName} has been warned**`)
-                    .addField('Warnings:', warnings.warns.length + 1, true)
-                    .setColor(colours.green);
+        message.channel.send(embed);
 
-                message.channel.send(embed);
+        member.send(new MessageEmbed()
+            .setTitle('Warning')
+            .setDescription('You have received a **Warning** in Saikou due to your behaviour within our server. Improve how you act otherwise you will be punished again.')
+            .addField('Warned By', `${message.author.tag}`)
+            .addField('Reason', `${reason}`)
+            .setColor(colours.red)
+            .setFooter('THIS IS AN AUTOMATED MESSAGE')
+            .setTimestamp()).catch(() => {
+            return;
+        });
 
-                member.send(new MessageEmbed()
-                    .setTitle('Warning')
-                    .setDescription('You have received a **Warning** in Saikou due to your behaviour within our server. Improve how you act otherwise you will be punished again.')
-                    .addField('Warned By', `${message.author.tag}`)
-                    .addField('Reason', `${args.slice(1).join(' ')}`)
-                    .setColor(colours.red)
-                    .setFooter('THIS IS AN AUTOMATED MESSAGE')
-                    .setTimestamp()).catch(() => { return; });
+        modLogs.send(new MessageEmbed()
+            .setAuthor(`Case ${warnings.warns.length + 1} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
+            .addField('User:', `<@${member.id}>`, true)
+            .addField('Moderator', `<@${message.author.id}>`, true)
+            .addField('Reason', `${reason}`, true)
+            .setColor(colours.red)
+            .setFooter(`Warned User ID: ${member.id}`)
+            .setTimestamp());
 
-
-                modLogs.send(new MessageEmbed()
-                    .setAuthor(`Case ${warnings.warns.length + 1} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
-                    .addField('User:', `<@${member.id}>`, true)
-                    .addField('Moderator', `<@${message.author.id}>`, true)
-                    .addField('Reason', `${args.slice(1).join(' ')}`, true)
-                    .setColor(colours.red)
-                    .setFooter(`Warned User ID: ${member.id}`)
-                    .setTimestamp());
-
-
-            }
-
-        },
-        );
-
-
-    },
+    }
 };
