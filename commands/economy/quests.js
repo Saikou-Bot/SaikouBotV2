@@ -6,7 +6,7 @@ module.exports = {
     config: {
         name: 'quests',
         description: 'See which quests you are currently doing!',
-        usage: '.quest',
+        usage: '.quests',
         accessableby: 'Followers+',
         aliases: ['viewquests', 'activequests'],
     },
