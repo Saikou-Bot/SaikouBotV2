@@ -3,6 +3,7 @@ const UserData = require('../../models/userData.js');
 const errors = require('../utils/errors');
 const { getUserMod } = require('../utils/getUserMod');
 const colours = require('../../jsonFiles/colours.json');
+const userQuests = require('../../models/userQuests');
 
 
 module.exports = {
@@ -143,7 +144,7 @@ module.exports = {
                         userBal.save();
 
                         userData.coins -= amount;
-                        userData.save();
+                        // userData.save();
 
                         const embed = new MessageEmbed()
                             .setTitle('Donation Successful!')
@@ -151,6 +152,22 @@ module.exports = {
                             .setColor(colours.green);
 
                         message.channel.send(embed);
+
+
+                        userQuests.findOne({ UserID: message.author.id, Quest: 'Generous Friend', completed: false }, (err, GenerousFriend) => {
+
+                            if (amount >= 500 && GenerousFriend) {
+                                message.channel.send(`You completed the quest **Generous Friend** and was rewarded ${GenerousFriend.Reward.toLocaleString()} credits.`);
+
+                                userData.coins += GenerousFriend.Reward;
+
+                                GenerousFriend.completed = true;
+                                GenerousFriend.save();
+
+
+                            }
+                            userData.save();
+                        });
 
                     }
 
