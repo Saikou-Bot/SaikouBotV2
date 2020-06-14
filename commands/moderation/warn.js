@@ -1,12 +1,7 @@
 /* eslint-disable no-undef */
-const {
-    MessageEmbed
-} = require('discord.js');
-const moment = require('moment');
+const { MessageEmbed } = require('discord.js');
 
-const {
-    getUserMod
-} = require('../utils/getUserMod');
+const { getUserMod } = require('../utils/getUserMod');
 const warnUtil = require('../utils/warn');
 const errors = require('.././utils/errors');
 const colours = require('../../jsonFiles/colours.json');
@@ -35,7 +30,7 @@ module.exports = {
             return errors.equalPerms(message, 'Manage Messages');
         }
 
-        const reason = args.slice(1).join(' ')
+        const reason = args.slice(1).join(' ');
 
         if (!reason) {
             return errors.noReason(message, 'warn');
@@ -46,8 +41,8 @@ module.exports = {
             guild: message.guild.id,
             warn: {
                 moderator: message.author.id,
-                reason: reason
-            }
+                reason: reason,
+            },
         });
 
         const embed = new MessageEmbed()
@@ -65,8 +60,8 @@ module.exports = {
             .setColor(colours.red)
             .setFooter('THIS IS AN AUTOMATED MESSAGE')
             .setTimestamp()).catch(() => {
-            return;
-        });
+                return;
+            });
 
         modLogs.send(new MessageEmbed()
             .setAuthor(`Case ${warnings.warns.length + 1} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
@@ -77,5 +72,5 @@ module.exports = {
             .setFooter(`Warned User ID: ${member.id}`)
             .setTimestamp());
 
-    }
+    },
 };
