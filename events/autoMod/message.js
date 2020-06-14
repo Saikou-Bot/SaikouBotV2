@@ -22,6 +22,7 @@ module.exports = (client, message) => {
 };
 
 antiSpam.on('warnAdd', member => {
+	member.send('You were warned for spamming');
 	warnUtil.addWarn({
 		user: member.id,
 		guild: member.guild.id,
