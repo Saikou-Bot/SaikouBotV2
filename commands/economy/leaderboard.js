@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const userdata = require('../../models/userData');
 const colours = require('../../jsonFiles/colours.json');
 
+const numbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'keycap_ten'];
 
 module.exports = {
     config: {
@@ -30,7 +31,13 @@ module.exports = {
 
         (await data).forEach(a => {
             i++;
-            description += `${i} <@${a.userID}> **Credits**: ${a.coins}\n`;
+            switch (i) {
+                case 1: var numberName = '🥇'; break;
+                case 2: var numberName = '🥈'; break;
+                case 3: var numberName = '🥉'; break;
+                default: var numberName = `:${numbers[i - 1]}:`; break;
+            }
+            description += `${numberName} <@${a.userID}> **Credits**: ${a.coins}\n`;
         });
 
         leaderboard.setDescription(`Displaying the top 10 most rich users\n\n${description}`);
