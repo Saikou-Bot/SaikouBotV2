@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const colours = require('../../jsonFiles/colours.json');
+const pckg = require('../../package.json');
 
 module.exports = {
     config: {
@@ -29,7 +30,7 @@ module.exports = {
 
         const status = new MessageEmbed()
             .setTitle('Saikou Bot Status')
-            .setDescription(`**${bot.user.username}** has been running for \`${duration(bot.uptime)}\`\nDown below lists some statistics.\n\n**Bot Latency:** \`${botLatency}ms\`\n**Version:** \`1.0.0\`\n**Memory Usage:** \`${Math.round(MemoryUsage)}%\` `)
+            .setDescription(`**${bot.user.username}** has been running for \`${duration(bot.uptime)}\`\nDown below lists some statistics.\n\n**Bot Latency:** \`${botLatency}ms\`\n**Version:** \`${pckg.version}\`\n**Memory Usage:** \`${Math.round(MemoryUsage)}%\` `)
             .setThumbnail(bot.user.displayAvatarURL());
 
         // Memory Usage
