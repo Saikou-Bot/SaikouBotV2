@@ -19,6 +19,18 @@ const antiSpam = new AntiSpam({
 
 module.exports = (client, message) => {
 	antiSpam.message(message);
+	if (message.includes('discord.gg')) {
+		message.delete();
+		message.reply('You have been warned for sending invite');
+		warnUtil.addWarn({
+			user: message.author.id,
+			guild: message.guild.id,
+			warn: {
+				moderator: message.client.user.id,
+				reason: 'Invite link'
+			}
+		});
+	}
 };
 
 antiSpam.on('warnAdd', member => {
