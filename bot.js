@@ -28,21 +28,21 @@ const items = require('./jsonFiles/items.json');
 
 // -- Setting .env path
 config({
-  path: __dirname + '/.env',
+	path: __dirname + '/.env',
 });
 
 ['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
 ['command', 'event'].forEach((x) => require(`./handlers/${x}`)(bot));
 
 mongoose.connect(process.env.MONGOPASSWORD, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
 });
 
 items.forEach(a => {
-  bot.shop.set(a.id, a);
-  console.log(`Loaded item ${a.id}`);
+	bot.shop.set(a.id, a);
+	console.log(`Loaded item ${a.id}`);
 });
 
 
