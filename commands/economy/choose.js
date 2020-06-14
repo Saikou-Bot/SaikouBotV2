@@ -80,7 +80,7 @@ module.exports = {
 
                             return message.channel.send(new MessageEmbed()
                                 .setTitle('⚔️ Quest Started!')
-                                .setDescription(`You have started the quest **${QuestName}** for ${reward} credits, here are the details Soldier!`)
+                                .setDescription(`You have started the quest **${QuestName}** for ${reward.toLocaleString()} credits, here are the details Soldier!`)
                                 .addField('Mission:', QuestDescription)
                                 .setColor(colours.green));
                         }
