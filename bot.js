@@ -18,9 +18,7 @@ function filter(message) {
 }
 
 bot.on('message', filter);
-bot.on('messageUpdate', (oldMessage, message) => {
-	filter(message);
-});
+bot.on('messageUpdate', (oldMessage, message) => filter(message));
 
 
 bot.shop = new Map();
