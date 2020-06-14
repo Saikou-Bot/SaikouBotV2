@@ -10,7 +10,7 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        if (!message.member.hasPermission('ADMINISTRATOR')) {
+        if (message.author.id !== '229142187382669312' ? message.author.id !== '670588428970098708' : message.author.id !== '229142187382669312') {
             return message.channel.send('This command is limited to bot developers only.');
         }
 
