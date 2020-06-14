@@ -17,9 +17,11 @@ const antiSpam = new AntiSpam({
 	ignoredUsers: [],
 });
 
+const inviteLink = /discord\.gg|discordapp.com\/invite|discord.com\/invite/m;
+
 module.exports = (client, message) => {
 	antiSpam.message(message);
-	if (message.includes('discord.gg')) {
+	if (inviteLink.test(message.content)) {
 		message.delete();
 		message.reply('You have been warned for sending invite');
 		warnUtil.addWarn({
