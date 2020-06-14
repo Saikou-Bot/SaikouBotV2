@@ -64,10 +64,10 @@ module.exports.noCoins = (message, name, cost) => {
 
     module.exports.yourself = (message, name) => {
         const embed = new MessageEmbed()
-            .setTitle(`🔐 Cannot ${name} yourself`)
-            .setDescription(`You cannot ${name} yourself, please input a correct user to use the command on.`)
+            .setTitle(`🔐 Cannot ${name} to yourself`)
+            .setDescription(`You cannot ${name} to yourself, please input a correct user to use the command on.`)
             .setColor(colours.red)
-            .setFooter(`Unable to ${name} user.`);
+            .setFooter(`Unable to ${name} to user.`);
         // sends the embed
         message.channel.send(embed);
     },
