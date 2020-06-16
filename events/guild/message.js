@@ -18,6 +18,16 @@ function parseArguments(arguments) {
 	}).join(' ');
 }
 
+function error (name, command = {}, callback, ...args) {
+	if (command.on) {
+		const eventFunc = command.on[name];
+		if (eventFunc && typeof eventFunc == 'function') {
+			return eventFunc(...args);
+		}
+	}
+	callback(...args);
+}
+
 module.exports = async (bot, message) => {
 	if (message.author.bot || message.channel.type === 'dm') return;
 	if (!message.content.startsWith(prefix)) return;
@@ -26,6 +36,7 @@ module.exports = async (bot, message) => {
 	const cmd = args.shift().toLowerCase();
 
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
+
 	if (!commandfile || !commandfile.config) return;
 
 	let arguments;
@@ -33,11 +44,7 @@ module.exports = async (bot, message) => {
 	if (commandfile.config.arguments) {
 		const requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
 		if (args.length < requiredArgs.length) {
-
-			if (!commandfile.config.defaultIncorrectArgs && typeof commandfile.error == 'function') {
-				commandfile.error('incorrectArguments', message);
-			}
-			else {
+			return error('incorrectArguments', commandfile, () => {
 				// im not good at embeds, you can change it to something more proper
 				const usage = `${prefix}${commandfile.config.name} ${parseArguments(commandfile.config.arguments)}`;
 				const embed = new MessageEmbed()
@@ -45,8 +52,8 @@ module.exports = async (bot, message) => {
 					.setDescription(`**Command Name:** ${commandfile.config.name}\n**Usage:** ${usage}`)
 					.setColor(colours.red)
 					.setFooter('<> - Required ● Optional - [] ');
-				return message.channel.send(embed);
-			}
+				message.channel.send(embed);
+			}, message);
 		}
 		arguments = Object.keys(commandfile.config.arguments).reduce((obj, key, index) => {
 			return {
@@ -61,9 +68,9 @@ module.exports = async (bot, message) => {
 
 	if (commandfile.config.channel) {
 		if (message.channel.name.match(commandfile.config.channel) == null) {
-			if (typeof commandfile.error == 'function') {
-				commandfile.error('incorrectChannel', message);
-			}
+			error('incorrectChannel', commandfile, () => {
+				message.channel.send('Incorrect channel') // pls make better embed
+			}, message);
 			return;
 		}
 	}
