@@ -1,5 +1,7 @@
 const warnUtil = require('../../commands/utils/warn');
 
+const badwords = require('./badwords.json');
+
 const AntiSpam = require('discord-anti-spam');
 const antiSpam = new AntiSpam({
 	warnThreshold: 3,
@@ -18,7 +20,16 @@ const antiSpam = new AntiSpam({
 	ignoredUsers: [],
 });
 
+function removeDuplicates(str) {
+	return str.replace(/(?<=(.))\1/gi, '');
+}
+
 const inviteLink = /discord\.gg|discordapp.com\/invite|discord.com\/invite/m;
+
+const specialChars = {
+	'0': 'o',
+	'$': 's'
+};
 
 module.exports = (client, message) => {
 	antiSpam.message(message);
@@ -33,6 +44,16 @@ module.exports = (client, message) => {
 				reason: 'Invite link'
 			}
 		});
+	}
+	let filtered = message.content.split('').map((item) => specialChars[item] || item).join('');
+	filtered = removeDuplicates(filtered);
+	filtered = filtered.replace(/[^a-zA-Z0-9- ]/g, '');
+	console.log(filtered);
+	if (badwords.some((badword) => {
+		return new RegExp(`\\b${badword.replace(/(\W)/g, '\\$1')}\\b`, 'gi').test(filtered);
+	})) {
+		message.delete();
+		message.channel.send('Got \'em');
 	}
 };
 
