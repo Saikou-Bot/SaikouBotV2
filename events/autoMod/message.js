@@ -28,6 +28,14 @@ const inviteLink = /discord\.gg|discordapp.com\/invite|discord.com\/invite/m;
 
 const specialChars = require('./special.json');
 
+const times = [];
+
+function filter(str) {
+	str = removeDuplicates(str);
+	str = str.replace(/[^a-zA-Z0-9- ]/g, '');
+	return str;
+}
+
 module.exports = (client, message) => {
 	antiSpam.message(message);
 	if (inviteLink.test(message.content)) {
@@ -42,12 +50,13 @@ module.exports = (client, message) => {
 			}
 		});
 	}
-	let filtered = message.content.split('').map((item) => specialChars[item] || item).join('');
-	filtered = removeDuplicates(filtered);
-	filtered = filtered.replace(/[^a-zA-Z0-9- ]/g, '');
-	console.log(filtered);
+
+	const filtered = filter(message.content);
+	const specialFilter = filter(message.content.split('').map((item) => specialChars[item] || item).join(''));
+
 	if (badwords.some((badword) => {
-		return new RegExp(`\\b${badword.replace(/(\W)/g, '\\$1')}\\b`, 'gi').test(filtered);
+		const badwordReg = new RegExp(`\\b${badword.replace(/(\W)/g, '\\$1')}\\b`, 'gi');
+		return badwordReg.test(filtered) || badwordReg.test(specialFilter);
 	})) {
 		message.delete();
 		message.channel.send('Got \'em');
