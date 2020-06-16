@@ -26,10 +26,7 @@ function removeDuplicates(str) {
 
 const inviteLink = /discord\.gg|discordapp.com\/invite|discord.com\/invite/m;
 
-const specialChars = {
-	'0': 'o',
-	'$': 's'
-};
+const specialChars = require('./special.json');
 
 module.exports = (client, message) => {
 	antiSpam.message(message);
