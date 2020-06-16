@@ -2,7 +2,6 @@ const warnData = require('../../models/warnData');
 
 function addWarn(options) {
     return new Promise((res, rej) => {
-        console.log(options);
         warnData.findOne({
             userID: options.user,
             guild: options.guild
