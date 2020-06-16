@@ -12,8 +12,10 @@ config({
 	path: __dirname + '/.env',
 });
 
-['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
-['command', 'event'].forEach((x) => require(`./handlers/${x}`)(bot));
+['aliases', 'commands', 'items'].forEach((x) => (bot[x] = new Collection()));
+['command', 'event', 'items'].forEach((x) => require(`./handlers/${x}`)(bot));
+
+console.log(bot.items);
 
 mongoose.connect(process.env.MONGOPASSWORD, {
 	useNewUrlParser: true,

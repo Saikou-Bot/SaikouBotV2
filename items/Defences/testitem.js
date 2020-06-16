@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-
-
-const info = {
-    name: 'test',
-    emoji: '⚔️',
-    price: 500,
+module.exports = {
+	name: 'test',
+	emoji: '⚔️',
+	price: 500,
 };
