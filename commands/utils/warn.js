@@ -7,7 +7,6 @@ function addWarn(options) {
             userID: options.user,
             guild: options.guild
         }, (err, warns) => {
-            console.log(warns);
             if (err) return console.error(err);
             const warn = {
                 Moderator: options.warn.moderator,
