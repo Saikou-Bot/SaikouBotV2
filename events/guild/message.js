@@ -18,7 +18,7 @@ function parseArguments(arguments) {
 	}).join(' ');
 }
 
-function error (name, command = {}, callback, ...args) {
+function error(name, command = {}, callback, ...args) {
 	if (command.on) {
 		const eventFunc = command.on[name];
 		if (eventFunc && typeof eventFunc == 'function') {
@@ -69,7 +69,7 @@ module.exports = async (bot, message) => {
 	if (commandfile.config.channel) {
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			error('incorrectChannel', commandfile, () => {
-				message.channel.send('Incorrect channel') // pls make better embed
+				message.channel.send('Incorrect channel'); // pls make better embed
 			}, message);
 			return;
 		}
@@ -85,8 +85,8 @@ module.exports = async (bot, message) => {
 		}
 	}
 
-	const alertError = (error) => {
-		console.log(error);
+	const alertError = (errorMessage) => {
+		console.error(errorMessage);
 		message.channel.send('Failed to run command');
 	};
 	if (commandfile) {
@@ -96,8 +96,8 @@ module.exports = async (bot, message) => {
 				promise.catch(alertError);
 			}
 		}
-		catch (error) {
-			alertError(error);
+		catch (err) {
+			alertError(err);
 		}
 	}
 };
