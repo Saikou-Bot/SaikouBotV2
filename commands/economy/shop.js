@@ -1,56 +1,43 @@
 const { MessageEmbed } = require('discord.js');
-const pagination = require('discord.js-pagination');
-const items2 = require('../../jsonFiles/items2.json');
-
+const DBItems = require('../../models/items');
 
 module.exports = {
-    config: {
-        name: 'shop',
-        description: 'Displays a shop where people can purchase items.',
-        usage: '.shop',
-        accessableby: 'Followers+',
-        aliases: ['market', 'store'],
-    },
-    run: async (bot, message) => {
+	config: {
+		name: 'shop',
+		description: 'Displays a shop where people can purchase items.',
+		usage: '.shop',
+		accessableby: 'Followers+',
+		aliases: ['market', 'store'],
+	},
+	run: async (bot, message) => {
 
-        let itemDesc = '';
-        let itemDesc2 = '';
+		let description = '';
 
-        // Shop Menu 1
-        const shopMenu = new MessageEmbed()
-            .setTitle('Military Market');
+		DBItems.find({ inshop: true }, (err, shopItems) => {
+			if (err) { console.log(err); }
 
 
-        bot.shop.forEach(a => {
-            itemDesc += `${a.emoji} **${a.name}** **─**  ${a.cost.toLocaleString()} S$ **─** ${a.type}\n${a.description}\n\n`;
-        });
+			const shopEmbed = new MessageEmbed()
+				.setTitle('🗡️ Military Market')
+				.setColor(message.member.displayHexColor);
+
+			shopItems.map((item) => {
+				const itemFiles = bot.items.get(item.name);
+				if (typeof itemFiles === 'undefined') {
+					return;
+				}
+				description += `${itemFiles.emoji} **${itemFiles.name}** - ${itemFiles.category}\n${itemFiles.description}\n\`PRICE\` **${itemFiles.price.toLocaleString()}** credits\n\n`;
+
+			});
+
+			shopEmbed.setDescription(`Kit yourself out with some awesome items that will allow you to grow your arsenal.\n\n**Purchase an item with** \`.buy <itemName>\`\n\n${description}`);
+			shopEmbed.setFooter('Page 1 | 3');
 
 
-        shopMenu.setDescription('Welcome to the Military Market! Kit your base out with some defences to stop those pesky raiders, and to turn your base into the ultimate field of operations. Buy an item with `.buy itemname`');
-        shopMenu.addField('Purchasable Defences:', itemDesc);
-        shopMenu.setColor(message.member.displayHexColor);
-        shopMenu.setFooter('Page 1/3');
+			message.channel.send(shopEmbed);
 
 
-        // Shop Menu 2
-        const shopMenu2 = new MessageEmbed()
-            .setTitle('Military Market');
+		});
+	},
 
-        items2.forEach(a => {
-            itemDesc2 += `${a.emoji} **${a.name}** **─**  ${a.cost.toLocaleString()} S$ **─** ${a.type}\n${a.description}\n\n`;
-        });
-
-
-        shopMenu2.setDescription('Welcome to the Military Market! Kit yourself out with some cool items and begin the journey to making powerful decisions. Buy an item with `.buy itemname`');
-        shopMenu2.addField('Purchasable Cosmetics:', itemDesc2);
-        shopMenu2.setColor(message.member.displayHexColor);
-        shopMenu2.setFooter('Page 2/3');
-
-        const pages = [shopMenu, shopMenu2];
-        const emojiList = ['⬅️', '➡️'];
-        const timeout = '60000';
-
-        pagination(message, pages, emojiList, timeout);
-
-    },
 };
