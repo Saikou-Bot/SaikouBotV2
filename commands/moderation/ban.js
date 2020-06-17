@@ -4,86 +4,86 @@ const moment = require('moment');
 
 const { getUserMod } = require('../utils/getUserMod');
 const warnData = require('../../models/warnData');
-const errors = require('.././utils/errors');
+const errors = require('.././utils/embeds');
 const colours = require('../../jsonFiles/colours.json');
 
 module.exports = {
-    config: {
-        name: 'ban',
-        description: 'Reserved for the staff team to ban a user.',
-        usage: '.ban <user> <reason>',
-        accessableby: 'Staff',
-        aliases: ['permban', 'permremove'],
-    },
-    run: async (bot, message, args) => {
+	config: {
+		name: 'ban',
+		description: 'Reserved for the staff team to ban a user.',
+		usage: '.ban <user> <reason>',
+		accessableby: 'Staff',
+		aliases: ['permban', 'permremove'],
+	},
+	run: async (bot, message, args) => {
 
-        const member = getUserMod(message, args[0]);
-        const reason = args.slice(1).join(' ');
+		const member = getUserMod(message, args[0]);
+		const reason = args.slice(1).join(' ');
 
-        if (!message.member.hasPermission('BAN_MEMBERS')) {
-            return errors.noPerms(message, '<Ban Members>' || message, '.ban');
-        }
+		if (!message.member.hasPermission('BAN_MEMBERS')) {
+			return errors.noPerms(message, '<Ban Members>' || message, '.ban');
+		}
 
-        if (!member) {
-            return errors.noUser(message, 'ban');
-        }
+		if (!member) {
+			return errors.noUser(message, 'ban');
+		}
 
-        if (member.id === message.author.id) {
-            return errors.yourself(message, 'ban');
-        }
+		if (member.id === message.author.id) {
+			return errors.yourself(message, 'ban');
+		}
 
-        if (member.hasPermission('BAN_MEMBERS')) {
-            return errors.equalPerms(message, 'Ban Members');
-        }
+		if (member.hasPermission('BAN_MEMBERS')) {
+			return errors.equalPerms(message, 'Ban Members');
+		}
 
-        if (!member.kickable) {
-            return errors.unable(message, 'ban');
-        }
+		if (!member.kickable) {
+			return errors.unable(message, 'ban');
+		}
 
-        if (!reason) {
-            return errors.noReason(message, 'ban');
-        }
-
-
-        warnData.findOne({
-            userID: member.id,
-            guild: message.guild.id,
-        }, (err, warnings) => {
-            if (err) console.log(err);
+		if (!reason) {
+			return errors.noReason(message, 'ban');
+		}
 
 
-            warnData.deleteOne({ userID: member.id }).catch(err => console.log(err));
-            member.ban(reason);
-
-            const embed3 = new MessageEmbed()
-                .setDescription(`✅ **${member.displayName} has been banned.**`)
-                .setColor(colours.green);
-
-            message.channel.send(embed3);
-
-            member.send(new MessageEmbed()
-                .setTitle('Banned')
-                .setDescription('You have received a **ban** in Saikou due to your behaviour within our server.')
-                .addField('Banned By', `${message.author.tag}`)
-                .addField('Reason', `${args.slice(1).join(' ')}`)
-                .setColor(colours.red)
-                .setFooter('THIS IS AN AUTOMATED MESSAGE')
-                .setTimestamp()).catch(() => { return; });
+		warnData.findOne({
+			userID: member.id,
+			guild: message.guild.id,
+		}, (err, warnings) => {
+			if (err) console.log(err);
 
 
-            modLogs.send(new MessageEmbed()
-                .setAuthor(`Case ${warnings.warns.length + 1} | Ban | ${member.displayName}`, member.user.displayAvatarURL())
-                .addField('User:', `<@${member.id}>`, true)
-                .addField('Moderator', `<@${message.author.id}>`, true)
-                .addField('Reason', `${args.slice(1).join(' ')}`, true)
-                .setColor(colours.red)
-                .setFooter(`Banned User ID: ${member.id}`)
-                .setTimestamp());
+			warnData.deleteOne({ userID: member.id }).catch(err => console.log(err));
+			member.ban(reason);
+
+			const embed3 = new MessageEmbed()
+				.setDescription(`✅ **${member.displayName} has been banned.**`)
+				.setColor(colours.green);
+
+			message.channel.send(embed3);
+
+			member.send(new MessageEmbed()
+				.setTitle('Banned')
+				.setDescription('You have received a **ban** in Saikou due to your behaviour within our server.')
+				.addField('Banned By', `${message.author.tag}`)
+				.addField('Reason', `${args.slice(1).join(' ')}`)
+				.setColor(colours.red)
+				.setFooter('THIS IS AN AUTOMATED MESSAGE')
+				.setTimestamp()).catch(() => { return; });
 
 
-            moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: Server Ban.\nReason: ${reason}\nProof:`);
+			modLogs.send(new MessageEmbed()
+				.setAuthor(`Case ${warnings.warns.length + 1} | Ban | ${member.displayName}`, member.user.displayAvatarURL())
+				.addField('User:', `<@${member.id}>`, true)
+				.addField('Moderator', `<@${message.author.id}>`, true)
+				.addField('Reason', `${args.slice(1).join(' ')}`, true)
+				.setColor(colours.red)
+				.setFooter(`Banned User ID: ${member.id}`)
+				.setTimestamp());
 
 
-        });
-    },
+			moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: Server Ban.\nReason: ${reason}\nProof:`);
+
+
+		});
+	},
 };
