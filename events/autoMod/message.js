@@ -36,6 +36,23 @@ function filter(str) {
 	return str;
 }
 
+global.swearFilter = (message) => {
+	const filtered = filter(message.content);
+	const specialFilter = filter(message.content.split('').map((item) => specialChars[item] || item).join(''));
+	console.log(message.content[0] + message.content[1]);
+	console.log(filtered);
+	console.log(specialFilter);
+	if (badwords.some((badword) => {
+		const badwordReg = new RegExp(`\\b${badword.replace(/(\W)/g, '\\$1')}\\b`, 'gi');
+		return badwordReg.test(filtered) || badwordReg.test(specialFilter);
+	})) {
+		message.delete();
+		message.channel.send('Got \'em');
+	}
+};
+
+/* global swearFilter*/
+
 module.exports = (client, message) => {
 	antiSpam.message(message);
 	if (inviteLink.test(message.content)) {
@@ -50,17 +67,7 @@ module.exports = (client, message) => {
 			}
 		});
 	}
-
-	const filtered = filter(message.content);
-	const specialFilter = filter(message.content.split('').map((item) => specialChars[item] || item).join(''));
-
-	if (badwords.some((badword) => {
-		const badwordReg = new RegExp(`\\b${badword.replace(/(\W)/g, '\\$1')}\\b`, 'gi');
-		return badwordReg.test(filtered) || badwordReg.test(specialFilter);
-	})) {
-		message.delete();
-		message.channel.send('Got \'em');
-	}
+	else {swearFilter(message);}
 };
 
 antiSpam.on('warnAdd', member => {
