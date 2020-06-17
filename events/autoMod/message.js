@@ -39,7 +39,7 @@ function filter(str) {
 global.swearFilter = (message) => {
 	const filtered = filter(message.content);
 	const specialFilter = filter(message.content.split('').map((item) => specialChars[item] || item).join(''));
-	console.log(message.content[0] + message.content[1]);
+	console.log(message.content[0]);
 	console.log(filtered);
 	console.log(specialFilter);
 	if (badwords.some((badword) => {
