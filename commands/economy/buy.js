@@ -16,6 +16,7 @@ module.exports = {
 	run: async (bot, message, args) => {
 
 		const ItemName = args.join(' ');
+		const regex = new RegExp(`.*${ItemName.replace(/(\W)/g, '\\$1')}.*`, 'gi');
 
 		const InvalidItem = new MessageEmbed()
 			.setTitle('🔎 Item doesn\'t exist!')
@@ -28,7 +29,7 @@ module.exports = {
 			return message.channel.send(InvalidItem);
 		}
 
-		const shopItems = await items.findOne({ name: ItemName, inshop: true });
+		const shopItems = await items.findOne({ 'name' : regex, inshop: true, });
 
 		if (!shopItems) {
 			return message.channel.send(InvalidItem);
@@ -73,7 +74,7 @@ module.exports = {
 								itemQuantity: 1,
 								itemSell: Math.floor(itemFiles.price / 2),
 								itemEmoji: itemFiles.emoji,
-								itemType: itemFiles.type,
+								itemType: itemFiles.category,
 								multipurchase: itemFiles.multipurchase,
 
 							});

@@ -4,5 +4,5 @@ module.exports = {
 	category: 'Ranks',
 	description: 'A starting rank which grants the user +10% bonus credits.',
 	price: 500,
-	multipurchase: true,
+	multipurchase: false,
 };
