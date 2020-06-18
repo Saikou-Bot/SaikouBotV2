@@ -20,30 +20,28 @@ module.exports = {
 
 			if (!userItems.length) {
 				return message.channel.send(new MessageEmbed()
-					.setDescription(`ℹ️ ${user.displayName} has no items.`)
+					.setDescription(`ℹ️ **${user.displayName}** has no items.`)
 					.setColor(user.displayHexColor));
 			}
-			else {
-				let invdesc = '';
 
-				const embed = new MessageEmbed()
-					.setTitle(`${user.displayName}'s inventory`)
-					.setDescription('All your owned items are stored here! Check them out and maybe use one or two with `.use itemName`\n\n')
-					.setColor(user.displayHexColor);
+			let invdesc = '';
 
-
-				userItems.forEach(a => {
-					invdesc += `${a.itemEmoji} **x ${a.itemQuantity}** **∙** \`${a.itemName}\` **-** ${a.itemType}\nSells for: S$${a.itemSell.toLocaleString()}\n\n`;
-				});
-
-				embed.addField('Your items:', invdesc);
-
-				message.channel.send(embed);
-			}
+			const embed = new MessageEmbed()
+				.setTitle(`${user.displayName}'s inventory`)
+				.setDescription('All your owned items are stored here! Check them out and maybe use one or two with `.use itemName`\n\n')
+				.setColor(user.displayHexColor);
 
 
-		})
+			userItems.forEach(a => {
+				invdesc += `${a.itemEmoji} **x ${a.itemQuantity}** **∙** \`${a.itemName}\` **-** ${a.itemType}\nSells for: S$${a.itemSell.toLocaleString()}\n\n`;
+			});
 
+			embed.addField('Your items:', invdesc);
+
+			message.channel.send(embed);
+
+
+		}).sort({ itemSell: -1 });
 
 
 	},
