@@ -34,7 +34,7 @@ module.exports = {
 			case 1: numberName = '🥇'; break;
 			case 2: numberName = '🥈'; break;
 			case 3: numberName = '🥉'; break;
-			default: numberName = `:${numbers[index - 1]}:`; break;
+			default: numberName = `:${numbers[index]}:`; break;
 			}
 			description += `${numberName} <@${a.userID}> **Credits**: ${a.coins}\n`;
 		});
