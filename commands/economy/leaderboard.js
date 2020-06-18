@@ -30,8 +30,7 @@ module.exports = {
 		leaderboard.setColor(colours.blurple);
 
 		(await data).forEach((a, index) => {
-			index++;
-			switch (index) {
+			switch (index + 1) {
 			case 1: numberName = '🥇'; break;
 			case 2: numberName = '🥈'; break;
 			case 3: numberName = '🥉'; break;
