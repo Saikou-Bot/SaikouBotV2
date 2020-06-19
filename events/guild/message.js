@@ -69,7 +69,7 @@ module.exports = async (bot, message) => {
 	if (commandfile.config.channel) {
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			error('incorrectChannel', commandfile, () => {
-				message.channel.send('Incorrect channel') // pls make better embed
+				message.channel.send('Incorrect channel'); // pls make better embed
 			}, message);
 			return;
 		}
