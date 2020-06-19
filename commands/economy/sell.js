@@ -1,56 +1,67 @@
-const UserData = require('../../models/userData.js');
+const userItems = require('../../models/userItems');
+const credits = require('../../models/userData');
+const { MessageEmbed } = require('discord.js');
+const colours = require('../../jsonFiles/colours.json');
+
 
 module.exports = {
-    config: {
-        name: 'sell',
-        description: 'Sell an item if you are low on cash.',
-        usage: '.sell <item>',
-        accessableby: 'Followers+',
-        aliases: ['remove'],
-    },
-    run: async (bot, message, args) => {
+	config: {
+		name: 'sell',
+		description: 'Sell an item if you are low on cash.',
+		usage: '.sell <item>',
+		accessableby: 'Followers+',
+		aliases: ['sellitem'],
+	},
+	run: async (bot, message, args) => {
 
 
-        const Name = args.join(' ');
-
-        UserData.findOne({ userID: message.author.id }, {}, { 'items.itemQuantity': { '$gt': 1 } }, (err, quantityData) => {
-            if (err) console.log(err);
-
-            console.log(quantityData);
-
-            UserData.findOne({
-                userID: message.author.id, 'items.itemName': Name,
-            }, (err, userData) => {
-                if (err) console.log(err);
+		const Name = args.join(' ');
 
 
-                if (!userData || userData === null) {
-                    return message.channel.send('Item doesn\'t exist! ');
-                }
+		credits.findOne({ userID: message.author.id }, (err, userCredits) => {
 
-                else if (quantityData) {
-                    userData.coins += 500;
-                    userData.save();
-                    //  console.log(itemSellPrice)
+			userItems.findOne({ userID: message.author.id, itemName : { $regex: Name, $options: 'i' } }, (err, Items) => {
 
-                    UserData.updateOne({ userID: message.author.id, 'items.itemName': Name }, { $inc: { 'items.$.itemQuantity': -1 } }).catch(err => console.log(err));
+				if (!Items) {
+					return message.channel.send(new MessageEmbed()
+						.setTitle('📁 Can\'t find item!')
+						.setDescription('That item either isn\'t in your inventory or doesn\'t exist!')
+						.setColor(colours.red));
+				}
 
-                    message.channel.send('Took 1 away from quantity and gave money');
+				if (Items.itemQuantity > 1) {
+					userCredits.coins += Items.itemSell;
+					userCredits.save();
 
-                }
-                else {
+					Items.itemQuantity -= 1;
+					Items.save();
 
-                    userData.coins += 500;
-                    userData.save();
+					return message.channel.send(new MessageEmbed()
+						.setTitle('🚚 Success!')
+						.setDescription(`You successfully sold **${Items.itemName}** in the Military Market for \`S$${Items.itemSell.toLocaleString()}\`.`)
+						.setColor(colours.green));
+				}
 
-                    UserData.updateOne({ userID: message.author.id }, { $pull: { 'items': { 'itemName': Name } } }).catch(err => console.log(err));
-
-                    message.channel.send('removed item and gave money');
-                }
-
-            });
-        });
+				else {
+					userItems.deleteOne({ userID: message.author.id, itemName : { $regex: Name, $options: 'i' } }, () => {
 
 
-    },
+						userCredits.coins += Items.itemSell;
+						userCredits.save();
+
+
+						return message.channel.send(new MessageEmbed()
+							.setTitle('🚚 Success!')
+							.setDescription(`You successfully sold **${Items.itemName}** in the Military Market for \`S$${Items.itemSell.toLocaleString()}\`.`)
+							.setColor(colours.green));
+
+					});
+				}
+
+			});
+
+		});
+
+
+	},
 };

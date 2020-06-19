@@ -1,14 +1,12 @@
 // -- Requiring modules
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const { config } = require('dotenv');
-const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES'] } });
+const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS'] } });
 const mongoose = require('mongoose');
 global.colours = require('./jsonFiles/colours.json');
 
 global.MessageEmbed = MessageEmbed;
 
-bot.shop = new Map();
-const items = require('./jsonFiles/items.json');
 
 // -- Setting .env path
 config({
@@ -31,11 +29,6 @@ mongoose.connect(process.env.MONGOPASSWORD, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useFindAndModify: false,
-});
-
-items.forEach(a => {
-	bot.shop.set(a.id, a);
-	console.log(`Loaded item ${a.id}`);
 });
 
 
