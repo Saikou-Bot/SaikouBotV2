@@ -1,13 +1,16 @@
 /* eslint-disable no-shadow-restricted-names */
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Collection } = require('discord.js');
 const colours = require('../../jsonFiles/colours.json');
+
+const maintainData = require('../../models/maintainData');
+
+const { EventEmitter } = require('events');
 
 const env = process.env;
 const prefix = env.PREFIX;
 
 function parseArguments(arguments) {
 	const entries = Object.entries(arguments);
-	console.log(entries);
 	return entries.map((entry) => {
 		if (entry[1]) {
 			return `<${entry[0]}>`;
@@ -16,6 +19,56 @@ function parseArguments(arguments) {
 			return `[${entry[0]}]`;
 		}
 	}).join(' ');
+}
+
+class MaintainManager extends EventEmitter {
+	constructor(model) {
+		super();
+		this.MaintainModel = model;
+		this.cache = new Collection();
+		this.ttl = 10 * 60 * 1000;
+
+		this.MaintainModel.schema.post('updateOne', async () => {
+			console.log(this);
+		});
+	}
+	isCacheExpired(item) {
+		return (item.expiry.getTime() + this.ttl) < Date.now();
+	}
+	async getData() {
+		const data = await this.MaintainModel.find({});
+
+		data.forEach(this.updateCache, this);
+		return this.cache;
+	}
+	updateCache(item) {
+		item.expiry = new Date();
+		this.cache.set(item.name, item);
+	}
+	async maintained(name) {
+		return (await this.fetch(name)).maintained;
+	}
+	async fetch(name) {
+		let item = this.cache.get(name);
+		if (!item || this.isCacheExpired(item)) {
+			item = await this.MaintainModel.findOne({ name });
+			if (!item) {
+				item = new maintainData({
+					name
+				});
+				await item.save();
+			}
+			this.updateCache(item);
+		}
+		return item;
+	}
+	async setMaintain(name, status) {
+		const item = await this.fetch(name);
+		item.maintained = status;
+		await item.save();
+		this.updateCache(item);
+		return item;
+	}
 }
 
 function error(name, command = {}, callback, ...args) {
@@ -28,6 +81,10 @@ function error(name, command = {}, callback, ...args) {
 	callback(...args);
 }
 
+const maintains = new MaintainManager(maintainData);
+
+maintains.getData();
+
 module.exports = async (bot, message) => {
 	if (message.author.bot || message.channel.type === 'dm') return;
 	if (!message.content.startsWith(prefix)) return;
@@ -38,6 +95,15 @@ module.exports = async (bot, message) => {
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
 
 	if (!commandfile || !commandfile.config) return;
+
+	if (!process.env.test && await maintains.maintained(commandfile.config.name)) {
+		const MaintainedEmbed = new MessageEmbed({
+			title: '⚠️ This command is being maintained',
+			description: 'the developers are working on this command',
+			color: colours.yellow
+		});
+		return message.channel.send(MaintainedEmbed);
+	}
 
 	let arguments;
 
@@ -91,7 +157,7 @@ module.exports = async (bot, message) => {
 	};
 	if (commandfile) {
 		try {
-			const promise = commandfile.run(bot, message, arguments);
+			const promise = commandfile.run(bot, message, arguments, { maintains });
 			if (promise && promise.catch) {
 				promise.catch(alertError);
 			}
