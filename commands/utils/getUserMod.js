@@ -1,6 +1,5 @@
-/* eslint-disable space-before-function-paren */
 module.exports = {
-	getUserMod: function (message, toFind = '') {
+	getUserMod: function(message, toFind = '') {
 		toFind = toFind.toLowerCase();
 		let target = message.guild.members.cache.get(toFind);
 
@@ -16,4 +15,5 @@ module.exports = {
 
 		return target;
 	},
+
 };
