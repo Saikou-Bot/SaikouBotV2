@@ -11,6 +11,7 @@ module.exports = {
 		usage: '.leaderboard',
 		accessableby: 'Followers+',
 		aliases: ['creditsleaderboard', 'leader', 'credsleaderboard', 'top10', 'lb', 'top'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message) => {
 

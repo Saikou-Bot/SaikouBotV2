@@ -9,6 +9,7 @@ module.exports = {
 		usage: '.ping',
 		accessableby: 'Followers+',
 		aliases: ['latency', 'botping', 'apilatency', 'botlatency'],
+		channel: 'bot-commands'
 	},
 	run: async (client, message) => {
 

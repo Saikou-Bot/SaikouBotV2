@@ -11,6 +11,7 @@ module.exports = {
 		usage: '.sell <item>',
 		accessableby: 'Followers+',
 		aliases: ['sellitem'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

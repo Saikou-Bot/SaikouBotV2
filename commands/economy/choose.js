@@ -10,6 +10,7 @@ module.exports = {
 		usage: '.choose questName',
 		accessableby: 'Followers+',
 		aliases: ['choosequest', 'start', 'startquest'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

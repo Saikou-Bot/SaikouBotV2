@@ -12,6 +12,7 @@ module.exports = {
 		usage: '?bal',
 		accessableby: 'Followers+',
 		aliases: ['bal', 'b', 'money', 'coins', 'cash'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

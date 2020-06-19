@@ -135,7 +135,11 @@ module.exports = async (bot, message) => {
 	if (commandfile.config.channel) {
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			error('incorrectChannel', commandfile, () => {
-				message.channel.send('Incorrect channel'); // pls make better embed
+				message.delete();
+				message.channel.send(new MessageEmbed()
+					.setTitle('📌 Can\'t use this channel!')
+					.setDescription(`The command **${commandfile.config.name}** is limited to the **${commandfile.config.channel}** channel. Try relocating to that channel and trying again!`)
+					.setColor(colours.red)).then(msg => { msg.delete({ timeout: 10000 }); });
 			}, message);
 			return;
 		}
@@ -153,7 +157,13 @@ module.exports = async (bot, message) => {
 
 	const alertError = (errorMessage) => {
 		console.error(errorMessage);
-		message.channel.send('Failed to run command');
+		message.channel.send(new MessageEmbed()
+			.setColor(colours.red)
+			.setTitle('❌ An error occurred!')
+			.setDescription(` Uh oh! Looks like our team of developers forgot that last screw causing an error. Please contact our bot developers if this error persists, you can try... \n
+							• Re-entering the command
+							• Coming back later and trying again
+							• Checking out Saikou's social medias whilst you wait 😏`));
 	};
 	if (commandfile) {
 		try {

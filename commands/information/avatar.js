@@ -9,6 +9,7 @@ module.exports = {
 		usage: '.avatar || .avatar <user>',
 		accessableby: 'Followers+',
 		aliases: ['pp', 'profilepic'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

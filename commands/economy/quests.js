@@ -9,6 +9,7 @@ module.exports = {
 		usage: '.quests',
 		accessableby: 'Followers+',
 		aliases: ['viewquests', 'activequests'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message) => {
 

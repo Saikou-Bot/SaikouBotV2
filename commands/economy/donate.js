@@ -13,6 +13,7 @@ module.exports = {
 		usage: '?donate <user> <amount>',
 		accessableby: 'Followers+',
 		aliases: ['give'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

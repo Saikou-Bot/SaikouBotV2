@@ -8,6 +8,7 @@ module.exports = {
 		usage: '.suggest <suggestion>',
 		accessableby: 'Followers+',
 		aliases: ['suggestion'],
+		channel: 'suggestions'
 	},
 	run: async (bot, message, args) => {
 

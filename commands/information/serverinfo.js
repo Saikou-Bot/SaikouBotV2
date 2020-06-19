@@ -9,6 +9,7 @@ module.exports = {
 		usage: '.serverinfo',
 		accessableby: 'Followers+',
 		aliases: ['server', 'guild', 'guildinfo'],
+		channel: 'serverinfo'
 	},
 	run: async (bot, message) => {
 

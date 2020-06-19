@@ -9,6 +9,7 @@ module.exports = {
 		usage: '.inventory',
 		accessableby: 'Followers+',
 		aliases: ['inv'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

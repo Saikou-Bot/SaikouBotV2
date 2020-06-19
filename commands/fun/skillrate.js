@@ -10,6 +10,7 @@ module.exports = {
 		usage: '.skillrate || .skillrate <user>',
 		accessableby: 'Followers+',
 		aliases: ['prorate', 'skill', 'pro', 'rate'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

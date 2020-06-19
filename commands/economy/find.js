@@ -11,6 +11,7 @@ module.exports = {
 		usage: '.find',
 		accessableby: 'Public',
 		aliases: ['beg', 'look', 'search'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message) => {
 

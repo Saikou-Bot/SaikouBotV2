@@ -7,6 +7,7 @@ module.exports = {
 		usage: '.trivia',
 		accessableby: 'Followers+',
 		aliases: ['quiz'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message) => {
 		const questions = require('../../jsonFiles/trivia.json');

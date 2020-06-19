@@ -11,6 +11,7 @@ module.exports = {
 		usage: '.help || .help <commandName>',
 		accessableby: 'Followers+',
 		aliases: ['commands', 'cmds', 'saikou'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

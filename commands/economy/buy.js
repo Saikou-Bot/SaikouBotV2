@@ -13,6 +13,7 @@ module.exports = {
 		usage: '?buy itemName',
 		accessableby: 'Followers+',
 		aliases: ['purchase'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

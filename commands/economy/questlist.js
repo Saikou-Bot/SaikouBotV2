@@ -8,6 +8,7 @@ module.exports = {
 		usage: '.choose questName',
 		accessableby: 'Followers+',
 		aliases: ['givequest'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message) => {
 

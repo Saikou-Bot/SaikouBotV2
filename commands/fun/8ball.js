@@ -8,6 +8,7 @@ module.exports = {
 		usage: '.8ball <question>',
 		accessableby: 'Followers+',
 		aliases: ['question'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

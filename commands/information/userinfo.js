@@ -10,6 +10,7 @@ module.exports = {
 		usage: '.userinfo || .userinfo <user>',
 		accessableby: 'Followers+',
 		aliases: ['user', 'whois'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 

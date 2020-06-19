@@ -9,6 +9,7 @@ module.exports = {
 		usage: '.status',
 		accessableby: 'Followers+',
 		aliases: ['stats', 'bot', 'botinfo'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message) => {
 

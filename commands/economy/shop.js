@@ -8,6 +8,7 @@ module.exports = {
 		usage: '.shop',
 		accessableby: 'Followers+',
 		aliases: ['market', 'store'],
+		channel: 'bot-commands'
 	},
 	run: async (bot, message) => {
 
