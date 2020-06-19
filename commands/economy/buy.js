@@ -17,8 +17,6 @@ module.exports = {
 	run: async (bot, message, args) => {
 
 		const ItemName = args.join(' ');
-		let reactions = [];
-		let i = 0;
 
 		const InvalidItem = new MessageEmbed()
 			.setTitle('🔎 Item doesn\'t exist!')
@@ -34,7 +32,7 @@ module.exports = {
 		const regex = new RegExp(`.*${ItemName.replace(/(\W)/g, '\\$1')}.*`, 'gi');
 		const shopItems = await items.find({ 'name' : regex, inshop: true, });
 
-		console.log(shopItems);
+		let choosenItem;
 
 		if (shopItems.length < 1) {
 			return message.channel.send(InvalidItem);
@@ -44,41 +42,39 @@ module.exports = {
 			const choosableItems = shopItems.map((item, index) => {
 				return `${index + 1}. ${item.name}`;
 			}).join('\n');
+
 			const chooseEmbed = new MessageEmbed({
 				title: 'Choose item',
 				description: choosableItems
 			});
 
+			const reactEmbed = await message.channel.send(chooseEmbed);
+			const reactions = [];
 
-			await message.channel.send(chooseEmbed).then(reactEmbed => {
+			for (let i = 0; i < shopItems.length; i++) {
+				const number = numbers[i];
+				reactEmbed.react(number);
+				reactions.push(number);
+			}
 
-				for (let index = 0; i < shopItems.length; i++) {
-					reactEmbed.react(`${numbers[i]}`);
+			console.log(reactions);
 
-					reactions.push(numbers[i]);
-
-				}
-
-				console.log(reactions);
-
-				try {
-
-					const filter = (reaction, user) => user.id === message.author.id && reactions.includes(reaction.emoji);
-
-					reactEmbed.awaitReactions(filter, { time: 15000, max: 1, errors: ['time'] })
-						.then(collected => console.log(collected))
-						.catch(console.error);
-
-				}
-				catch (e) {
-					console.log(e);
-				}
-
-
-			});
+			try {
+				const collected = await reactEmbed.awaitReactions((reaction, user) => {
+					return user.id === message.author.id && reactions.includes(reaction.emoji.name);
+				}, { time: 15000, max: 1, errors: ['time'] });
+				reactEmbed.delete();
+				choosenItem = shopItems[reactions.indexOf(collected.firstKey())];
+			}
+			catch (e) {
+				console.error(e);
+			}
+		}
+		else {
+			choosenItem = shopItems[0];
 		}
 
-		const itemFiles = bot.items.get(shopItems.name);
+		const itemFiles = bot.items.get(choosenItem.name);
 		if (typeof itemFiles === 'undefined') {
 			return;
 		}
