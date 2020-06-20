@@ -2,6 +2,7 @@
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const ms = require('ms');
+const warnUtil = require('../utils/warn');
 
 const { getUserMod } = require('../utils/getUserMod');
 const warnData = require('../../models/warnData');
@@ -23,6 +24,12 @@ module.exports = {
 		let mutedRole = message.guild.roles.cache.find(role => role.name === 'Muted');
 		const time = args[1];
 
+		const noTime = new MessageEmbed()
+			.setColor(colours.red)
+			.setTitle('⏱️ Supply a time!')
+			.setDescription('Please supply a correct time for the command **mute**.')
+			.setFooter('h - Hours ● Days - d');
+
 		if (!message.member.hasPermission('MANAGE_MESSAGES')) {
 			return errors.noPerms(message, '<Manage Messages>' || message, '.mute');
 		}
@@ -43,16 +50,21 @@ module.exports = {
 			return errors.yourself(message, 'mute');
 		}
 
+		if (member.user.bot) {
+			return errors.bots(message, 'mute');
+		}
+
 		if (member.hasPermission('MANAGE_MESSAGES')) {
 			return errors.equalPerms(message, 'Manage Messages');
 		}
 
 		if (!time) {
-			return message.channel.send(new MessageEmbed()
-				.setColor(colours.red)
-				.setTitle('⏱️ Supply a time!')
-				.setDescription('Please supply a correct time for the command **mute**.')
-				.setFooter('h - Hours ● Days - d'));
+
+			return message.channel.send(noTime);
+		}
+
+		if (!time.includes('s' || 'm' || 'h' || 'd')) {
+			return message.channel.send(noTime);
 		}
 
 		if (!reason) {
@@ -88,80 +100,54 @@ module.exports = {
 
 		message.channel.send(`<@${member.id}> has been muted for ${ms(ms(time))}`);
 
-		warnData.findOne({
-			userID: member.id,
+		const warnings = await warnUtil.addWarn({
+			user: member.id,
 			guild: message.guild.id,
-		}, (err, warnings) => {
-			if (err) console.log(err);
-
-			if (!warnings) {
-				const newWarnData = new warnData({
-					userID: member.id,
-					guild: message.guild.id,
-					warns: [{ Moderator: message.author.id, Time: moment().format('MMMM Do YYYY'), Reason: `[**${ms(ms(time))} mute**] ${reason}` }],
-				});
-				newWarnData.save();
-
-			}
-
-			else {
-				warnData.updateOne(
-					{ userID: member.id },
-					{
-						$push: {
-							warns: {
-								'Moderator': message.author.id,
-								'Time': moment().format('MMMM Do YYYY'),
-								'Reason': `[**${ms(ms(time))} mute**] ${reason}`,
-							},
-						},
-					},
-				).catch(err => console.log(err));
-
-				member.send(new MessageEmbed()
-					.setTitle('Muted')
-					.setDescription('You have received a **mute** in Saikou due to your behaviour within our server. Improve how you act otherwise you will be kicked.')
-					.addField('Muted By', `${message.author.tag}`)
-					.addField('Muted For', `${ms(ms(time))}`)
-					.addField('Reason', `${reason}`)
-					.setColor(colours.red)
-					.setFooter('THIS IS AN AUTOMATED MESSAGE')
-					.setTimestamp()).catch(() => { return; });
-
-
-				modLogs.send(new MessageEmbed()
-					.setAuthor(`Case ${warnings.warns.length + 1} | ${ms(ms(time))} Mute | ${member.displayName}`, member.user.displayAvatarURL())
-					.addField('User:', `<@${member.id}>`, true)
-					.addField('Moderator', `<@${message.author.id}>`, true)
-					.addField('Reason', `${reason}`, true)
-					.setColor(colours.red)
-					.setFooter(`Muted User ID: ${member.id}`)
-					.setTimestamp());
-
-
-				moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: ${ms(ms(time))} server mute.\nReason: ${reason}\nProof:`);
-
-
-				for (let i = 0; i < roles.length; i++) {
-					if (roles[i].name.includes('Follower')) {
-						const userRole = roles[i];
-						member.roles.remove(roles[i]);
-
-						member.roles.add(mutedRole);
-
-
-						// eslint-disable-next-line space-before-function-paren
-						setTimeout(function () {
-							member.roles.add(userRole);
-							member.roles.remove(mutedRole);
-						}, ms(time));
-
-					}
-				}
-
-
-			}
+			warn: {
+				moderator: message.author.id,
+				reason: `[**${ms(ms(time))} mute**] ${reason}`,
+			},
 		});
 
-	},
+		member.send(new MessageEmbed()
+			.setTitle('Muted')
+			.setDescription('You have received a **mute** in Saikou due to your behaviour within our server. Improve how you act otherwise you will be kicked.')
+			.addField('Muted By', `${message.author.tag}`)
+			.addField('Muted For', `${ms(ms(time), { long: true })}`)
+			.addField('Reason', `${reason}`)
+			.setColor(colours.red)
+			.setFooter('THIS IS AN AUTOMATED MESSAGE')
+			.setTimestamp()).catch(() => { return; });
+
+
+		modLogs.send(new MessageEmbed()
+			.setAuthor(`Case ${warnings.warns.length + 1} | ${ms(ms(time))} Mute | ${member.displayName}`, member.user.displayAvatarURL())
+			.addField('User:', `<@${member.id}>`, true)
+			.addField('Moderator', `<@${message.author.id}>`, true)
+			.addField('Reason', `${reason}`, true)
+			.setColor(colours.red)
+			.setFooter(`Muted User ID: ${member.id}`)
+			.setTimestamp());
+
+
+		moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: ${ms(ms(time), { long: true })} server mute.\nReason: ${reason}\nProof:`);
+
+
+		for (let i = 0; i < roles.length; i++) {
+			if (roles[i].name.includes('Follower')) {
+				const userRole = roles[i];
+				member.roles.remove(roles[i]);
+
+				member.roles.add(mutedRole);
+
+
+				// eslint-disable-next-line space-before-function-paren
+				setTimeout(function () {
+					member.roles.add(userRole);
+					member.roles.remove(mutedRole);
+				}, ms(time));
+
+			}
+		}
+	}
 };
