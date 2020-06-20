@@ -31,7 +31,7 @@ module.exports = {
 
 			message.author.send(embed).then(() => {
 				message.channel.send(new MessageEmbed()
-					.setDescription(`📬 A message has been sent to your DM's ${message.author.username}`)
+					.setDescription(`📬 A message has been sent to your DM's <@${message.author.id}>`)
 					.setColor(colours.green));
 
 			}).catch(() => {
@@ -133,7 +133,7 @@ module.exports = {
 						const embed3 = new MessageEmbed()
 							.setTitle('⚙️ General Commands')
 							.setColor(colours.blurple)
-							.setDescription(`${bot.user.username} currently features ${general.length} game commands!\n\n**${general.join(',  ')}**`);
+							.setDescription(`${bot.user.username} currently features ${general.length} general commands!\n\n**${general.join(',  ')}**`);
 
 						message.author.send(embed3);
 
