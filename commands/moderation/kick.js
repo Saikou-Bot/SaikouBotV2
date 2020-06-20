@@ -31,6 +31,10 @@ module.exports = {
 			return errors.yourself(message, 'kick');
 		}
 
+		if (member.user.bot) {
+			return errors.bots(message, 'kick');
+		}
+
 		if (member.hasPermission('KICK_MEMBERS')) {
 			return errors.equalPerms(message, 'Kick Members');
 		}
@@ -52,6 +56,8 @@ module.exports = {
 				reason: reason,
 			},
 		});
+
+		member.kick();
 
 
 		const embed2 = new MessageEmbed()
