@@ -97,11 +97,10 @@ module.exports = async (bot, message) => {
 	if (!commandfile || !commandfile.config) return;
 
 	if (!process.env.test && await maintains.maintained(commandfile.config.name)) {
-		const MaintainedEmbed = new MessageEmbed({
-			title: '⚠️ This command is being maintained',
-			description: 'the developers are working on this command',
-			color: colours.yellow
-		});
+		const MaintainedEmbed = new MessageEmbed()
+			.setTitle('🛠️ Under maintenance')
+			.setDescription(`Our team of developers are currently performing maintenance on **${commandfile.config.name}**, please try again later!`)
+			.setColor(colours.yellow);
 		return message.channel.send(MaintainedEmbed);
 	}
 
@@ -160,10 +159,8 @@ module.exports = async (bot, message) => {
 		message.channel.send(new MessageEmbed()
 			.setColor(colours.red)
 			.setTitle('❌ An error occurred!')
-			.setDescription(` Uh oh! Looks like our team of developers forgot that last screw causing an error. Please contact our bot developers if this error persists, you can try... \n
-							• Re-entering the command
-							• Coming back later and trying again
-							• Checking out Saikou's social medias whilst you wait 😏`));
+			.setDescription('Uh oh! Looks like our team of developers forgot that last screw causing an error. Please contact our bot developers if this error persists, you can try... \n\n• Re-entering the command\n• Coming back later and trying again\n• Checking out Saikou\'s social medias whilst you wait 😏'));
+
 	};
 	if (commandfile) {
 		try {

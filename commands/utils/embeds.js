@@ -52,9 +52,7 @@ module.exports.noPerms = (message, perms, name) => {
 module.exports.equalPerms = (message, perms) => {
 	const embed = new MessageEmbed()
 		.setTitle('⚙️ Equal Permissions')
-		.setDescription(`The user you are trying to perform this action on has equal permissions to you, consider..\n
-            • Changing the user's permissions
-            • Changing the user's roles`)
+		.setDescription('The user you are trying to perform this action on has equal permissions to you, consider..\n\n• Changing the user\'s permissions\n• Changing the user\'s roles')
 		.setColor(colours.red)
 		.setFooter(`Equal Permission(s): ${perms}`);
 
@@ -76,9 +74,7 @@ module.exports.yourself = (message, name) => {
 module.exports.unable = (message, name) => {
 	const embed = new MessageEmbed()
 		.setTitle(`❌ Unable to ${name} user`)
-		.setDescription(`The user you are trying to perform this action on is unable to be ${name} consider..\n
-            • Making sure Saikou's role is higher than theirs
-            • User doesn't have an admin/moderator role`)
+		.setDescription(`The user you are trying to perform this action on is unable to be ${name} consider..\n\n• Making sure Saikou's role is higher than theirs\n• User doesn't have an admin/moderator role`)
 		.setColor(colours.red)
 		.setFooter(`Unable to ${name} user.`);
 
@@ -93,6 +89,16 @@ module.exports.bought = (message, name, cost) => {
 		.setFooter('Successful Purchase')
 		.setTimestamp()
 		.setColor(colours.green);
+
+	message.channel.send(embed);
+},
+
+module.exports.bots = (message, name) => {
+	const embed = new MessageEmbed()
+		.setTitle(`❌ Unable to ${name} bots`)
+		.setDescription('Saikou cannot perform this action on bots. Consider...\n\n• Doing it manually\n• Gazing into the sunset and rethinking your moderation action')
+		.setColor(colours.red)
+		.setFooter(`Unable to ${name} user.`);
 
 	message.channel.send(embed);
 };
