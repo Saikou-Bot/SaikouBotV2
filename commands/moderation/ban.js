@@ -19,6 +19,7 @@ module.exports = {
 
 		const member = getUserMod(message, args[0]);
 		const reason = args.slice(1).join(' ');
+		let warns = '';
 
 		if (!message.member.hasPermission('BAN_MEMBERS')) {
 			return errors.noPerms(message, '<Ban Members>' || message, '.ban');
@@ -30,6 +31,10 @@ module.exports = {
 
 		if (member.id === message.author.id) {
 			return errors.yourself(message, 'ban');
+		}
+
+		if (member.user.bot) {
+			return errors.bots(message, 'mute');
 		}
 
 		if (member.hasPermission('BAN_MEMBERS')) {
@@ -70,9 +75,15 @@ module.exports = {
 				.setFooter('THIS IS AN AUTOMATED MESSAGE')
 				.setTimestamp()).catch(() => { return; });
 
+			if (!warnings) {
+				warns = 1;
+			}
+			else {
+				warns = warnings.warns.length + 1;
+			}
 
 			modLogs.send(new MessageEmbed()
-				.setAuthor(`Case ${warnings.warns.length + 1} | Ban | ${member.displayName}`, member.user.displayAvatarURL())
+				.setAuthor(`Case ${warns} | Ban | ${member.displayName}`, member.user.displayAvatarURL())
 				.addField('User:', `<@${member.id}>`, true)
 				.addField('Moderator', `<@${message.author.id}>`, true)
 				.addField('Reason', `${args.slice(1).join(' ')}`, true)
