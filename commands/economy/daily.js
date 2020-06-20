@@ -1,13 +1,20 @@
 const ms = require('ms');
 const dailyCooldown = require('../../models/dailyCooldown');
+const weighted = require('weighted');
 
 const dailyCooldownAmount = 24 * 60 * 60 * 1000;
+
+const lootCrateWeights = {
+	'common': 0.80,
+	'rare': 0.5,
+	'legendary': 0.1
+};
 
 module.exports = {
 	config: {
 		name: 'daily',
 		aliases: ['supply'],
-		cooldown: true,
+		cooldown: false,
 		autoCooldown: true
 	},
 	async run(client, message, args, utils) {
@@ -27,7 +34,8 @@ module.exports = {
 			}));
 		}
 
-		
+		const choosenCrate = weighted.select(lootCrateWeights);
+		message.channel.send(choosenCrate);
 
 		cooldown.timestamp = new Date();
 		await cooldown.save();
