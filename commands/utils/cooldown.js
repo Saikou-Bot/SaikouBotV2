@@ -5,7 +5,7 @@ const { MessageEmbed } = require('discord.js');
 
 const cooldownDefaults = {
 	name: '',
-	cooldown: 1000,
+	cooldown: 5000,
 	roles: {
 		'Server Booster': 0.5,
 		'Omega Follower': 0.5,
