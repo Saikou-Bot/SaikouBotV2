@@ -37,7 +37,7 @@ module.exports = {
 			case 3: numberName = '🥉'; break;
 			default: numberName = `:${numbers[index]}:`; break;
 			}
-			description += `${numberName} <@${a.userID}> **Credits**: ${a.coins}\n`;
+			description += `${numberName} <@${a.userID}> **Credits**: ${a.coins.toLocaleString()}\n`;
 		});
 
 		leaderboard.setDescription(`Displaying the top 10 most rich users\n\n${description}`);
