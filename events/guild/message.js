@@ -96,11 +96,12 @@ module.exports = async (bot, message) => {
 
 	if (!commandfile || !commandfile.config) return;
 
-	if (!process.env.test && await maintains.maintained(commandfile.config.name)) {
-		const MaintainedEmbed = new MessageEmbed()
-			.setTitle('🛠️ Under maintenance')
-			.setDescription(`Our team of developers are currently performing maintenance on **${commandfile.config.name}**, please try again later!`)
-			.setColor(colours.yellow);
+	if (!process.env.IGNOREMAINTENANCE == 'true' && await maintains.maintained(commandfile.config.name)) {
+		const MaintainedEmbed = new MessageEmbed({
+			title: '⚠️ This command is being maintained',
+			description: 'the developers are working on this command',
+			color: colours.yellow
+		});
 		return message.channel.send(MaintainedEmbed);
 	}
 

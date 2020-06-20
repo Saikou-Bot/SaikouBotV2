@@ -33,6 +33,5 @@ mongoose.connect(process.env.MONGOPASSWORD, {
 
 
 // ---Logging in with token or test token---
-process.env.test = process.env.TEST == 'true';
-const token = process.env.test ? process.env.TESTTOKEN : process.env.TOKEN;
+const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
 bot.login(token);
