@@ -7,17 +7,21 @@ module.exports = {
 		usage: '.decide <decision1> | <decision2>',
 		accessableby: 'Followers+',
 		aliases: ['saikouDecide'],
-		arguments: {
-			'option1': true,
-			'option2': true,
-		},
 		channel: 'bot-commands'
 	},
 	run: async (bot, message, args) => {
 
 
-		const args1 = Object.values(args)[0];
-		const args2 = Object.values(args)[1];
+		const args1 = args.join(' ').split('| ')[0];
+		const args2 = args.join(' ').split('| ')[1];
+
+		if (!args1 || !args2) {
+			return message.channel.send(new MessageEmbed()
+				.setTitle('📋 Incorrect Usage')
+				.setDescription('**Command Name:** decide\n**Usage:** `decide <option1> | <option2>')
+				.setColor(colours.red)
+				.setFooter('<> - Required ● Optional - [] '));
+		}
 
 
 		const responses = [
