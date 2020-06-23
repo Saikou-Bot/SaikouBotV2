@@ -1,7 +1,7 @@
 // -- Requiring modules
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const { config } = require('dotenv');
-const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS'] } });
+const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] } });
 const mongoose = require('mongoose');
 global.colours = require('./jsonFiles/colours.json');
 
