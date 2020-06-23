@@ -39,10 +39,10 @@ module.exports = class Cooldown {
 	embed(userid) {
 		const timestamp = this.users.get(userid);
 		const leftMs = timestamp - Date.now();
-		const left = ms(leftMs);
+		const left = ms(leftMs, { long: true });
 		return new MessageEmbed({
-			title: 'Please wait for cooldown',
-			description: `You have to wait \`${left}\``,
-		}).setColor('RED');
+			title: '🐌 Woah there, slow down!',
+			description: `You must wait **${left}** before re-using this command.`,
+		}).setColor(colours.red);
 	}
 };
