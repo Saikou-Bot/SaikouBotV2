@@ -12,7 +12,9 @@ module.exports = {
 		usage: '?bal',
 		accessableby: 'Followers+',
 		aliases: ['bal', 'b', 'money', 'coins', 'cash'],
-		channel: 'bot-commands'
+		channel: 'bot-commands',
+		cooldown: true,
+		autoCooldown: true,
 	},
 	run: async (bot, message, args) => {
 
@@ -41,7 +43,6 @@ module.exports = {
 					lb: 'all',
 					coins: 0,
 					medals: 0,
-					items: [{ itemName: 'Wooden Walls', itemID: 'WoodenWall', itemQuantity: 1, itemSell: 0, itemEmoji: '<:WoodenWall:716625054351360010>', itemType: 'Wall Defence' }],
 				});
 				newData.save().catch(err => console.log(err));
 
