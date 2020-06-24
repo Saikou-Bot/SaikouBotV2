@@ -1,5 +1,6 @@
 const MessageEmbed = require('../../node_modules/discord.js/src/structures/MessageEmbed');
 const userData = require('../../models/userData');
+const userQuests = require('../../models/userQuests');
 
 module.exports = {
 	config: {
@@ -46,7 +47,50 @@ module.exports = {
 		try {
 			const msgs = await message.channel.awaitMessages(u2 => u2.author.id === message.author.id, { time: 20000, max: 1, errors: ['time'] });
 
-			if (msgs.first().content.toLowerCase() === 'ai') {
+			if (msgs.first().content.toLowerCase() === 'force' || msgs.first().content.toLowerCase() === 'forcetower') {
+
+				const reactOption = await message.channel.send('You feel a strange overwhelming power...', new MessageEmbed()
+					.setTitle('TAH AI')
+					.setDescription('Please react to one of the reactions to choose your option.')
+					.setFooter('Turn back whilst you can...')
+					.setColor(colours.green));
+
+				choose.forEach(r => {
+					reactOption.react(r);
+				});
+
+				try {
+					const collected = await reactOption.awaitReactions(filter, { max: 1, time: 30000, errors: ['time'] });
+					const reaction = collected.first();
+
+					await reactOption.reactions.removeAll();
+
+					const won1 = new MessageEmbed()
+						.setTitle('T̵A̵H̶ ̶R̵e̵s̴u̷l̸t̶s̸!̵')
+						.setDescription('You feel the ground shake and see a bright golden light, that\'s when you realised the terrible mistake you made.')
+						.addField(`${message.author.username}`, `Chose \`${reaction.emoji.name}\``, true)
+						.addField('Force', 'Chose `Golden Katana`', true)
+						.setColor(message.member.displayHexColor)
+						.setThumbnail(message.author.displayAvatarURL());
+					reactOption.edit('', won1);
+
+					userQuests.findOne({ UserID: message.author.id, Quest: 'Secret Hunter', completed: false }, (err, tahQuest) => {
+
+						if (tahQuest) {
+							message.channel.send(`You completed the quest **Secret Hunter** and was rewarded ${tahQuest.Reward.toLocaleString()} credits.`);
+							credits.coins += tahQuest.Reward;
+							tahQuest.completed = true;
+							tahQuest.save();
+						}
+						credits.save();
+					});
+				}
+				catch(e) {
+					return message.channel.send('Input an option.');
+				}
+			}
+
+			else if (msgs.first().content.toLowerCase() === 'ai') {
 
 				const reactOption = await message.channel.send(new MessageEmbed()
 					.setTitle('TAH AI')
@@ -57,41 +101,50 @@ module.exports = {
 					reactOption.react(r);
 				});
 
-				const collected = await reactOption.awaitReactions(filter, { max: 1, time: 30000 }); // errors: ['time']
-				const reaction = collected.first();
+				try {
+					const collected = await reactOption.awaitReactions(filter, { max: 1, time: 30000 }); // errors: ['time']
+					const reaction = collected.first();
 
 
-				const aiChoice = Math.floor((Math.random() * choose.length));
+					const aiChoice = Math.floor((Math.random() * choose.length));
 
-				const getResult = function(user, ai) {
-					if ((user === heli.id && ai === tank.id) ||
+					const getResult = function(user, ai) {
+						if ((user === heli.id && ai === tank.id) ||
 						(user === tank.id && ai === aa.id) ||
 						(user === aa.id && ai === heli.id)) {
-						credits.coins += 100;
-						credits.save();
-						return 'You ||won `S$100` for winning to|| **Saikou** in Tank AA Helicopter.';
-					}
-					else if (user === ai) {
-						return 'You drew to **Saikou** in Tank AA Helicopter.';
-					}
-					else {
-						credits.coins -= 50;
-						credits.save();
-						return 'You ||lost `S$50` for losing to|| **Saikou** in Tank AA Helicopter.';
-					}
-				};
+							credits.coins += 100;
+							credits.save();
+							return 'You ||won `S$100` for winning to|| **Saikou** in Tank AA Helicopter.';
+						}
+						else if (user === ai) {
+							return 'You drew to **Saikou** in Tank AA Helicopter.';
+						}
+						else {
+							credits.coins -= 50;
+							credits.save();
+							return 'You ||lost `S$50` for losing to|| **Saikou** in Tank AA Helicopter.';
+						}
+					};
 
-				const result = getResult(reaction.emoji.id, choose[aiChoice]);
-				await reactOption.reactions.removeAll();
+					const result = getResult(reaction.emoji.id, choose[aiChoice]);
+					await reactOption.reactions.removeAll();
 
-				const won1 = new MessageEmbed()
-					.setTitle('TAH Results!')
-					.setDescription(result)
-					.addField(`${message.author.username}`, `Chose \`${reaction.emoji.name}\``, true)
-					.addField('Saikou', `Chose \`${bot.emojis.cache.get(choose[aiChoice]).name}\``, true)
-					.setColor(message.member.displayHexColor)
-					.setThumbnail(message.author.displayAvatarURL());
-				reactOption.edit(won1);
+					const won1 = new MessageEmbed()
+						.setTitle('TAH Results!')
+						.setDescription(result)
+						.addField(`${message.author.username}`, `Chose \`${reaction.emoji.name}\``, true)
+						.addField('Saikou', `Chose \`${bot.emojis.cache.get(choose[aiChoice]).name}\``, true)
+						.setColor(message.member.displayHexColor)
+						.setThumbnail(message.author.displayAvatarURL());
+					reactOption.edit(won1);
+
+				}
+				catch(e) {
+					return reactOption.edit(new MessageEmbed()
+						.setTitle('<:tank:724255516603449356> Match cancelled!')
+						.setDescription(`<@${message.author.id}> didn't react in time.`)
+						.setColor(colours.red));
+				}
 
 
 			}
@@ -240,7 +293,6 @@ module.exports = {
 									.setThumbnail(message.author.displayAvatarURL());
 								gameStartMsg.edit('', won1);
 
-
 							}
 							catch(e) {
 								return gameStartMsg.edit(new MessageEmbed()
@@ -248,7 +300,6 @@ module.exports = {
 									.setDescription(`<@${member}> either has their DM's disabled or didn't react in time.`)
 									.setColor(colours.red));
 							}
-
 						}
 						catch(e) {
 							return gameStartMsg.edit(new MessageEmbed()
@@ -256,7 +307,6 @@ module.exports = {
 								.setDescription(`<@${message.author.id}> either has their DM's disabled or didn't react in time.`)
 								.setColor(colours.red));
 						}
-
 					}
 				}
 				catch(e) {
@@ -270,7 +320,6 @@ module.exports = {
 			else {
 				return message.channel.send('That is not an option.');
 			}
-
 		}
 		catch (e) {
 			return message.channel.send('Didnt pick AI or user in time');
