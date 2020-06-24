@@ -35,9 +35,6 @@ module.exports = {
 					.setColor(colours.green));
 			}
 
-			console.log(RobloxName);
-
-
 			try {
 				await message.author.send(new MessageEmbed()
 					.setTitle('Input 2')
@@ -54,9 +51,6 @@ module.exports = {
 						.setDescription('Cancelled report!')
 						.setColor(colours.green));
 				}
-
-				console.log(Reason);
-
 
 				try {
 					await message.author.send(new MessageEmbed()
@@ -85,9 +79,6 @@ module.exports = {
 						.setColor(colours.green)
 						.setFooter('THIS IS AN AUTOMATED MESSGAE'));
 
-					console.log(Proof);
-					console.log(ProofLink);
-
 					const embed = new MessageEmbed()
 						.setTitle('🛡️ New reported user!')
 						.setDescription(`**Reported User:** ${RobloxName}\n**Reason:** ${Reason}`)
@@ -102,12 +93,9 @@ module.exports = {
 						embed.setDescription(`**Reported User:** ${RobloxName}\n**Reason:** ${Reason}\n**Proof:** ${ProofLink}`);
 					}
 
-
 					embed.setFooter(`Reported by: ${message.author.username}`, message.author.displayAvatarURL());
 
-
 					message.channel.send(embed);
-
 
 				}
 				catch(e) {
