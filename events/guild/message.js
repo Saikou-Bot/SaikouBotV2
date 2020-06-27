@@ -145,8 +145,8 @@ module.exports = async (bot, message) => {
 		}
 	}
 
-	if (commandfile.cooldown) {
-		const cooldown = commandfile.cooldown;
+	const cooldown = commandfile.cooldown;
+	if (cooldown) {
 		if (cooldown.has(message.author.id)) {
 			return message.channel.send(cooldown.embed(message.author.id));
 		}
