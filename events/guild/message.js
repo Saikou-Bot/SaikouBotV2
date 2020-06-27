@@ -1,13 +1,15 @@
 /* eslint-disable no-shadow-restricted-names */
+const env = process.env;
+const prefix = env.PREFIX;
 const { MessageEmbed, Collection } = require('discord.js');
 const colours = require('../../jsonFiles/colours.json');
+const noblox = require('noblox.js');
+noblox.setCookie(env.COOKIE);
 
 const maintainData = require('../../models/maintainData');
 
 const { EventEmitter } = require('events');
 
-const env = process.env;
-const prefix = env.PREFIX;
 
 function parseArguments(arguments) {
 	const entries = Object.entries(arguments);
@@ -165,7 +167,7 @@ module.exports = async (bot, message) => {
 	};
 	if (commandfile) {
 		try {
-			const promise = commandfile.run(bot, message, arguments, { maintains });
+			const promise = commandfile.run(bot, message, arguments, { maintains, noblox });
 			if (promise && promise.catch) {
 				promise.catch(alertError);
 			}
