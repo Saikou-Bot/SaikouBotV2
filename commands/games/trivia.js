@@ -1,5 +1,3 @@
-const { MessageEmbed } = require('discord.js');
-
 module.exports = {
 	config: {
 		name: 'trivia',
@@ -9,7 +7,7 @@ module.exports = {
 		aliases: ['quiz'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 		const questions = require('../../jsonFiles/trivia.json');
 
 		const q = questions[Math.floor((Math.random() * questions.length))];

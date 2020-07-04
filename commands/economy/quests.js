@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const userQuests = require('../../models/userQuests');
 
 
@@ -11,7 +10,7 @@ module.exports = {
 		aliases: ['viewquests', 'activequests'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 
 		const currentQuests = userQuests.find({ UserID: message.author.id, completed: false });

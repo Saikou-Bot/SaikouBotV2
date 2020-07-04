@@ -8,8 +8,11 @@
 		"ecmaVersion": 2019
 	},
 	"globals": {
+		"discord": "readonly",
 		"MessageEmbed": "readonly",
-		"colours": "readonly"
+		"colours": "readonly",
+		"embeds": "readonly",
+		"modLogs": "readonly"
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],

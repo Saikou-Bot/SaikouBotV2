@@ -1,5 +1,3 @@
-const MessageEmbed = require('../../node_modules/discord.js/src/structures/MessageEmbed');
-
 module.exports = {
 	config: {
 		name: 'credits',
@@ -11,7 +9,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const credits = new MessageEmbed()
 			.setTitle('📄 Credits')

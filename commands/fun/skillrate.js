@@ -1,5 +1,3 @@
-const { MessageEmbed } = require('discord.js');
-const { getMember } = require('../utils/getMember');
 const userData = require('../../models/userData.js');
 const userQuests = require('../../models/userQuests');
 
@@ -12,7 +10,7 @@ module.exports = {
 		aliases: ['prorate', 'skill', 'pro', 'rate'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
 		const member = getMember(message, args.join(' '));
 		const rating = Math.floor(Math.random() * 101);

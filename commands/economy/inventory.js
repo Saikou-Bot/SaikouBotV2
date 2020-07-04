@@ -1,6 +1,4 @@
 const Items = require('../../models/userItems');
-const { MessageEmbed } = require('discord.js');
-const { getMember } = require('../utils/getMember');
 
 module.exports = {
 	config: {
@@ -11,7 +9,7 @@ module.exports = {
 		aliases: ['inv'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
 		const user = getMember(message, args.join(' '));
 

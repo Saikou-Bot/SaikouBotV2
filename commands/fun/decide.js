@@ -1,5 +1,3 @@
-const { MessageEmbed } = require('discord.js');
-
 module.exports = {
 	config: {
 		name: 'decide',
@@ -9,7 +7,7 @@ module.exports = {
 		aliases: ['saikouDecide'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 
 		const args1 = args.join(' ').split('| ')[0];

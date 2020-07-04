@@ -1,10 +1,14 @@
 // -- Requiring modules
-const { Client, Collection, MessageEmbed } = require('discord.js');
+const chalk = require('chalk');
+const discord = require('discord.js');
+const { Client, Collection, MessageEmbed } = discord;
 const { config } = require('dotenv');
-const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] } });
 const mongoose = require('mongoose');
-global.colours = require('./jsonFiles/colours.json');
 
+const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] } });
+
+global.colours = require('./jsonFiles/colours.json');
+global.discord = discord;
 global.MessageEmbed = MessageEmbed;
 
 
@@ -23,7 +27,19 @@ catch (err) {
 }
 
 ['aliases', 'commands', 'items'].forEach((x) => (bot[x] = new Collection()));
-['command', 'event', 'items'].forEach((x) => require(`./handlers/${x}`)(bot));
+(async () => {
+	const handlers = ['database', 'utils', 'command', 'event', 'items'];
+	for (let i = 0; i < handlers.length; i++) {
+		const handler = handlers[i];
+		try {
+			await (require(`./handlers/${handler}`))(bot);
+		}
+		catch(err) {
+			console.error(err);
+			console.error(`${chalk.bgYellow('Failed')} loading handler ${chalk.bold(handler)}`);
+		}
+	}
+})();
 
 mongoose.connect(process.env.MONGOPASSWORD, {
 	useNewUrlParser: true,

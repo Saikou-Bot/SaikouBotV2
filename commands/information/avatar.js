@@ -1,7 +1,3 @@
-const { MessageEmbed } = require('discord.js');
-const { getMember } = require('../../commands/utils/getMember');
-const colours = require('../../jsonFiles/colours.json');
-
 module.exports = {
 	config: {
 		name: 'avatar',
@@ -11,7 +7,7 @@ module.exports = {
 		aliases: ['pp', 'profilepic'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
 		const member = getMember(message, args[0]);
 

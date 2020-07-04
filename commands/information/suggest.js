@@ -1,6 +1,3 @@
-const colours = require('../../jsonFiles/colours.json');
-const { MessageEmbed } = require('discord.js');
-
 module.exports = {
 	config: {
 		name: 'suggest',
@@ -10,7 +7,7 @@ module.exports = {
 		aliases: ['suggestion'],
 		channel: 'suggestions'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 
 		const suggestion = args.join(' ');

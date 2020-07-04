@@ -1,7 +1,3 @@
-const { MessageEmbed } = require('discord.js');
-const colours = require('../../jsonFiles/colours.json');
-
-
 module.exports = {
 	config: {
 		name: 'ping',
@@ -11,7 +7,7 @@ module.exports = {
 		aliases: ['latency', 'botping', 'apilatency', 'botlatency'],
 		channel: 'bot-commands'
 	},
-	run: async (client, message) => {
+	run: async ({ client: client, message }) => {
 
 		const pinging = new MessageEmbed()
 			.setTitle('🏓 Pinging...')

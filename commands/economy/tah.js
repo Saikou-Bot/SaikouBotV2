@@ -1,4 +1,3 @@
-const MessageEmbed = require('../../node_modules/discord.js/src/structures/MessageEmbed');
 const userData = require('../../models/userData');
 const userQuests = require('../../models/userQuests');
 
@@ -13,7 +12,7 @@ module.exports = {
 		cooldown: 180000,
 		autoCooldown: true,
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const reactions = ['👍', '👎'];
 		const tank = bot.emojis.cache.get('724255516603449356');
