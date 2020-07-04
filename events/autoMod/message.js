@@ -1,5 +1,3 @@
-const warnUtil = require('../../commands/utils/warn');
-
 const AntiSpam = require('discord-anti-spam');
 const antiSpam = new AntiSpam({
 	warnThreshold: 3,
@@ -21,6 +19,17 @@ const antiSpam = new AntiSpam({
 const inviteLink = /discord\.gg|discordapp.com\/invite|discord.com\/invite/m;
 
 module.exports = (client, message) => {
+	const warnUtil = client.utils.warn;
+	antiSpam.on('warnAdd', member => {
+		warnUtil.addWarn({
+			user: member.id,
+			guild: member.guild.id,
+			warn: {
+				moderator: member.client.user.id,
+				reason: 'Auto mod',
+			},
+		});
+	});
 	antiSpam.message(message);
 	if (inviteLink.test(message.content)) {
 		message.delete();
@@ -35,14 +44,3 @@ module.exports = (client, message) => {
 		});
 	}
 };
-
-antiSpam.on('warnAdd', member => {
-	warnUtil.addWarn({
-		user: member.id,
-		guild: member.guild.id,
-		warn: {
-			moderator: member.client.user.id,
-			reason: 'Auto mod',
-		},
-	});
-});
