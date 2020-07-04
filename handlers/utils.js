@@ -6,7 +6,7 @@ const utilsFolder = path.join(__dirname, '../utils');
 
 module.exports = async (client) => {
 	client.utils = {};
-	const utilFiles = fs.readdirSync(utilsFolder).filter(u => u.endsWith('.js'));
+	const utilFiles = ['warn', 'antiSpam', 'cooldown', 'embeds', 'getMember', 'getUserMod', 'maintains'];
 
 	for (let i = 0; i < utilFiles.length; i++) {
 		const utilName = utilFiles[i];
