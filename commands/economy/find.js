@@ -13,7 +13,7 @@ module.exports = {
 		aliases: ['beg', 'look', 'search'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		const findMessage = find[Math.floor((Math.random() * find.length))];
 

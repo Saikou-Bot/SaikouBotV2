@@ -12,7 +12,7 @@ module.exports = {
 		aliases: ['choosequest', 'start', 'startquest'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 
 		let QuestName = '';

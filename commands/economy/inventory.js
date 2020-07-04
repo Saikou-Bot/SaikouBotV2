@@ -11,7 +11,7 @@ module.exports = {
 		aliases: ['inv'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const user = getMember(message, args.join(' '));
 

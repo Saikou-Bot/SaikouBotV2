@@ -10,7 +10,7 @@ module.exports = {
 		aliases: ['givequest'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		let i = 0;
 		const title = quests.find({}, { limit: 10 }).select('QuestTitle Difficulty Description Reward -_id');

@@ -15,7 +15,7 @@ module.exports = {
 		aliases: ['purchase'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const ItemName = args.join(' ');
 

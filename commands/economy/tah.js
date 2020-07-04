@@ -13,7 +13,7 @@ module.exports = {
 		cooldown: 180000,
 		autoCooldown: true,
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const reactions = ['👍', '👎'];
 		const tank = bot.emojis.cache.get('724255516603449356');

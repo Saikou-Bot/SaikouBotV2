@@ -10,7 +10,7 @@ module.exports = {
 		aliases: ['market', 'store'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		let description = '';
 
