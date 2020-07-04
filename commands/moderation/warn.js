@@ -1,10 +1,5 @@
 /* eslint-disable no-undef */
-const { MessageEmbed } = require('discord.js');
-
-const { getUserMod } = require('../utils/getUserMod');
-const warnUtil = require('../utils/warn');
-const errors = require('.././utils/embeds');
-const colours = require('../../jsonFiles/colours.json');
+const errors = embeds;
 
 module.exports = {
 	config: {
@@ -14,7 +9,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['givewarn'],
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod, warn: warnUtil } }) => {
 
 		const member = getUserMod(message, args[0]);
 

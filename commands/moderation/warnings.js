@@ -1,8 +1,5 @@
-const { MessageEmbed } = require('discord.js');
-const errors = require('.././utils/embeds');
-const { getUserMod } = require('../utils/getUserMod');
+const errors = embeds;
 const warnData = require('../../models/warnData');
-const colours = require('../../jsonFiles/colours.json');
 const moment = require('moment');
 
 module.exports = {
@@ -13,7 +10,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['viewwarns', 'checkwarns'],
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
 		let i = 0;

@@ -1,4 +1,3 @@
-const MessageEmbed = require('../../node_modules/discord.js/src/structures/MessageEmbed');
 const facts = require('../../jsonFiles/mwtfact.json');
 
 
@@ -13,7 +12,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		const pickedFact = Math.floor((Math.random() * facts.length));
 

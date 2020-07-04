@@ -1,6 +1,4 @@
-const colours = require('../../jsonFiles/colours.json');
 const moment = require('moment');
-const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	config: {
@@ -11,7 +9,7 @@ module.exports = {
 		aliases: ['server', 'guild', 'guildinfo'],
 		channel: 'serverinfo'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		const icon = message.guild.iconURL({ size: 2048 });
 

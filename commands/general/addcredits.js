@@ -1,8 +1,5 @@
-const { MessageEmbed } = require('discord.js');
 const UserData = require('../../models/userData.js');
-const errors = require('../utils/embeds');
-const { getUserMod } = require('../utils/getUserMod');
-const colours = require('../../jsonFiles/colours.json');
+const errors = embeds;
 
 module.exports = {
 	config: {
@@ -12,7 +9,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['addcreds'],
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
 		const amount = parseInt(args[1]);

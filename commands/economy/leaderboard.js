@@ -1,6 +1,4 @@
-const { MessageEmbed } = require('discord.js');
 const userdata = require('../../models/userData');
-const colours = require('../../jsonFiles/colours.json');
 
 const numbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'keycap_ten'];
 
@@ -13,7 +11,7 @@ module.exports = {
 		aliases: ['creditsleaderboard', 'leader', 'credsleaderboard', 'top10', 'lb', 'top'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		let description = '';
 		let numberName = '';

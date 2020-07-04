@@ -1,6 +1,3 @@
-const colours = require('../../jsonFiles/colours.json');
-const { getMember } = require('../utils/getMember');
-const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 
 module.exports = {
@@ -12,7 +9,7 @@ module.exports = {
 		aliases: ['user', 'whois'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
 		const member = getMember(message, args.join(' '));
 

@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const DBItems = require('../../models/items');
 
 module.exports = {
@@ -10,7 +9,7 @@ module.exports = {
 		aliases: ['market', 'store'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		let description = '';
 

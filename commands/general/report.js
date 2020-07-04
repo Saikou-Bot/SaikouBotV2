@@ -11,7 +11,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		message.delete();
 		message.channel.send(new MessageEmbed()

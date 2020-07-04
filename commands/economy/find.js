@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const creditsData = require('../../models/userData.js');
 const userQuests = require('../../models/userQuests');
 const find = require('../../jsonFiles/find.json');
@@ -13,7 +12,7 @@ module.exports = {
 		aliases: ['beg', 'look', 'search'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		const findMessage = find[Math.floor((Math.random() * find.length))];
 

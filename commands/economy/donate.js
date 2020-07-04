@@ -1,9 +1,6 @@
-const { MessageEmbed } = require('discord.js');
 const UserData = require('../../models/userData.js');
-const errors = require('../utils/embeds');
-const { getUserMod } = require('../utils/getUserMod');
-const colours = require('../../jsonFiles/colours.json');
 const userQuests = require('../../models/userQuests');
+const errors = embeds;
 
 
 module.exports = {
@@ -15,7 +12,7 @@ module.exports = {
 		aliases: ['give'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
 		const amount = parseInt(args[1]);
