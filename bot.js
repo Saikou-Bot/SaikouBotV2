@@ -1,4 +1,5 @@
 // -- Requiring modules
+const chalk = require('chalk');
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const { config } = require('dotenv');
 const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] } });
@@ -23,7 +24,19 @@ catch (err) {
 }
 
 ['aliases', 'commands', 'items'].forEach((x) => (bot[x] = new Collection()));
-['command', 'event', 'items'].forEach((x) => require(`./handlers/${x}`)(bot));
+(async () => {
+	const handlers = ['utils', 'command', 'event', 'items']
+	for (var i = 0; i < handlers.length; i++) {
+		const handler = handlers[i];
+		try {
+			await (require(`./handlers/${handler}`))(bot);
+		}
+		catch(err) {
+			console.error(err);
+			console.error(`${chalk.bgYellow('Failed')} loading handler ${chalk.bold(handler)}`);
+		}
+	}
+})();
 
 mongoose.connect(process.env.MONGOPASSWORD, {
 	useNewUrlParser: true,
