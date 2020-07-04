@@ -9,7 +9,7 @@ module.exports = {
 		aliases: ['mwtmission'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		const missions = require('../../jsonFiles/mission.json');
 

@@ -12,7 +12,7 @@ module.exports = {
 		aliases: ['prorate', 'skill', 'pro', 'rate'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const member = getMember(message, args.join(' '));
 		const rating = Math.floor(Math.random() * 101);
