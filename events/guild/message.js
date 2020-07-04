@@ -109,7 +109,7 @@ module.exports = async (bot, message) => {
 	if (commandfile) {
 		try {
 			// await commandfile.run(bot, message, arguments, { maintains });
-			await commandfile.run({ client: bot, message, args: arguments, utils: bot.utils });
+			await commandfile.run({ client: bot, message, args: arguments, utils: bot.utils, databases: bot.databases });
 		}
 		catch (err) {
 			alertError(err);
