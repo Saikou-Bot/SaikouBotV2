@@ -11,7 +11,8 @@
 		"discord": "readonly",
 		"MessageEmbed": "readonly",
 		"colours": "readonly",
-		"embeds": "readonly"
+		"embeds": "readonly",
+		"modLogs": "readonly"
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
