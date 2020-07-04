@@ -13,7 +13,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		const pickedFact = Math.floor((Math.random() * facts.length));
 

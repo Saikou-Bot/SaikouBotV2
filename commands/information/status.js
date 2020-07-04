@@ -11,7 +11,7 @@ module.exports = {
 		aliases: ['stats', 'bot', 'botinfo'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		const msg = await message.channel.send(new MessageEmbed()
 			.setDescription('Loading...')

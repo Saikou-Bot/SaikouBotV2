@@ -10,7 +10,7 @@ module.exports = {
 		aliases: ['suggestion'],
 		channel: 'suggestions'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 
 		const suggestion = args.join(' ');

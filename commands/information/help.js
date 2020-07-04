@@ -13,7 +13,7 @@ module.exports = {
 		aliases: ['commands', 'cmds', 'saikou'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		if (!args[0]) {
 

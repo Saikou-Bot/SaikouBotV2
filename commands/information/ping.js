@@ -11,7 +11,7 @@ module.exports = {
 		aliases: ['latency', 'botping', 'apilatency', 'botlatency'],
 		channel: 'bot-commands'
 	},
-	run: async (client, message) => {
+	run: async ({ client: client, message }) => {
 
 		const pinging = new MessageEmbed()
 			.setTitle('🏓 Pinging...')

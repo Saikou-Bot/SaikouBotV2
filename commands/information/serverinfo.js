@@ -11,7 +11,7 @@ module.exports = {
 		aliases: ['server', 'guild', 'guildinfo'],
 		channel: 'serverinfo'
 	},
-	run: async (bot, message) => {
+	run: async ({ client: bot, message }) => {
 
 		const icon = message.guild.iconURL({ size: 2048 });
 

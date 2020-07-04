@@ -11,7 +11,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const credits = new MessageEmbed()
 			.setTitle('📄 Credits')

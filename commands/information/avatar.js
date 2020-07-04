@@ -11,7 +11,7 @@ module.exports = {
 		aliases: ['pp', 'profilepic'],
 		channel: 'bot-commands'
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const member = getMember(message, args[0]);
 
