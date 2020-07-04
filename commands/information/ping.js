@@ -1,7 +1,3 @@
-const { MessageEmbed } = require('discord.js');
-const colours = require('../../jsonFiles/colours.json');
-
-
 module.exports = {
 	config: {
 		name: 'ping',

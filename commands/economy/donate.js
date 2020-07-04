@@ -1,6 +1,7 @@
 const UserData = require('../../models/userData.js');
 const { getUserMod } = require('../utils/getUserMod');
 const userQuests = require('../../models/userQuests');
+const errors = embeds;
 
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
 		aliases: ['give'],
 		channel: 'bot-commands'
 	},
-	run: async ({ client: bot, message, args, utils: { embeds: errors }}) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const member = getUserMod(message, args[0]);
 		const amount = parseInt(args[1]);

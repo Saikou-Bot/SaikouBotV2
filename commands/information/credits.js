@@ -1,5 +1,3 @@
-const MessageEmbed = require('../../node_modules/discord.js/src/structures/MessageEmbed');
-
 module.exports = {
 	config: {
 		name: 'credits',

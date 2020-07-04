@@ -1,5 +1,5 @@
 const UserData = require('../../models/userData.js');
-const errors = require('../utils/embeds');
+const errors = embeds;
 const { getUserMod } = require('../utils/getUserMod');
 
 module.exports = {

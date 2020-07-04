@@ -1,5 +1,3 @@
-const { MessageEmbed } = require('discord.js');
-const colours = require('../../jsonFiles/colours.json');
 const pckg = require('../../package.json');
 
 module.exports = {

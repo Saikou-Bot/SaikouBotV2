@@ -1,8 +1,6 @@
-const { MessageEmbed } = require('discord.js');
-const errors = require('.././utils/embeds');
+const errors = embeds;
 const { getUserMod } = require('../utils/getUserMod');
 const warnData = require('../../models/warnData');
-const colours = require('../../jsonFiles/colours.json');
 const moment = require('moment');
 
 module.exports = {

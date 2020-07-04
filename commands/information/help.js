@@ -1,7 +1,5 @@
 /* eslint-disable space-before-function-paren */
-const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const colours = require('../../jsonFiles/colours.json');
 const prefix = process.env.PREFIX;
 
 module.exports = {

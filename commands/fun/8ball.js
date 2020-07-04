@@ -1,5 +1,3 @@
-const colours = require('../../jsonFiles/colours.json');
-
 module.exports = {
 	config: {
 		name: '8ball',

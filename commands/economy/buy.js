@@ -2,6 +2,7 @@ const UserData = require('../../models/userData.js');
 const userItems = require('../../models/userItems');
 const items = require('../../models/items');
 const numbers = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+const errors = embeds;
 
 module.exports = {
 	config: {
@@ -12,7 +13,7 @@ module.exports = {
 		aliases: ['purchase'],
 		channel: 'bot-commands'
 	},
-	run: async ({ client: bot, message, args, utils: { embeds: errors } }) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const ItemName = args.join(' ');
 

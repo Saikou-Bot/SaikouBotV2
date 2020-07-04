@@ -1,4 +1,3 @@
-const MessageEmbed = require('../../node_modules/discord.js/src/structures/MessageEmbed');
 const facts = require('../../jsonFiles/mwtfact.json');
 
 

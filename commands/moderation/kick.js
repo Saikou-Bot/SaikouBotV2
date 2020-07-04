@@ -1,10 +1,8 @@
 /* eslint-disable no-undef */
-const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const warnUtil = require('../utils/warn');
 const { getUserMod } = require('../utils/getUserMod');
-const errors = require('.././utils/embeds');
-const colours = require('../../jsonFiles/colours.json');
+const errors = embeds;
 
 module.exports = {
 	config: {

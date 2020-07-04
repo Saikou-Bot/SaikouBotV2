@@ -1,6 +1,4 @@
-const colours = require('../../jsonFiles/colours.json');
 const moment = require('moment');
-const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	config: {
