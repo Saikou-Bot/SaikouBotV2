@@ -3,7 +3,6 @@ const moment = require('moment');
 const ms = require('ms');
 const warnUtil = require('../utils/warn');
 
-const { getUserMod } = require('../utils/getUserMod');
 const warnData = require('../../models/warnData');
 const errors = embeds;
 
@@ -15,7 +14,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['nospeak'],
 	},
-	run: async ({ client: bot, message, args }) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
 		const reason = args.slice(2).join(' ');

@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 const moment = require('moment');
 const warnUtil = require('../utils/warn');
-const { getUserMod } = require('../utils/getUserMod');
 const errors = embeds;
 
 module.exports = {
@@ -12,7 +11,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['remove'],
 	},
-	run: async ({ client: bot, message, args }) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
 		const reason = args.slice(1).join(' ');

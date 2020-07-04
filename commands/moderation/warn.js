@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-const { getUserMod } = require('../utils/getUserMod');
 const warnUtil = require('../utils/warn');
 const errors = embeds;
 
@@ -11,7 +10,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['givewarn'],
 	},
-	run: async ({ client: bot, message, args }) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
 

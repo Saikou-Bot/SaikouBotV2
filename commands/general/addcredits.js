@@ -1,6 +1,5 @@
 const UserData = require('../../models/userData.js');
 const errors = embeds;
-const { getUserMod } = require('../utils/getUserMod');
 
 module.exports = {
 	config: {
@@ -10,7 +9,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['addcreds'],
 	},
-	run: async ({ client: bot, message, args }) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
 		const amount = parseInt(args[1]);
