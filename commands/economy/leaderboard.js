@@ -1,6 +1,4 @@
-const { MessageEmbed } = require('discord.js');
 const userdata = require('../../models/userData');
-const colours = require('../../jsonFiles/colours.json');
 
 const numbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'keycap_ten'];
 

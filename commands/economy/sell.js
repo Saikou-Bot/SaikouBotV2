@@ -1,7 +1,5 @@
 const userItems = require('../../models/userItems');
 const credits = require('../../models/userData');
-const { MessageEmbed } = require('discord.js');
-const colours = require('../../jsonFiles/colours.json');
 
 
 module.exports = {

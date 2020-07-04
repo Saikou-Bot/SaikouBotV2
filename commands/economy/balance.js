@@ -1,5 +1,4 @@
 /* eslint-disable no-inline-comments */
-const { MessageEmbed } = require('discord.js');
 const coinsData = require('../../models/userData.js');
 const { getMember } = require('../utils/getMember');
 const userQuests = require('../../models/userQuests');

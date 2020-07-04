@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const creditsData = require('../../models/userData.js');
 const userQuests = require('../../models/userQuests');
 const find = require('../../jsonFiles/find.json');

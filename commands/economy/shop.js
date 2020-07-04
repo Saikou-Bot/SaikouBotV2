@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const DBItems = require('../../models/items');
 
 module.exports = {

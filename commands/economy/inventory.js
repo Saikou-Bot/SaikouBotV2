@@ -1,5 +1,4 @@
 const Items = require('../../models/userItems');
-const { MessageEmbed } = require('discord.js');
 const { getMember } = require('../utils/getMember');
 
 module.exports = {

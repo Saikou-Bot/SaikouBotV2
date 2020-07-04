@@ -1,7 +1,5 @@
-const { MessageEmbed } = require('discord.js');
 const quests = require('../../models/quests');
 const Userquests = require('../../models/userQuests');
-const colours = require('../../jsonFiles/colours.json');
 
 module.exports = {
 	config: {
