@@ -15,7 +15,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['permban', 'permremove'],
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const member = getUserMod(message, args[0]);
 		const reason = args.slice(1).join(' ');

@@ -17,7 +17,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['nospeak'],
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const member = getUserMod(message, args[0]);
 		const reason = args.slice(2).join(' ');

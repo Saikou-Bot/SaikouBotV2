@@ -14,7 +14,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['givewarn'],
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args}) => {
 
 		const member = getUserMod(message, args[0]);
 

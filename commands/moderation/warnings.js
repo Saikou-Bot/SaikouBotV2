@@ -13,7 +13,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['viewwarns', 'checkwarns'],
 	},
-	run: async (bot, message, args) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const member = getUserMod(message, args[0]);
 		let i = 0;
