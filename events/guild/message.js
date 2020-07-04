@@ -76,7 +76,6 @@ module.exports = async (bot, message) => {
 	}
 
 	if (commandfile.config.channel) {
-		console.time('channel matcher');
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			error('incorrectChannel', commandfile, () => {
 				message.delete();
