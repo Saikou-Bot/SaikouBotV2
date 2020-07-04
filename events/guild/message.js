@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow-restricted-names */
-const { MessageEmbed, Collection } = require('discord.js');
+const { MessageEmbed, Collection } = discord;
 const colours = require('../../jsonFiles/colours.json');
 
 const maintainData = require('../../models/maintainData');
@@ -109,7 +109,7 @@ module.exports = async (bot, message) => {
 	if (commandfile) {
 		try {
 			// await commandfile.run(bot, message, arguments, { maintains });
-			await commandfile.run({ bot, message, args: arguments, utils: bot.utils });
+			await commandfile.run({ client: bot, message, args: arguments, utils: bot.utils });
 		}
 		catch (err) {
 			alertError(err);
