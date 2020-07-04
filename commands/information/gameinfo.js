@@ -20,62 +20,78 @@ module.exports = {
 	async run(client, message, args, { noblox }) {
 		const token = noblox.options.jar.session
 		const { channel } = message;
-		let gameId;
-		if (isNaN(args.gameid)) {
+
+		const gameNotFound = new MessageEmbed({
+			title: 'Game not found',
+			color: colours.red
+		})
+
+		let gameid = args.gameid || 62124643;
+
+		console.log(gameid);
+
+		const gameInfo = {};
+
+		// get gameid (search or from args)
+		if (isNaN(gameid)) {
+			const failedSearch = new MessageEmbed({
+				title: 'Failed to search game',
+				color: colours.red
+			});
 			let searchResults;
 			try {
-				searchResults = (await axios.get(apiEndpoints['gamesearch'] + args.gameid)).data;
+				searchResults = await axios.get(apiEndpoints['gamesearch'] + gameid);
 			}
 			catch(err) {
 				console.error(err);
-				return channel.send('Failed to search game');
+				return channel.send(failedSearch);
 			}
-			if (searchResults.games && searchResults.games.length > 0) {
-				let foundGame = searchResults.games[0];
-				gameId = foundGame.placeId;
-			} else {
-				return channel.send('Game not found');
+			if (!searchResults.data || !searchResults.data.games) return channel.send(failedSearch);
+			if (searchResults.data.games.length < 1) return channel.send(gameNotFound);
+			let game = searchResults.data.games[0]
+			// gameid = game.
+		}
+		else {
+			const failedFetch = new MessageEmbed({
+				title: 'Failed to fetch game',
+				color: colours.red
+			});
+			let gamePlace;
+			try {
+				gamePlace = await axios.get(apiEndpoints['multiget-place'] + gameid, {
+					headers: {
+						'Cookie': '.ROBLOSECURITY=' + token
+					}
+				});
 			}
-		} else {
-			let gameId = args.gameid || '62124643';
+			catch(err) {
+				console.error(err);
+				return channel.send(failedFetch);
+			}
+			if (!gamePlace.data) return channel.send(failedFetch);
+			let game = gamePlace.data[0];
+			if (!game) return channel.send(gameNotFound);
+			console.log(game);
+			gameInfo.name = game.name;
+			gameInfo.description = game.description;
+			gameInfo.url = game.url;
+			gameInfo.builder = game.builder;
+			gameInfo.builderId = game.builderId;
 		}
-
-		let games = [];
-		try {
-			games = (await axios.get(apiEndpoints['multiget-place'] + gameId, {
-				headers: {
-					'Cookie': '.ROBLOSECURITY=' + token
-				}
-			})).data;
-		}
-		catch(err) {
-			console.error(err);
-			return channel.send('failed to get game');
-		}
-		if (!games || games.length < 1) {
-			return channel.send('game not found');
-		}
-		const game = games[0];
-
-		const headshot = await axios.get(apiEndpoints['headshot'] + game.builderId).catch(() => {});
-		const headshotImage = headshot ? headshot.data.data[0].imageUrl : undefined;
-
-		const thumbnail = await axios.get(apiEndpoints['thumbnail'] + game.universeId).catch(() => {});
-		const thumbnailImage = thumbnail ? thumbnail.data.data[0].imageUrl : undefined;
 
 		const gameEmbed = new MessageEmbed({
-			title: game.name,
-			description: game.description,
-			url: game.url,
+			title: gameInfo.name,
+			description: gameInfo.description,
+		// 	url: game.url,
 			author: {
-				name: game.builder,
-				iconURL: headshotImage,
-				url: `https://www.roblox.com/users/${game.builderId}/profile`
+				name: gameInfo.builder,
+		// 		iconURL: headshotImage,
+				url: `https://www.roblox.com/users/${gameInfo.builderId}/profile`
 			},
 			color: colours.green,
-			thumbnail: {
-				url: thumbnailImage,
-			}
+		// 	thumbnail: {
+		// 		url: thumbnailImage,
+		// 	}
 		});
 		channel.send(gameEmbed);
 	}
