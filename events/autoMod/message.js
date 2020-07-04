@@ -1,4 +1,3 @@
-
 const inviteLink = /discord\.gg|discordapp.com\/invite|discord.com\/invite/m;
 
 module.exports = (client, message) => {

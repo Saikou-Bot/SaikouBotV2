@@ -24,4 +24,4 @@ module.exports = {
 	construct(client) {
 		return getMember;
 	}
-}
+};

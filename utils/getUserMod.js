@@ -20,4 +20,4 @@ module.exports = {
 	construct(client) {
 		return getUserMod;
 	}
-}
+};
