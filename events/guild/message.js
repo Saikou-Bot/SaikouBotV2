@@ -30,15 +30,19 @@ function error(name, command = {}, callback, ...args) {
 }
 
 module.exports = async (bot, message) => {
+	console.time('message handler');
 	if (message.author.bot || message.channel.type === 'dm') return;
 	if (!message.content.startsWith(prefix)) return;
 
+	console.time('args deconstructor');
 	const args = message.content.slice(prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
+	console.timeEnd('args deconstructor');
 
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
 
 	if (!commandfile || !commandfile.config) return;
+	console.time('maintanence check');
 	if (process.env.IGNOREMAINTENANCE != 'true' && await bot.utils.maintains.maintained(commandfile.config.name)) {
 		const MaintainedEmbed = new MessageEmbed({
 			title: '⚠️ This command is being maintained',
@@ -47,10 +51,12 @@ module.exports = async (bot, message) => {
 		});
 		return message.channel.send(MaintainedEmbed);
 	}
+	console.timeEnd('maintanence check');
 
 	let arguments;
 
 	if (commandfile.config.arguments) {
+		console.time('arguments parser');
 		const requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
 		if (args.length < requiredArgs.length) {
 			return error('incorrectArguments', commandfile, () => {
@@ -70,12 +76,14 @@ module.exports = async (bot, message) => {
 				[key]: args[index],
 			};
 		}, {});
+		console.timeEnd('arguments parser');
 	}
 	else {
 		arguments = args;
 	}
 
 	if (commandfile.config.channel) {
+		console.time('channel matcher');
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			error('incorrectChannel', commandfile, () => {
 				message.delete();
@@ -86,6 +94,7 @@ module.exports = async (bot, message) => {
 			}, message);
 			return;
 		}
+		console.timeEnd('channel matcher');
 	}
 
 	const cooldown = commandfile.cooldown;
@@ -109,6 +118,7 @@ module.exports = async (bot, message) => {
 	if (commandfile) {
 		try {
 			// await commandfile.run(bot, message, arguments, { maintains });
+			console.timeEnd('message handler');
 			await commandfile.run({ client: bot, message, args: arguments, utils: bot.utils });
 		}
 		catch (err) {
