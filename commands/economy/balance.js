@@ -1,6 +1,5 @@
 /* eslint-disable no-inline-comments */
 const coinsData = require('../../models/userData.js');
-const { getMember } = require('../utils/getMember');
 const userQuests = require('../../models/userQuests');
 
 
@@ -15,7 +14,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message, args }) => {
+	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
 		const user = getMember(message, args.join(' '));
 

@@ -1,5 +1,3 @@
-const { getMember } = require('../../commands/utils/getMember');
-
 module.exports = {
 	config: {
 		name: 'avatar',
@@ -9,7 +7,7 @@ module.exports = {
 		aliases: ['pp', 'profilepic'],
 		channel: 'bot-commands'
 	},
-	run: async ({ client: bot, message, args }) => {
+	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
 		const member = getMember(message, args[0]);
 

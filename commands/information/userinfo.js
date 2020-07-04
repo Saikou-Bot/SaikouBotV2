@@ -1,4 +1,3 @@
-const { getMember } = require('../utils/getMember');
 const moment = require('moment');
 
 module.exports = {
@@ -10,7 +9,7 @@ module.exports = {
 		aliases: ['user', 'whois'],
 		channel: 'bot-commands'
 	},
-	run: async ({ client: bot, message, args }) => {
+	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
 		const member = getMember(message, args.join(' '));
 
