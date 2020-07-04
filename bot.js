@@ -28,8 +28,8 @@ catch (err) {
 
 ['aliases', 'commands', 'items'].forEach((x) => (bot[x] = new Collection()));
 (async () => {
-	const handlers = ['database', 'utils', 'command', 'event', 'items']
-	for (var i = 0; i < handlers.length; i++) {
+	const handlers = ['database', 'utils', 'command', 'event', 'items'];
+	for (let i = 0; i < handlers.length; i++) {
 		const handler = handlers[i];
 		try {
 			await (require(`./handlers/${handler}`))(bot);

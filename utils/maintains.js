@@ -55,4 +55,4 @@ module.exports = {
 		maintains.getData();
 		return maintains;
 	}
-}
+};

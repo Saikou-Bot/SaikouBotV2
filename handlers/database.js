@@ -15,4 +15,4 @@ module.exports = (client) => {
 			console.error(`${chalk.bgYellow('Failed')} loading database ${modelName}`);
 		}
 	});
-}
+};

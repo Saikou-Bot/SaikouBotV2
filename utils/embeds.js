@@ -91,4 +91,4 @@ module.exports = {
 	construct(client) {
 		return embeds;
 	}
-}
+};

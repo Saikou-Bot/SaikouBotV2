@@ -15,7 +15,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message, args}) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const user = getMember(message, args.join(' '));
 

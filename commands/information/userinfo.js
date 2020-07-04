@@ -10,7 +10,7 @@ module.exports = {
 		aliases: ['user', 'whois'],
 		channel: 'bot-commands'
 	},
-	run: async ({ client: bot, message, args}) => {
+	run: async ({ client: bot, message, args }) => {
 
 		const member = getMember(message, args.join(' '));
 

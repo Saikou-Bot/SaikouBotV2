@@ -8,7 +8,7 @@ module.exports = async (client) => {
 	client.utils = {};
 	const utilFiles = fs.readdirSync(utilsFolder).filter(u => u.endsWith('.js'));
 
-	for (var i = 0; i < utilFiles.length; i++) {
+	for (let i = 0; i < utilFiles.length; i++) {
 		const utilName = utilFiles[i];
 		let util;
 		try {
@@ -23,4 +23,4 @@ module.exports = async (client) => {
 			console.error(`${chalk.bgYellow('Failed')} loading util ${chalk.bold(utilName)}`);
 		}
 	}
-}
+};
