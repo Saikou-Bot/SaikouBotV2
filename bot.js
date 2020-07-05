@@ -4,8 +4,11 @@ const discord = require('discord.js');
 const { Client, Collection, MessageEmbed } = discord;
 const { config } = require('dotenv');
 const mongoose = require('mongoose');
+const noblox = require('noblox.js');
 
 const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] } });
+
+bot.noblox = noblox;
 
 global.colours = require('./jsonFiles/colours.json');
 global.discord = discord;
@@ -50,4 +53,5 @@ mongoose.connect(process.env.MONGOPASSWORD, {
 
 // ---Logging in with token or test token---
 const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
+noblox.setCookie(process.env.COOKIE);
 bot.login(token);
