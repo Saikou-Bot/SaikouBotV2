@@ -1,52 +1,45 @@
-const axios = require('axios');
-
-function genEmbed(data) {
-	const fields = [];
-	if (data.upVotes && data.downVotes) fields.push({ name: 'Vote', value: `${Math.round(( data.upVotes / (data.upVotes + data.downVotes)) * 100)}%`, inline: true });
-	if (data.favoritesCount) fields.push({ name: 'Favorites', value: data.favoritesCount.toLocaleString(), inline: true });
-	return new MessageEmbed({
-		title: data.name,
-		url: `https://www.roblox.com/games/${data.placeId}/`,
-		description: data.description,
-		thumbnail: {url: data.imageUrl},
-		author: {
-			name: data.builder,
-			iconURL: data.builderHeadshot,
-			url: `https://www.roblox.com/users/${data.builderId}/profile`
-		},
-		fields,
-		color: colours.green,
-	});
-}
+const millify = require('millify').default;
 
 module.exports = {
 	config: {
 		name: 'gameinfo',
-		cooldown: 10000,
-		autoCooldown: true,
 		arguments: {
 			'gameid': false
 		}
 	},
-	async run({ client, message, args, utils: { gameInfo, robloxUser } }) {
-		let data = await gameInfo.get(args.gameid || '62124643');
+	async run({ message, args, utils: { gameManager, userManager } }) {
+		message.channel.startTyping();
+		const gameData = await gameManager.get(args.gameid || '62124643');
+		const [ fullData, faveCount, votes, gameIcon, userIcon ] = await Promise.all([
+			gameData.fetchGame(),
+			gameData.favoritesCount(),
+			gameData.votes(),
+			gameData.icon(),
+			userManager.headshot(gameData.builderId)
+		]);
+		message.channel.stopTyping();
 
-		const msg = message.channel.send(genEmbed(data));
-		async function applyEdits() {
-			(await msg).edit(genEmbed(data));
-		}
-		data.on('update', applyEdits);
-		if (data.partail) {
-			data.fetch();
-		}
-
-		data.fetchIcon()
-		robloxUser.fetchHeadshot(data.builderId)
-		.then(res => {
-			data.builderHeadshot = res.imageUrl;
-			data.emit('update');
+		const embed = new MessageEmbed({
+			title: gameData.name,
+			url: gameData.url,
+			description: gameData.description,
+			author: {
+				name: gameData.builder,
+				url: `https://www.roblox.com/users/${gameData.builderId}/`,
+				iconURL: userIcon
+			},
+			thumbnail: {
+				url: gameIcon
+			},
+			fields: [
+				{ name: 'Votes', value: Math.round((votes.upVotes / (votes.upVotes + votes.downVotes)) * 100) + '%', inline: true },
+				{ name: 'Favorites', value: millify(faveCount), inline: true },
+				{ name: 'Visits', value: millify(fullData.visits), inline: true }
+			],
+			footer: { text: 'Created' },
+			timestamp: new Date(fullData.created),
+			color: colours.green
 		});
-		data.fetchFaves();
-		data.fetchVotes();
+		message.channel.send(embed);
 	}
-}
+};

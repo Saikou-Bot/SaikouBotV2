@@ -31,6 +31,7 @@
     "discord.js-pagination": "^1.0.2",
     "dotenv": "^8.2.0",
     "extend": "^3.0.2",
+    "millify": "^3.2.1",
     "moment": "^2.27.0",
     "mongoose": "^5.9.21",
     "ms": "^2.1.2",
