@@ -5,8 +5,8 @@
   "main": "bot.js",
   "scripts": {
     "test": "nodemon bot.js",
-	"eslint": "eslint .",
-	"fix": "eslint . --fix"
+    "eslint": "eslint .",
+    "fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Dragonfire1859/SaikouBotV2#readme",
   "dependencies": {
+    "canvas": "^2.6.1",
     "chalk": "^4.1.0",
     "discord-anti-spam": "^2.4.1",
     "discord.js": "^12.2.0",
