@@ -103,7 +103,6 @@ module.exports = {
 							lb: 'all',
 							coins: amount,
 							medals: 0,
-							items: [{ itemName: 'Wooden Walls', itemID: 'WoodenWall', itemQuantity: 1, itemSell: 0, itemEmoji: '<:WoodenWall:716625054351360010>', itemType: 'Wall Defence' }],
 						});
 						newBal.save().catch(err => console.log(err));
 
