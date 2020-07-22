@@ -30,6 +30,7 @@ module.exports = {
 			'Outlook not so good',
 			'Very doubtful',
 			'Certainly not',
+			'I don\'t know, why are you asking me?',
 		];
 
 		const result = Math.floor((Math.random() * replies.length));
@@ -47,12 +48,12 @@ module.exports = {
 
 		const words = new MessageEmbed()
 			.setTitle('📜 Not enough words!')
-			.setDescription('Your question must contain at least **10** or more letters before being able to have it answered.')
+			.setDescription('Your question must contain at least **5** or more letters before being able to have it answered.')
 			.setColor(colours.red)
 			.setFooter('Incorrect word amount')
 			.setTimestamp();
 
-		if (question.length < 10) return message.channel.send(words);
+		if (question.length < 5) return message.channel.send(words);
 
 		const ballembed = new MessageEmbed()
 			.setTitle(':8ball: 8ball Results')
