@@ -7,7 +7,9 @@ module.exports = {
 			'gameid': false
 		}
 	},
-	async run({ message, args, utils: { gameManager, userManager } }) {
+	async run({ message, args, utils: { rblx } }) {
+		const gameManager = rblx.games;
+		const userManager = rblx.users;
 		message.channel.startTyping();
 		const gameData = await gameManager.get(args.gameid || '62124643');
 		const [ fullData, faveCount, votes, gameIcon, userIcon ] = await Promise.all([
@@ -19,6 +21,8 @@ module.exports = {
 		]);
 		message.channel.stopTyping();
 
+		console.log(gameIcon);
+
 		const embed = new MessageEmbed({
 			title: gameData.name,
 			url: gameData.url,
@@ -29,7 +33,9 @@ module.exports = {
 				iconURL: userIcon
 			},
 			thumbnail: {
-				url: gameIcon
+				url: gameIcon,
+				width: 50,
+				height: 50
 			},
 			fields: [
 				{ name: 'Votes', value: Math.round((votes.upVotes / (votes.upVotes + votes.downVotes)) * 100) + '%', inline: true },
@@ -40,6 +46,7 @@ module.exports = {
 			timestamp: new Date(fullData.created),
 			color: colours.green
 		});
+		console.log(embed);
 		message.channel.send(embed);
 	}
 };
