@@ -35,6 +35,10 @@ module.exports = async (bot, message) => {
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
+	let argString = ''
+	if (args.length > 0) {
+		argString = message.content.slice(message.content.indexOf(' ') + 1);
+	}
 
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
 
@@ -98,6 +102,10 @@ module.exports = async (bot, message) => {
 		}
 	}
 
+	if (commandfile.config.types) {
+		message.channel.startTyping();
+	}
+
 	const alertError = (errorMessage) => {
 		console.error(errorMessage);
 		message.channel.send(new MessageEmbed()
@@ -109,10 +117,11 @@ module.exports = async (bot, message) => {
 	if (commandfile) {
 		try {
 			// await commandfile.run(bot, message, arguments, { maintains });
-			await commandfile.run({ client: bot, message, args: arguments, utils: bot.utils, databases: bot.databases });
+			await commandfile.run({ client: bot, message, args: arguments, utils: bot.utils, databases: bot.databases, argString, rawArgs: args });
 		}
 		catch (err) {
 			alertError(err);
 		}
+		message.channel.stopTyping();
 	}
 };
