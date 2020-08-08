@@ -5,7 +5,6 @@
   "main": "bot.js",
   "scripts": {
     "test": "nodemon bot.js",
-    "ci": "npm i",
     "eslint": "eslint .",
     "fix": "eslint . --fix",
     "run": "node bot.js"
