@@ -43,7 +43,7 @@ catch (err) {
 			console.error(`${chalk.bgYellow('Failed')} loading handler ${chalk.bold(handler)}`);
 		}
 	}
-	
+
 	if (!process.env.review) {
 		mongoose.connect(process.env.MONGOPASSWORD, {
 			useNewUrlParser: true,
