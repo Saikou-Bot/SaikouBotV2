@@ -4,15 +4,15 @@ const credits = require('../../models/userData');
 const items = require('../../models/userItems');
 
 
-// canvas.registerFont('./Fonts/UniSansSemiBold.ttf', {
-// 	family: 'Uni Sans',
-// 	weight: 'Semi Bold',
-// });
+canvas.registerFont('./Fonts/UniSansSemiBold.ttf', {
+	family: 'Uni Sans',
+	weight: 'Semi Bold',
+});
 
-// canvas.registerFont('./Fonts/UniSansRegular.ttf', {
-// 	family: 'Uni Sans',
-// 	weight: 'Regular',
-// });
+canvas.registerFont('./Fonts/UniSansRegular.ttf', {
+	family: 'Uni Sans',
+	weight: 'Regular',
+});
 
 
 module.exports = {
