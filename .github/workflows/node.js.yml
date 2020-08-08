@@ -17,6 +17,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
+    - name: Installing packags
+      uses: ryankurte/action-apt@v0.1.0
+      with:
+        packages: build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev 
     - name: Install dependencies
       run: npm install
     - run: npm run eslint
