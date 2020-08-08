@@ -41,13 +41,15 @@ catch (err) {
 	}
 })();
 
-mongoose.connect(process.env.MONGOPASSWORD, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useFindAndModify: false,
-});
+i error lololo
 
-
-// ---Logging in with token or test token---
-const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
-bot.login(token);
+if (!process.env.review) {
+	mongoose.connect(process.env.MONGOPASSWORD, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false,
+	});
+	// ---Logging in with token or test token---
+	const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
+	bot.login(token);
+}
