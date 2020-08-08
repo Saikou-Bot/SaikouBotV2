@@ -41,8 +41,6 @@ catch (err) {
 	}
 })();
 
-i error lololo
-
 if (!process.env.review) {
 	mongoose.connect(process.env.MONGOPASSWORD, {
 		useNewUrlParser: true,
