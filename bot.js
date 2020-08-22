@@ -11,42 +11,63 @@ global.colours = require('./jsonFiles/colours.json');
 global.discord = discord;
 global.MessageEmbed = MessageEmbed;
 
+const stripAnsi = require('strip-ansi');
 
 const ready = new Promise((res, rej) => bot.once('ready', res));
 
 const na = 'N/A'
 async function logError(err, origin) {
+    console.log(origin)
 	await ready;
 	if (!(err instanceof Error)) {
-		console.log('not error');
 		err = new Error(err);
 	}
 	const embed = new MessageEmbed({
-		title: err.name || na,
-		description: err.message || na,
-		fields: [{
-			title: 'Path',
-			value: ''
-		}]
+		title: stripAnsi(err.name) || na,
+		description: stripAnsi(err.message) || na,
 		color: colours.red
 	});
-	console.log(err);
-	bot.channels.cache.get('718074355589840987').send(embed);
+
+	Object.getOwnPropertyNames(err).filter(p => !['message', 'stack'].includes(p))
+		.forEach(p => {
+			const value = err[p]
+			if (typeof value == 'string') {
+				embed.addField(p, value, true);
+			}
+		});
+	
+	return bot.channels.cache.get('718074355589840987').send(embed);
 }
 process.on('uncaughtExceptionMonitor', (err, origin) => {
 	logError(err, 'UncaughtException');
 });
 
 const _error = console.error;
-console.error = function(err) {
-	logError(err, 'Stderr');
+console.error = function() {
+	logError(arguments[0], 'Stderr');
 	_error.apply(console, arguments);
 }
 
-console.error(new Error('test'));
-
 process.on('unhandledRejection', (err) => {
 	logError(err, 'UnhandledRejection');
+	_error.apply(console, [err]);
+});
+
+const intercept = require('./helpers/intercept');
+
+bot.errors = '';
+bot.logs = '';
+
+intercept(process.stderr, (str) => {
+	if (typeof str == 'string') {
+		bot.errors += str;
+	}
+});
+
+intercept(process.stdout, (str) => {
+    if (typeof str == 'string') {
+        bot.logs += str;
+    }
 });
 
 // -- Setting .env path
