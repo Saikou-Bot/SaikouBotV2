@@ -12,6 +12,43 @@ global.discord = discord;
 global.MessageEmbed = MessageEmbed;
 
 
+const ready = new Promise((res, rej) => bot.once('ready', res));
+
+const na = 'N/A'
+async function logError(err, origin) {
+	await ready;
+	if (!(err instanceof Error)) {
+		console.log('not error');
+		err = new Error(err);
+	}
+	const embed = new MessageEmbed({
+		title: err.name || na,
+		description: err.message || na,
+		fields: [{
+			title: 'Path',
+			value: ''
+		}]
+		color: colours.red
+	});
+	console.log(err);
+	bot.channels.cache.get('718074355589840987').send(embed);
+}
+process.on('uncaughtExceptionMonitor', (err, origin) => {
+	logError(err, 'UncaughtException');
+});
+
+const _error = console.error;
+console.error = function(err) {
+	logError(err, 'Stderr');
+	_error.apply(console, arguments);
+}
+
+console.error(new Error('test'));
+
+process.on('unhandledRejection', (err) => {
+	logError(err, 'UnhandledRejection');
+});
+
 // -- Setting .env path
 config({
 	path: __dirname + '/.env',
@@ -40,8 +77,6 @@ catch (err) {
 		}
 	}
 })();
-
-i error lololo
 
 if (!process.env.review) {
 	mongoose.connect(process.env.MONGOPASSWORD, {
