@@ -13,6 +13,7 @@ module.exports = (bot) => {
 					roles: pull.config.cooldownRoles,
 				});
 			}
+			pull.path = `${dirs}/${file}`;
 			bot.commands.set(pull.config.name, pull);
 			if (pull.config.aliases) pull.config.aliases.forEach(a => bot.aliases.set(a, pull.config.name));
 		}
