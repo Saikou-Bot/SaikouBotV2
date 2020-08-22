@@ -6,7 +6,9 @@
   "scripts": {
     "test": "nodemon bot.js",
     "eslint": "eslint .",
-    "fix": "eslint . --fix"
+    "fix": "eslint . --fix",
+    "run": "node bot.js",
+    "review": "review=true npm run run"
   },
   "repository": {
     "type": "git",
