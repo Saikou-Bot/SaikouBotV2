@@ -26,9 +26,9 @@ catch (err) {
 	console.error(err);
 }
 
-['aliases', 'commands', 'items'].forEach((x) => (bot[x] = new Collection()));
+['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
 (async () => {
-	const handlers = ['database', 'utils', 'command', 'event', 'items'];
+	const handlers = ['database', 'utils', 'command', 'event'];
 	for (let i = 0; i < handlers.length; i++) {
 		const handler = handlers[i];
 		try {
