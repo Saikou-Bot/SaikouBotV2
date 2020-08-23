@@ -31,7 +31,7 @@ module.exports = {
 		}
 
 		if (member.user.bot) {
-			return errors.bots(message, 'mute');
+			return errors.bots(message, 'ban');
 		}
 
 		if (member.hasPermission('BAN_MEMBERS')) {
