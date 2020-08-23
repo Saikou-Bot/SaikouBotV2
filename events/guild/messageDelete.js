@@ -2,6 +2,7 @@ module.exports = (client, message) => {
 	const { MessageEmbed } = require('discord.js');
 	const Colour = require('../../jsonFiles/colours.json');
 
+	if (message.channel.type === 'dm') return;
 	if (message.channel.name == '👥management') return;
 	if (message.channel.name == '🔧project-untitled') return;
 	if (message.channel.name == '🔒classified') return;
