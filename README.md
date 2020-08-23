@@ -6,6 +6,7 @@
 
 ![issues](https://img.shields.io/github/issues/Dragonfire1859/SaikouBotV2)
 ![pr](https://img.shields.io/github/issues-pr/Dragonfire1859/SaikouBotV2)
+![Nodejs checks](https://github.com/Saikou-Bot/SaikouBotV2/workflows/Nodejs%20checks/badge.svg)
 ![stars](https://img.shields.io/github/stars/Dragonfire1859/SaikouBotV2?style=social)
 ![forks](https://img.shields.io/github/forks/Dragonfire1859/SaikouBotV2?style=social)
 
