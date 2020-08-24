@@ -4,7 +4,9 @@ module.exports = {
 	name: 'loadCommand',
 	construct(client) {
 		return (path) => {
-			const pull = require(path);
+			const commandPath = `../commands/${path}`;
+			delete require.cache[require.resolve(commandPath)];
+			const pull = require(commandPath);
 			if (!pull || !pull.config) return;
 			if (pull.config.cooldown) {
 				pull.cooldown = new client.utils.cooldown({
@@ -13,7 +15,7 @@ module.exports = {
 					roles: pull.config.cooldownRoles,
 				});
 			}
-			pull.path = `${Path.parse(Path.dirname(path)).name}/${Path.parse(path).base}`;
+			pull.path = path;
 			client.commands.set(pull.config.name, pull);
 			if (pull.config.aliases) pull.config.aliases.forEach(a => client.aliases.set(a, pull.config.name));
 			return pull;

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const path = require('path');
+const Path = require('path');
 const chokidar = require('chokidar');
 
 class CommandWatcher {
@@ -8,18 +8,22 @@ class CommandWatcher {
 		this.commandsPath = commandsPath;
 		this.watcher = chokidar.watch(commandsPath)
 			.on('change', (path) => {
-				this.client.utils.loadCommand(path);
+				const dirname = Path.basename(Path.dirname(path));
+				const filename = Path.basename(path);
+
+				this.client.utils.loadCommand(`${dirname}/${filename}`);
+				console.log(`${filename} restarted`);
 			});
 	}
 	reloadCommand(command) {
 		const pull = this.client.commands.get(command);
-		return client.utils.loadCommand(path.join(this.commandsPath, pull.path));
+		return client.utils.loadCommand(Path.join(this.commandsPath, pull.path));
 	}
 }
 
 module.exports = {
 	name: 'watch',
 	construct(client) {
-		return new CommandWatcher(client, path.join(__dirname, '../commands'));
+		return new CommandWatcher(client, Path.join(__dirname, '../commands'));
 	}
 }
