@@ -24,6 +24,8 @@ class CommandWatcher {
 module.exports = {
 	name: 'watch',
 	construct(client) {
-		return new CommandWatcher(client, Path.join(__dirname, '../commands'));
+		if (process.env.WATCH_COMMANDS == 'true') {
+			return new CommandWatcher(client, Path.join(__dirname, '../commands'));
+		}
 	}
 }

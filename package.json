@@ -4,7 +4,8 @@
   "description": "Saikou Bot is a feature filled, easy to use Discord Multipurpose bot, built to deliver a better user experience for the Saikou Server.",
   "main": "bot.js",
   "scripts": {
-    "test": "nodemon bot.js",
+    "test": "nodemon bot.js --ignore commands/",
+    "test-command": "WATCH_COMMANDS=false nodemon bot.js",
     "eslint": "eslint .",
     "fix": "eslint . --fix",
     "run": "node bot.js",
@@ -43,8 +44,5 @@
   "devDependencies": {
     "eslint": "^7.6.0",
     "nodemon": "^2.0.4"
-  },
-  "nodemonConfig": {
-    "ignore": ["commands/*"]
   }
 }
