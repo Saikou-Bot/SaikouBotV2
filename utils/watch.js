@@ -14,7 +14,6 @@ class CommandWatcher {
 				.on('unlink', (path) => {
 					const { dirname, filename } = this.parse(path);
 					const fullpath = `${dirname}/${filename}`;
-					console.log('fullpath: ', fullpath)
 					let commandFile = this.client.commands.find(c => c.path == fullpath);
 					if (!commandFile) return;
 					if (commandFile.aliases) commandFile.aliases.keys().forEach(alias => this.client.aliases.delete(alias));
@@ -39,7 +38,7 @@ class CommandWatcher {
 			console.error(`${chalk.bgYellow('Failed')} loading command ${chalk.bold(filename)}`);
 			return;
 		}
-		console.log(`${chalk.bold(filename)} loaded`);
+		console.log(`Loaded ${chalk.bold(filename)}`);
 	}
 }
 
