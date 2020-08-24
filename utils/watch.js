@@ -10,23 +10,23 @@ class CommandWatcher {
 		this.watcher = chokidar.watch(commandsPath)
 			.on('ready', () => {
 				this.watcher.on('change', (path) => this.reloadCommand(path))
-				.on('add', (path) => this.reloadCommand(path))
-				.on('unlink', (path) => {
-					const { dirname, filename } = this.parse(path);
-					const fullpath = `${dirname}/${filename}`;
-					let commandFile = this.client.commands.find(c => c.path == fullpath);
-					if (!commandFile) return;
-					if (commandFile.aliases) commandFile.aliases.keys().forEach(alias => this.client.aliases.delete(alias));
-					this.client.commands.delete(commandFile.name);
-					console.log(`${chalk.bold(filename)} command ${chalk.bgRed('deleted')}`)
-				});
+					.on('add', (path) => this.reloadCommand(path))
+					.on('unlink', (path) => {
+						const { dirname, filename } = this.parse(path);
+						const fullpath = `${dirname}/${filename}`;
+						const commandFile = this.client.commands.find(c => c.path == fullpath);
+						if (!commandFile) return;
+						if (commandFile.aliases) commandFile.aliases.keys().forEach(alias => this.client.aliases.delete(alias));
+						this.client.commands.delete(commandFile.name);
+						console.log(`${chalk.bold(filename)} command ${chalk.bgRed('deleted')}`);
+					});
 			});
 	}
 	parse(path) {
 		return {
 			dirname: Path.basename(Path.dirname(path)),
 			filename: Path.basename(path)
-		}
+		};
 	}
 	reloadCommand(path) {
 		const { dirname, filename } = this.parse(path);
@@ -49,4 +49,4 @@ module.exports = {
 			return new CommandWatcher(client, Path.join(__dirname, '../commands'));
 		}
 	}
-}
+};

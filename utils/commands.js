@@ -1,6 +1,6 @@
 const Path = require('path');
 const { readdirSync } = require('fs');
-const chalk = require('chalk')
+const chalk = require('chalk');
 
 class CommandManager {
 	constructor(client) {
@@ -44,4 +44,4 @@ module.exports = {
 	construct(client) {
 		return new CommandManager(client);
 	}
-}
+};

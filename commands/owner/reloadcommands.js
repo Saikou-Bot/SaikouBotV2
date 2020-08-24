@@ -16,4 +16,4 @@ module.exports = {
 
 		message.reply('Succesfully loaded commands');
 	}
-}
+};

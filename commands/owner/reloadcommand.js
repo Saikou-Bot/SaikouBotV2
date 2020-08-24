@@ -11,7 +11,7 @@ module.exports = {
 
 		const command = client.commands.get(args.command) || client.commands.get(client.aliases.get(args.command));
 
-		if (!command) messager.reply('Unknown command');
+		if (!command) message.reply('Unknown command');
 
 		try {
 			utils.commands.load(command.path);
@@ -22,4 +22,4 @@ module.exports = {
 		}
 		message.reply('Succesfully reloaded command');
 	}
-}
+};
