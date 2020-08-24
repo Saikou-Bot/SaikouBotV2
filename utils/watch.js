@@ -31,7 +31,7 @@ class CommandWatcher {
 	reloadCommand(path) {
 		const { dirname, filename } = this.parse(path);
 		try {
-			this.client.utils.loadCommand(`${dirname}/${filename}`);
+			this.client.utils.commands.load(`${dirname}/${filename}`);
 		}
 		catch(err) {
 			console.error(err);

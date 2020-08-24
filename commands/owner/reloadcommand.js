@@ -14,7 +14,7 @@ module.exports = {
 		if (!command) messager.reply('Unknown command');
 
 		try {
-			utils.loadCommand(command.path);
+			utils.commands.load(command.path);
 		}
 		catch(err) {
 			console.error(err);
