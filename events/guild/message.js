@@ -82,7 +82,7 @@ module.exports = async (bot, message) => {
 				message.delete();
 				message.channel.send(new MessageEmbed()
 					.setTitle('📌 Can\'t use this channel!')
-					.setDescription(`The command **${commandfile.config.name}** is limited to the **${commandfile.config.channel}** channel. Try relocating to that channel and trying again!`)
+					.setDescription(`The command **${commandfile.config.name}** is limited to the **${message.guild.channels.cache.filter(c => c.name.match(commandfile.config.channel)).array().join(' or ')}** channel. Try relocating to that channel and trying again!`)
 					.setColor(colours.red)).then(msg => { msg.delete({ timeout: 10000 }); });
 			}, message);
 			return;
