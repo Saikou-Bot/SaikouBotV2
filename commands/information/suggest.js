@@ -41,6 +41,6 @@ module.exports = {
 				suggestionMessage.react('⬇️');
 			});
 
-		const doc = await Suggestion.create({ messageID: suggestionMessage.id, body: suggestion });
+		const doc = await Suggestion.create({ channelID: message.channel.id, messageID: suggestionMessage.id, body: suggestion });
 	},
 };
