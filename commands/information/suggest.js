@@ -7,35 +7,41 @@ module.exports = {
 		aliases: ['suggestion'],
 		channel: 'suggestions'
 	},
-	run: async ({ client: bot, message, args }) => {
-
-
+	async run({
+		client: bot,
+		message,
+		args,
+		databases
+	}) {
+		const { suggestion: Suggestion } = databases;
 		const suggestion = args.join(' ');
 		const shortenMessage = suggestion.length > 1900 ? suggestion.substring(0, 1800) + '...' : suggestion;
 
-		const words = new MessageEmbed()
+		const notEnoughWords = new MessageEmbed()
 			.setTitle('📜 Not enough words!')
 			.setDescription('Your suggestion must contain at least **15** or more letters before being able to have it posted.')
 			.setColor(colours.red)
 			.setFooter('Incorrect word amount')
 			.setTimestamp();
 
-		if (suggestion.length < 15) return message.channel.send(words).then(msg => { msg.delete({ timeout: 15000 }); });
+		if (suggestion.length < 15) return message.channel.send(notEnoughWords).then(msg => msg.delete({ timeout: 15000 }));
+
 
 
 		const suggestEmbed = new MessageEmbed()
-			.setTitle('Suggestion #1')
+			.setTitle(`Suggestion ${await Suggestion.nextCount()}`)
 			.setDescription(shortenMessage)
 			.setColor(colours.blurple)
 			.setAuthor(`${message.author.tag}`, message.author.displayAvatarURL())
 			.setTimestamp();
 
-		message.channel.send(suggestEmbed).then(reactWith => {
-			reactWith.react('⬆️');
-			setTimeout(() => { reactWith.react('⬇️'); }, 500);
-			message.delete();
+		const suggestionMessage = await message.channel.send(suggestEmbed);
 
-		});
+		suggestionMessage.react('⬆️')
+			.then(() => {
+				suggestionMessage.react('⬇️')
+			});
 
+		const doc = await Suggestion.create({ messageID: suggestionMessage.id, body: suggestion });
 	},
 };
