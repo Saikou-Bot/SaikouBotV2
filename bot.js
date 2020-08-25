@@ -45,6 +45,7 @@ catch (err) {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useFindAndModify: false,
+			useCreateIndex: true
 		});
 		// ---Logging in with token or test token---
 		const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
