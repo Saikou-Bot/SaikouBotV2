@@ -27,7 +27,6 @@ module.exports = {
 		if (suggestion.length < 15) return message.channel.send(notEnoughWords).then(msg => msg.delete({ timeout: 15000 }));
 
 
-
 		const suggestEmbed = new MessageEmbed()
 			.setTitle(`Suggestion ${await Suggestion.nextCount()}`)
 			.setDescription(shortenMessage)
@@ -39,7 +38,7 @@ module.exports = {
 
 		suggestionMessage.react('⬆️')
 			.then(() => {
-				suggestionMessage.react('⬇️')
+				suggestionMessage.react('⬇️');
 			});
 
 		const doc = await Suggestion.create({ messageID: suggestionMessage.id, body: suggestion });
