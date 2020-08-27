@@ -17,6 +17,10 @@ config({
 	path: __dirname + '/.env',
 });
 
+config({
+	path: __dirname + '/.env.example',
+});
+
 try {
 	process.env.owners = JSON.parse(process.env.OWNERS); // parsed owners from .env
 }
