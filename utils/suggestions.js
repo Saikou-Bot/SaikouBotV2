@@ -12,7 +12,7 @@ class SuggestionManager {
 		this.emojis = {
 			upvote: options.upvote,
 			downvote: options.downvote
-		}
+		};
 		this.maxvote = options.maxvote;
 		this.client = client;
 		this.features = new Set();
@@ -25,13 +25,15 @@ class SuggestionManager {
 			try {
 				await messageReaction.fetch();
 			}
-			catch(err) {}
+			catch(err) {
+				return;
+			}
 		}
 
 		if (message.author.id != this.client.user.id || (!Object.values(this.emojis).includes(messageReaction.emoji.name))) return;
 
 		const suggestion = await this.fetch(message.id, message.channel.id);
-		
+
 		if (!suggestion) return;
 
 		const upvote = message.reactions.cache.get(this.emojis.upvote);
@@ -40,14 +42,14 @@ class SuggestionManager {
 		if (downvote.users.cache.has(suggestion.userID)) {
 			await suggestion.remove();
 			return message.delete().catch(() => {});
-		};
+		}
 
 		const upvoteCount = upvote ? upvote.count : 0;
 		const downvoteCount = downvote ? downvote.count : 0;
 
 		const votes = upvoteCount - downvoteCount;
 
-		let featured = suggestion.featured || this.features.has(suggestion.messageID);
+		const featured = suggestion.featured || this.features.has(suggestion.messageID);
 
 		if (!suggestion.featured && votes >= this.maxvote) {
 
@@ -83,4 +85,4 @@ module.exports = {
 			maxvote: 1
 		});
 	}
-}
+};
