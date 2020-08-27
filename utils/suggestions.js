@@ -30,12 +30,17 @@ class SuggestionManager {
 
 		if (message.author.id != this.client.user.id || (!Object.values(this.emojis).includes(messageReaction.emoji.name))) return;
 
-		const suggestion = await this.fetch(message.id);
+		const suggestion = await this.fetch(message.id, message.channel.id);
 		
 		if (!suggestion) return;
 
 		const upvote = message.reactions.cache.get(this.emojis.upvote);
 		const downvote = message.reactions.cache.get(this.emojis.downvote);
+
+		if (downvote.users.cache.has(suggestion.userID)) {
+			await suggestion.remove();
+			return message.delete().catch(() => {});
+		};
 
 		const upvoteCount = upvote ? upvote.count : 0;
 		const downvoteCount = downvote ? downvote.count : 0;
