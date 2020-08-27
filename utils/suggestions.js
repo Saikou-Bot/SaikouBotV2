@@ -15,9 +15,10 @@ class SuggestionManager {
 		}
 		this.maxvote = options.maxvote;
 		this.client = client;
+		this.features = new Set();
 	}
 	async reactionChange(messageReaction, user) {
-		if (!messageReaction.message.channel.name.match(this.suggestionChannel)) return;
+		if (!messageReaction.message.channel.name.match(this.suggestionChannel) || user.bot) return;
 		const { message } = messageReaction;
 
 		if (messageReaction.partial) {
@@ -29,7 +30,7 @@ class SuggestionManager {
 
 		if (message.author.id != this.client.user.id || (!Object.values(this.emojis).includes(messageReaction.emoji.name))) return;
 
-		const suggestion = await this.client.databases.suggestion.findOne({ channelID: message.channel.id, messageID: message.id });
+		const suggestion = await this.fetch(message.id);
 		
 		if (!suggestion) return;
 
@@ -41,12 +42,32 @@ class SuggestionManager {
 
 		const votes = upvoteCount - downvoteCount;
 
-		if (votes >= this.maxvote) {
+		let featured = suggestion.featured || this.features.has(suggestion.messageID);
+
+		if (!suggestion.featured && votes >= this.maxvote) {
+
+			this.features.add(suggestion.messageID);
+
+			suggestion.featured = true;
+			await suggestion.save();
+
 			const featuredChannel = message.guild.channels.cache.find(c => c.name.match(this.featuredChannel));
 			if (!featuredChannel) return;
 
-			featuredChannel.send(message.embeds[0]).catch(() => {});
+			let featuredMessage;
+			try {
+				featuredMessage = await featuredChannel.send(message.embeds[0]);
+			}
+			catch(err) {
+				return;
+			}
+
+			featuredMessage.react(this.emojis.upvote)
+				.then(() => featuredMessage.react(this.emojis.downvote));
 		}
+	}
+	fetch(messageID, channelID) {
+		return this.client.databases.suggestion.findOne({ messageID, channelID });
 	}
 }
 
