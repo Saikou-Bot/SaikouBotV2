@@ -20,6 +20,10 @@ config({
 	path: __dirname + '/.env',
 });
 
+config({
+	path: __dirname + '/.env.example',
+});
+
 try {
 	process.env.owners = JSON.parse(process.env.OWNERS); // parsed owners from .env
 }
@@ -29,9 +33,9 @@ catch (err) {
 	console.error(err);
 }
 
-['aliases', 'commands', 'items'].forEach((x) => (bot[x] = new Collection()));
+['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
 (async () => {
-	const handlers = ['database', 'utils', 'command', 'event', 'items'];
+	const handlers = ['database', 'utils', 'command', 'event'];
 	for (let i = 0; i < handlers.length; i++) {
 		const handler = handlers[i];
 		try {
@@ -42,16 +46,20 @@ catch (err) {
 			console.error(`${chalk.bgYellow('Failed')} loading handler ${chalk.bold(handler)}`);
 		}
 	}
+
+	if (!process.env.review) {
+		mongoose.connect(process.env.MONGOPASSWORD, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			useFindAndModify: false,
+			useCreateIndex: true
+		});
+		// ---Logging in with token or test token---
+		const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
+		bot.login(token);
+		noblox.setCookie(process.env.COOKIE);
+	}
+	else {
+		bot.destroy();
+	}
 })();
-
-mongoose.connect(process.env.MONGOPASSWORD, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useFindAndModify: false,
-});
-
-
-// ---Logging in with token or test token---
-const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
-noblox.setCookie(process.env.COOKIE);
-bot.login(token);

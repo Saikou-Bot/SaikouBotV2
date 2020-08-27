@@ -16,6 +16,10 @@ function getMember(message, toFind = '') {
 		target = message.member;
 	}
 
+	if (target.user.bot) {
+		target = message.member;
+	}
+
 	return target;
 }
 

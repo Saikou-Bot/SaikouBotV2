@@ -4,5 +4,7 @@
   "green": "#2ED85F",
   "blue": "#016FFF",
   "yellow": "#FFD62F",
-  "blurple": "#7289DA"
+  "blurple": "#7289DA",
+  "darkgrey": "#2C2F33",
+  "verydarkgrey": "#23272A"
 }

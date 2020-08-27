@@ -6,7 +6,9 @@
   "scripts": {
     "test": "nodemon bot.js",
     "eslint": "eslint .",
-    "fix": "eslint . --fix"
+    "fix": "eslint . --fix",
+    "run": "node bot.js",
+    "review": "review=true npm run run"
   },
   "repository": {
     "type": "git",
@@ -27,20 +29,21 @@
     "axios": "^0.19.2",
     "chalk": "^4.1.0",
     "discord-anti-spam": "^2.4.1",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.3.1",
     "discord.js-pagination": "^1.0.2",
     "dotenv": "^8.2.0",
     "extend": "^3.0.2",
     "millify": "^3.2.1",
     "moment": "^2.27.0",
-    "mongoose": "^5.9.21",
+    "mongoose": "^5.10.0",
+    "mongoose-plugin-autoinc": "^1.1.9",
     "ms": "^2.1.2",
     "noblox.js": "^4.6.1",
     "ordinal": "^1.0.3",
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "eslint": "^7.3.1",
+    "eslint": "^7.6.0",
     "nodemon": "^2.0.4"
   }
 }

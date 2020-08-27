@@ -44,11 +44,12 @@ module.exports = async (bot, message) => {
 
 	if (!commandfile || !commandfile.config) return;
 	if (process.env.IGNOREMAINTENANCE != 'true' && await bot.utils.maintains.maintained(commandfile.config.name)) {
-		const MaintainedEmbed = new MessageEmbed({
-			title: '⚠️ This command is being maintained',
-			description: 'the developers are working on this command',
-			color: colours.yellow
-		});
+		const MaintainedEmbed = new MessageEmbed()
+			.setTitle('⚠️ Under maintenance!')
+			.setURL('https://chromedino.com/')
+			.setDescription('Aw man, looks like our team of developers are currently working on this command, don\'t worry though you will be able to use it again soon! For now you can try...\n\n• Trying again later\n• Hoping for a miracle\n• Checking out Saikou\'s social medias whilst you wait 😏')
+			.setColor(colours.yellow);
+
 		return message.channel.send(MaintainedEmbed);
 	}
 
@@ -85,7 +86,7 @@ module.exports = async (bot, message) => {
 				message.delete();
 				message.channel.send(new MessageEmbed()
 					.setTitle('📌 Can\'t use this channel!')
-					.setDescription(`The command **${commandfile.config.name}** is limited to the **${commandfile.config.channel}** channel. Try relocating to that channel and trying again!`)
+					.setDescription(`The command **${commandfile.config.name}** is limited to the **${message.guild.channels.cache.filter(c => c.name.match(commandfile.config.channel)).array().join(' or ')}** channel. Try relocating to that channel and trying again!`)
 					.setColor(colours.red)).then(msg => { msg.delete({ timeout: 10000 }); });
 			}, message);
 			return;
