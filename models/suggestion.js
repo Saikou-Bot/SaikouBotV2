@@ -9,4 +9,4 @@ const SuggestionSchema = new mongoose.Schema({
 SuggestionSchema.plugin(autoIncrement, { model: 'suggestion', field: 'id', startAt: 1 });
 
 module.exports = mongoose.model('suggestion', SuggestionSchema
-	);
+);
