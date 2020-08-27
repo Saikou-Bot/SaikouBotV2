@@ -9,12 +9,10 @@ module.exports = {
 			auth: {
 				id: process.env.GITHUB_ID,
 				privateKey: process.env.PRIVATE_KEY,
+				installationId: parseInt(process.env.INSTALLATION),
 			}
 		});
-		await octokit.auth({
-		  type: "installation",
-		  installationId: parseInt(process.env.INSTALLATION),
-		});
+		
 		return octokit;
 	}
 }

@@ -56,10 +56,11 @@ module.exports = {
 
 		try {
 			await octokit.issues.create({
-				owner: 'Saikou-Bot',
-				repo: 'SaikouBotV2',
+				owner: process.env.GITHUB_OWNER,
+				repo: process.env.GITHUB_REPO,
 				title: title.content,
-				body: description.content
+				body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
+				labels: [process.env.BUGREPORT_LABEL]
 			})
 		}
 		catch(err) {

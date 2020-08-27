@@ -14,11 +14,11 @@ global.MessageEmbed = MessageEmbed;
 
 // -- Setting .env path
 config({
-	path: __dirname + '/.env.example'
+	path: __dirname + '/.env',
 });
 
 config({
-	path: __dirname + '/.env',
+	path: __dirname + '/.env.example',
 });
 
 try {
