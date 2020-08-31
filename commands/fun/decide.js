@@ -29,14 +29,16 @@ module.exports = {
 			'Let\'s go with'
 		];
 		const result = Math.floor((Math.random() * responses.length));
+		const args1Shortener = args1.length > 1000 ? args1.substring(0, 900) + '...' : args1;
+		const args2Shortener = args2.length > 1000 ? args2.substring(0, 900) + '...' : args2;
 
 
 		const index = Math.random();
 		if (index < 0.5) {
 			const embed = new MessageEmbed()
 				.setTitle('📝 Decide Results')
-				.setDescription(`${responses[result]} **${args1}**`)
-				.addField('Options', `• ${args1}\n• ${args2}`)
+				.setDescription(`${responses[result]} **${args1Shortener}**`)
+				.addField('Options', `• ${args1Shortener}\n• ${args2Shortener}`)
 				.setColor(message.member.displayHexColor);
 
 			return message.channel.send(embed);
@@ -44,8 +46,8 @@ module.exports = {
 		else {
 			const embed = new MessageEmbed()
 				.setTitle('📝 Decide Results')
-				.setDescription(`${responses[result]} **${args2}**`)
-				.addField('Options', `• ${args1}\n• ${args2}`)
+				.setDescription(`${responses[result]} **${args2Shortener}**`)
+				.addField('Options', `• ${args1Shortener}\n• ${args2Shortener}`)
 				.setColor(message.member.displayHexColor);
 
 			return message.channel.send(embed);
