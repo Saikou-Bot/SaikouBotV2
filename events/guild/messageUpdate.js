@@ -3,6 +3,7 @@ module.exports = (client, oldMessage, newMessage) => {
 	const { MessageEmbed } = require('discord.js');
 	const Colour = require('../../jsonFiles/colours.json');
 
+	if (oldMessage.channel.type === 'dm') return;
 	if (newMessage.author.bot || oldMessage.content == newMessage.content) return;
 	if (oldMessage.channel.name == '👥management') return;
 	if (oldMessage.channel.name == '🔧project-untitled') return;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+if (!mongoose) var mongoose = require('mongoose');
 
 const useritemsSchema = mongoose.Schema({
 	username: String,

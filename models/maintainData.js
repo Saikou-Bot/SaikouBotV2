@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+if (!mongoose) var mongoose = require('mongoose');
 
 const MaintainDataSchema = new mongoose.Schema({
 	name: String,
