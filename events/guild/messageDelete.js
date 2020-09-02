@@ -1,11 +1,11 @@
 module.exports = (client, message) => {
-	const { MessageEmbed } = require('discord.js');
 	const Colour = require('../../jsonFiles/colours.json');
 
 	if (message.channel.type === 'dm') return;
 	if (message.channel.name == '👥management') return;
 	if (message.channel.name == '🔧project-untitled') return;
 	if (message.channel.name == '🔒classified') return;
+	if (!message.author) return;
 	if (message.author.bot) return;
 
 	const shortenMessage = message.content.length > 1900 ? message.content.substring(0, 1800) + '...' : message.content;
