@@ -1,17 +1,40 @@
 const millify = require('millify').default;
 
+const gameNotFound = new MessageEmbed({
+	title: 'Game not found',
+	description: 'The game was not found',
+	color: colours.red
+});
+
 module.exports = {
 	config: {
 		name: 'gameinfo',
 		arguments: {
-			'gameid': false
+			'game': false
 		}
 	},
-	async run({ message, args, utils: { rblx } }) {
+	async run({ message, args, argString, utils: { rblx } }) {
 		const gameManager = rblx.games;
 		const userManager = rblx.users;
 		message.channel.startTyping();
-		const gameData = await gameManager.get(args.gameid || '62124643');
+
+		if (args.game && !argString.match(/^\d+$/)) {
+			const games = await gameManager.gameList({
+				keyword: argString,
+				maxRows: 1
+			});
+			if (games.length < 1) return message.channel.send(gameNotFound);
+			args.game = games[0].placeId;
+		}
+
+		let gameData;
+		try {
+			gameData = await gameManager.get(args.game || '62124643');
+		}
+		catch(err) {
+			return message.channel.send(gameNotFound);
+		}
+
 		const [ fullData, faveCount, votes, gameIcon, userIcon ] = await Promise.all([
 			gameData.fetchGame(),
 			gameData.favoritesCount(),
@@ -20,8 +43,6 @@ module.exports = {
 			userManager.headshot(gameData.builderId)
 		]);
 		message.channel.stopTyping();
-
-		console.log(gameIcon);
 
 		const embed = new MessageEmbed({
 			title: gameData.name,
@@ -46,7 +67,6 @@ module.exports = {
 			timestamp: new Date(fullData.created),
 			color: colours.green
 		});
-		console.log(embed);
 		message.channel.send(embed);
 	}
 };
