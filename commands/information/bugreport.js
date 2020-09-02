@@ -18,9 +18,9 @@ module.exports = {
 			member
 		} = message;
 
-		function doStop(message) {
-			if (message.content == 'stop') {
-				message.channel.send('Bugreport stopped').catch(() => {});
+		function doStop(msg) {
+			if (msg.content == 'stop') {
+				msg.channel.send('Bugreport stopped').catch(() => {});
 				return true;
 			}
 		}
