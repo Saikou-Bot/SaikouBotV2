@@ -1,5 +1,5 @@
-const { Octokit } = require("@octokit/rest");
-const { createAppAuth } = require("@octokit/auth-app");
+const { Octokit } = require('@octokit/rest');
+const { createAppAuth } = require('@octokit/auth-app');
 
 module.exports = {
 	name: 'octokit',
@@ -12,7 +12,7 @@ module.exports = {
 				installationId: parseInt(process.env.INSTALLATION),
 			}
 		});
-		
+
 		return octokit;
 	}
-}
+};

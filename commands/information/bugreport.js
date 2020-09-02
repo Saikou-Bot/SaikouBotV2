@@ -1,4 +1,4 @@
-const time = 5 * 60 * 1000
+const time = 5 * 60 * 1000;
 
 module.exports = {
 	config: {
@@ -26,9 +26,9 @@ module.exports = {
 				iconURL: client.user.avatarURL()
 			},
 			color: colours.blue
-		})
+		});
 
-		askMessage = await dm.send(embed);
+		const askMessage = await dm.send(embed);
 
 		let title;
 		try {
@@ -39,7 +39,8 @@ module.exports = {
 				time,
 				errors: ['time']
 			})).first();
-		} catch (err) {
+		}
+		catch (err) {
 			askMessage.delete().catch(() => {});
 			dm.send('Timeout');
 		}
@@ -57,7 +58,8 @@ module.exports = {
 				time,
 				errors: ['time']
 			})).first();
-		} catch (err) {
+		}
+		catch (err) {
 			askMessage.delete().catch(() => {});
 			dm.send('Timeout');
 		}
@@ -69,9 +71,10 @@ module.exports = {
 				title: title.content,
 				body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
 				labels: [process.env.BUGREPORT_LABEL]
-			})
-		} catch (err) {
+			});
+		}
+		catch (err) {
 			console.log(err);
 		}
 	}
-}
+};
