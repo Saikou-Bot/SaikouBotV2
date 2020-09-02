@@ -11,7 +11,8 @@ module.exports = {
 		name: 'gameinfo',
 		arguments: {
 			'game': false
-		}
+		},
+		cooldown: true
 	},
 	async run({ message, args, argString, utils: { rblx } }) {
 		const gameManager = rblx.games;
@@ -68,5 +69,6 @@ module.exports = {
 			color: colours.green
 		});
 		message.channel.send(embed);
+		this.cooldown.add(message.member);
 	}
 };
