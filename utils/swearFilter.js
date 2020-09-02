@@ -1,12 +1,15 @@
 const specialChars = require('../jsonFiles/special.json');
 const badwords = require('../jsonFiles/badwords.json');
 
+const emoji = require('node-emoji');
+
 function removeDuplicates(str) {
 	return str.replace(/(?<=(.))\1/gi, '');
 }
 
 function filter(str) {
 	str = removeDuplicates(str);
+	str = emoji.unemojify(str);
 	str = str.replace(/[^a-zA-Z0-9- ]/g, '');
 	return str;
 }
