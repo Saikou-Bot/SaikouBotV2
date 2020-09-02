@@ -1,11 +1,21 @@
 const time = 5 * 60 * 1000
 
 module.exports = {
-	config: {	
+	config: {
 		name: 'bugreport'
 	},
-	async run({ client, message, utils: { octokit } }) {
-		const { channel, author, member } = message;
+	async run({
+		client,
+		message,
+		utils: {
+			octokit
+		}
+	}) {
+		const {
+			channel,
+			author,
+			member
+		} = message;
 
 		const dm = await member.createDM();
 
@@ -23,14 +33,13 @@ module.exports = {
 		let title;
 		try {
 			title = (await dm.awaitMessages((collectedMessage) => {
-							return collectedMessage.author.id == author.id;
-						}, {
-							max: 1,
-							time,
-							errors: ['time']
-						})).first();
-		}
-		catch(err) {
+				return collectedMessage.author.id == author.id;
+			}, {
+				max: 1,
+				time,
+				errors: ['time']
+			})).first();
+		} catch (err) {
 			askMessage.delete().catch(() => {});
 			dm.send('Timeout');
 		}
@@ -48,8 +57,7 @@ module.exports = {
 				time,
 				errors: ['time']
 			})).first();
-		}
-		catch(err) {
+		} catch (err) {
 			askMessage.delete().catch(() => {});
 			dm.send('Timeout');
 		}
@@ -62,8 +70,7 @@ module.exports = {
 				body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
 				labels: [process.env.BUGREPORT_LABEL]
 			})
-		}
-		catch(err) {
+		} catch (err) {
 			console.log(err);
 		}
 	}
