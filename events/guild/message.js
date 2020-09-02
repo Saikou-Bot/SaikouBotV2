@@ -1,13 +1,14 @@
 /* eslint-disable no-shadow-restricted-names */
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Collection } = discord;
 const colours = require('../../jsonFiles/colours.json');
+
+const maintainData = require('../../models/maintainData');
 
 const env = process.env;
 const prefix = env.PREFIX;
 
 function parseArguments(arguments) {
 	const entries = Object.entries(arguments);
-	console.log(entries);
 	return entries.map((entry) => {
 		if (entry[1]) {
 			return `<${entry[0]}>`;
@@ -18,7 +19,7 @@ function parseArguments(arguments) {
 	}).join(' ');
 }
 
-function error (name, command = {}, callback, ...args) {
+function error(name, command = {}, callback, ...args) {
 	if (command.on) {
 		const eventFunc = command.on[name];
 		if (eventFunc && typeof eventFunc == 'function') {
@@ -38,6 +39,15 @@ module.exports = async (bot, message) => {
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
 
 	if (!commandfile || !commandfile.config) return;
+	if (process.env.IGNOREMAINTENANCE != 'true' && await bot.utils.maintains.maintained(commandfile.config.name)) {
+		const MaintainedEmbed = new MessageEmbed()
+			.setTitle('⚠️ Under maintenance!')
+			.setURL('https://chromedino.com/')
+			.setDescription('Aw man, looks like our team of developers are currently working on this command, don\'t worry though you will be able to use it again soon! For now you can try...\n\n• Trying again later\n• Hoping for a miracle\n• Checking out Saikou\'s social medias whilst you wait 😏')
+			.setColor(colours.yellow);
+
+		return message.channel.send(MaintainedEmbed);
+	}
 
 	let arguments;
 
@@ -69,14 +79,18 @@ module.exports = async (bot, message) => {
 	if (commandfile.config.channel) {
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			error('incorrectChannel', commandfile, () => {
-				message.channel.send('Incorrect channel') // pls make better embed
+				message.delete();
+				message.channel.send(new MessageEmbed()
+					.setTitle('📌 Can\'t use this channel!')
+					.setDescription(`The command **${commandfile.config.name}** is limited to the **${message.guild.channels.cache.filter(c => c.name.match(commandfile.config.channel)).array().join(' or ')}** channel. Try relocating to that channel and trying again!`)
+					.setColor(colours.red)).then(msg => { msg.delete({ timeout: 10000 }); });
 			}, message);
 			return;
 		}
 	}
 
-	if (commandfile.cooldown) {
-		const cooldown = commandfile.cooldown;
+	const cooldown = commandfile.cooldown;
+	if (cooldown) {
 		if (cooldown.has(message.author.id)) {
 			return message.channel.send(cooldown.embed(message.author.id));
 		}
@@ -85,19 +99,21 @@ module.exports = async (bot, message) => {
 		}
 	}
 
-	const alertError = (error) => {
-		console.log(error);
-		message.channel.send('Failed to run command');
+	const alertError = (errorMessage) => {
+		console.error(errorMessage);
+		message.channel.send(new MessageEmbed()
+			.setColor(colours.red)
+			.setTitle('❌ An error occurred!')
+			.setDescription('Uh oh! Looks like our team of developers forgot that last screw causing an error. Please contact our bot developers if this error persists, you can try... \n\n• Re-entering the command\n• Coming back later and trying again\n• Checking out Saikou\'s social medias whilst you wait 😏'));
+
 	};
 	if (commandfile) {
 		try {
-			const promise = commandfile.run(bot, message, arguments);
-			if (promise && promise.catch) {
-				promise.catch(alertError);
-			}
+			// await commandfile.run(bot, message, arguments, { maintains });
+			await commandfile.run({ client: bot, message, args: arguments, utils: bot.utils, databases: bot.databases });
 		}
-		catch (error) {
-			alertError(error);
+		catch (err) {
+			alertError(err);
 		}
 	}
 };

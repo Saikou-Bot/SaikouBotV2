@@ -1,14 +1,11 @@
-const mongoose = require('mongoose');
+if (!mongoose) var mongoose = require('mongoose');
 
 const userDataSchema = mongoose.Schema({
-    username: String,
-    userID: String,
-    lb: String,
-    coins: Number,
-    medals: Number,
-    items: [
-        { itemName: String, itemID: String, itemQuantity: Number, itemSell: Number, itemEmoji: String, itemType: String, multipurchase: Boolean },
-    ],
+	username: String,
+	userID: String,
+	lb: String,
+	coins: Number,
+	medals: Number,
 });
 
 module.exports = mongoose.model('userData', userDataSchema);

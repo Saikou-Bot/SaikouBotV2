@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+if (!mongoose) var mongoose = require('mongoose');
 
 const questsSchema = mongoose.Schema({
-    QuestTitle: String,
-    Difficulty: String,
-    Description: String,
-    Reward: Number,
+	QuestTitle: String,
+	Difficulty: String,
+	Description: String,
+	Reward: Number,
 });
 
 module.exports = mongoose.model('Quests', questsSchema);

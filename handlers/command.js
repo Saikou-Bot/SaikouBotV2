@@ -1,5 +1,3 @@
-const Cooldown = require('../commands/utils/cooldown');
-
 const { readdirSync } = require('fs');
 
 module.exports = (bot) => {
@@ -9,7 +7,7 @@ module.exports = (bot) => {
 			const pull = require(`../commands/${dirs}/${file}`);
 			if (!pull || !pull.config) continue;
 			if (pull.config.cooldown) {
-				pull.cooldown = new Cooldown({
+				pull.cooldown = new bot.utils.cooldown({
 					name: pull.config.name,
 					cooldown: pull.config.cooldown === true ? undefined : pull.config.cooldown,
 					roles: pull.config.cooldownRoles,
@@ -19,5 +17,5 @@ module.exports = (bot) => {
 			if (pull.config.aliases) pull.config.aliases.forEach(a => bot.aliases.set(a, pull.config.name));
 		}
 	};
-	['information', 'moderation', 'fun', 'economy', 'games', 'general'].forEach(x => load(x));
+	['information', 'moderation', 'fun', 'economy', 'games', 'general', 'owner'].forEach(x => load(x));
 };

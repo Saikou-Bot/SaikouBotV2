@@ -4,7 +4,11 @@
   "description": "Saikou Bot is a feature filled, easy to use Discord Multipurpose bot, built to deliver a better user experience for the Saikou Server.",
   "main": "bot.js",
   "scripts": {
-    "test": "nodemon bot.js"
+    "test": "nodemon bot.js",
+    "eslint": "eslint .",
+    "fix": "eslint . --fix",
+    "run": "node bot.js",
+    "review": "review=true npm run run"
   },
   "repository": {
     "type": "git",
@@ -22,19 +26,22 @@
   },
   "homepage": "https://github.com/Dragonfire1859/SaikouBotV2#readme",
   "dependencies": {
+    "canvas": "^2.6.1",
+    "chalk": "^4.1.0",
     "discord-anti-spam": "^2.4.1",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.3.1",
     "discord.js-pagination": "^1.0.2",
     "dotenv": "^8.2.0",
     "extend": "^3.0.2",
-    "moment": "^2.25.0",
-    "mongoose": "^5.9.11",
+    "moment": "^2.27.0",
+    "mongoose": "^5.10.2",
+    "mongoose-plugin-autoinc": "^1.1.9",
     "ms": "^2.1.2",
     "ordinal": "^1.0.3",
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "eslint": "^7.1.0",
+    "eslint": "^7.6.0",
     "nodemon": "^2.0.4"
   }
 }
