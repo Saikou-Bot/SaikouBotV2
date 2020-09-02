@@ -112,7 +112,8 @@ class GameManager {
 			'/v1/games/multiget-place-details': (placeIds) => `https://games.roblox.com/v1/games/multiget-place-details?${placeIds.map(p => `placeIds=${p}`).join('&')}`,
 			'/v1/games/favorites/count': (universeId) => `https://games.roblox.com/v1/games/${universeId}/favorites/count`,
 			'/v1/games/votes': (universeIds) => `https://games.roblox.com/v1/games/votes?universeIds=${universeIds.join(',')}`,
-			'/v1/games/icons': (universeIds) => `https://thumbnails.roblox.com/v1/games/icons?universeIds=${universeIds.join(',')}&returnPolicy=PlaceHolder&size=128x128&format=Png&isCircular=true`
+			'/v1/games/icons': (universeIds) => `https://thumbnails.roblox.com/v1/games/icons?universeIds=${universeIds.join(',')}&returnPolicy=PlaceHolder&size=128x128&format=Png&isCircular=true`,
+			'/v1/games/list': (options) => `https://games.roblox.com/v1/games/list?${Object.entries(options).map(entry => `model.${entry[0]}=${entry[1]}`)}`
 		};
 	}
 	fetchGames(universeIds = []) {
@@ -257,6 +258,15 @@ class GameManager {
 			.then(icons => {
 				if (icons.length < 1) throw new Error('game not found');
 				return icons[0];
+			});
+	}
+	gameList(options = {}) {
+		if (typeof options != 'object') return Promise.reject(new TypeError('options not object'));
+
+		return axios.get(this.apiEndpoints['/v1/games/list'](options))
+			.then(async res => {
+				if (!Array.isArray(res.data.games)) throw new Error('response not array');
+				return res.data.games.map(gameOpts => new GameData(gameOpts));
 			});
 	}
 }
