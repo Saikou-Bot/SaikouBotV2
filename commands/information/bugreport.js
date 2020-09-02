@@ -1,4 +1,5 @@
 const time = 5 * 60 * 1000;
+const timeoutMessage = 'Bugreport timedout.';
 
 module.exports = {
 	config: {
@@ -17,7 +18,16 @@ module.exports = {
 			member
 		} = message;
 
+		function doStop(message) {
+			if (message.content == 'stop') {
+				message.channel.send('Bugreport stopped').catch(() => {});
+				return true;
+			}
+		}
+
 		const dm = await member.createDM();
+
+		let askChannel = dm;
 
 		const embed = new MessageEmbed({
 			title: 'Please provide title',
@@ -27,12 +37,17 @@ module.exports = {
 			},
 			color: colours.blue
 		});
-
-		const askMessage = await dm.send(embed);
+		try {
+			await askChannel.send(embed);
+		}
+		catch(err) {
+			askChannel = channel;
+			askChannel.send(embed);
+		}
 
 		let title;
 		try {
-			title = (await dm.awaitMessages((collectedMessage) => {
+			title = (await askChannel.awaitMessages((collectedMessage) => {
 				return collectedMessage.author.id == author.id;
 			}, {
 				max: 1,
@@ -41,17 +56,18 @@ module.exports = {
 			})).first();
 		}
 		catch (err) {
-			askMessage.delete().catch(() => {});
-			dm.send('Timeout');
+			askChannel.send(timeoutMessage);
 		}
+
+		if (doStop(title)) return;
 
 		embed.setTitle('Please provide description');
 
-		await askMessage.edit(embed);
+		await askChannel.send(embed);
 
 		let description;
 		try {
-			description = (await dm.awaitMessages((collectedMessage) => {
+			description = (await askChannel.awaitMessages((collectedMessage) => {
 				return collectedMessage.author.id == author.id;
 			}, {
 				max: 1,
@@ -60,9 +76,10 @@ module.exports = {
 			})).first();
 		}
 		catch (err) {
-			askMessage.delete().catch(() => {});
-			dm.send('Timeout');
+			askChannel.send(timeoutMessage);
 		}
+
+		if (doStop(description)) return;
 
 		try {
 			await octokit.issues.create({
