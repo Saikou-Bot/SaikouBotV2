@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+if (!mongoose) var mongoose = require('mongoose');
 
 const questsSchema = mongoose.Schema({
 	QuestTitle: String,

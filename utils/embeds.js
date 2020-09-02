@@ -78,7 +78,7 @@ global.embeds = {
 	bots(message, name) {
 		const embed = new MessageEmbed()
 			.setTitle(`❌ Unable to ${name} bots`)
-			.setDescription('Saikou cannot perform this action on bots. Consider...\n\n• Doing it manually\n• Gazing into the sunset and rethinking your moderation action')
+			.setDescription('Saikou cannot perform this action on bots. Consider...\n\n• Doing it manually\n• Gazing into the sunset and rethinking your action')
 			.setColor(colours.red)
 			.setFooter(`Unable to ${name} user.`);
 
