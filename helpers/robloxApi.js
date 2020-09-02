@@ -3,7 +3,7 @@ const axios = require('axios');
 class RobloxError extends Error {
 	constructor(error) {
 		super(error.message);
-		this.reason = error.reason;
+		this.reason = error.reason || error.message;
 	}
 }
 
@@ -34,8 +34,34 @@ class UserManager {
 	constructor(manager) {
 		this.manager = manager;
 		this.apiEndpoints = {
-			'/v1/users/avatar-headshot': (userIds) => `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userIds.join(',')}&size=48x48&format=Png&isCircular=false`
+			'/v1/users/avatar-headshot': (userIds) => `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userIds.join(',')}&size=48x48&format=Png&isCircular=false`,
+			'/v1/users/search': (options) => `https://users.roblox.com/v1/users/search?${Object.entries(options).map(entry => `${entry[0]}=${entry[1]}`).join('&')}`,
+			'/v1/users/': (userId) => `https://users.roblox.com/v1/users/${userId}`,
+			'/v1/users/status': (userId) => `https://users.roblox.com/v1/users/${userId}/status`,
+			'/v1/users/avatar': (userIds, options) => `https://thumbnails.roblox.com/v1/users/avatar?${[`userIds=${userIds.join(',')}`, ...Object.entries(options).map(entry => `${entry[0]}=${entry[1]}`)].join('&')}`
 		}
+	}
+	avatars(userIds = [], options = {}) {
+		if (!Array.isArray(userIds)) Promise.reject(new Error('userIds not array'));
+		if (typeof options != 'object') return Promise.reject(new TypeError('options not object'));
+
+		return axios.get(this.apiEndpoints['/v1/users/avatar'](userIds, options))
+			.then(res => {
+				return res.data.data;
+			})
+			.catch(async res => {
+				throw new RobloxError(res.response.data.errors[0]);
+			});
+	}
+	avatar(userId = '', options = {}) {
+		if (!userId || !['string', 'number'].includes(typeof userId)) return Promise.reject(new TypeError('User id is not a string or number'));
+		if (typeof options != 'object') return Promise.reject(new TypeError('options not object'));
+
+		return this.avatars([userId], options)
+			.then(avatars => {
+				if (avatars.length < 1) throw new Error('avatar not found');
+				return avatars[0];
+			});
 	}
 	headshots(userIds = []) {
 		if (!Array.isArray(userIds)) Promise.reject(new Error('userIds not array'));
@@ -64,8 +90,41 @@ class UserManager {
 	headshot(userId = '') {
 		return this.headshots([userId])
 			.then(headshots => {
-				if (headshots.length < 1) throw new Error('game not found');
+				if (headshots.length < 1) throw new Error('headshot not found');
 				return headshots[0];
+			});
+	}
+	search(options = {}) {
+		if (typeof options != 'object') return Promise.reject(new TypeError('options not object'));
+
+		return axios.get(this.apiEndpoints['/v1/users/search'](options))
+			.then(res => {
+				return res.data.data;				
+			})
+			.catch(async res => {
+				throw new RobloxError(res.response.data.errors[0]);
+			});
+	}
+	fetch(userId = '') {
+		if (!userId || !['string', 'number'].includes(typeof userId)) return Promise.reject(new TypeError('User id is not a string or number'));
+
+		return axios.get(this.apiEndpoints['/v1/users/'](userId))
+			.then(res => {
+				return res.data;
+			})
+			.catch(async res => {
+				return new RobloxError(res.response.data.errors[0]);
+			});
+	}
+	getStatus(userId) {
+		if (!userId || !['string', 'number'].includes(typeof userId)) return Promise.reject(new TypeError('User id is not a string or number'));
+
+		return axios.get(this.apiEndpoints['/v1/users/status'](userId))
+			.then(res => {
+				return res.data.status;
+			})
+			.catch(res => {
+				return new RobloxError(res.response.data.errors[0]);
 			});
 	}
 }

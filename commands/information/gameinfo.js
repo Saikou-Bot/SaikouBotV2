@@ -19,7 +19,7 @@ module.exports = {
 		const userManager = rblx.users;
 		message.channel.startTyping();
 
-		if (args.game && !argString.match(/^\d+$/)) {
+		if (argString && !argString.match(/^\d+$/)) {
 			const games = await gameManager.gameList({
 				keyword: argString,
 				maxRows: 1
