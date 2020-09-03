@@ -3,7 +3,8 @@ const timeoutMessage = 'Bugreport timedout.';
 
 module.exports = {
 	config: {
-		name: 'bugreport'
+		name: 'bugreport',
+		cooldown: 60 * 1000
 	},
 	async run({ client, message, utils: { octokit } }) {
 		const { channel, author, member } = message;
@@ -89,6 +90,7 @@ module.exports = {
 				.setDescription('Thanks for sending in your report, our developers will look at it as soon as possible!')
 				.setColor(colours.green)
 				.setFooter('THIS IS AN AUTOMATED MESSAGE'));
+			this.cooldown.add(member);
 		}
 		catch (err) {
 			console.log(err);
