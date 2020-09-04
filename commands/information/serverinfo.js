@@ -1,5 +1,20 @@
 const moment = require('moment');
 
+const region = {
+	'brazil': 'Brazil',
+	'europe': 'Europe',
+	'hongkong': 'Hong Kong',
+	'india': 'India',
+	'japan': 'Japan',
+	'russia': 'Russia',
+	'singapore': 'Singapore',
+	'southafrica': 'South Africa',
+	'sydney': 'Sydney',
+	'us-central': 'U.S. Central',
+	'us-south': 'U.S. South',
+	'us-east': 'U.S. East',
+	'us-west': 'U.S. West'
+};
 module.exports = {
 	config: {
 		name: 'serverinfo',
@@ -13,21 +28,6 @@ module.exports = {
 
 		const icon = message.guild.iconURL({ size: 2048 });
 
-		const region = {
-			'brazil': 'Brazil',
-			'eu-central': 'Central Europe',
-			'singapore': 'Singapore',
-			'london': 'London',
-			'russia': 'Russia',
-			'japan': 'Japan',
-			'hongkong': 'Hongkong',
-			'sydney': 'Sydney',
-			'us-central': 'U.S. Central',
-			'us-east': 'U.S. East',
-			'us-south': 'U.S. South',
-			'us-west': 'U.S. West',
-			'eu-west': 'Western Europe',
-		};
 
 		const channels = message.guild.channels;
 
