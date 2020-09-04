@@ -17,7 +17,6 @@ const ready = new Promise((res, rej) => bot.once('ready', res));
 
 const na = 'N/A';
 async function logError(err, origin) {
-	console.log(origin);
 	await ready;
 	if (!(err instanceof Error)) {
 		err = new Error(err);
@@ -38,20 +37,31 @@ async function logError(err, origin) {
 
 	return bot.channels.cache.get('718074355589840987').send(embed);
 }
-process.on('uncaughtExceptionMonitor', (err, origin) => {
-	logError(err, 'UncaughtException');
+
+// -- Setting .env path
+config({
+	path: __dirname + '/.env',
 });
 
-const _error = console.error;
-console.error = function() {
-	logError(arguments[0], 'Stderr');
-	_error.apply(console, arguments);
-};
-
-process.on('unhandledRejection', (err) => {
-	logError(err, 'UnhandledRejection');
-	_error.apply(console, [err]);
+config({
+	path: __dirname + '/.env.example',
 });
+
+if (process.env.LOG_ERRORS == 'true') {
+	process.on('uncaughtExceptionMonitor', (err, origin) => {
+		logError(err, 'UncaughtException');
+	});
+
+	const _error = console.error;
+	console.error = function() {
+		logError(arguments[0], 'Stderr');
+		_error.apply(console, arguments);
+	};
+	process.on('unhandledRejection', (err) => {
+		logError(err, 'UnhandledRejection');
+		_error.apply(console, [err]);
+	});
+}
 
 const intercept = require('./helpers/intercept');
 
@@ -70,14 +80,6 @@ intercept(process.stdout, (str) => {
 	}
 });
 
-// -- Setting .env path
-config({
-	path: __dirname + '/.env',
-});
-
-config({
-	path: __dirname + '/.env.example',
-});
 
 try {
 	process.env.owners = JSON.parse(process.env.OWNERS); // parsed owners from .env
