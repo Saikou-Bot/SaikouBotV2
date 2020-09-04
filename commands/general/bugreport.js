@@ -76,7 +76,7 @@ module.exports = {
 		}
 
 		if (doStop(description)) return;
-		
+
 		await octokit.issues.create({
 			owner: process.env.GITHUB_OWNER,
 			repo: process.env.GITHUB_REPO,
