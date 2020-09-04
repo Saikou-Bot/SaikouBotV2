@@ -10,7 +10,7 @@ const antiSpam = new AntiSpam({
 	maxDuplicatesWarning: 4,
 	maxDuplicatesKick: 5,
 	maxDuplicatesBan: 5,
-	maxDuplicatesInterval: 3500,
+	maxDuplicatesInterval: 4000,
 	exemptPermissions: [],
 	ignoreBots: true,
 	ignoredUsers: [],
