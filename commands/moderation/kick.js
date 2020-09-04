@@ -49,7 +49,7 @@ module.exports = {
 			guild: message.guild.id,
 			warn: {
 				moderator: message.author.id,
-				reason: reason,
+				reason: `[**Server kick**] ${reason}`,
 			},
 		});
 

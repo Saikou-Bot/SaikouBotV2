@@ -31,7 +31,7 @@ module.exports = {
 		}
 
 		if (member.user.bot) {
-			return errors.bots(message, 'mute');
+			return errors.bots(message, 'ban');
 		}
 
 		if (member.hasPermission('BAN_MEMBERS')) {
@@ -82,8 +82,8 @@ module.exports = {
 			modLogs.send(new MessageEmbed()
 				.setAuthor(`Case ${warns} | Ban | ${member.displayName}`, member.user.displayAvatarURL())
 				.addField('User:', `<@${member.id}>`, true)
-				.addField('Moderator', `<@${message.author.id}>`, true)
-				.addField('Reason', `${args.slice(1).join(' ')}`, true)
+				.addField('Moderator:', `<@${message.author.id}>`, true)
+				.addField('Reason:', `${args.slice(1).join(' ')}`, true)
 				.setColor(colours.red)
 				.setFooter(`Banned User ID: ${member.id}`)
 				.setTimestamp());

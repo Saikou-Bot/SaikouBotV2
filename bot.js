@@ -5,7 +5,7 @@ const { Client, Collection, MessageEmbed } = discord;
 const { config } = require('dotenv');
 const mongoose = require('mongoose');
 
-const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] } });
+const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] }, partials: ['MESSAGE', 'REACTION'] });
 
 global.colours = require('./jsonFiles/colours.json');
 global.discord = discord;
@@ -75,6 +75,10 @@ config({
 	path: __dirname + '/.env',
 });
 
+config({
+	path: __dirname + '/.env.example',
+});
+
 try {
 	process.env.owners = JSON.parse(process.env.OWNERS); // parsed owners from .env
 }
@@ -84,9 +88,9 @@ catch (err) {
 	console.error(err);
 }
 
-['aliases', 'commands', 'items'].forEach((x) => (bot[x] = new Collection()));
+['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
 (async () => {
-	const handlers = ['database', 'utils', 'command', 'event', 'items'];
+	const handlers = ['database', 'utils', 'command', 'event'];
 	for (let i = 0; i < handlers.length; i++) {
 		const handler = handlers[i];
 		try {
@@ -97,15 +101,19 @@ catch (err) {
 			console.error(`${chalk.bgYellow('Failed')} loading handler ${chalk.bold(handler)}`);
 		}
 	}
-})();
 
-if (!process.env.review) {
-	mongoose.connect(process.env.MONGOPASSWORD, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-	});
-	// ---Logging in with token or test token---
-	const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
-	bot.login(token);
-}
+	if (!process.env.review) {
+		mongoose.connect(process.env.MONGOPASSWORD, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			useFindAndModify: false,
+			useCreateIndex: true
+		});
+		// ---Logging in with token or test token---
+		const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
+		bot.login(token);
+	}
+	else {
+		bot.destroy();
+	}
+})();
