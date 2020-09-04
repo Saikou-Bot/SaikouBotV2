@@ -1,3 +1,4 @@
+const replies = ['Here you go! I hope it\'s okay...', 'Successfully fetched bot and API latency.', 'There you go! Is it bad...?'];
 module.exports = {
 	config: {
 		name: 'ping',
@@ -5,7 +6,9 @@ module.exports = {
 		usage: '.ping',
 		accessableby: 'Followers+',
 		aliases: ['latency', 'botping', 'apilatency', 'botlatency'],
-		channel: 'bot-commands'
+		channel: 'bot-commands',
+		cooldown: true,
+		autoCooldown: true
 	},
 	run: async ({ client: client, message }) => {
 
@@ -16,7 +19,6 @@ module.exports = {
 
 		const msg = await message.channel.send(pinging);
 
-		const replies = ['Here you go! I hope it\'s okay...', 'Successfully fetched bot and API latency.', 'There you go! Is it bad...?'];
 		const result = Math.floor((Math.random() * replies.length));
 
 		const latencyEmbed = new MessageEmbed()
@@ -26,8 +28,6 @@ module.exports = {
 			.addField('API Latency:', `${client.ws.ping}ms`, true)
 			.setColor(colours.blurple);
 
-		msg.edit(latencyEmbed);
-
-
+		return msg.edit(latencyEmbed);
 	},
 };

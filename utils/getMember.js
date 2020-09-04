@@ -1,26 +1,21 @@
 function getMember(message, toFind = '') {
 	toFind = toFind.toLowerCase();
-	let target = message.guild.members.cache.get(toFind);
 
-	if (!target && message.mentions.members) {
-		target = message.mentions.members.first();
+	const userIDMatch = toFind.match(/\d{17,19}/);
+
+	if (userIDMatch) {
+		const target = message.guild.members.cache.get(userIDMatch[0]);
+		if (target && !target.user.bot) return target;
 	}
 
-	if (!target && toFind) {
-		target = message.guild.members.cache.find(member => {
+	if (toFind) {
+		const target = message.guild.members.cache.find(member => {
 			return member.displayName.toLowerCase().includes(toFind) || member.user.tag.toLowerCase().includes(toFind);
 		});
+		if (target && !target.user.bot) return target;
 	}
 
-	if (!target) {
-		target = message.member;
-	}
-
-	if (target.user.bot) {
-		target = message.member;
-	}
-
-	return target;
+	return message.member;
 }
 
 module.exports = {
