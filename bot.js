@@ -15,9 +15,9 @@ const stripAnsi = require('strip-ansi');
 
 const ready = new Promise((res, rej) => bot.once('ready', res));
 
-const na = 'N/A'
+const na = 'N/A';
 async function logError(err, origin) {
-    console.log(origin)
+	console.log(origin);
 	await ready;
 	if (!(err instanceof Error)) {
 		err = new Error(err);
@@ -30,12 +30,12 @@ async function logError(err, origin) {
 
 	Object.getOwnPropertyNames(err).filter(p => !['message', 'stack'].includes(p))
 		.forEach(p => {
-			const value = err[p]
+			const value = err[p];
 			if (typeof value == 'string') {
 				embed.addField(p, value, true);
 			}
 		});
-	
+
 	return bot.channels.cache.get('718074355589840987').send(embed);
 }
 process.on('uncaughtExceptionMonitor', (err, origin) => {
@@ -46,7 +46,7 @@ const _error = console.error;
 console.error = function() {
 	logError(arguments[0], 'Stderr');
 	_error.apply(console, arguments);
-}
+};
 
 process.on('unhandledRejection', (err) => {
 	logError(err, 'UnhandledRejection');
@@ -65,9 +65,9 @@ intercept(process.stderr, (str) => {
 });
 
 intercept(process.stdout, (str) => {
-    if (typeof str == 'string') {
-        bot.logs += str;
-    }
+	if (typeof str == 'string') {
+		bot.logs += str;
+	}
 });
 
 // -- Setting .env path

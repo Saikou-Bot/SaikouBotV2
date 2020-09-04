@@ -12,13 +12,13 @@ module.exports = {
 
 		if (!process.env.OWNERS.includes(author.id)) return message.reply('Owner only');
 
-		let amount = args.amount || 20;
+		const amount = args.amount || 20;
 
 		const embed = new MessageEmbed({
 			description: `\`\`\`js\n${stripAnsi(client.logs.trim().split('\n').splice(-amount).join('\n'))}\n\`\`\``,
 			color: '#36393F'
-		})
+		});
 
 		channel.send(embed);
 	}
-}
+};
