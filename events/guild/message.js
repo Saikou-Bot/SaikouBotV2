@@ -35,7 +35,7 @@ module.exports = async (bot, message) => {
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
-	let argString = ''
+	let argString = '';
 	if (args.length > 0) {
 		argString = message.content.slice(message.content.indexOf(' ') + 1);
 	}

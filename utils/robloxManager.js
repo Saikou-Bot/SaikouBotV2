@@ -5,4 +5,4 @@ module.exports = {
 	construct(client) {
 		return new Game.RobloxManager(client.noblox);
 	}
-}
+};
