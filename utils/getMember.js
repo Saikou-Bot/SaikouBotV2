@@ -12,7 +12,7 @@ function getMember(message, toFind = '') {
 		let target = message.guild.members.cache.find(member => {
 			return member.displayName.toLowerCase().includes(toFind) || member.user.tag.toLowerCase().includes(toFind);
 		});
-		if (!target.user.bot) return target;
+		if (target && !target.user.bot) return target;
 	}
 
 	return member.member
