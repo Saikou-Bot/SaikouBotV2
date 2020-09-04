@@ -33,6 +33,7 @@ module.exports = {
 
 		try {
 			await askChannel.send(embed);
+			message.channel.send('Message sent, please check your DM\'s');
 		}
 		catch(err) {
 			askChannel = channel;
@@ -75,25 +76,20 @@ module.exports = {
 		}
 
 		if (doStop(description)) return;
+		
+		await octokit.issues.create({
+			owner: process.env.GITHUB_OWNER,
+			repo: process.env.GITHUB_REPO,
+			title: title.content,
+			body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
+			labels: [process.env.BUGREPORT_LABEL]
+		});
 
-		try {
-			await octokit.issues.create({
-				owner: process.env.GITHUB_OWNER,
-				repo: process.env.GITHUB_REPO,
-				title: title.content,
-				body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
-				labels: [process.env.BUGREPORT_LABEL]
-			});
-
-			message.author.send(new MessageEmbed()
-				.setTitle('✅ Report Completed')
-				.setDescription('Thanks for sending in your report, our developers will look at it as soon as possible!')
-				.setColor(colours.green)
-				.setFooter('THIS IS AN AUTOMATED MESSAGE'));
-			this.cooldown.add(member);
-		}
-		catch (err) {
-			throw err;
-		}
+		message.author.send(new MessageEmbed()
+			.setTitle('✅ Report Completed')
+			.setDescription('Thanks for sending in your report, our developers will look at it as soon as possible!')
+			.setColor(colours.green)
+			.setFooter('THIS IS AN AUTOMATED MESSAGE'));
+		this.cooldown.add(member);
 	}
 };
