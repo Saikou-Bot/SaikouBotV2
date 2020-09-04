@@ -93,7 +93,7 @@ module.exports = {
 			this.cooldown.add(member);
 		}
 		catch (err) {
-			console.log(err);
+			throw err;
 		}
 	}
 };
