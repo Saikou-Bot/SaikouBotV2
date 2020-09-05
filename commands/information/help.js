@@ -1,6 +1,6 @@
 /* eslint-disable space-before-function-paren */
 const fs = require('fs');
-const prefix = process.env.PREFIX;
+const prefix = config.prefix;
 
 module.exports = {
 	config: {
