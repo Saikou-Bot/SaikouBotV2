@@ -29,7 +29,7 @@ global.config = Object.assign({}, defaultConfig, process.env.CONFIG ? (() => {
 	}
 	catch(err) {
 		console.error(err);
-		return {}
+		return {};
 	}
 })() : (() => {
 	try {
@@ -37,7 +37,7 @@ global.config = Object.assign({}, defaultConfig, process.env.CONFIG ? (() => {
 	}
 	catch(err) {
 		if (err.code != 'MODULE_NOT_FOUND') console.error(err);
-		return {}
+		return {};
 	}
 })());
 
