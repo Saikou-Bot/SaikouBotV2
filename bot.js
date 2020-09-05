@@ -2,7 +2,7 @@
 const chalk = require('chalk');
 const discord = require('discord.js');
 const { Client, Collection, MessageEmbed } = discord;
-const { config } = require('dotenv');
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
 const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] }, partials: ['MESSAGE', 'REACTION'] });
@@ -13,28 +13,38 @@ global.MessageEmbed = MessageEmbed;
 
 
 // -- Setting .env path
-config({
+dotenv.config({
 	path: __dirname + '/.env',
 });
 
-config({
+dotenv.config({
 	path: __dirname + '/.env.example',
 });
 
-try {
-	process.env.owners = JSON.parse(process.env.OWNERS); // parsed owners from .env
-}
-catch (err) {
-	process.env.owners = []; // placeholder
-	console.log('Failed to load owners');
-	console.error(err);
-}
+const defaultConfig = require('./default.config.json');
+
+global.config = Object.assign({}, defaultConfig, process.env.CONFIG ? (() => {
+	try {
+		return JSON.parse(process.env.config);
+	}
+	catch(err) {
+		console.error(err);
+		return {}
+	}
+})() : (() => {
+	try {
+		return require('./config.json');
+	}
+	catch(err) {
+		if (err.code != 'MODULE_NOT_FOUND') console.error(err);
+		return {}
+	}
+})());
 
 ['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
 (async () => {
-	const handlers = ['database', 'utils', 'command', 'event'];
-	for (let i = 0; i < handlers.length; i++) {
-		const handler = handlers[i];
+	for (let i = 0; i < config.handlers.length; i++) {
+		const handler = config.handlers[i];
 		try {
 			await (require(`./handlers/${handler}`))(bot);
 		}
