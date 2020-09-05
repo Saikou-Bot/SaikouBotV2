@@ -1,5 +1,5 @@
 {
-	"utils": [],
-	"handlers": [],
-	"commandGroups": []
+	"utils": ["warn", "antiSpam", "cooldown", "embeds", "getMember", "getUserMod", "maintains", "suggestions", "octokit"],
+	"handlers": ["database", "utils", "command", "event"],
+	"commandGroups": ["information", "moderation", "fun", "economy", "games", "general", "owner"]
 }
