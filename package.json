@@ -43,7 +43,7 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "eslint": "^7.6.0",
+    "eslint": "^7.8.1",
     "nodemon": "^2.0.4"
   }
 }
