@@ -6,18 +6,32 @@ const userNotFound = new MessageEmbed({
 
 module.exports = {
 	config: {
-		name: 'search',
+  		name: 'search',
 		cooldown: true,
 		arguments: {
 			user: true
 		}
 	},
-	async run({ message, args, argString, utils: { rblx } }) {
+	async run({ message, args, argString, utils: { rblx, bloxlink } }) {
 		const userManager = rblx.users;
 
 		message.channel.startTyping();
-
-		if (!argString.match(/^\d+$/)) {
+		const userMentionMatch = args.user.match(/\d{17,19}/)
+		if (userMentionMatch) {
+			try {
+				args.user = await bloxlink.resolve(userMentionMatch[0]);
+			}
+			catch(err) {
+				console.error(err);
+				return message.channel.send(new MessageEmbed({
+					title: 'Failed to resolve roblox ID',
+					description: 'Error occured from bloxlink, please try again later',
+					color: colours.red
+				}).setTimestamp());
+			}
+			if (!args.user) return message.channel.send(userNotFound);
+		}
+		else if (!argString.match(/^\d+$/)) {
 			const users = await userManager.search({
 				keyword: argString
 			});
@@ -55,11 +69,16 @@ module.exports = {
 				url: `https://www.roblox.com/users/${fullData.id}/profile`,
 				iconURL: userHeadshot
 			},
-			description: fullData.description,
-			fields: {
-				name: 'Blob',
-				value: '`' + userStatus + '`'
-			},
+			fields: [
+				{
+					name: 'Blurb',
+					value: fullData.description
+				},
+				{
+					name: 'Status',
+					value: '`' + (userStatus || 'None') + '`'
+				}
+			],
 			footer: {
 				text: `User ID • ${args.user} | User Created`
 			},
