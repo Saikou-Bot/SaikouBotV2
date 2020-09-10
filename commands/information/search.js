@@ -6,7 +6,7 @@ const userNotFound = new MessageEmbed({
 
 module.exports = {
 	config: {
-  		name: 'search',
+		name: 'search',
 		cooldown: true,
 		arguments: {
 			user: true
@@ -16,7 +16,7 @@ module.exports = {
 		const userManager = rblx.users;
 
 		message.channel.startTyping();
-		const userMentionMatch = args.user.match(/\d{17,19}/)
+		const userMentionMatch = args.user.match(/\d{17,19}/);
 		if (userMentionMatch) {
 			try {
 				args.user = await bloxlink.resolve(userMentionMatch[0]);

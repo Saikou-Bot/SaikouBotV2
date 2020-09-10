@@ -4,7 +4,7 @@ if (!discord) var discord = require('discord.js');
 const defaultOptions = {
 	apiEndpoint: 'https://api.blox.link/v1/user/',
 	axiosOpts: {}
-}
+};
 
 class NonOkStatus extends Error {
 	constructor(data) {
@@ -29,11 +29,11 @@ class Bloxlink {
 				if (!res.data) throw new Error('No data');
 				if (res.data.status != 'ok') {
 					if (res.data.error == 'This user is not linked to Bloxlink.') return;
-					throw new NonOkStatus(res.data)
-				};
+					throw new NonOkStatus(res.data);
+				}
 
 				return res.data.primaryAccount;
-			})
+			});
 	}
 }
 
@@ -41,5 +41,5 @@ module.exports = {
 	name: 'bloxlink',
 	construct(client) {
 		return new Bloxlink(client);
-	} 
-}
+	}
+};
