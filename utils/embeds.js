@@ -90,5 +90,6 @@ module.exports = {
 	name: 'embeds',
 	construct(client) {
 		return embeds;
-	}
+	},
+	embeds
 };

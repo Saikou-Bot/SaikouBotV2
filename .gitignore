@@ -4,4 +4,5 @@ node_modules/
 .envexample
 pnpm-lock.yaml
 .eslintrc.json
+cookie
 config.json

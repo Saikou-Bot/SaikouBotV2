@@ -1,5 +1,5 @@
 {
-	"utils": ["warn", "antiSpam", "cooldown", "embeds", "getMember", "getUserMod", "maintains", "suggestions", "octokit"],
+	"utils": ["warn", "antiSpam", "cooldown", "embeds", "getMember", "getUserMod", "maintains", "suggestions", "octokit", "robloxManager", "bloxlink"],
 	"handlers": ["database", "utils", "command", "event"],
 	"commandGroups": ["information", "moderation", "fun", "economy", "games", "general", "owner"],
 	"owners": ["670588428970098708", "229142187382669312"],
