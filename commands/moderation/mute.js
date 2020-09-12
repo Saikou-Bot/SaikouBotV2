@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 const moment = require('moment');
 const ms = require('ms');
+const { MessageEmbed } = require('discord.js');
 const errors = embeds;
 
 module.exports = {
@@ -117,7 +118,17 @@ module.exports = {
 			.setTimestamp());
 
 
-		moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: ${ms(ms(time), { long: true })} server mute.\nReason: ${reason}\nProof:`);
+		//	moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: ${ms(ms(time), { long: true })} server mute.\nReason: ${reason}\nProof:`);
+
+		moderation.send(new MessageEmbed()
+			.setAuthor(`Saikou Discord | ${ms(ms(time))} Mute`, member.user.displayAvatarURL())
+			.addField('User:', `<@${member.id}>`, true)
+			.addField('Moderator:', `<@${message.author.id}>`, true)
+			.addField('Reason:', `${reason}`)
+			.setThumbnail(member.user.displayAvatarURL())
+			.setColor(colours.green)
+			.setFooter(`${ms(ms(time))} Mute`)
+			.setTimestamp());
 
 		member.roles.add(mutedRole);
 

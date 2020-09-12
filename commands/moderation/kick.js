@@ -83,8 +83,15 @@ module.exports = {
 			.setTimestamp());
 
 
-		moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: Server Kick.\nReason: ${reason}\nProof:`);
-
+		moderation.send(new MessageEmbed()
+			.setAuthor('Saikou Discord | Server Kick', member.user.displayAvatarURL())
+			.addField('User:', `<@${member.id}>`, true)
+			.addField('Moderator:', `<@${message.author.id}>`, true)
+			.addField('Reason:', `${reason}`)
+			.setThumbnail(member.user.displayAvatarURL())
+			.setColor(colours.green)
+			.setFooter('Server Kick')
+			.setTimestamp());
 
 	},
 };
