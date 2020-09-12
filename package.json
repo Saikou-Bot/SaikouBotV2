@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Dragonfire1859/SaikouBotV2#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "@octokit/auth-app": "^2.4.15",
     "@octokit/rest": "^18.0.5",
     "canvas": "^2.6.1",
@@ -35,10 +36,12 @@
     "discord.js-pagination": "^1.0.2",
     "dotenv": "^8.2.0",
     "extend": "^3.0.2",
+    "millify": "^3.2.1",
     "moment": "^2.27.0",
     "mongoose": "^5.10.3",
     "mongoose-plugin-autoinc": "^1.1.9",
     "ms": "^2.1.2",
+    "noblox.js": "^4.6.1",
     "ordinal": "^1.0.3",
     "path": "^0.12.7"
   },
