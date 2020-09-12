@@ -78,7 +78,7 @@ module.exports = {
 							.setTitle('✅ Report Completed')
 							.setDescription('Thanks for sending in your report, our staff team will look at it as soon as possible!')
 							.setColor(colours.green)
-							.setFooter('THIS IS AN AUTOMATED MESSGAE'));
+							.setFooter('THIS IS AN AUTOMATED MESSAGE'));
 					}
 
 					message.author.send(new MessageEmbed()
