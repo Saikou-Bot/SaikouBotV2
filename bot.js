@@ -150,7 +150,9 @@ intercept(process.stdout, (str) => {
 		// ---Logging in with token or test token---
 		const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
 		bot.login(token);
-		noblox.setCookie(process.env.COOKIE);
+		if (process.env.COOKIE) {
+			noblox.setCookie(process.env.COOKIE);
+		}
 	}
 	else {
 		bot.destroy();
