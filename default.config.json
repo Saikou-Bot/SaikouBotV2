@@ -1,4 +1,5 @@
 {
+	"logErrors": true,
 	"utils": ["warn", "antiSpam", "cooldown", "embeds", "getMember", "getUserMod", "maintains", "suggestions", "octokit", "robloxManager", "bloxlink"],
 	"handlers": ["database", "utils", "command", "event"],
 	"commandGroups": ["information", "moderation", "fun", "economy", "games", "general", "owner"],
