@@ -93,7 +93,7 @@ if (config.logErrors == true) {
 		try {
 			await logError(err, 'UncaughtException');
 		}
-		catch(err) {}
+		catch(err) {} // eslint-disable-line no-empty
 
 		process.exit(1);
 	});
