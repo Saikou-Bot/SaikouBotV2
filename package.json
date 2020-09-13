@@ -5,6 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "test": "nodemon bot.js",
+    "ci": "npm i",
     "eslint": "eslint .",
     "fix": "eslint . --fix",
     "run": "node bot.js",
@@ -43,7 +44,8 @@
     "ms": "^2.1.2",
     "noblox.js": "^4.7.2",
     "ordinal": "^1.0.3",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "strip-ansi": "^6.0.0"
   },
   "devDependencies": {
     "eslint": "^7.8.1",
