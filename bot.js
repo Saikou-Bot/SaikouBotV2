@@ -127,8 +127,6 @@ intercept(process.stdout, (str) => {
 	}
 });
 
-new Promise((res, rej) => rej('I error'));
-
 ['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
 (async () => {
 	for (let i = 0; i < config.handlers.length; i++) {
@@ -152,7 +150,9 @@ new Promise((res, rej) => rej('I error'));
 		// ---Logging in with token or test token---
 		const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
 		bot.login(token);
-		noblox.setCookie(process.env.COOKIE);
+		if (process.env.COOKIE) {
+			noblox.setCookie(process.env.COOKIE);
+		}
 	}
 	else {
 		bot.destroy();
