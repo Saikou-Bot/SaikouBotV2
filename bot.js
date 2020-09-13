@@ -127,8 +127,6 @@ intercept(process.stdout, (str) => {
 	}
 });
 
-new Promise((res, rej) => rej('I error'));
-
 ['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
 (async () => {
 	for (let i = 0; i < config.handlers.length; i++) {
