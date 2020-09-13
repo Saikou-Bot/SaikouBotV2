@@ -8,7 +8,9 @@ module.exports = {
 		usage: '.skillrate || .skillrate <user>',
 		accessableby: 'Followers+',
 		aliases: ['prorate', 'skill', 'pro', 'rate'],
-		channel: 'bot-commands'
+		channel: 'bot-commands',
+		cooldown: true,
+		autoCooldown: true,
 	},
 	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 

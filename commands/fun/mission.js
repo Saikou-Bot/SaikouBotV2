@@ -5,7 +5,9 @@ module.exports = {
 		usage: '.mission',
 		accessableby: 'Followers+',
 		aliases: ['mwtmission'],
-		channel: 'bot-commands'
+		channel: 'bot-commands',
+		cooldown: true,
+		autoCooldown: true,
 	},
 	run: async ({ client: bot, message }) => {
 

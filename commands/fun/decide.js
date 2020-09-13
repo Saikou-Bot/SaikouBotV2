@@ -5,7 +5,9 @@ module.exports = {
 		usage: '.decide <decision1> | <decision2>',
 		accessableby: 'Followers+',
 		aliases: ['saikouDecide'],
-		channel: 'bot-commands'
+		channel: 'bot-commands',
+		cooldown: true,
+		autoCooldown: true,
 	},
 	run: async ({ client: bot, message, args }) => {
 
