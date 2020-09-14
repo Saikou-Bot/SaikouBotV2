@@ -39,7 +39,7 @@
     "extend": "^3.0.2",
     "millify": "^3.2.1",
     "moment": "^2.28.0",
-    "mongoose": "^5.10.3",
+    "mongoose": "^5.10.5",
     "mongoose-plugin-autoinc": "^1.1.9",
     "ms": "^2.1.2",
     "noblox.js": "^4.7.2",
