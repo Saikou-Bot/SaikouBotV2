@@ -28,7 +28,7 @@
   "homepage": "https://github.com/Dragonfire1859/SaikouBotV2#readme",
   "dependencies": {
     "@octokit/auth-app": "^2.4.15",
-    "@octokit/rest": "^18.0.5",
+    "@octokit/rest": "^18.0.6",
     "axios": "^0.20.0",
     "canvas": "^2.6.1",
     "chalk": "^4.1.0",
