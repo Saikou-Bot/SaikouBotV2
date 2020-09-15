@@ -16,6 +16,7 @@ module.exports = {
 		const punishment = args.join(' ').split(', ')[1];
 		const reason = args.join(' ').split(', ')[2];
 
+		message.delete();
 		if (!name || !punishment || !reason) {
 			return message.channel.send(new MessageEmbed()
 				.setTitle('📋 Incorrect Usage')
@@ -24,7 +25,6 @@ module.exports = {
 				.setFooter('<> - Required ● Optional - [] ')).then(m => m.delete({ timeout: 12000 }));
 		}
 
-		message.delete();
 		moderation.send(new MessageEmbed()
 			.setAuthor(`Saikou Group | ${punishment}`, bot.user.displayAvatarURL())
 			.addField('User:', `${name}`, true)
