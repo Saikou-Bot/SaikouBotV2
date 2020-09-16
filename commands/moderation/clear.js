@@ -59,6 +59,5 @@ module.exports = {
 			.setColor(colours.yellow)
 			.setFooter(`Channel ID: ${message.channel.id}`)
 			.setTimestamp());
-
 	}
 };

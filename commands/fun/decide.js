@@ -11,7 +11,6 @@ module.exports = {
 	},
 	run: async ({ client: bot, message, args }) => {
 
-
 		const args1 = args.join(' ').split('| ')[0];
 		const args2 = args.join(' ').split('| ')[1];
 
@@ -23,7 +22,6 @@ module.exports = {
 				.setFooter('<> - Required ● Optional - [] '));
 		}
 
-
 		const responses = [
 			'That\'s a hard one... I choose',
 			'Hm... I choose',
@@ -33,7 +31,6 @@ module.exports = {
 		const result = Math.floor((Math.random() * responses.length));
 		const args1Shortener = args1.length > 1000 ? args1.substring(0, 900) + '...' : args1;
 		const args2Shortener = args2.length > 1000 ? args2.substring(0, 900) + '...' : args2;
-
 
 		const index = Math.random();
 		if (index < 0.5) {
@@ -54,6 +51,5 @@ module.exports = {
 
 			return message.channel.send(embed);
 		}
-
 	},
 };

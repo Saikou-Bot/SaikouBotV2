@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 const moment = require('moment');
-
 const warnData = require('../../models/warnData');
 const errors = embeds;
 
@@ -46,13 +45,11 @@ module.exports = {
 			return errors.noReason(message, 'ban');
 		}
 
-
 		warnData.findOne({
 			userID: member.id,
 			guild: message.guild.id,
 		}, (err, warnings) => {
 			if (err) console.log(err);
-
 
 			warnData.deleteOne({ userID: member.id }).catch(err => console.log(err));
 
@@ -87,7 +84,6 @@ module.exports = {
 				.setFooter(`Banned User ID: ${member.id}`)
 				.setTimestamp());
 
-
 			moderation.send(new MessageEmbed()
 				.setAuthor('Saikou Discord | Server Ban', member.user.displayAvatarURL())
 				.addField('User:', `<@${member.id}>`, true)
@@ -99,7 +95,6 @@ module.exports = {
 				.setTimestamp());
 
 			member.ban({ reason: reason });
-
 		});
 	},
 };

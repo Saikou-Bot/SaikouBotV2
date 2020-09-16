@@ -27,10 +27,7 @@ module.exports = {
 	run: async ({ client: bot, message }) => {
 
 		const icon = message.guild.iconURL({ size: 2048 });
-
-
 		const channels = message.guild.channels;
-
 
 		const serverinfo = new MessageEmbed()
 			.setAuthor(message.guild.name, icon)
@@ -45,7 +42,5 @@ module.exports = {
 			.setColor(colours.blurple);
 
 		message.channel.send(serverinfo);
-
-
 	},
 };

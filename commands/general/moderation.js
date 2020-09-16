@@ -34,6 +34,5 @@ module.exports = {
 			.setColor(colours.green)
 			.setFooter(`${punishment}`)
 			.setTimestamp());
-
 	}
 };

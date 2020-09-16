@@ -41,14 +41,12 @@ module.exports = {
 				.setAuthor(`${member.displayName} has ${warnings.warns.length} warnings in ${message.guild.name}`, member.user.displayAvatarURL())
 				.setColor(colours.blurple);
 
-
 			warnings.warns.forEach(a => {
 				i++;
 				warnEmbed.addField(`Warning: ${i} | Moderator: ${message.guild.members.cache.get(a.Moderator).user.tag}`, `${a.Reason} - ${moment(a.Time).format('MMMM Do YYYY')}\n\`${a.id}\``);
 			});
 
 			message.channel.send(warnEmbed);
-
 		});
 	},
 };

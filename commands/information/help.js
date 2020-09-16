@@ -168,10 +168,6 @@ module.exports = {
 				.setColor(colours.blurple);
 
 			return message.channel.send(cmdEmbed);
-
 		}
-
-
 	},
-
 };

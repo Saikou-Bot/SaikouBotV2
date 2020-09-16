@@ -52,9 +52,6 @@ module.exports = {
 			message.channel.send(new MessageEmbed()
 				.setDescription(`✅ **${bannedUser.user.username} has been unbanned.**`)
 				.setColor(colours.green));
-
-
 		});
-
 	}
 };

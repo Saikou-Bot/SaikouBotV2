@@ -18,7 +18,5 @@ module.exports = {
 
 
 		message.channel.send(avatarEmbed);
-
-
 	},
 };

@@ -27,9 +27,6 @@ module.exports = {
 			.setFooter(`User ID: ${member.id}`)
 			.setTimestamp();
 
-
 		message.channel.send(info);
-
-
 	},
 };

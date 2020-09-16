@@ -14,7 +14,6 @@ module.exports = {
 		let i = 0;
 		let options = '';
 
-
 		q.options.forEach(a => {
 			i++;
 			options += `**${i}. ${a}**\n`;

@@ -19,7 +19,5 @@ module.exports = {
 			.setColor(colours.blurple);
 
 		message.channel.send(credits);
-
-
 	},
 };

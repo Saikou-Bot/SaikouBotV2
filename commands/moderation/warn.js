@@ -66,6 +66,5 @@ module.exports = {
 			.setColor(colours.red)
 			.setFooter(`Warned User ID: ${member.id}`)
 			.setTimestamp());
-
 	},
 };

@@ -107,7 +107,6 @@ module.exports = {
 			.setFooter('THIS IS AN AUTOMATED MESSAGE')
 			.setTimestamp()).catch(() => { return; });
 
-
 		modLogs.send(new MessageEmbed()
 			.setAuthor(`Case ${warnings.warns.length + 1} | ${ms(ms(time))} Mute | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
@@ -116,9 +115,6 @@ module.exports = {
 			.setColor(colours.red)
 			.setFooter(`Muted User ID: ${member.id}`)
 			.setTimestamp());
-
-
-		//	moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: ${ms(ms(time), { long: true })} server mute.\nReason: ${reason}\nProof:`);
 
 		moderation.send(new MessageEmbed()
 			.setAuthor(`Saikou Discord | ${ms(ms(time))} Mute`, member.user.displayAvatarURL())
@@ -145,6 +141,5 @@ module.exports = {
 				.setFooter('THIS IS AN AUTOMATED MESSAGE')
 				.setTimestamp()).catch(() => { return; });
 		}, ms(time));
-
 	}
 };

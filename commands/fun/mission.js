@@ -12,7 +12,6 @@ module.exports = {
 	run: async ({ client: bot, message }) => {
 
 		const missions = require('../../jsonFiles/mission.json');
-
 		const pickedMission = Math.floor((Math.random() * missions.length));
 
 		const MissionEmbed = new MessageEmbed()
@@ -24,6 +23,5 @@ module.exports = {
 			.setThumbnail(message.author.displayAvatarURL());
 
 		message.channel.send(MissionEmbed);
-
 	},
 };

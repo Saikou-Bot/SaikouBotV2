@@ -67,9 +67,6 @@ module.exports = {
 		}
 
 		status.addField('Acknowledgements', `${statusMsg}\n${memoryMsg}`);
-
 		msg.edit(status);
-
-
 	},
 };

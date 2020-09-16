@@ -18,6 +18,5 @@ module.exports = {
 			.setColor(colours.green)
 			.setFooter('Coming soon!')
 			.setTimestamp());
-
 	}
 };

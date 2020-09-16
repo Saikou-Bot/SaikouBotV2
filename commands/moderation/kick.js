@@ -43,7 +43,6 @@ module.exports = {
 			return errors.noReason(message, 'kick');
 		}
 
-
 		const warnings = await warnUtil.addWarn({
 			user: member.id,
 			guild: message.guild.id,
@@ -55,13 +54,11 @@ module.exports = {
 
 		member.kick();
 
-
 		const embed2 = new MessageEmbed()
 			.setDescription(`✅ **${member.displayName} has been kicked.**`)
 			.setColor(colours.green);
 
 		message.channel.send(embed2);
-
 
 		member.send(new MessageEmbed()
 			.setTitle('Kicked')
@@ -72,7 +69,6 @@ module.exports = {
 			.setFooter('THIS IS AN AUTOMATED MESSAGE')
 			.setTimestamp()).catch(() => { return; });
 
-
 		modLogs.send(new MessageEmbed()
 			.setAuthor(`Case ${warnings.warns.length + 1} | Kick | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
@@ -81,7 +77,6 @@ module.exports = {
 			.setColor(colours.red)
 			.setFooter(`Kicked User ID: ${member.id}`)
 			.setTimestamp());
-
 
 		moderation.send(new MessageEmbed()
 			.setAuthor('Saikou Discord | Server Kick', member.user.displayAvatarURL())
@@ -92,6 +87,5 @@ module.exports = {
 			.setColor(colours.green)
 			.setFooter('Server Kick')
 			.setTimestamp());
-
 	},
 };
