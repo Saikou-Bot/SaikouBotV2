@@ -69,7 +69,7 @@ module.exports = {
 							.setColor(colours.green));
 					}
 
-					if (!ProofLink.includes('https') && Proof.size === 0) {
+					if (!ProofLink.includes(/(https|http)/) && Proof.size === 0) {
 						return message.author.send('That is not a link, please retry with an actual link.');
 					}
 
