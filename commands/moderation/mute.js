@@ -53,6 +53,10 @@ module.exports = {
 			return errors.equalPerms(message, 'Manage Messages');
 		}
 
+		if (!time) {
+			return message.channel.send(noTime);
+		}
+
 		if (!ms(time)) {
 			return message.channel.send(noTime);
 		}
