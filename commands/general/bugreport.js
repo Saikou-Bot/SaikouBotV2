@@ -33,7 +33,9 @@ module.exports = {
 
 		try {
 			await askChannel.send(embed);
-			message.channel.send('Message sent, please check your DM\'s');
+			message.channel.send(new MessageEmbed()
+				.setDescription(`📬 A message has been sent to your DM's <@${message.author.id}>`)
+				.setColor(colours.green)).then(msg => { msg.delete({ timeout: 12000 }); });
 		}
 		catch(err) {
 			askChannel = channel;
