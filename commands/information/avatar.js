@@ -12,7 +12,9 @@ module.exports = {
 		const member = getMember(message, args[0]);
 
 		const avatarEmbed = new MessageEmbed()
-			.setTitle(`${member.displayName}'s avatar`)
+			.setAuthor(`${member.user.tag}`, member.user.displayAvatarURL())
+			.setTitle('Avatar')
+			.setDescription(`<@${member.user.id}>`)
 			.setColor(colours.blurple)
 			.setImage(member.user.displayAvatarURL({ size: 4096, dynamic: true }));
 
