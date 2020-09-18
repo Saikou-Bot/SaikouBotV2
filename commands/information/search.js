@@ -72,7 +72,7 @@ module.exports = {
 			fields: [
 				{
 					name: 'Blurb',
-					value: fullData.description
+					value: fullData.description || 'None'
 				},
 				{
 					name: 'Status',
