@@ -23,11 +23,13 @@ module.exports = {
 				.setColor('2C2F33'));
 		}
 		catch(err) {
-			if (err.httpStatus == 403) return message.channel.send(new MessageEmbed({
-				title: 'Bot failed to dm',
-				description: 'Make sure you have DM\' enabled',
-				color: colours.red
-			}));
+			if (err.httpStatus == 403) {
+				return message.channel.send(new MessageEmbed({
+					title: 'Bot failed to dm',
+					description: 'Make sure you have DM\' enabled',
+					color: colours.red
+				}));
+			}
 			throw err;
 		}
 		message.channel.send(new MessageEmbed()
@@ -48,8 +50,8 @@ module.exports = {
 		}
 
 		function checkCancel(msg) {
-			if (msg.content == 'cancel') return sendCancel().then(() => true)
-				else return false;
+			if (msg.content == 'cancel') return sendCancel().then(() => true);
+			else return false;
 		}
 
 		const dmChannel = await message.author.createDM();
@@ -94,13 +96,13 @@ module.exports = {
 			.setColor('2C2F33'));
 
 		const attachmentCollector = dmChannel.createMessageCollector(m => m.author.id == message.author.id,
-			{ 
+			{
 				idle: 120000,
 				max: 10
 			});
 
-		let attachments = [];
-		let videos = [];
+		const attachments = [];
+		const videos = [];
 
 		attachmentCollector.on('collect', async (msg) => {
 			if (await checkCancel(msg)) {
@@ -119,20 +121,20 @@ module.exports = {
 
 			if (links.length == 1 && msg.content == links[0]) content = '';
 
-			let mediaLinks = {images: [], videos: []};
+			let mediaLinks = { images: [], videos: [] };
 
 
 			if (links.length > 0) {
 				const timeout = Axios.CancelToken.source();
 				mediaLinks = (await Promise.allSettled(links.map(l => Axios.head(l, { cancelToken: timeout.token })))).filter(r => r.status == 'fulfilled' && r.value.headers['content-type']).map(res => res.value).reduce((ml, r) => {
-						if (r.headers['content-type'].startsWith('image')) ml.images.push(r.config.url);
-						else if (r.headers['content-type'].startsWith('video')) ml.videos.push(r.config.url); 
-						return ml;
-					}, 
-					mediaLinks);
+					if (r.headers['content-type'].startsWith('image')) ml.images.push(r.config.url);
+					else if (r.headers['content-type'].startsWith('video')) ml.videos.push(r.config.url);
+					return ml;
+				},
+				mediaLinks);
 				setTimeout(() => {
 					timeout.cancel('timeout');
-				}, 5000)
+				}, 5000);
 			}
 
 			if (mediaLinks.images.length + mediaLinks.videos.length < 1) return message.author.send('That is not a link, please retry with an actual link.');
@@ -181,7 +183,7 @@ module.exports = {
 
 			await message.channel.send(embed);
 
-			for (var i = 0; i < attachments.length; i++) {
+			for (let i = 0; i < attachments.length; i++) {
 				const attachment = attachments[i];
 				await message.channel.send(new MessageEmbed({
 					title: attachment.content,
@@ -191,7 +193,7 @@ module.exports = {
 					color: colours.blurple
 				})).catch(() => {});
 			}
-			for (var i = 0; i < videos.length; i++) {
+			for (let i = 0; i < videos.length; i++) {
 				const video = videos[i];
 				const cleanContent = video.content.replace(urlRegex, '<$&>');
 
@@ -199,64 +201,64 @@ module.exports = {
 					files: [video.url]
 				});
 			}
-		}
+		};
 
 		attachmentCollector.once('end', handleEnd);
 
 
-				// 	const Proof = msgs3.first().attachments;
-				// 	const ProofLink = msgs3.first().content;
+		// 	const Proof = msgs3.first().attachments;
+		// 	const ProofLink = msgs3.first().content;
 
-				// 	if (ProofLink.toLowerCase() === 'cancel') {
-				// 		return message.author.send(new MessageEmbed()
-				// 			.setDescription('Cancelled report!')
-				// 			.setColor(colours.green));
-				// 	}
+		// 	if (ProofLink.toLowerCase() === 'cancel') {
+		// 		return message.author.send(new MessageEmbed()
+		// 			.setDescription('Cancelled report!')
+		// 			.setColor(colours.green));
+		// 	}
 
-				// 	if (!ProofLink.includes(/(https|http)/) && Proof.size === 0) {
-				// 		return message.author.send('That is not a link, please retry with an actual link.');
-				// 	}
+		// 	if (!ProofLink.includes(/(https|http)/) && Proof.size === 0) {
+		// 		return message.author.send('That is not a link, please retry with an actual link.');
+		// 	}
 
-					// if (ProofLink.toLowerCase() === 'done') {
-					// 	return message.author.send(new MessageEmbed()
-					// 		.setTitle('✅ Report Completed')
-					// 		.setDescription('Thanks for sending in your report, our staff team will look at it as soon as possible!')
-					// 		.setColor(colours.green)
-					// 		.setFooter('THIS IS AN AUTOMATED MESSAGE'));
-					// }
+		// if (ProofLink.toLowerCase() === 'done') {
+		// 	return message.author.send(new MessageEmbed()
+		// 		.setTitle('✅ Report Completed')
+		// 		.setDescription('Thanks for sending in your report, our staff team will look at it as soon as possible!')
+		// 		.setColor(colours.green)
+		// 		.setFooter('THIS IS AN AUTOMATED MESSAGE'));
+		// }
 
-				// 	message.author.send(new MessageEmbed()
-				// 		.setTitle('✅ Report Completed')
-				// 		.setDescription('Thanks for sending in your report, our staff team will look at it as soon as possible!')
-				// 		.setColor(colours.green)
-				// 		.setFooter('THIS IS AN AUTOMATED MESSGAE'));
+		// 	message.author.send(new MessageEmbed()
+		// 		.setTitle('✅ Report Completed')
+		// 		.setDescription('Thanks for sending in your report, our staff team will look at it as soon as possible!')
+		// 		.setColor(colours.green)
+		// 		.setFooter('THIS IS AN AUTOMATED MESSGAE'));
 
-					// const embed = new MessageEmbed()
-					// 	.setTitle('🛡️ New Report!')
-					// 	.setDescription(`**Reported User:** ${RobloxName}\n**Reason:** ${Reason}\n**Proof:**`)
-					// 	.setColor(colours.blurple);
-				// 	if (!ProofLink) {
-				// 		Proof.forEach(attachment => {
-				// 			embed.setImage(attachment.url);
-				// 			console.log(attachment.url);
-				// 		});
-				// 	}
-				// 	else if (ProofLink && Proof) {
-				// 		Proof.forEach(attachment => {
-				// 			embed.setImage(attachment.url);
-				// 			console.log(attachment.url);
-				// 		});
-				// 		embed.setDescription(`**Reported User:** ${RobloxName}\n**Reason:** ${Reason}\n**Proof:** ${ProofLink}`);
+		// const embed = new MessageEmbed()
+		// 	.setTitle('🛡️ New Report!')
+		// 	.setDescription(`**Reported User:** ${RobloxName}\n**Reason:** ${Reason}\n**Proof:**`)
+		// 	.setColor(colours.blurple);
+		// 	if (!ProofLink) {
+		// 		Proof.forEach(attachment => {
+		// 			embed.setImage(attachment.url);
+		// 			console.log(attachment.url);
+		// 		});
+		// 	}
+		// 	else if (ProofLink && Proof) {
+		// 		Proof.forEach(attachment => {
+		// 			embed.setImage(attachment.url);
+		// 			console.log(attachment.url);
+		// 		});
+		// 		embed.setDescription(`**Reported User:** ${RobloxName}\n**Reason:** ${Reason}\n**Proof:** ${ProofLink}`);
 
-				// 	}
-				// 	else {
-				// 		embed.setDescription(`**Reported User:** ${RobloxName}\n**Reason:** ${Reason}\n**Proof:** ${ProofLink}`);
-				// 	}
+		// 	}
+		// 	else {
+		// 		embed.setDescription(`**Reported User:** ${RobloxName}\n**Reason:** ${Reason}\n**Proof:** ${ProofLink}`);
+		// 	}
 
-				// 	embed.setFooter(`Reported by: ${message.author.username}`, message.author.displayAvatarURL());
+		// 	embed.setFooter(`Reported by: ${message.author.username}`, message.author.displayAvatarURL());
 
-				// 	message.channel.send(embed);
+		// 	message.channel.send(embed);
 
-				// }
+		// }
 	},
 };
