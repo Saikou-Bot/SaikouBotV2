@@ -9,8 +9,7 @@ module.exports = {
 		accessableby: 'Followers+',
 		aliases: ['reportabuse'],
 		channel: 'report-abuse',
-		cooldown: true,
-		autoCooldown: true,
+		cooldown: 5 * 60 * 1000,
 	},
 	run: async ({ client, message, args }) => {
 
@@ -183,6 +182,8 @@ module.exports = {
 				.setColor(colours.blurple);
 
 			await message.channel.send(embed);
+
+			this.cooldown.add(message.member);
 
 			for (let i = 0; i < attachments.length; i++) {
 				const attachment = attachments[i];
