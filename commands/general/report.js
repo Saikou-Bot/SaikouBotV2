@@ -114,7 +114,7 @@ module.exports = {
 			}
 			let content = msg.content;
 
-			const messageAttachments = msg.attachments.filter(a => a.width && a.height);
+			const messageAttachments = msg.attachments;
 
 			const links = [...[...(msg.content || '').matchAll(urlRegex)].map(m => m[0]), ...messageAttachments.map(a => a.url)];
 
