@@ -106,8 +106,7 @@ module.exports = {
 
 		attachmentCollector.on('collect', async (msg) => {
 			if (await checkCancel(msg)) {
-				attachmentCollector.removeListener('end', handleEnd);
-				return attachmentCollector.stop();
+				return attachmentCollector.stop('cancel');
 			}
 
 			if (msg.content == 'done') {
@@ -169,7 +168,9 @@ module.exports = {
 			}
 		});
 
-		const handleEnd = async () => {
+		attachmentCollector.once('end', async (collected, reason) => {
+			if (reason == 'idle') return sendTimeout();
+			else if (reason == 'cancel') return;
 			message.author.send(new MessageEmbed()
 				.setTitle('✅ Report Completed')
 				.setDescription('Thanks for sending in your report, our staff team will look at it as soon as possible!')
@@ -201,9 +202,7 @@ module.exports = {
 					files: [video.url]
 				});
 			}
-		};
-
-		attachmentCollector.once('end', handleEnd);
+		});
 
 
 		// 	const Proof = msgs3.first().attachments;
