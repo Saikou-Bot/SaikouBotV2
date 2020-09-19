@@ -168,9 +168,9 @@ module.exports = {
 			}
 		});
 
-		attachmentCollector.once('end', async (collected, reason) => {
-			if (reason == 'idle') return sendTimeout();
-			else if (reason == 'cancel') return;
+		attachmentCollector.once('end', async (collected, r) => {
+			if (r == 'idle') return sendTimeout();
+			else if (r == 'cancel') return;
 			message.author.send(new MessageEmbed()
 				.setTitle('✅ Report Completed')
 				.setDescription('Thanks for sending in your report, our staff team will look at it as soon as possible!')
