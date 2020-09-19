@@ -81,8 +81,6 @@ class SuggestionManager {
 module.exports = {
 	name: 'suggestions',
 	construct(client) {
-		return new SuggestionManager(client, {
-			maxvote: 1
-		});
+		return new SuggestionManager(client);
 	}
 };

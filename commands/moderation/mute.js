@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
 const moment = require('moment');
 const ms = require('ms');
-
-const warnData = require('../../models/warnData');
+const { MessageEmbed } = require('discord.js');
 const errors = embeds;
 
 module.exports = {
@@ -55,18 +54,16 @@ module.exports = {
 		}
 
 		if (!time) {
-
 			return message.channel.send(noTime);
 		}
 
-		if (!time.includes('s' || 'm' || 'h' || 'd')) {
+		if (!ms(time)) {
 			return message.channel.send(noTime);
 		}
 
 		if (!reason) {
 			return errors.noReason(message, 'mute');
 		}
-
 
 		if (!mutedRole) {
 			try {
@@ -91,10 +88,9 @@ module.exports = {
 			}
 		}
 
-
-		const roles = member.roles.cache.array();
-
-		message.channel.send(`<@${member.id}> has been muted for ${ms(ms(time))}`);
+		message.channel.send(new MessageEmbed()
+			.setDescription(`✅ **${member.displayName} has been muted for ${ms(ms(time))}.**`)
+			.setColor(colours.green));
 
 		const warnings = await warnUtil.addWarn({
 			user: member.id,
@@ -115,35 +111,39 @@ module.exports = {
 			.setFooter('THIS IS AN AUTOMATED MESSAGE')
 			.setTimestamp()).catch(() => { return; });
 
-
 		modLogs.send(new MessageEmbed()
 			.setAuthor(`Case ${warnings.warns.length + 1} | ${ms(ms(time))} Mute | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
-			.addField('Moderator', `<@${message.author.id}>`, true)
-			.addField('Reason', `${reason}`, true)
+			.addField('Moderator:', `<@${message.author.id}>`, true)
+			.addField('Reason:', `${reason}`, true)
 			.setColor(colours.red)
 			.setFooter(`Muted User ID: ${member.id}`)
 			.setTimestamp());
 
+		moderation.send(new MessageEmbed()
+			.setAuthor(`Saikou Discord | ${ms(ms(time))} Mute`, member.user.displayAvatarURL())
+			.addField('User:', `<@${member.id}>`, true)
+			.addField('Moderator:', `<@${message.author.id}>`, true)
+			.addField('Reason:', `${reason}`)
+			.setThumbnail(member.user.displayAvatarURL())
+			.setColor(colours.green)
+			.setFooter(`${ms(ms(time))} Mute`)
+			.setTimestamp());
 
-		moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: ${ms(ms(time), { long: true })} server mute.\nReason: ${reason}\nProof:`);
+		member.roles.add(mutedRole);
 
+		setTimeout(function() {
+			member.roles.remove(mutedRole);
 
-		for (let i = 0; i < roles.length; i++) {
-			if (roles[i].name.includes('Follower')) {
-				const userRole = roles[i];
-				member.roles.remove(roles[i]);
-
-				member.roles.add(mutedRole);
-
-
-				// eslint-disable-next-line space-before-function-paren
-				setTimeout(function () {
-					member.roles.add(userRole);
-					member.roles.remove(mutedRole);
-				}, ms(time));
-
-			}
-		}
+			member.send(new MessageEmbed()
+				.setTitle('Unmuted')
+				.setDescription('This notice is to inform you that your **mute** has concluded within Saikou. Please ensure you are behaving to avoid receiving further punishments.')
+				.addField('Muted By', `${message.author.tag}`)
+				.addField('Mute Duration', `${ms(ms(time), { long: true })}`)
+				.addField('Reason', `${reason}`)
+				.setColor(colours.green)
+				.setFooter('THIS IS AN AUTOMATED MESSAGE')
+				.setTimestamp()).catch(() => { return; });
+		}, ms(time));
 	}
 };

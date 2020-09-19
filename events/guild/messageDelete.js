@@ -5,12 +5,14 @@ module.exports = (client, message) => {
 	if (message.channel.name == '👥management') return;
 	if (message.channel.name == '🔧project-untitled') return;
 	if (message.channel.name == '🔒classified') return;
-	if (!message.author) return;
+
+	if (message.partial) {
+		return;
+	}
 	if (message.author.bot) return;
 
 	const shortenMessage = message.content.length > 1900 ? message.content.substring(0, 1800) + '...' : message.content;
 	const shortenAttachment = message.content.length > 900 ? message.content.substring(0, 900) + '...' : message.content;
-
 
 	if (message.attachments.size > 0) {
 

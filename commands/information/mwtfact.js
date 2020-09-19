@@ -1,6 +1,5 @@
 const facts = require('../../jsonFiles/mwtfact.json');
 
-
 module.exports = {
 	config: {
 		name: 'mwtfact',
@@ -23,7 +22,5 @@ module.exports = {
 			.setFooter(`Requested by: ${message.author.username}`, message.author.displayAvatarURL());
 
 		message.channel.send(mwtfactEmbed);
-
-
 	},
 };

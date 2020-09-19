@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 const moment = require('moment');
-
 const warnData = require('../../models/warnData');
 const errors = embeds;
 
@@ -46,16 +45,13 @@ module.exports = {
 			return errors.noReason(message, 'ban');
 		}
 
-
 		warnData.findOne({
 			userID: member.id,
 			guild: message.guild.id,
 		}, (err, warnings) => {
 			if (err) console.log(err);
 
-
 			warnData.deleteOne({ userID: member.id }).catch(err => console.log(err));
-			member.ban(reason);
 
 			const embed3 = new MessageEmbed()
 				.setDescription(`✅ **${member.displayName} has been banned.**`)
@@ -88,10 +84,17 @@ module.exports = {
 				.setFooter(`Banned User ID: ${member.id}`)
 				.setTimestamp());
 
+			moderation.send(new MessageEmbed()
+				.setAuthor('Saikou Discord | Server Ban', member.user.displayAvatarURL())
+				.addField('User:', `<@${member.id}>`, true)
+				.addField('Moderator:', `<@${message.author.id}>`, true)
+				.addField('Reason:', `${reason}`)
+				.setThumbnail(member.user.displayAvatarURL())
+				.setColor(colours.green)
+				.setFooter('Server Ban')
+				.setTimestamp());
 
-			moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: Server Ban.\nReason: ${reason}\nProof:`);
-
-
+			member.ban({ reason: reason });
 		});
 	},
 };

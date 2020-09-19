@@ -1,4 +1,5 @@
 const pckg = require('../../package.json');
+const os = require('os');
 
 module.exports = {
 	config: {
@@ -16,7 +17,8 @@ module.exports = {
 			.setColor(colours.blurple));
 
 		const botLatency = msg.createdTimestamp - message.createdTimestamp;
-		const MemoryUsage = process.memoryUsage().heapUsed / 1024 / 1024;
+		const totalMemory = os.totalmem();
+		const memoryPercentage = (totalMemory - os.freemem()) / totalMemory * 100;
 		let statusMsg = '';
 		let memoryMsg = '';
 
@@ -29,17 +31,17 @@ module.exports = {
 
 		const status = new MessageEmbed()
 			.setTitle('Saikou Bot Status')
-			.setDescription(`**${bot.user.username}** has been running for \`${duration(bot.uptime)}\`\nDown below lists some statistics.\n\n**Bot Latency:** \`${botLatency}ms\`\n**Version:** \`${pckg.version}\`\n**Memory Usage:** \`${Math.round(MemoryUsage)}%\` `)
+			.setDescription(`**${bot.user.username}** has been running for \`${duration(bot.uptime)}\`\nDown below lists some statistics.\n\n**Bot Latency:** \`${botLatency}ms\`\n**Version:** \`${pckg.version}\`\n**Memory Usage:** \`${Math.round(memoryPercentage)}%\` `)
 			.setThumbnail(bot.user.displayAvatarURL());
 
 		// Memory Usage
-		if (MemoryUsage > 29 && MemoryUsage < 50) {
+		if (memoryPercentage > 29 && memoryPercentage < 50) {
 			memoryMsg = '⚠️ Higher than average memory usage.';
 		}
-		else if (MemoryUsage > 0 && MemoryUsage < 30) {
+		else if (memoryPercentage > 0 && memoryPercentage < 30) {
 			memoryMsg = '✅ Normal memory usage.';
 		}
-		else if (MemoryUsage > 49 && MemoryUsage < 999999999) {
+		else if (memoryPercentage > 49 && memoryPercentage < 999999999) {
 			memoryMsg = '❗ Extremely high memory usage.';
 		}
 		else {
@@ -65,9 +67,6 @@ module.exports = {
 		}
 
 		status.addField('Acknowledgements', `${statusMsg}\n${memoryMsg}`);
-
 		msg.edit(status);
-
-
 	},
 };

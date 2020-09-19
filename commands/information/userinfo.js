@@ -6,8 +6,7 @@ module.exports = {
 		description: 'Shows a whole bunch of user information.',
 		usage: '.userinfo || .userinfo <user>',
 		accessableby: 'Followers+',
-		aliases: ['user', 'whois'],
-		channel: 'bot-commands'
+		aliases: ['user', 'whois']
 	},
 	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
@@ -28,9 +27,6 @@ module.exports = {
 			.setFooter(`User ID: ${member.id}`)
 			.setTimestamp();
 
-
 		message.channel.send(info);
-
-
 	},
 };

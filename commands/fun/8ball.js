@@ -5,7 +5,9 @@ module.exports = {
 		usage: '.8ball <question>',
 		accessableby: 'Followers+',
 		aliases: ['question'],
-		channel: 'bot-commands'
+		channel: 'bot-commands',
+		cooldown: true,
+		autoCooldown: true,
 	},
 	run: async ({ client: bot, message, args }) => {
 
@@ -64,7 +66,5 @@ module.exports = {
 
 
 		message.channel.send(ballembed);
-
-
 	},
 };

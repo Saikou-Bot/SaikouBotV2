@@ -8,7 +8,9 @@ module.exports = {
 		usage: '.skillrate || .skillrate <user>',
 		accessableby: 'Followers+',
 		aliases: ['prorate', 'skill', 'pro', 'rate'],
-		channel: 'bot-commands'
+		channel: 'bot-commands',
+		cooldown: true,
+		autoCooldown: true,
 	},
 	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
@@ -33,25 +35,5 @@ module.exports = {
 
 			message.channel.send(skillrateEmbed);
 		}
-
-
-		userData.findOne({ userID: message.author.id }, (err, UserData) => {
-
-			userQuests.findOne({ UserID: message.author.id, Quest: 'Skilled Fighter', completed: false }, (err, SkilledFighter) => {
-
-				if (rating === 100 && SkilledFighter) {
-					message.channel.send(`You completed the quest **Skilled Fighter** and was rewarded ${SkilledFighter.Reward.toLocaleString()} credits.`);
-
-					UserData.coins += SkilledFighter.Reward;
-
-					SkilledFighter.completed = true;
-					SkilledFighter.save();
-
-
-				}
-				UserData.save();
-			});
-		});
-
 	},
 };

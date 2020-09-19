@@ -43,25 +43,22 @@ module.exports = {
 			return errors.noReason(message, 'kick');
 		}
 
-
 		const warnings = await warnUtil.addWarn({
 			user: member.id,
 			guild: message.guild.id,
 			warn: {
 				moderator: message.author.id,
-				reason: reason,
+				reason: `[**Server kick**] ${reason}`,
 			},
 		});
 
 		member.kick();
-
 
 		const embed2 = new MessageEmbed()
 			.setDescription(`✅ **${member.displayName} has been kicked.**`)
 			.setColor(colours.green);
 
 		message.channel.send(embed2);
-
 
 		member.send(new MessageEmbed()
 			.setTitle('Kicked')
@@ -72,7 +69,6 @@ module.exports = {
 			.setFooter('THIS IS AN AUTOMATED MESSAGE')
 			.setTimestamp()).catch(() => { return; });
 
-
 		modLogs.send(new MessageEmbed()
 			.setAuthor(`Case ${warnings.warns.length + 1} | Kick | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
@@ -82,9 +78,14 @@ module.exports = {
 			.setFooter(`Kicked User ID: ${member.id}`)
 			.setTimestamp());
 
-
-		moderation.send(`${moment().format('D/M/YYYY')} **Saikou Discord**\nModerator: <@${message.author.id}>\nUser's Name(s): <@${member.id}>\nPunishment: Server Kick.\nReason: ${reason}\nProof:`);
-
-
+		moderation.send(new MessageEmbed()
+			.setAuthor('Saikou Discord | Server Kick', member.user.displayAvatarURL())
+			.addField('User:', `<@${member.id}>`, true)
+			.addField('Moderator:', `<@${message.author.id}>`, true)
+			.addField('Reason:', `${reason}`)
+			.setThumbnail(member.user.displayAvatarURL())
+			.setColor(colours.green)
+			.setFooter('Server Kick')
+			.setTimestamp());
 	},
 };

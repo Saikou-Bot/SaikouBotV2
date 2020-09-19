@@ -12,7 +12,8 @@
 		"MessageEmbed": "readonly",
 		"colours": "readonly",
 		"embeds": "readonly",
-		"modLogs": "readonly"
+		"modLogs": "readonly",
+		"config": "readonly"
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
