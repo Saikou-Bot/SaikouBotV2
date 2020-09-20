@@ -11,5 +11,5 @@ module.exports = (client) => {
 			client.on(eName, evt.bind(null, client));
 		}
 	};
-	['client', 'guild', 'autoMod', 'eastereggs', 'suggestions', 'channels'].forEach((x) => load(x));
+	config.eventGroups.forEach((x) => load(x));
 };
