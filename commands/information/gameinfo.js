@@ -20,10 +20,19 @@ module.exports = {
 		message.channel.startTyping();
 
 		if (argString && !argString.match(/^\d+$/)) {
-			const games = await gameManager.gameList({
-				keyword: argString,
-				maxRows: 1
-			});
+			let games;
+			try {
+				games = await gameManager.gameList({
+					keyword: argString,
+					maxRows: 1
+				});
+			}
+			catch(err) {
+				if (err.message == 'The keyword was filtered.') {
+					return message.channel.send(embeds.keywordFiltered());
+				}
+				throw err;
+			}
 			if (games.length < 1) return message.channel.send(gameNotFound);
 			args.game = games[0].placeId;
 		}

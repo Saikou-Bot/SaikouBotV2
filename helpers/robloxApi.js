@@ -1,9 +1,10 @@
 const axios = require('axios');
 
 class RobloxError extends Error {
-	constructor(error) {
-		super(error.message);
-		this.reason = error.reason || error.message;
+	constructor(error, reason) {
+		super(typeof error == 'string' ? error : error.message);
+		this.name = 'RobloxError';
+		this.reason = reason || error.reason;
 	}
 }
 
@@ -325,6 +326,7 @@ class GameManager {
 
 		return axios.get(this.apiEndpoints['/v1/games/list'](options))
 			.then(async res => {
+				if (res.data.filteredKeyword) throw new RobloxError('The keyword was filtered.');
 				if (!Array.isArray(res.data.games)) throw new Error('response not array');
 				return res.data.games.map(gameOpts => new GameData(this, gameOpts));
 			});

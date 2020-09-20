@@ -32,9 +32,18 @@ module.exports = {
 			if (!args.user) return message.channel.send(userNotFound);
 		}
 		else if (!argString.match(/^\d+$/)) {
-			const users = await userManager.search({
-				keyword: argString
-			});
+			let users;
+			try {
+				users = await userManager.search({
+					keyword: argString
+				});
+			}
+			catch(err) {
+				if (err.message == 'The keyword was filtered.') {
+					return message.channel.send(embeds.keywordFiltered());
+				}
+				throw err;
+			}
 
 			if (users.length < 1) return message.channel.send(userNotFound);
 			args.user = users[0].id;
