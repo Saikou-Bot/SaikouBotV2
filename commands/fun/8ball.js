@@ -47,15 +47,6 @@ module.exports = {
 
 		if (!args[1]) return message.channel.send(Usage);
 
-		const words = new MessageEmbed()
-			.setTitle('📜 Not enough words!')
-			.setDescription('Your question must contain at least **10** or more letters before being able to have it answered.')
-			.setColor(colours.red)
-			.setFooter('Incorrect word amount')
-			.setTimestamp();
-
-		if (question.length < 10) return message.channel.send(words);
-
 		const ballembed = new MessageEmbed()
 			.setTitle(':8ball: 8ball Results')
 			.setDescription(`Question\n**${questionShortener}**\n\n8ball Answer\n**${replies[result]}**`)
