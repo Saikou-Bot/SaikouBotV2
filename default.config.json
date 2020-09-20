@@ -3,7 +3,7 @@
 	"utils": ["warn", "antiSpam", "cooldown", "embeds", "getMember", "getUserMod", "maintains", "suggestions", "octokit", "robloxManager", "bloxlink", "watch", "commands", "wrap"],
 	"handlers": ["database", "utils", "command", "event"],
 	"commandGroups": ["information", "moderation", "fun", "economy", "games", "general", "owner"],
-	"eventGroups": ["client", "guild", "autoMod", "eastereggs", "suggestions", "channels"],
+	"eventGroups": ["client", "guild", "eastereggs", "suggestions", "channels"],
 	"owners": ["670588428970098708", "229142187382669312"],
 	"prefix": "."
 }
