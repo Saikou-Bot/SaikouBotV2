@@ -23,13 +23,20 @@ function swearFilter (message) {
 	})) {
 		// message.delete();
 		// message.channel.send('Got \'em');
-		const autoModChannel = message.client.guilds.cache.get('756956104281292882');
+		const autoModChannel = message.client.guilds.cache.get('704621852231729212').channels.cache.get('756956104281292882');
 		if (autoModChannel) {
 			autoModChannel.send(new MessageEmbed({
+				author: {
+					name: message.member ? message.member.displayName : message.author.username,
+					iconURL: message.author.displayAvatarURL()
+				},
 				title: 'Swear filter triggered',
-				description: `\`${message.cleanContent}\``,
-				color: colours.red
-			}));
+				description: `\`${message.cleanContent}\`\n[\[Jump to message\]](${message.url})`,
+				color: colours.red,
+				footer: {
+					text: `User ID: ${message.author.id}`
+				}
+			}).setTimestamp());
 		}
 		return true;
 	}
