@@ -37,7 +37,9 @@ module.exports = {
 
 		function sendCancel() {
 			return message.author.send(new MessageEmbed()
-				.setDescription('Cancelled report!')
+				.setTitle('Report Cancelled')
+				.setDescription('Your report was cancelled successfully.\n\nIf you wish to redo a report, you can use the command **report** to start a new prompt.')
+				.setFooter('This prompt was cancelled by the user.')
 				.setColor(colours.green));
 		}
 

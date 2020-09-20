@@ -6,7 +6,7 @@ module.exports = (client, member) => {
 	const moment = require('moment');
 
 
-	const Server = client.guilds.cache.get('397791695514894341');
+	const Server = client.guilds.cache.get(process.env.GUILD);
 	const MemberCount = Server.memberCount;
 
 	const WelcomeMessages = [

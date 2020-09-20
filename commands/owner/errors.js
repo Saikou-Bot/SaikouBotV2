@@ -7,7 +7,7 @@ module.exports = {
 			'amount': false
 		}
 	},
-	async run({ client, message, args }) {
+	async run({ client, message, args, utils: { wrap } }) {
 		const { channel, author } = message;
 
 		if (!process.env.OWNERS.includes(author.id)) return message.reply('Owner only');
