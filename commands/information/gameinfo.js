@@ -62,7 +62,8 @@ module.exports = {
 			fields: [
 				{ name: 'Votes', value: Math.round((votes.upVotes / (votes.upVotes + votes.downVotes)) * 100) + '%', inline: true },
 				{ name: 'Favorites', value: millify(faveCount), inline: true },
-				{ name: 'Visits', value: millify(fullData.visits), inline: true }
+				{ name: 'Visits', value: millify(fullData.visits), inline: true },
+				{ name: 'Playing', value: millify(fullData.playing), inline: true }
 			],
 			footer: { text: 'Created' },
 			timestamp: new Date(fullData.created),
