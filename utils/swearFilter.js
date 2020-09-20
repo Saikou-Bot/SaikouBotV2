@@ -21,8 +21,16 @@ function swearFilter (message) {
 		const badwordReg = new RegExp(`\\b${badword.replace(/(\W)/g, '\\$1')}\\b`, 'gi');
 		return badwordReg.test(filtered) || badwordReg.test(specialFilter);
 	})) {
-		message.delete();
-		message.channel.send('Got \'em');
+		// message.delete();
+		// message.channel.send('Got \'em');
+		const autoModChannel = message.client.guilds.cache.get('756956104281292882');
+		if (autoModChannel) {
+			autoModChannel.send(new MessageEmbed({
+				title: 'Swear filter triggered',
+				description: `\`${message.cleanContent}\``,
+				color: colours.red
+			}));
+		}
 		return true;
 	}
 	else return false;
