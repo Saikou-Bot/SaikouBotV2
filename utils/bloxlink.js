@@ -28,7 +28,7 @@ class Bloxlink {
 			.then(async res => {
 				if (!res.data) throw new Error('No data');
 				if (res.data.status != 'ok') {
-					if (res.data.error == 'This user is not linked to Bloxlink.') return;
+					if (res.data.error == 'This user is not linked with Bloxlink.') return;
 					throw new NonOkStatus(res.data);
 				}
 
