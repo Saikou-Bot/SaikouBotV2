@@ -140,7 +140,7 @@ intercept(process.stdout, (str) => {
 		}
 	}
 
-	if (!process.env.review) {
+	if (process.env.review != 'true') {
 		mongoose.connect(process.env.MONGOPASSWORD, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,

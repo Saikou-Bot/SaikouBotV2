@@ -83,6 +83,13 @@ global.embeds = {
 			.setFooter(`Unable to ${name} user.`);
 
 		message.channel.send(embed);
+	},
+	keywordFiltered() {
+		return new MessageEmbed({
+			title: 'Keyword filtered',
+			description: 'keyword specified was filtered by roblox',
+			color: colours.red
+		});
 	}
 };
 

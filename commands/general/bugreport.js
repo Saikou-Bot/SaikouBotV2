@@ -80,11 +80,11 @@ module.exports = {
 		if (doStop(description)) return;
 
 		await octokit.issues.create({
-			owner: process.env.GITHUB_OWNER,
-			repo: process.env.GITHUB_REPO,
+			owner: config.githubOwner,
+			repo: config.githubRepo,
 			title: title.content,
 			body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
-			labels: [process.env.BUGREPORT_LABEL]
+			labels: [config.bugreportLabel]
 		});
 
 		message.author.send(new MessageEmbed()
