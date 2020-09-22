@@ -5,7 +5,8 @@ module.exports = {
 		usage: '.suggest <suggestion>',
 		accessableby: 'Followers+',
 		aliases: ['suggestion'],
-		channel: 'suggestions'
+		channel: 'suggestions',
+		cooldown: 5 * 60 * 1000
 	},
 	async run({
 		client: bot,
