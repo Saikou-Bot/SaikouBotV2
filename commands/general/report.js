@@ -15,10 +15,10 @@ module.exports = {
 	},
 	async run({ client, message, args }) {
 
-		using.add(message.author.id)
+		using.add(message.author.id);
 
 		message.delete().catch(() => {});
-		
+
 		function sendCancel() {
 			return message.author.send(new MessageEmbed()
 				.setTitle('Report Cancelled')
@@ -38,6 +38,10 @@ module.exports = {
 			if (msg.content.toLowerCase() == 'cancel') return sendCancel().then(() => true);
 			else return false;
 		}
+
+		let dmChannel;
+		let robloxName = '';
+		let reason = '';
 
 		try {
 
@@ -63,9 +67,7 @@ module.exports = {
 				.setColor(colours.green)).then(msg => msg.delete({ timeout: 12000 })).catch(() => {});
 
 
-			const dmChannel = await message.author.createDM();
-
-			let robloxName = '';
+			dmChannel = await message.author.createDM();
 
 			try {
 				const collectedMessages = await dmChannel.awaitMessages(m => m.author.id == message.author.id, { time: 120000, max: 1, errors: ['time'] });
@@ -85,7 +87,6 @@ module.exports = {
 				.setFooter('[2/3] This prompt will automatically cancel in 120 seconds.')
 				.setColor('2C2F33'));
 
-			let reason = '';
 			try {
 				const collectedMessages = await dmChannel.awaitMessages(m => m.author.id == message.author.id, { time: 120000, max: 1, errors: ['time'] });
 				const collectedMessage = collectedMessages.first();
@@ -187,7 +188,7 @@ module.exports = {
 
 		attachmentCollector.once('end', async (collected, r) => {
 			using.delete(message.author.id);
-			
+
 			if (r == 'idle') return sendTimeout();
 			else if (r == 'cancel') return;
 			message.author.send(new MessageEmbed()
