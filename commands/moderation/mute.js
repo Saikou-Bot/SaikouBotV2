@@ -33,6 +33,10 @@ module.exports = {
 			return errors.noUser(message, 'mute');
 		}
 
+		if (!mutedRole) {
+			return message.channel.send('Muted role doesn\'t exist, please create one.');
+		}
+
 		if (member.roles.cache.has(mutedRole.id)) {
 			return message.channel.send(new MessageEmbed()
 				.setTitle('❌ Already Muted')
