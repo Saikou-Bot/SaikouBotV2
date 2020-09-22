@@ -22,6 +22,11 @@ module.exports = {
 				args.user = await bloxlink.resolve(userMentionMatch[0]);
 			}
 			catch(err) {
+				if (err.data && err.data.error == 'This user is not linked with Bloxlink.') return message.channel.send(new MessageEmbed({
+					title: 'User is not linked',
+					description: 'User specified is not linked with bloxlink',
+					color: colours.red
+				}));
 				console.error(err);
 				return message.channel.send(new MessageEmbed({
 					title: 'Failed to resolve roblox ID',
