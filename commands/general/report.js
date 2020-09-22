@@ -1,6 +1,8 @@
 const urlRegex = require('url-regex')();
 const Axios = require('axios');
 
+const using = new Set();
+
 module.exports = {
 	config: {
 		name: 'report',
@@ -13,28 +15,10 @@ module.exports = {
 	},
 	async run({ client, message, args }) {
 
-		message.delete().catch(() => {});
-		try {
-			await message.author.send(new MessageEmbed()
-				.setTitle('Report Player')
-				.setDescription(`Hello, **${message.author.username}**. Please follow the instructions provided to report a player.\n\n❓ **What is the players Roblox name you are reporting?**\n\nInput **cancel** to cancel your report.`)
-				.setFooter('[1/3] This prompt will automatically cancel in 120 seconds.')
-				.setColor('2C2F33'));
-		}
-		catch(err) {
-			if (err.httpStatus == 403) {
-				return message.channel.send(new MessageEmbed({
-					title: 'Bot failed to dm',
-					description: 'Make sure you have DM\' enabled',
-					color: colours.red
-				}));
-			}
-			throw err;
-		}
-		message.channel.send(new MessageEmbed()
-			.setDescription(`📬 A message has been sent to your DM's <@${message.author.id}>`)
-			.setColor(colours.green)).then(msg => msg.delete({ timeout: 12000 })).catch(() => {});
+		using.add(message.author.id)
 
+		message.delete().catch(() => {});
+		
 		function sendCancel() {
 			return message.author.send(new MessageEmbed()
 				.setTitle('Report Cancelled')
@@ -51,50 +35,82 @@ module.exports = {
 		}
 
 		function checkCancel(msg) {
-			if (msg.content == 'cancel') return sendCancel().then(() => true);
+			if (msg.content.toLowerCase() == 'cancel') return sendCancel().then(() => true);
 			else return false;
 		}
 
-		const dmChannel = await message.author.createDM();
-
-		let robloxName = '';
-
 		try {
-			const collectedMessages = await dmChannel.awaitMessages(m => m.author.id == message.author.id, { time: 120000, max: 1, errors: ['time'] });
-			const collectedMessage = collectedMessages.first();
 
-			if (await checkCancel(collectedMessage)) return;
+			try {
+				await message.author.send(new MessageEmbed()
+					.setTitle('Report Player')
+					.setDescription(`Hello, **${message.author.username}**. Please follow the instructions provided to report a player.\n\n❓ **What is the players Roblox name you are reporting?**\n\nInput **cancel** to cancel your report.`)
+					.setFooter('[1/3] This prompt will automatically cancel in 120 seconds.')
+					.setColor('2C2F33'));
+			}
+			catch(err) {
+				if (err.httpStatus == 403) {
+					return message.channel.send(new MessageEmbed({
+						title: 'Bot failed to dm',
+						description: 'Make sure you have DM\' enabled',
+						color: colours.red
+					}));
+				}
+				throw err;
+			}
+			message.channel.send(new MessageEmbed()
+				.setDescription(`📬 A message has been sent to your DM's <@${message.author.id}>`)
+				.setColor(colours.green)).then(msg => msg.delete({ timeout: 12000 })).catch(() => {});
 
-			robloxName = collectedMessage.content;
+
+			const dmChannel = await message.author.createDM();
+
+			let robloxName = '';
+
+			try {
+				const collectedMessages = await dmChannel.awaitMessages(m => m.author.id == message.author.id, { time: 120000, max: 1, errors: ['time'] });
+				const collectedMessage = collectedMessages.first();
+
+				if (await checkCancel(collectedMessage)) return;
+
+				robloxName = collectedMessage.content;
+			}
+			catch(err) {
+				return sendTimeout();
+			}
+
+			await message.author.send(new MessageEmbed()
+				.setTitle('Report Player')
+				.setDescription('Please follow the instructions provided to report a player.\n\n❓ **What is the reason you are reporting them?**\n\nInput **cancel** to cancel your report.')
+				.setFooter('[2/3] This prompt will automatically cancel in 120 seconds.')
+				.setColor('2C2F33'));
+
+			let reason = '';
+			try {
+				const collectedMessages = await dmChannel.awaitMessages(m => m.author.id == message.author.id, { time: 120000, max: 1, errors: ['time'] });
+				const collectedMessage = collectedMessages.first();
+
+				if (await checkCancel(collectedMessage)) return;
+
+				reason = collectedMessage.content;
+			}
+			catch(err) {
+				return sendTimeout();
+			}
+
+			await message.author.send(new MessageEmbed()
+				.setTitle('Report Player')
+				.setDescription('Please follow the final instructions provided to report a player.\n\n**Please input a video/photo of the offence, either via a link or Discord attachment. When you are finished sending attachments, say "done"**\n\nIf you have no proof, you will need to **cancel** the report and gain some!')
+				.setFooter('[3/3] This prompt will automatically cancel in 120 seconds.')
+				.setColor('2C2F33'));
 		}
 		catch(err) {
-			return sendTimeout();
+			console.error(err);
+			using.delete(message.author.id);
 		}
 
-		await message.author.send(new MessageEmbed()
-			.setTitle('Report Player')
-			.setDescription('Please follow the instructions provided to report a player.\n\n❓ **What is the reason you are reporting them?**\n\nInput **cancel** to cancel your report.')
-			.setFooter('[2/3] This prompt will automatically cancel in 120 seconds.')
-			.setColor('2C2F33'));
+		using.delete(message.author.id);
 
-		let reason = '';
-		try {
-			const collectedMessages = await dmChannel.awaitMessages(m => m.author.id == message.author.id, { time: 120000, max: 1, errors: ['time'] });
-			const collectedMessage = collectedMessages.first();
-
-			if (await checkCancel(collectedMessage)) return;
-
-			reason = collectedMessage.content;
-		}
-		catch(err) {
-			return sendTimeout();
-		}
-
-		await message.author.send(new MessageEmbed()
-			.setTitle('Report Player')
-			.setDescription('Please follow the final instructions provided to report a player.\n\n**Please input a video/photo of the offence, either via a link or Discord attachment. When you are finished sending attachments, say "done"**\n\nIf you have no proof, you will need to **cancel** the report and gain some!')
-			.setFooter('[3/3] This prompt will automatically cancel in 120 seconds.')
-			.setColor('2C2F33'));
 
 		const attachmentCollector = dmChannel.createMessageCollector(m => m.author.id == message.author.id,
 			{
@@ -110,7 +126,7 @@ module.exports = {
 				return attachmentCollector.stop('cancel');
 			}
 
-			if (msg.content == 'done') {
+			if (msg.content.toLowerCase() == 'done') {
 				return attachmentCollector.stop();
 			}
 			let content = msg.content;
@@ -170,6 +186,8 @@ module.exports = {
 		});
 
 		attachmentCollector.once('end', async (collected, r) => {
+			using.delete(message.author.id);
+			
 			if (r == 'idle') return sendTimeout();
 			else if (r == 'cancel') return;
 			message.author.send(new MessageEmbed()
