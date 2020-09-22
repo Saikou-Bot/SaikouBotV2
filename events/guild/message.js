@@ -31,6 +31,10 @@ function error(name, command = {}, callback, ...args) {
 
 module.exports = async (bot, message) => {
 	if (message.author.bot || message.channel.type === 'dm') return;
+
+	if (message.channel.name.match('suggestions')) message.delete().catch(() => {});
+	if (message.channel.name.match('art') && ( message.attachments.size < 1 || !message.content.startsWith('https') )) return message.delete().catch(() => {}); // TODO: Add more advanced image detection
+
 	if (!message.content.startsWith(prefix)) return;
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/g);
