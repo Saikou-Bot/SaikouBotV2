@@ -92,7 +92,7 @@ module.exports = {
 
 		await message.author.send(new MessageEmbed()
 			.setTitle('Report Player')
-			.setDescription('Please follow the final instructions provided to report a player.\n\n**Please input a video/photo of the offence, either via a link or Discord attachment.**\n\nIf you have no proof, you will need to **cancel** the report and gain some!')
+			.setDescription('Please follow the final instructions provided to report a player.\n\n**Please input a video/photo of the offence, either via a link or Discord attachment. When you are finished sending attachments, say "done"**\n\nIf you have no proof, you will need to **cancel** the report and gain some!')
 			.setFooter('[3/3] This prompt will automatically cancel in 120 seconds.')
 			.setColor('2C2F33'));
 
