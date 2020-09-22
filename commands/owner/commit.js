@@ -15,4 +15,4 @@ module.exports = {
 
 		channel.send('`' + commitName.trim() + '`');
 	}
-}
+};
