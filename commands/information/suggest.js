@@ -5,7 +5,8 @@ module.exports = {
 		usage: '.suggest <suggestion>',
 		accessableby: 'Followers+',
 		aliases: ['suggestion'],
-		channel: 'suggestions'
+		channel: 'suggestions',
+		cooldown: 5 * 60 * 1000
 	},
 	async run({
 		client: bot,
@@ -25,6 +26,8 @@ module.exports = {
 			.setTimestamp();
 
 		if (suggestion.length < 15) return message.channel.send(notEnoughWords).then(msg => msg.delete({ timeout: 15000 }));
+
+		this.cooldown.add(message.member);
 
 		const suggestEmbed = new MessageEmbed()
 			.setTitle(`Suggestion ${await Suggestion.nextCount()}`)
