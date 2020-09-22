@@ -11,7 +11,7 @@ module.exports = {
 		channel: 'report-abuse',
 		cooldown: 5 * 60 * 1000,
 	},
-	run: async ({ client, message, args }) => {
+	async run ({ client, message, args }) {
 
 		message.delete().catch(() => {});
 		try {
