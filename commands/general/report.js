@@ -15,7 +15,7 @@ module.exports = {
 	},
 	async run({ client, message, args }) {
 
-		if (using.has(message.author.id)) return message.reply('You are already busy reporting') // TODO: Make this embed or something better.
+		if (using.has(message.author.id)) return message.reply('You are already busy reporting'); // TODO: Make this embed or something better.
 
 		using.add(message.author.id);
 
@@ -44,7 +44,6 @@ module.exports = {
 					else return false;
 				}
 
-				let dmChannel;
 				let robloxName = '';
 				let reason = '';
 
@@ -70,7 +69,7 @@ module.exports = {
 					.setColor(colours.green)).then(msg => msg.delete({ timeout: 12000 })).catch(() => {});
 
 
-				dmChannel = await message.author.createDM();
+				const dmChannel = await message.author.createDM();
 
 				try {
 					const collectedMessages = await dmChannel.awaitMessages(m => m.author.id == message.author.id, { time: 120000, max: 1, errors: ['time'] });
@@ -225,8 +224,8 @@ module.exports = {
 			})();
 		}
 		catch(err) {
-			console.error(err);
-			return using.delete(message.author.id);
+			using.delete(message.author.id);
+			throw err;
 		}
 		return using.delete(message.author.id);
 	}
