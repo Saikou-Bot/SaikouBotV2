@@ -25,12 +25,13 @@ async function logError(err, origin) {
 		err = new Error(err);
 	}
 
+
 	const titleString = stripAnsi(err.name) || na;
 	const descriptionString = stripAnsi(err.message) || na;
 
 	const embed = new MessageEmbed({
-		title: titleString.length < 256 ? titleString.substring(0, 253) + '...' : titleString,
-		description: descriptionString < 2048 ? titleString.substring(0, 2045) + '...' : descriptionString,
+		title: titleString.length > 50 ? titleString.substring(0, 47) + '...' : titleString,
+		description: descriptionString.length > 200 ? descriptionString.substring(0, 197) + '...' : descriptionString,
 		color: colours.red
 	});
 
@@ -40,7 +41,7 @@ async function logError(err, origin) {
 			if (value && typeof value.toString == 'function') {
 				const valueString = value.toString();
 				if (!valueString) return;
-				embed.addField(p, valueString.length > 1024 ? valueString.substring(0, 1021) + '...' : valueString, true);
+				embed.addField(p, valueString.length > 50 ? valueString.substring(0, 47) + '...' : valueString, true);
 			}
 		});
 
