@@ -29,8 +29,6 @@ module.exports = {
 		try {
 			await (async () => {
 
-				message.delete().catch(() => {});
-
 				function sendCancel() {
 					return message.author.send(new MessageEmbed()
 						.setTitle('Report Cancelled')

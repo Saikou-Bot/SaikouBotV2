@@ -34,6 +34,7 @@ module.exports = async (bot, message) => {
 
 	if (message.channel.name.match('suggestions')) message.delete().catch(() => {});
 	if (message.channel.name.match('art') && !(message.attachments.size > 0 || message.content.startsWith('https'))) return message.delete().catch(() => {}); // TODO: Add more advanced image detection
+	if (message.channel.name.match('report')) message.delete().catch(() => {});
 
 	if (!message.content.startsWith(prefix)) return;
 
