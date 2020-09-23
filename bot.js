@@ -24,17 +24,23 @@ async function logError(err, origin) {
 	if (!(err instanceof Error)) {
 		err = new Error(err);
 	}
+
+	const titleString = stripAnsi(err.name) || na;
+	const descriptionString = stripAnsi(err.message) || na;
+
 	const embed = new MessageEmbed({
-		title: stripAnsi(err.name) || na,
-		description: stripAnsi(err.message) || na,
+		title: titleString.length < 256 ? titleString.substring(0, 253) + '...' : titleString,
+		description: descriptionString < 2048 ? titleString.substring(0, 2045) + '...' : descriptionString,
 		color: colours.red
 	});
 
 	Object.getOwnPropertyNames(err).filter(p => !['name', 'message', 'stack'].includes(p))
 		.forEach(p => {
 			const value = err[p];
-			if (value && typeof value.toString == 'function' && value.toString()) {
-				embed.addField(p, value, true);
+			if (value && typeof value.toString == 'function') {
+				const valueString = value.toString();
+				if (!valueString) return;
+				embed.addField(p, valueString.length > 1024 ? valueString.substring(0, 1021) + '...' : valueString, true);
 			}
 		});
 
