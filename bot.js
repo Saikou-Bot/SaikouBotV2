@@ -33,7 +33,7 @@ async function logError(err, origin) {
 	Object.getOwnPropertyNames(err).filter(p => !['name', 'message', 'stack'].includes(p))
 		.forEach(p => {
 			const value = err[p];
-			if (value && typeof value.toString == 'function') {
+			if (value && typeof value.toString == 'function' && value.toString()) {
 				embed.addField(p, value, true);
 			}
 		});
