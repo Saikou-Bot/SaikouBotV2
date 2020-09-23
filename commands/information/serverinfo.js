@@ -36,7 +36,7 @@ module.exports = {
 			.addField('Members', message.guild.memberCount, true)
 			.addField('Online', message.guild.members.cache.filter(mem => mem.presence.status != 'offline').size, true)
 			.addField('Bots', message.guild.members.cache.filter(mem => mem.user.bot === true).size, true)
-			.addField(`Channels [${channels.cache.size}]`, `Text - ${channels.cache.filter(r => r.type === 'text').size}\nVoice - ${channels.cache.filter(r => r.type === 'voice').size}\n Categories - ${channels.cache.filter(r => r.type === 'category').size}`, true)
+			.addField(`Channels [${channels.cache.size}]`, `Text - ${channels.cache.filter(r => r.type === 'text').size}\nVoice - ${channels.cache.filter(r => r.type === 'voice').size}\nCategories - ${channels.cache.filter(r => r.type === 'category').size}`, true)
 			.addField(`Role List [${message.guild.roles.cache.size - 1}]`, message.guild.roles.cache.map(r => r).join(' ').replace('@everyone', ' '))
 			.setFooter(`Server ID: ${message.guild.id} | Server Created: ${moment.utc(message.guild.createdAt).format('MMMM Do YYYY')}`)
 			.setColor(colours.blurple);
