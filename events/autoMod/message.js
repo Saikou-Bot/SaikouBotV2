@@ -1,10 +1,10 @@
 const inviteLink = /discord\.gg|discordapp.com\/invite|discord.com\/invite/m;
 
 module.exports = (client, message) => {
-	const { antiSpam, warn: warnUtil } = client.utils;
-	antiSpam.message(message);
+	const { warn: warnUtil } = client.utils;
+	// antiSpam.message(message);
 	if (inviteLink.test(message.content)) {
-		message.delete();
+		message.delete().catch(() => {});
 		message.reply('You have been warned for sending invite');
 		warnUtil.addWarn({
 			user: message.author.id,
