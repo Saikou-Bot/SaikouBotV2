@@ -28,7 +28,7 @@ module.exports = {
 				.addField('ℹ️ Information', `\`${prefix}help information\``, true)
 				.addField('🎮 Games', `\`${prefix}help games\``, true)
 				.addField('⚙️ General', `\`${prefix}help general\``, true)
-				.setFooter('This will timeout in 60 seconds.')
+				.setFooter('Reply back with an option in DM\'s. Timeout in 60 seconds.')
 				.setColor(colours.blurple);
 
 			try {
