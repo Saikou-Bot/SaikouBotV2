@@ -15,7 +15,14 @@ module.exports = {
 	},
 	async run({ client, message, args }) {
 
-		if (using.has(message.author.id)) return message.reply('You are already busy reporting').then(m => m.delete(5000)); // TODO: Make this embed or something better.
+		if (using.has(message.author.id)) {
+			message.delete();
+			return message.channel.send(new MessageEmbed()
+				.setTitle('🗃️ Report already open!')
+				.setDescription('You already have a report open, please either finish it or cancel and try again!')
+				.setColor(colours.red)
+				.setFooter('Cancel your current report and try again!')).then(m => m.delete({ timeout: 10000 }));
+		}
 
 		using.add(message.author.id);
 
@@ -194,6 +201,8 @@ module.exports = {
 					const embed = new MessageEmbed()
 						.setTitle('🛡️ New Report!')
 						.setDescription(`**Reported User:** ${robloxName}\n**Reason:** ${reason}`)
+						.setThumbnail(message.author.displayAvatarURL())
+						.setFooter(`Reported by ${message.author.tag}`, message.author.displayAvatarURL())
 						.setColor(colours.blurple);
 
 					await message.channel.send(embed);
@@ -202,13 +211,12 @@ module.exports = {
 
 					for (let i = 0; i < attachments.length; i++) {
 						const attachment = attachments[i];
-						await message.channel.send(new MessageEmbed({
-							title: attachment.content,
-							image: {
-								url: attachment.url
-							},
-							color: colours.blurple
-						})).catch(() => {});
+
+						await message.channel.send(new MessageEmbed()
+							.setTitle(attachment.content)
+							.setImage(attachment.url)
+							.setColor(colours.blurple)
+							.setFooter(`Reported by ${message.author.tag}`, message.author.displayAvatarURL())).catch(() => {});
 					}
 					for (let i = 0; i < videos.length; i++) {
 						const video = videos[i];
