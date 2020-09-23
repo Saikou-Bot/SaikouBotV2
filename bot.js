@@ -61,7 +61,7 @@ const defaultConfig = require('./default.config.json');
 
 global.config = Object.assign({}, defaultConfig, process.env.CONFIG ? (() => {
 	try {
-		return JSON.parse(process.env.config);
+		return JSON.parse(process.env.CONFIG);
 	}
 	catch(err) {
 		console.error(err);
