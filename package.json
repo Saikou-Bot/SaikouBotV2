@@ -53,5 +53,8 @@
   "devDependencies": {
     "eslint": "^7.9.0",
     "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": "12.18.x"
   }
 }
