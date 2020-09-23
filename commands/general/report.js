@@ -15,7 +15,7 @@ module.exports = {
 	},
 	async run({ client, message, args }) {
 
-		if (using.has(message.author.id)) return message.reply('You are already busy reporting'); // TODO: Make this embed or something better.
+		if (using.has(message.author.id)) return message.reply('You are already busy reporting').then(m => m.delete(5000)); // TODO: Make this embed or something better.
 
 		using.add(message.author.id);
 
