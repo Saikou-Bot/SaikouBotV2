@@ -5,7 +5,8 @@ module.exports = {
 			const messages = [];
 			while (msg.length > charLimit) {
 				const firstPart = msg.slice(0, charLimit);
-				const lastNewline = firstPart.lastIndexOf('\n');
+				let lastNewline = firstPart.lastIndexOf('\n');
+				if (lastNewline < 0) lastNewline = firstPart.length;
 				messages.push(firstPart.slice(0, lastNewline));
 				msg = msg.slice(lastNewline + 1);
 			}
