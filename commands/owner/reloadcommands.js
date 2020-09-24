@@ -5,7 +5,7 @@ module.exports = {
 	async run({ message, utils }) {
 		const { author } = message;
 
-		if (!process.env.OWNERS.includes(author.id)) return message.reply('Owner only');
+		if (!process.env.OWNERS.includes(author.id)) return embeds.owner(message);
 		try {
 			utils.commands.loadAll();
 		}

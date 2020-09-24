@@ -9,7 +9,7 @@ module.exports = {
 		aliases: []
 	},
 	async run({ client, message, args, utils }) {
-		if (!config.owners.includes(message.author.id)) return message.channel.send('This command is limited to bot developers only.');
+		if (!config.owners.includes(message.author.id)) return embeds.owner(message);
 
 		const command = client.commands.get(args.command);
 		if (!command) {

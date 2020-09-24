@@ -90,7 +90,16 @@ global.embeds = {
 			description: 'keyword specified was filtered by roblox',
 			color: colours.red
 		});
-	}
+	},
+	owner(message) {
+		const embed = new MessageEmbed()
+			.setTitle('❌ Developers only!')
+			.setDescription('The command you are trying to perform is limited to bot developers only.')
+			.setColor(colours.red)
+			.setFooter('Unable to run command.');
+
+		message.channel.send(embed);
+	},
 };
 
 module.exports = {

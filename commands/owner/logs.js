@@ -10,7 +10,7 @@ module.exports = {
 	async run({ client, message, args, utils: { wrap } }) {
 		const { channel, author } = message;
 
-		if (!process.env.OWNERS.includes(author.id)) return message.reply('Owner only');
+		if (!process.env.OWNERS.includes(author.id)) return embeds.owner(message);
 
 		const amount = args.amount || 20;
 
