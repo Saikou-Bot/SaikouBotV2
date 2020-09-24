@@ -9,6 +9,11 @@ module.exports = {
 	async run({ client, message, utils: { octokit } }) {
 		const { channel, author, member } = message;
 
+
+		const dm = await member.createDM();
+
+		let askChannel = dm;
+
 		function sendStop(msg) {
 			return msg.channel.send(new MessageEmbed()
 				.setTitle('Report Cancelled')
@@ -17,17 +22,12 @@ module.exports = {
 				.setColor(colours.green)).catch(() => {});
 		}
 
-		function doStop(content) {
-			if (content == 'cancel') {
-				sendStop();
+		function doStop(msg) {
+			if (msg.content == 'cancel') {
+				sendStop(msg);
 				return true;
 			}
 		}
-
-		const dm = await member.createDM();
-
-		let askChannel = dm;
-
 
 		const embed = new MessageEmbed()
 			.setTitle('Bug Report')
@@ -57,7 +57,7 @@ module.exports = {
 			})).first();
 		}
 		catch (err) {
-			askChannel.send(timeoutMessage);
+			return askChannel.send(timeoutMessage);
 		}
 
 		if (doStop(title)) return;
@@ -78,7 +78,7 @@ module.exports = {
 			})).first();
 		}
 		catch (err) {
-			askChannel.send(timeoutMessage);
+			return askChannel.send(timeoutMessage);
 		}
 
 		if (doStop(description)) return;
