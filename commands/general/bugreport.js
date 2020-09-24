@@ -9,13 +9,17 @@ module.exports = {
 	async run({ client, message, utils: { octokit } }) {
 		const { channel, author, member } = message;
 
-		function doStop(msg) {
-			if (msg.content == 'cancel') {
-				msg.channel.send(new MessageEmbed()
-					.setTitle('Report Cancelled')
-					.setDescription('Your report was cancelled successfully.\n\nIf you wish to redo a report, you can use the command **bugreport** to start a new prompt.')
-					.setFooter('This prompt was cancelled by the user.')
-					.setColor(colours.green)).catch(() => {});
+		function sendStop(msg) {
+			return msg.channel.send(new MessageEmbed()
+				.setTitle('Report Cancelled')
+				.setDescription('Your report was cancelled successfully.\n\nIf you wish to redo a report, you can use the command **bugreport** to start a new prompt.')
+				.setFooter('This prompt was cancelled by the user.')
+				.setColor(colours.green)).catch(() => {});
+		}
+
+		function doStop(content) {
+			if (content == 'cancel') {
+				sendStop();
 				return true;
 			}
 		}
