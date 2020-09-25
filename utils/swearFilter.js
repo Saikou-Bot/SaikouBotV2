@@ -31,7 +31,7 @@ function swearFilter(message) {
 					iconURL: message.author.displayAvatarURL()
 				},
 				title: 'Swear filter triggered',
-				description: `\`${message.cleanContent}\`\n[\[Jump to message\]](${message.url})`,
+				description: `\`${message.cleanContent}\`\n[\[Jump to message\]](${message.url})`, // eslint-disable-line no-useless-escape
 				color: colours.red,
 				footer: {
 					text: `User ID: ${message.author.id}`
