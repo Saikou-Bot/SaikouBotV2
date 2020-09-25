@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 module.exports = {
 	config: {
-		name: 'moderation',
+		name: 'group',
 		description: 'Reserved for the staff team to create a moderation log embed.',
-		usage: '.moderation <user>, <punishment>, <reason>',
+		usage: '.group <user>, <punishment>, <reason>',
 		accessableby: 'Staff',
 		aliases: ['grouplog', 'embed'],
 		channel: 'moderation',
@@ -20,7 +20,7 @@ module.exports = {
 		if (!name || !punishment || !reason) {
 			return message.channel.send(new MessageEmbed()
 				.setTitle('📋 Incorrect Usage')
-				.setDescription('**Command Name:** moderation\n**Usage:** `moderation <user>, <punishment>, <reason>')
+				.setDescription('**Command Name:** group\n**Usage:** `group <user>, <punishment>, <reason>')
 				.setColor(colours.red)
 				.setFooter('<> - Required ● Optional - [] ')).then(m => m.delete({ timeout: 12000 }));
 		}
