@@ -24,7 +24,7 @@ module.exports = (client, member) => {
 
 	const WelcomeEmbed = new MessageEmbed()
 		.setTitle('👋 Welcome to the Server!')
-		.setDescription(`${member} ${WelcomeMessages[result]}`)
+		.setDescription(`<@!${member.id}> ${WelcomeMessages[result]}`)
 		.setColor(Colour.green)
 		.setFooter('User joined')
 		.setTimestamp();
