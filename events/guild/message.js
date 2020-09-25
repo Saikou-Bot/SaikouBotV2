@@ -117,7 +117,7 @@ module.exports = async (bot, message) => {
 		message.channel.send(new MessageEmbed()
 			.setColor(colours.red)
 			.setTitle('❌ An error occurred!')
-			.setDescription('Uh oh! Looks like our team of developers forgot that last screw causing an error. Please contact our bot developers if this error persists, you can try... \n\n• Re-entering the command\n• Coming back later and trying again\n• Checking out Saikou\'s social medias whilst you wait 😏'));
+			.setDescription('Uh oh! Looks like our team of developers forgot that last screw causing an error. Please contact our bot developers if this error persists, you can try... \n\n• Reporting the bug over to our developers with `.report`\n• Coming back later and trying again\n• Checking out Saikou\'s social medias whilst you wait 😏'));
 
 	};
 	if (commandfile) {
