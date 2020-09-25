@@ -19,12 +19,6 @@ module.exports = {
 		let mutedRole = message.guild.roles.cache.find(role => role.name === 'Muted');
 		const time = args[1];
 
-		const noTime = new MessageEmbed()
-			.setColor(colours.red)
-			.setTitle('⏱️ Supply a time!')
-			.setDescription('Please supply a correct time for the command **mute**.')
-			.setFooter('h - Hours ● Days - d');
-
 		if (!message.member.hasPermission('MANAGE_MESSAGES')) {
 			return errors.noPerms(message, '<Manage Messages>' || message, '.mute');
 		}
@@ -58,11 +52,11 @@ module.exports = {
 		}
 
 		if (!time) {
-			return message.channel.send(noTime);
+			return embeds.noTime(message, 'mute');
 		}
 
 		if (!ms(time)) {
-			return message.channel.send(noTime);
+			return embeds.noTime(message, 'mute');
 		}
 
 		if (!reason) {
