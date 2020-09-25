@@ -18,7 +18,7 @@ module.exports = {
 		const rating = Math.floor(Math.random() * 101);
 		const chance = Math.random() * 100;
 
-		if (chance < 91) {
+		if (chance < 98) {
 			const skillrateEmbed = new MessageEmbed()
 				.setTitle('Skill Rating')
 				.setDescription(`**${member.displayName}** is \`%${rating}\` skilled! 🏆`)
