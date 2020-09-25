@@ -128,5 +128,85 @@
             "$200,000 starter cash + ingame overhead rank"
         ],
         "answer": 1
+	},
+	{
+        "question": "How many tycoons are featured within Military Warfare Tycoon?",
+        "options": [
+            "3",
+            "7",
+            "6",
+            "8"
+        ],
+        "answer": 3
+	},
+	{
+        "question": "Which weapon is not included within the VIP gamepass?",
+        "options": [
+            "Jetpack",
+            "Auto Sniper",
+            "Jetpack",
+            "Anti tank vehicle"
+        ],
+        "answer": 2
+	},
+	{
+        "question": "How many vehicles are in Military Warfare Tycoon?",
+        "options": [
+            "7",
+            "5",
+            "4",
+            "2"
+        ],
+        "answer": 1
+	},
+	{
+        "question": "How many gamepasses contain an exclusive vehicle?",
+        "options": [
+            "5",
+            "3",
+            "1",
+            "2"
+        ],
+        "answer": 4
+	},
+	{
+        "question": "How many laser gates are there in a completed base?",
+        "options": [
+            "3",
+            "2",
+            "5",
+            "1"
+        ],
+        "answer": 1
+	},
+	{
+        "question": "How many laser gates are there in a completed base?",
+        "options": [
+            "3",
+            "2",
+            "5",
+            "1"
+        ],
+        "answer": 1
+	},
+	{
+        "question": "Who is the creator of Military Warfare Tycoon?",
+        "options": [
+            "DevRolve",
+            "forcetower",
+            "asimo3089",
+            "ObscureEntity"
+        ],
+        "answer": 2
+	},
+	{
+        "question": "How much cash does the `helipad` cost?",
+        "options": [
+            "$25,000",
+            "$100,000",
+            "$35,000",
+            "$50,000"
+        ],
+        "answer": 4
     }
 ]
