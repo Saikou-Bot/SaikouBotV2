@@ -13,7 +13,7 @@ module.exports = async (client, message) => {
 	const { antiSpam, warn: warnUtil, swearFilter } = client.utils;
 	antiSpam.message(message);
 	if (inviteLink.test(message.content)) {
-		message.delete();
+		message.delete().catch(() => {});
 		message.reply('You have been warned for sending invite');
 		warnUtil.addWarn({
 			user: message.author.id,

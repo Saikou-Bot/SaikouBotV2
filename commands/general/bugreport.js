@@ -9,21 +9,25 @@ module.exports = {
 	async run({ client, message, utils: { octokit } }) {
 		const { channel, author, member } = message;
 
-		function doStop(msg) {
-			if (msg.content == 'cancel') {
-				msg.channel.send(new MessageEmbed()
-					.setTitle('Report Cancelled')
-					.setDescription('Your report was cancelled successfully.\n\nIf you wish to redo a report, you can use the command **bugreport** to start a new prompt.')
-					.setFooter('This prompt was cancelled by the user.')
-					.setColor(colours.green)).catch(() => {});
-				return true;
-			}
-		}
 
 		const dm = await member.createDM();
 
 		let askChannel = dm;
 
+		function sendStop(msg) {
+			return msg.channel.send(new MessageEmbed()
+				.setTitle('Report Cancelled')
+				.setDescription('Your report was cancelled successfully.\n\nIf you wish to redo a report, you can use the command **bugreport** to start a new prompt.')
+				.setFooter('This prompt was cancelled by the user.')
+				.setColor(colours.green)).catch(() => {});
+		}
+
+		function doStop(msg) {
+			if (msg.content == 'cancel') {
+				sendStop(msg);
+				return true;
+			}
+		}
 
 		const embed = new MessageEmbed()
 			.setTitle('Bug Report')
@@ -53,7 +57,7 @@ module.exports = {
 			})).first();
 		}
 		catch (err) {
-			askChannel.send(timeoutMessage);
+			return askChannel.send(timeoutMessage);
 		}
 
 		if (doStop(title)) return;
@@ -74,17 +78,17 @@ module.exports = {
 			})).first();
 		}
 		catch (err) {
-			askChannel.send(timeoutMessage);
+			return askChannel.send(timeoutMessage);
 		}
 
 		if (doStop(description)) return;
 
 		await octokit.issues.create({
-			owner: process.env.GITHUB_OWNER,
-			repo: process.env.GITHUB_REPO,
+			owner: config.githubOwner,
+			repo: config.githubRepo,
 			title: title.content,
 			body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
-			labels: [process.env.BUGREPORT_LABEL]
+			labels: [config.bugreportLabel]
 		});
 
 		message.author.send(new MessageEmbed()

@@ -7,18 +7,23 @@ module.exports = {
 			'amount': false
 		}
 	},
-	async run({ client, message, args }) {
+	async run({ client, message, args, utils: { wrap } }) {
 		const { channel, author } = message;
 
-		if (!process.env.OWNERS.includes(author.id)) return message.reply('Owner only');
+		if (!process.env.OWNERS.includes(author.id)) return embeds.owner(message);
 
 		const amount = args.amount || 20;
 
-		const embed = new MessageEmbed({
-			description: `\`\`\`js\n${stripAnsi(client.logs.trim().split('\n').splice(-amount).join('\n'))}\n\`\`\``,
-			color: '#36393F'
-		});
+		const text = stripAnsi(client.logs.trim().split('\n').splice(-amount).join('\n'));
+		if (!text) return message.reply('No logs');
 
-		channel.send(embed);
+		const messages = wrap(text, 2038).map(t => new MessageEmbed({
+			description: `\`\`\`js\n${t}\n\`\`\``,
+			color: '#36393F'
+		}));
+
+		for (var i = 0; i < messages.length; i++) {
+			await channel.send(messages[i]);
+		}
 	}
 };

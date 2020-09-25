@@ -17,8 +17,9 @@ module.exports = {
 			.setColor(colours.blurple));
 
 		const botLatency = msg.createdTimestamp - message.createdTimestamp;
-		const totalMemory = os.totalmem();
-		const memoryPercentage = (totalMemory - os.freemem()) / totalMemory * 100;
+		const memoryUsage = process.memoryUsage();
+		const totalMemory = memoryUsage.heapTotal;
+		const memoryPercentage = (totalMemory - memoryUsage.heapUsed) / totalMemory * 100;
 		let statusMsg = '';
 		let memoryMsg = '';
 

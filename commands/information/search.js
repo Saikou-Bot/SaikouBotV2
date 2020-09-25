@@ -22,6 +22,13 @@ module.exports = {
 				args.user = await bloxlink.resolve(userMentionMatch[0]);
 			}
 			catch(err) {
+				if (err.data && err.data.error == 'This user is not linked with Bloxlink.') {
+					return message.channel.send(new MessageEmbed({
+						title: 'User is not linked',
+						description: 'User specified is not linked with bloxlink',
+						color: colours.red
+					}));
+				}
 				console.error(err);
 				return message.channel.send(new MessageEmbed({
 					title: 'Failed to resolve roblox ID',
@@ -32,9 +39,18 @@ module.exports = {
 			if (!args.user) return message.channel.send(userNotFound);
 		}
 		else if (!argString.match(/^\d+$/)) {
-			const users = await userManager.search({
-				keyword: argString
-			});
+			let users;
+			try {
+				users = await userManager.search({
+					keyword: argString
+				});
+			}
+			catch(err) {
+				if (err.message == 'The keyword was filtered.') {
+					return message.channel.send(embeds.keywordFiltered());
+				}
+				throw err;
+			}
 
 			if (users.length < 1) return message.channel.send(userNotFound);
 			args.user = users[0].id;

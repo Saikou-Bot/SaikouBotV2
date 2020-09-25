@@ -29,8 +29,8 @@ module.exports = {
 			'Let\'s go with'
 		];
 		const result = Math.floor((Math.random() * responses.length));
-		const args1Shortener = args1.length > 1000 ? args1.substring(0, 900) + '...' : args1;
-		const args2Shortener = args2.length > 1000 ? args2.substring(0, 900) + '...' : args2;
+		const args1Shortener = args1.length > 500 ? args1.substring(0, 100) + '...' : args1;
+		const args2Shortener = args2.length > 500 ? args2.substring(0, 100) + '...' : args2;
 
 		const index = Math.random();
 		if (index < 0.5) {

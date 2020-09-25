@@ -20,10 +20,19 @@ module.exports = {
 		message.channel.startTyping();
 
 		if (argString && !argString.match(/^\d+$/)) {
-			const games = await gameManager.gameList({
-				keyword: argString,
-				maxRows: 1
-			});
+			let games;
+			try {
+				games = await gameManager.gameList({
+					keyword: argString,
+					maxRows: 1
+				});
+			}
+			catch(err) {
+				if (err.message == 'The keyword was filtered.') {
+					return message.channel.send(embeds.keywordFiltered());
+				}
+				throw err;
+			}
 			if (games.length < 1) return message.channel.send(gameNotFound);
 			args.game = games[0].placeId;
 		}
@@ -62,7 +71,8 @@ module.exports = {
 			fields: [
 				{ name: 'Votes', value: Math.round((votes.upVotes / (votes.upVotes + votes.downVotes)) * 100) + '%', inline: true },
 				{ name: 'Favorites', value: millify(faveCount), inline: true },
-				{ name: 'Visits', value: millify(fullData.visits), inline: true }
+				{ name: 'Visits', value: millify(fullData.visits), inline: true },
+				{ name: 'Playing', value: millify(fullData.playing), inline: true }
 			],
 			footer: { text: 'Created' },
 			timestamp: new Date(fullData.created),

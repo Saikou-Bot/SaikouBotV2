@@ -24,9 +24,14 @@ async function logError(err, origin) {
 	if (!(err instanceof Error)) {
 		err = new Error(err);
 	}
+
+
+	const titleString = stripAnsi(err.name) || na;
+	const descriptionString = stripAnsi(err.message) || na;
+
 	const embed = new MessageEmbed({
-		title: stripAnsi(err.name) || na,
-		description: stripAnsi(err.message) || na,
+		title: titleString.length > 50 ? titleString.substring(0, 47) + '...' : titleString,
+		description: descriptionString.length > 200 ? descriptionString.substring(0, 197) + '...' : descriptionString,
 		color: colours.red
 	});
 
@@ -34,7 +39,9 @@ async function logError(err, origin) {
 		.forEach(p => {
 			const value = err[p];
 			if (value && typeof value.toString == 'function') {
-				embed.addField(p, value, true);
+				const valueString = value.toString();
+				if (!valueString) return;
+				embed.addField(p.length < 50 ? p.substring(0, 47) + '...' : p, valueString.length > 50 ? valueString.substring(0, 47) + '...' : valueString, true);
 			}
 		});
 
@@ -54,7 +61,7 @@ const defaultConfig = require('./default.config.json');
 
 global.config = Object.assign({}, defaultConfig, process.env.CONFIG ? (() => {
 	try {
-		return JSON.parse(process.env.config);
+		return JSON.parse(process.env.CONFIG);
 	}
 	catch(err) {
 		console.error(err);
@@ -140,7 +147,7 @@ intercept(process.stdout, (str) => {
 		}
 	}
 
-	if (!process.env.review) {
+	if (process.env.review != 'true') {
 		mongoose.connect(process.env.MONGOPASSWORD, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,

@@ -53,7 +53,6 @@ class Cooldown {
 		}
 	}
 	embed(userid) {
-		const user = this.users.get(userid);
 		const { timestamp, role, roleEffect, end } = this.users.get(userid);
 		const leftMs = ceilSecond(end - Date.now());
 		const left = ms(leftMs, {

@@ -59,7 +59,7 @@ module.exports = {
 		});
 
 		modLogs.send(new MessageEmbed()
-			.setAuthor(`Case ${warnings.warns.length + 1} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
+			.setAuthor(`Case ${warnings.warns.length} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
 			.addField('Moderator', `<@${message.author.id}>`, true)
 			.addField('Reason', `${reason}`, true)

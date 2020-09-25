@@ -45,7 +45,7 @@ class CommandWatcher {
 module.exports = {
 	name: 'watch',
 	construct(client) {
-		if (process.env.WATCH_COMMANDS == 'true') {
+		if (process.env.WATCH_COMMANDS == 'true' && process.env.review != 'true') {
 			return new CommandWatcher(client, Path.join(__dirname, '../commands'));
 		}
 	}

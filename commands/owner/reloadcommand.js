@@ -7,7 +7,7 @@ module.exports = {
 	},
 	async run({ client, message, utils, args }) {
 		const { author } = message;
-		if (!process.env.OWNERS.includes(author.id)) return message.reply('Owner only');
+		if (!process.env.OWNERS.includes(author.id)) return embeds.owner(message);
 
 		const command = client.commands.get(args.command) || client.commands.get(client.aliases.get(args.command));
 

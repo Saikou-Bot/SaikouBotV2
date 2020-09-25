@@ -43,9 +43,10 @@ module.exports = {
 
 			}
 			else {
+				const msgShorten = msgs.first().content.length > 500 ? msgs.first().content.substring(0, 100) + '...' : msgs.first().content;
 				const incorrect = new MessageEmbed()
 					.setTitle('Trivia Results')
-					.setDescription(`You answered the trivia ||incorrectly, good try!||\n\n**Your Answer**\n\`${msgs.first().content}\``)
+					.setDescription(`You answered the trivia ||incorrectly, good try!||\n\n**Your Answer**\n\`${msgShorten}\``)
 					.setColor(message.member.displayHexColor)
 					.setThumbnail(message.author.displayAvatarURL());
 
