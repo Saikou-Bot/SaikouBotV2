@@ -100,6 +100,15 @@ global.embeds = {
 
 		message.channel.send(embed);
 	},
+	noTime(message, name) {
+		const embed = new MessageEmbed()
+			.setColor(colours.red)
+			.setTitle('⏱️ Supply a time!')
+			.setDescription(`Please supply a correct time for the command **${name}**.`)
+			.setFooter('h - Hours ● Days - d');
+
+		message.channel.send(embed);
+	},
 };
 
 module.exports = {
