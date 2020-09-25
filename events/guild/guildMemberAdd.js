@@ -24,7 +24,7 @@ module.exports = (client, member) => {
 
 	const WelcomeEmbed = new MessageEmbed()
 		.setTitle('👋 Welcome to the Server!')
-		.setDescription(`${member} ${WelcomeMessages[result]}`)
+		.setDescription(`<@!${member.id}> ${WelcomeMessages[result]}`)
 		.setColor(Colour.green)
 		.setFooter('User joined')
 		.setTimestamp();
@@ -36,7 +36,7 @@ module.exports = (client, member) => {
 	const logjoinembed = new MessageEmbed()
 		.setColor(Colour.blurple)
 		.setTitle(':information_source: Member Joined')
-		.setDescription(`<@${member.user.id}> has joined the server.`)
+		.setDescription(`<@!${member.user.id}> has joined the server.`)
 		.addField('Username', member.user.username, true)
 		.addField('Created', moment(member.user.createdAt).format('MMMM Do YYYY'), true)
 		.setFooter(`ID: ${member.user.id}`)

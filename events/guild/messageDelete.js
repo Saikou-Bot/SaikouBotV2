@@ -19,7 +19,7 @@ module.exports = (client, message) => {
 		const attachmentlogembed = new MessageEmbed()
 			.setTitle(':warning: Warning!')
 			.setColor(Colour.yellow)
-			.setDescription(`**Attachment sent by <@${message.author.id}> was deleted in ${message.channel}**`)
+			.setDescription(`**Attachment sent by <@!${message.author.id}> was deleted in ${message.channel}**`)
 			.setFooter(`User ID: ${message.author.id}`)
 			.setTimestamp();
 
