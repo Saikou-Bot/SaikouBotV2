@@ -15,10 +15,6 @@ module.exports = {
 		const member = getUserMod(message, args[0]);
 		let i = 0;
 
-		if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-			return errors.noPerms(message, '<Manage Messages>' || message, '.warnings');
-		}
-
 		if (!member) {
 			return errors.noUser(message, 'view warns');
 		}
