@@ -35,7 +35,7 @@ module.exports = (client, message) => {
 		const logembed = new MessageEmbed()
 			.setTitle(':warning: Warning!')
 			.setColor(Colour.yellow)
-			.setDescription(`**Message sent by <@${message.author.id}> was deleted in ${message.channel}**\n${shortenMessage}`)
+			.setDescription(`**Message sent by ${message.member} was deleted in ${message.channel}**\n${shortenMessage}`)
 			.setFooter(`User ID: ${message.author.id}`)
 			.setTimestamp();
 
