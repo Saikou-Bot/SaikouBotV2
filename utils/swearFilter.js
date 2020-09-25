@@ -14,7 +14,7 @@ function filter(str) {
 	return str;
 }
 
-function swearFilter (message) {
+function swearFilter(message) {
 	const filtered = filter(message.content);
 	const specialFilter = filter(message.content.split('').map((item) => specialChars[item] || item).join(''));
 	if (badwords.some((badword) => {
@@ -40,7 +40,7 @@ function swearFilter (message) {
 		}
 		return true;
 	}
-	else return false;
+	else {return false;}
 }
 
 module.exports = {
@@ -48,4 +48,4 @@ module.exports = {
 	construct(client) {
 		return swearFilter;
 	}
-}
+};
