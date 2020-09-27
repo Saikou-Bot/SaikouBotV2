@@ -2,7 +2,7 @@ global.mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Warn = require('../models/warnData');
 
-const guildID = '704621852231729212';
+const guildID = '397791695514894341';
 
 dotenv.config({
 	path: __dirname + '/../.env'
@@ -31,8 +31,8 @@ mongoose.connect(process.env.MONGOPASSWORD, {
 			if (!userWarn) {
 				userWarn = new Warn({
 					userID: log.user.id,
-					warns: [],
-					guild: guildID
+					guild: guildID,
+					warns: []
 				});
 			}
 
