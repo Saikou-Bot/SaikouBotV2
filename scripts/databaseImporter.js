@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGOPASSWORD, {
 				Reason: log.reason
 			};
 
-			let userWarn = await Warn.findOne({ userID: log.user.id });
+			let userWarn = await Warn.findOne({ userID: log.user.id, guild: guildID });
 			if (!userWarn) {
 				userWarn = new Warn({
 					userID: log.user.id,
