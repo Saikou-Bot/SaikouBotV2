@@ -22,6 +22,7 @@ class Cooldown {
 	constructor(options = {}) {
 		this.options = extend({}, cooldownDefaults, options);
 		this.users = new Map();
+		this.embeds = new Map();
 	}
 	cooldownEnd({ timestamp, roleEffect }) {
 		return timestamp + this.options.cooldown * roleEffect;
@@ -62,6 +63,9 @@ class Cooldown {
 			title: '🐌 Woah there, slow down!',
 			description: `You must wait **${left}** before re-using this command.`,
 		}).setColor(colours.red);
+	}
+	namespace(channelID, userID) {
+		return `${channelID}:${userID}`;
 	}
 }
 
