@@ -101,11 +101,11 @@ module.exports = async (bot, message) => {
 	const cooldown = commandfile.cooldown;
 	if (cooldown) {
 		if (cooldown.has(message.author.id)) {
-			const namespace = this.namespace(message.author.id, message.channel.id);
+			const namespace = cooldown.namespace(message.author.id, message.channel.id);
 			const embed = cooldown.embed(message.author.id);
 			const embedMessage = await cooldown.embeds.get(namespace);
 			if (!embedMessage) {
-				return cooldown.embeds.set(namespace, message.channel.send().then(m => {
+				return cooldown.embeds.set(namespace, message.channel.send(embed).then(m => {
 					setTimeout(() => {
 						cooldown.embeds.delete(namespace);
 						if (!m.deleted) m.delete().catch(() => {});
