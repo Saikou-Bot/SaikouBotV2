@@ -101,7 +101,7 @@ module.exports = async (bot, message) => {
 	const cooldown = commandfile.cooldown;
 	if (cooldown) {
 		if (cooldown.has(message.author.id)) {
-			const namespace = this.namespace(message.author.id, message.channel.id)
+			const namespace = this.namespace(message.author.id, message.channel.id);
 			const embed = cooldown.embed(message.author.id);
 			const embedMessage = await cooldown.embeds.get(namespace);
 			if (!embedMessage) {

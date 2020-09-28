@@ -1,4 +1,5 @@
-global.mongoose = require('mongoose');
+const mongoose = require('mongoose');
+global.mongoose = mongoose;
 const dotenv = require('dotenv');
 const Warn = require('../models/warnData');
 
