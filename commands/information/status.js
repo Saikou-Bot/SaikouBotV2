@@ -13,8 +13,8 @@ module.exports = {
 	run: async ({ client: bot, message }) => {
 
 		// const msg = await message.channel.send(new MessageEmbed()
-			// .setDescription('Loading...')
-			// .setColor(colours.blurple));
+		// .setDescription('Loading...')
+		// .setColor(colours.blurple));
 
 		const botLatency = bot.ws.ping;
 		const memoryUsage = process.memoryUsage();
