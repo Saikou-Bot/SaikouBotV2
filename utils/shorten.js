@@ -1,6 +1,4 @@
-function shorten(str, length = 2048, endStr = '...') {
-	return str.length > length ? str.substring(0, length - endStr.length) + endStr : str;
-}
+const shorten = require('../helpers/shorten');
 
 module.exports = {
 	name: 'shorten',
