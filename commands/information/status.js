@@ -12,11 +12,11 @@ module.exports = {
 	},
 	run: async ({ client: bot, message }) => {
 
-		const msg = await message.channel.send(new MessageEmbed()
-			.setDescription('Loading...')
-			.setColor(colours.blurple));
+		// const msg = await message.channel.send(new MessageEmbed()
+		// .setDescription('Loading...')
+		// .setColor(colours.blurple));
 
-		const botLatency = msg.createdTimestamp - message.createdTimestamp;
+		const botLatency = bot.ws.ping;
 		const memoryUsage = process.memoryUsage();
 		const totalMemory = memoryUsage.heapTotal;
 		const memoryPercentage = (totalMemory - memoryUsage.heapUsed) / totalMemory * 100;
@@ -68,6 +68,6 @@ module.exports = {
 		}
 
 		status.addField('Acknowledgements', `${statusMsg}\n${memoryMsg}`);
-		msg.edit(status);
+		message.channel.send(status);
 	},
 };
