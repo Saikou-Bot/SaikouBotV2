@@ -1,6 +1,6 @@
 {
   "name": "saikoubotv2",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Saikou Bot is a feature filled, easy to use Discord Multipurpose bot, built to deliver a better user experience for the Saikou Server.",
   "main": "bot.js",
   "scripts": {
