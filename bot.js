@@ -5,6 +5,7 @@ const { Client, Collection, MessageEmbed } = discord;
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const noblox = require('noblox.js');
+const { shorten } = require('./utils/shorten');
 
 const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] }, partials: ['MESSAGE', 'REACTION'] });
 
