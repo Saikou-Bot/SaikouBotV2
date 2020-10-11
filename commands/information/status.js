@@ -7,7 +7,7 @@ module.exports = {
 		description: 'Want to check if the bot is running into any issues? The status command will give some basic information on how it is doing!',
 		usage: '.status',
 		accessableby: 'Followers+',
-		aliases: ['stats', 'bot', 'botinfo'],
+		aliases: ['stats', 'bot', 'botinfo', 'uptime'],
 		channel: 'bot-commands'
 	},
 	run: async ({ client: bot, message }) => {

@@ -7,6 +7,7 @@ const userNotFound = new MessageEmbed({
 module.exports = {
 	config: {
 		name: 'search',
+		aliases: ['robloxsearch', 'roblox'],
 		cooldown: true,
 		arguments: {
 			user: true
