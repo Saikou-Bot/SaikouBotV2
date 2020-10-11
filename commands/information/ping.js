@@ -27,7 +27,7 @@ module.exports = {
 		const latencyEmbed = new MessageEmbed()
 			.setTitle('🏓 Pong!');
 
-		if (botLatency > 199 && botLatency < 600) {
+		if (botLatency > 399 && botLatency < 600) {
 			footer = '⚠️ Higher than average bot latency.';
 		}
 		else if (botLatency > 599 && botLatency < 999999999) {
