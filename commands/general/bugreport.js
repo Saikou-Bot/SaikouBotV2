@@ -87,7 +87,7 @@ module.exports = {
 			owner: config.githubOwner,
 			repo: config.githubRepo,
 			title: shorten(title.content, 256),
-			body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
+			body: `Bugreport by: ${author.tag}\nDescription: ${shorten(description.content, 3000)}`,
 			labels: [config.bugreportLabel]
 		});
 
