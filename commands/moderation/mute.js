@@ -137,7 +137,7 @@ module.exports = {
 		member.roles.add(mutedRole);
 
 		setTimeout(function() {
-			member.roles.remove(mutedRole);
+			member.roles.remove(mutedRole).catch(() => {});
 
 			member.send(new MessageEmbed()
 				.setTitle('Unmuted')
