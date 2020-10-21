@@ -1,3 +1,5 @@
+const { model: Warn } = require('../../models/warn');
+
 module.exports = {
 	config: {
 		name: 'delete-warn',
@@ -7,7 +9,7 @@ module.exports = {
 		}
 	},
 	async run({ message, args, utils: { getUserMod }, databases }) {
-		const warn = await databases.warn.findById(args.warnID);
+		const warn = await Warn.findById(args.warnID);
 
 		if (!warn) return message.channel.send(new Discord.MessageEmbed({
 					title: 'No such warn',

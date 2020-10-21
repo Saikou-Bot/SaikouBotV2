@@ -1,9 +1,11 @@
 if (!mongoose) var mongoose = require('mongoose');
 
+const { schema: Warn } = require('./warn');
+
 const warnDataSchema = mongoose.Schema({
 	userID: String,
 	warns: [
-		{ Moderator: String, Time: Date, Reason: String },
+		Warn
 	],
 	guild: String,
 });
