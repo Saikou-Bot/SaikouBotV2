@@ -28,7 +28,7 @@ module.exports = {
 			return embeds.noReason(message, 'warn');
 		}
 
-		const warn = new databases.warn.model({
+		const warn = new databases.warn({
 			guildID: message.guild.id,
 			memberID: member.id,
 			moderatorID: message.author.id,
@@ -37,7 +37,7 @@ module.exports = {
 
 		await warn.save();
 
-		const warnings = await databases.warn.model.find({
+		const warnings = await databases.warn.find({
 			guildID: message.guild.id,
 			memberID: member.id
 		});
