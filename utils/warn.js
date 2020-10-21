@@ -1,21 +1,25 @@
 class WarnManager {
-	constructor(model) {
-		this.model = model;
+	constructor(Warn, WarnItems) {
+		this.Warn = Warn;
+		this.WarnItems = WarnItems;
 	}
 	addWarn(options) {
-		return new Promise((res) => {
-			this.model.findOne({
+		return new Promise((res, rej) => {
+			this.WarnItems.findOne({
 				userID: options.user,
 				guild: options.guild,
-			}, (err, warns) => {
-				if (err) return console.error(err);
-				const warn = {
+			}, async (err, warns) => {
+				if (err) return rej(err);
+				const warn = new this.Warn({
 					Moderator: options.warn.moderator,
 					Time: new Date(),
 					Reason: options.warn.reason,
-				};
+				});
+
+				await warn.save();
+
 				if (!warns) {
-					warns = new this.model({
+					warns = new this.WarnItems({
 						userID: options.user,
 						guild: options.guild,
 						warns: [warn],
@@ -34,6 +38,6 @@ class WarnManager {
 module.exports = {
 	name: 'warn',
 	construct(client) {
-		return new WarnManager(client.databases.warnData);
+		return new WarnManager(require('../models/warn').model, require('../models/warnData'));
 	}
 };
