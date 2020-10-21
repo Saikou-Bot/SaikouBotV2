@@ -1,6 +1,6 @@
 {
 	"logErrors": true,
-	"utils": ["warn", "antiSpam", "cooldown", "embeds", "getMember", "getUserMod", "maintains", "suggestions", "octokit", "robloxManager", "bloxlink", "watch", "commands", "wrap", "swearFilter"],
+	"utils": ["antiSpam", "cooldown", "embeds", "getMember", "getUserMod", "maintains", "suggestions", "octokit", "robloxManager", "bloxlink", "watch", "commands", "wrap", "swearFilter"],
 	"handlers": ["database", "utils", "command", "event"],
 	"commandGroups": ["information", "moderation", "fun", "economy", "games", "general", "owner"],
 	"eventGroups": ["client", "guild", "eastereggs", "suggestions", "autoMod"],

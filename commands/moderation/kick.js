@@ -10,7 +10,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['remove'],
 	},
-	run: async ({ client: bot, message, args, utils: { getUserMod, warn: warnUtil } }) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod }, databases }) => {
 
 		const member = getUserMod(message, args[0]);
 		const reason = args.slice(1).join(' ');
@@ -43,14 +43,14 @@ module.exports = {
 			return errors.noReason(message, 'kick');
 		}
 
-		const warnings = await warnUtil.addWarn({
-			user: member.id,
-			guild: message.guild.id,
-			warn: {
-				moderator: message.author.id,
-				reason: `[**Server kick**] ${reason}`,
-			},
+		const warn = new database.warn({
+			memberID: member.id,
+			guildID: message.guild.id,
+			moderatorID: message.author.id,
+			reason: `[**Server kick**] ${reason}`
 		});
+
+		await warn.save();
 
 		member.kick();
 

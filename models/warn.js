@@ -1,9 +1,11 @@
 if (!mongoose) var mongoose = require('mongoose');
 
 const warnSchema = new mongoose.Schema({
-	Moderator: { type: String, required: true },
-	Time: { type: Date, required: true },
-	Reason: { type: String, required: true }
+	guildID: { type: String },
+	memberID: { type: String, required: true },
+	moderatorID: { type: String, required: true },
+	date: { type: Date, required: true, default: Date.now },
+	reason: { type: String, required: true }
 });
 
 module.exports = {
