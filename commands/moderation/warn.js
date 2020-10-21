@@ -11,21 +11,21 @@ module.exports = {
 		const member = getUserMod(message, args[0]);
 
 		if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-			return errors.noPerms(message, '<Manage Messages>' || message, '.warn');
+			return embeds.noPerms(message, '<Manage Messages>' || message, '.warn');
 		}
 
 		if (!member) {
-			return errors.noUser(message, 'warn');
+			return embeds.noUser(message, 'warn');
 		}
 
 		if (member.hasPermission('MANAGE_MESSAGES')) {
-			return errors.equalPerms(message, 'Manage Messages');
+			return embeds.equalPerms(message, 'Manage Messages');
 		}
 
 		const reason = args.slice(1).join(' ');
 
 		if (!reason) {
-			return errors.noReason(message, 'warn');
+			return embeds.noReason(message, 'warn');
 		}
 
 		const warn = new databases.warn.model({

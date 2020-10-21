@@ -13,7 +13,6 @@ module.exports = {
 	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
-		let i = 0;
 
 		if (!member) {
 			return errors.noUser(message, 'view warns');
@@ -39,7 +38,7 @@ module.exports = {
 
 			warnings.forEach((a, i) => {
 				const moderator = message.guild.members.cache.get(a.moderatorID);
-				warnEmbed.addField(`Warning: ${i+1} | Moderator: ${moderator ? moderator.user.tag : 'N/A'}`, `${a.reason} - ${moment(a.date).format('MMMM Do YYYY')}\n\`${a._id}\``);
+				warnEmbed.addField(`Warning: ${i + 1} | Moderator: ${moderator ? moderator.user.tag : 'N/A'}`, `${a.reason} - ${moment(a.date).format('MMMM Do YYYY')}\n\`${a._id}\``);
 			});
 
 			message.channel.send(warnEmbed);
