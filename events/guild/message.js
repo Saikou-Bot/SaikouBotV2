@@ -5,7 +5,7 @@ const colours = require('../../jsonFiles/colours.json');
 const maintainData = require('../../models/maintainData');
 
 const env = process.env;
-const prefix = env.PREFIX;
+const prefix = env.PREFIX || config.prefix;
 
 function parseArguments(arguments) {
 	const entries = Object.entries(arguments);
