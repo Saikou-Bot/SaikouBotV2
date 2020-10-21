@@ -1,4 +1,4 @@
-const { model: Warn } = require('../../models/warn');
+const Warn = require('../../models/warn');
 
 module.exports = {
 	config: {

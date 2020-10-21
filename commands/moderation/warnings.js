@@ -1,5 +1,5 @@
 const errors = embeds;
-const Warn = require('../../models/warn').model;
+const Warn = require('../../models/warn');
 const moment = require('moment');
 
 module.exports = {
