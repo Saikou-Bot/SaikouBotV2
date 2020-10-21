@@ -8,7 +8,4 @@ const warnSchema = new mongoose.Schema({
 	reason: { type: String, required: true }
 });
 
-module.exports = {
-	schema: warnSchema,
-	model: mongoose.model('warnItem', warnSchema)
-};
+module.exports = mongoose.model('warnItem', warnSchema);
