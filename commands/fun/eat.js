@@ -42,6 +42,11 @@ const command = {
 		}
 
 		const amount = args.amount || 1;
+		if (isNaN(amount)) return message.channel.send(new discord.MessageEmbed({
+			title: 'Not a number',
+			description: `\`${args.amount}\` is not a number`,
+			color: colours.red
+		}));
 
 		if (candyData.amount < amount) {
 			return message.channel.send(new discord.MessageEmbed({
