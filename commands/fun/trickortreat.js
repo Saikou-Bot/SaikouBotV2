@@ -4,7 +4,7 @@ const MAX_CANDIES = 50;
 const candiesRange = MAX_CANDIES - MIN_CANDIES;
 
 function ofCandies(percentage) {
-	return (percentage * candiesRange) + MIN_CANDIES 
+	return (percentage * candiesRange) + MIN_CANDIES;
 }
 
 const CandyData = require('../../models/candies');
@@ -39,4 +39,4 @@ module.exports = {
 
 		return message.channel.send(ttEmbed);
 	}
-}
+};

@@ -33,19 +33,23 @@ const command = {
 	async run({ message, args }) {
 		const candyData = await CandyData.findOne({ userID: message.author.id });
 
-		if (!candyData || candyData.amount == 0) return message.channel.send(new discord.MessageEmbed({
-			title: 'You do not have candies',
-			description: 'You have **0** candies, trick or treat to get candies',
-			color: colours.red
-		}));
+		if (!candyData || candyData.amount == 0) {
+			return message.channel.send(new discord.MessageEmbed({
+				title: 'You do not have candies',
+				description: 'You have **0** candies, trick or treat to get candies',
+				color: colours.red
+			}));
+		}
 
 		const amount = args.amount || 1;
 
-		if (candyData.amount < amount) return message.channel.send(new discord.MessageEmbed({
-			title: 'You do not have enough candies',
-			description: `You have **${candyData.amount}** candies, and you need **${amount - candyData.amount}** more candies`,
-			color: colours.red
-		}));
+		if (candyData.amount < amount) {
+			return message.channel.send(new discord.MessageEmbed({
+				title: 'You do not have enough candies',
+				description: `You have **${candyData.amount}** candies, and you need **${amount - candyData.amount}** more candies`,
+				color: colours.red
+			}));
+		}
 
 		this.cooldown.add(message.member);
 
@@ -57,7 +61,7 @@ const command = {
 			color: colours.green
 		}));
 	}
-}
+};
 
 command.cooldown = new EatCooldown({
 	name: 'eat',
