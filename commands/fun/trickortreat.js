@@ -24,9 +24,9 @@ module.exports = {
 		}, {
 			userID: message.author.id,
 			$inc: {
-				'amount': 1
+				'amount': candies
 			}
-		});
+		}, { upsert: true });
 
 		const ttEmbed = new discord.MessageEmbed({
 			title: '🍬 You got treated (idk what to put here)',
