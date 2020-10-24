@@ -30,7 +30,7 @@ const command = {
 			'amount': false
 		}
 	},
-	async run({ message, args }) {
+	async run({ message, args, utils: { shorten } }) {
 		const candyData = await CandyData.findOne({ userID: message.author.id });
 
 		if (!candyData || candyData.amount == 0) {
@@ -56,7 +56,7 @@ const command = {
 		await candyData.updateOne({ $inc: { 'amount': -Math.abs(amount) } });
 
 		return message.channel.send(new discord.MessageEmbed({
-			title: `You ate ${args.candyName}`,
+			title: `You ate ${shorten(args.candyName, 50)}`,
 			description: `You have **${candyData.amount}** candies left.`,
 			color: colours.green
 		}));
