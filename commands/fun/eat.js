@@ -65,7 +65,7 @@ const command = {
 
 command.cooldown = new EatCooldown({
 	name: 'eat',
-	cooldown: 12 * 60 * 60 * 1000
+	// cooldown: 12 * 60 * 60 * 1000
 });
 
 module.exports = command;
