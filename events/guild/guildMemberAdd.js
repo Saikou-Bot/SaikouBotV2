@@ -2,7 +2,7 @@
 module.exports = (client, member) => {
 	const ordinal = require('ordinal');
 	const { MessageEmbed } = require('discord.js');
-	const Colour = require('../../jsonFiles/colours.json');
+	const Colour = require('../../data/colours.json');
 	const moment = require('moment');
 
 

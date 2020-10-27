@@ -2,7 +2,7 @@
 /* eslint-disable no-inline-comments */
 module.exports = (client, member) => {
 	const { MessageEmbed } = require('discord.js');
-	const Colour = require('../../jsonFiles/colours.json');
+	const Colour = require('../../data/colours.json');
 
 	// -- Ban user embed
 	member.guild.fetchBan(member).then(() => {

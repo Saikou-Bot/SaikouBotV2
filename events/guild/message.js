@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow-restricted-names */
 const { MessageEmbed, Collection } = discord;
-const colours = require('../../jsonFiles/colours.json');
+const colours = require('../../data/colours.json');
 
 const maintainData = require('../../models/maintainData');
 

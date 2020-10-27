@@ -1,4 +1,4 @@
-const facts = require('../../jsonFiles/mwtfact.json');
+const facts = require('../../data/mwtfact.json');
 
 module.exports = {
 	config: {

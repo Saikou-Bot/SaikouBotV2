@@ -1,5 +1,5 @@
 module.exports = (client, message) => {
-	const Colour = require('../../jsonFiles/colours.json');
+	const Colour = require('../../data/colours.json');
 
 	if (message.channel.type === 'dm') return;
 	if (message.channel.name == '👥management') return;

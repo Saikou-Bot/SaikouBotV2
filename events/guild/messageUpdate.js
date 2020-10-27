@@ -1,5 +1,5 @@
 module.exports = (client, oldMessage, newMessage) => {
-	const Colour = require('../../jsonFiles/colours.json');
+	const Colour = require('../../data/colours.json');
 
 	if (oldMessage.partial) {
 		return;

@@ -1,4 +1,4 @@
-const facts = require('../../jsonFiles/halloween.json');
+const facts = require('../../data/halloween.json');
 
 module.exports = {
 	config: {

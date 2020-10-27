@@ -11,7 +11,7 @@ const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GU
 
 bot.noblox = noblox;
 
-global.colours = require('./jsonFiles/colours.json');
+global.colours = require('./data/colours.json');
 global.discord = discord;
 global.MessageEmbed = MessageEmbed;
 
