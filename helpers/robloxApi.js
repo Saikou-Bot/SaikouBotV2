@@ -174,7 +174,6 @@ class GameData {
 class GameManager extends APIManager {
 	constructor() {
 		super(...arguments);
-		this.manager = manager;
 		this.apiEndpoints = {
 			'/v1/games': (universeIds) => `https://games.roblox.com/v1/games?universeIds=${universeIds.join(',')}`,
 			'/v1/games/multiget-place-details': (placeIds) => `https://games.roblox.com/v1/games/multiget-place-details?${placeIds.map(p => `placeIds=${p}`).join('&')}`,
@@ -346,7 +345,7 @@ class CatalogManager extends APIManager {
 		super(...arguments);
 		this.apiEndpoints = {
 			'/catalog/json': (options = {}) => `https://search.roblox.com/catalog/json?${Object.entries(options).map(entry => `${entry[0]}=${entry[1]}`).join('&')}`
-		}
+		};
 	}
 	search(options) {
 		return axios.get(this.apiEndpoints['/catalog/json'](options))
