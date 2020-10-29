@@ -1,5 +1,5 @@
 module.exports = (client, role) => {
-	const Colour = require('../../jsonFiles/colours.json');
+	const Colour = require('../../data/colours.json');
 
 	modLogs.send(new MessageEmbed()
 		.setTitle(':information_source: Deleted Role!')

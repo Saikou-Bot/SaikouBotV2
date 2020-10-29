@@ -1,5 +1,5 @@
 module.exports = (client, channel) => {
-	const Colour = require('../../jsonFiles/colours.json');
+	const Colour = require('../../data/colours.json');
 
 	if (channel.type === 'dm') return;
 

@@ -8,7 +8,7 @@ module.exports = {
 		channel: 'bot-commands'
 	},
 	run: async ({ client: bot, message }) => {
-		const questions = require('../../jsonFiles/trivia.json');
+		const questions = require('../../data/trivia.json');
 
 		const q = questions[Math.floor((Math.random() * questions.length))];
 		let i = 0;

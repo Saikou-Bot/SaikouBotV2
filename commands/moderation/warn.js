@@ -1,6 +1,3 @@
-/* eslint-disable no-undef */
-const errors = embeds;
-
 module.exports = {
 	config: {
 		name: 'warn',
@@ -9,40 +6,45 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['givewarn'],
 	},
-	run: async ({ client: bot, message, args, utils: { getUserMod, warn: warnUtil } }) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod, warn: warnUtil }, databases }) => {
 
 		const member = getUserMod(message, args[0]);
 
 		if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-			return errors.noPerms(message, '<Manage Messages>' || message, '.warn');
+			return embeds.noPerms(message, '<Manage Messages>' || message, '.warn');
 		}
 
 		if (!member) {
-			return errors.noUser(message, 'warn');
+			return embeds.noUser(message, 'warn');
 		}
 
 		if (member.hasPermission('MANAGE_MESSAGES')) {
-			return errors.equalPerms(message, 'Manage Messages');
+			return embeds.equalPerms(message, 'Manage Messages');
 		}
 
 		const reason = args.slice(1).join(' ');
 
 		if (!reason) {
-			return errors.noReason(message, 'warn');
+			return embeds.noReason(message, 'warn');
 		}
 
-		const warnings = await warnUtil.addWarn({
-			user: member.id,
-			guild: message.guild.id,
-			warn: {
-				moderator: message.author.id,
-				reason: reason,
-			},
+		const warn = new databases.warn({
+			guildID: message.guild.id,
+			memberID: member.id,
+			moderatorID: message.author.id,
+			reason: reason
+		});
+
+		await warn.save();
+
+		const warnings = await databases.warn.find({
+			guildID: message.guild.id,
+			memberID: member.id
 		});
 
 		const embed = new MessageEmbed()
 			.setDescription(`✅ **${member.displayName} has been warned**`)
-			.addField('Warnings:', warnings.warns.length, true)
+			.addField('Warnings:', warnings.length, true)
 			.setColor(colours.green);
 
 		message.channel.send(embed);
@@ -59,7 +61,7 @@ module.exports = {
 		});
 
 		modLogs.send(new MessageEmbed()
-			.setAuthor(`Case ${warnings.warns.length} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
+			.setAuthor(`Case ${warnings.length} | Warning | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
 			.addField('Moderator', `<@${message.author.id}>`, true)
 			.addField('Reason', `${reason}`, true)

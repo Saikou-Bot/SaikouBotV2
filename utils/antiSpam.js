@@ -19,16 +19,14 @@ const antiSpam = new AntiSpam({
 module.exports = {
 	name: 'antiSpam',
 	construct(client) {
-		const warnUtil = client.utils.warn;
 		antiSpam.on('warnAdd', member => {
-			warnUtil.addWarn({
-				user: member.id,
-				guild: member.guild.id,
-				warn: {
-					moderator: member.client.user.id,
-					reason: 'Auto mod',
-				},
+			const warn = new client.databases.warn({
+				memebrID: member.id,
+				guildID: member.guild.id,
+				moderatorID: member.client.user.id,
+				reason: 'Auto mod',
 			});
+			warn.save();
 		});
 		return antiSpam;
 	}

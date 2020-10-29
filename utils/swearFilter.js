@@ -1,5 +1,5 @@
-const specialChars = require('../jsonFiles/special.json');
-const badwords = require('../jsonFiles/badwords.json');
+const specialChars = require('../data/special.json');
+const badwords = require('../data/badwords.json');
 
 const emoji = require('node-emoji');
 

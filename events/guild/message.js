@@ -1,11 +1,11 @@
 /* eslint-disable no-shadow-restricted-names */
 const { MessageEmbed, Collection } = discord;
-const colours = require('../../jsonFiles/colours.json');
+const colours = require('../../data/colours.json');
 
 const maintainData = require('../../models/maintainData');
 
 const env = process.env;
-const prefix = env.PREFIX;
+const prefix = env.PREFIX || config.prefix;
 
 function parseArguments(arguments) {
 	const entries = Object.entries(arguments);
@@ -32,8 +32,10 @@ function error(name, command = {}, callback, ...args) {
 module.exports = async (bot, message) => {
 	if (message.author.bot || message.channel.type === 'dm') return;
 
+	const regex = /https?:\/\/([^.\s]+\.?){2,}/;
 	if (message.channel.name.match('suggestions')) message.delete().catch(() => {});
-	if (message.channel.name.match('art') && !(message.attachments.size > 0 || message.content.startsWith('https'))) return message.delete().catch(() => {}); // TODO: Add more advanced image detection
+	if (message.channel.name.match('art') && !(message.attachments.size > 0 || regex.test(message.content))) return message.delete().catch(() => {}); // TODO: Add more advanced image detection
+	if (message.channel.name.match('memes') && !(message.attachments.size > 0 || regex.test(message.content))) return message.delete().catch(() => {}); // TODO: Add more advanced image detection
 	if (message.channel.name.match('report-abuse')) message.delete().catch(() => {});
 
 	if (!message.content.startsWith(prefix)) return;
@@ -101,7 +103,21 @@ module.exports = async (bot, message) => {
 	const cooldown = commandfile.cooldown;
 	if (cooldown) {
 		if (cooldown.has(message.author.id)) {
-			return message.channel.send(cooldown.embed(message.author.id));
+			const namespace = cooldown.namespace(message.author.id, message.channel.id);
+			const embed = cooldown.embed(message.author.id);
+			const embedMessage = await cooldown.embeds.get(namespace);
+			if (!embedMessage) {
+				return cooldown.embeds.set(namespace, message.channel.send(embed).then(m => {
+					setTimeout(() => {
+						cooldown.embeds.delete(namespace);
+						if (!m.deleted) m.delete().catch(() => {});
+					}, 5 * 1000);
+					return m;
+				}));
+			}
+			else {
+				return embedMessage.edit(embed);
+			}
 		}
 		else if (commandfile.config.autoCooldown) {
 			commandfile.cooldown.add(message.member);
@@ -117,7 +133,7 @@ module.exports = async (bot, message) => {
 		message.channel.send(new MessageEmbed()
 			.setColor(colours.red)
 			.setTitle('❌ An error occurred!')
-			.setDescription('Uh oh! Looks like our team of developers forgot that last screw causing an error. Please contact our bot developers if this error persists, you can try... \n\n• Reporting the bug over to our developers with `.report`\n• Coming back later and trying again\n• Checking out Saikou\'s social medias whilst you wait 😏'));
+			.setDescription('Uh oh! Looks like our team of developers forgot that last screw causing an error. Please contact our bot developers if this error persists, you can try... \n\n• Reporting the bug over to our developers with `.bugreport`\n• Coming back later and trying again\n• Checking out Saikou\'s social medias whilst you wait 😏'));
 
 	};
 	if (commandfile) {

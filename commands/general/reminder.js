@@ -37,18 +37,15 @@ module.exports = {
 			.setColor(colours.green));
 
 		setTimeout(function() {
-			message.author.send(new MessageEmbed()
+			const embed = new MessageEmbed()
 				.setTitle('⏰ Reminder!')
 				.setThumbnail(message.author.displayAvatarURL())
 				.setDescription(`You set a reminder for ${ms(ms(time), { long: true })}, down below will list the reminder you provided.\n\n**${remindTask}**`)
 				.setColor(colours.green)
 				.setFooter(`You set a reminder for ${ms(ms(time))}`, message.author.displayAvatarURL())
-				.setTimestamp()).catch(() => {
-				return message.channel.send(`<@${message.author.id}>`, new MessageEmbed()
-					.setTitle('Reminder')
-					.setDescription(`Heres the reminder: ${remindTask}`)
-					.setColor(colours.green)
-					.setTimestamp());
+				.setTimestamp();
+			message.author.send(embed).catch(() => {
+				return message.channel.send(`<@${message.author.id}>`, embed);
 			});
 		}, ms(time));
 	}

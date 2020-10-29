@@ -1,12 +1,12 @@
-const facts = require('../../data/mwtfact.json');
+const facts = require('../../data/halloween.json');
 
 module.exports = {
 	config: {
-		name: 'mwtfact',
-		description: 'Fuel your knowledge with over 20 Military Warfare Tycoon facts.',
-		usage: '.mwtfact',
+		name: 'halloweenfact',
+		description: 'Looking to know some things about Halloween? Look no further...',
+		usage: '.halloweenfact',
 		accessableby: 'Followers+',
-		aliases: ['factsmwt'],
+		aliases: ['halfact'],
 		channel: 'bot-commands',
 		cooldown: true,
 		autoCooldown: true,
@@ -16,9 +16,9 @@ module.exports = {
 		const pickedFact = Math.floor((Math.random() * facts.length));
 
 		const mwtfactEmbed = new MessageEmbed()
-			.setTitle('MWT Fact')
+			.setTitle('Halloween Fact 🎃')
 			.setDescription(facts[pickedFact])
-			.setColor(colours.blurple)
+			.setColor(colours.orange)
 			.setFooter(`Requested by: ${message.author.username}`, message.author.displayAvatarURL());
 
 		message.channel.send(mwtfactEmbed);

@@ -11,7 +11,7 @@ module.exports = {
 	},
 	run: async ({ client: bot, message }) => {
 
-		const missions = require('../../jsonFiles/mission.json');
+		const missions = require('../../data/mission.json');
 		const pickedMission = Math.floor((Math.random() * missions.length));
 
 		const MissionEmbed = new MessageEmbed()

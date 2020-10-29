@@ -1,5 +1,5 @@
 module.exports = (client, message) => {
-	const Colour = require('../../jsonFiles/colours.json');
+	const Colour = require('../../data/colours.json');
 
 	if (message.channel.type === 'dm') return;
 	if (message.channel.name == '👥management') return;
@@ -35,7 +35,7 @@ module.exports = (client, message) => {
 		const logembed = new MessageEmbed()
 			.setTitle(':warning: Warning!')
 			.setColor(Colour.yellow)
-			.setDescription(`**Message sent by <@!${message.member.id}> was deleted in ${message.channel}**\n${shortenMessage}`)
+			.setDescription(`**Message sent by ${message.member} was deleted in ${message.channel}**\n${shortenMessage}`)
 			.setFooter(`User ID: ${message.author.id}`)
 			.setTimestamp();
 

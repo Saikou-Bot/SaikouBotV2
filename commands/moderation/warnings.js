@@ -1,5 +1,5 @@
 const errors = embeds;
-const warnData = require('../../models/warnData');
+const Warn = require('../../models/warn');
 const moment = require('moment');
 
 module.exports = {
@@ -13,15 +13,14 @@ module.exports = {
 	run: async ({ client: bot, message, args, utils: { getUserMod } }) => {
 
 		const member = getUserMod(message, args[0]);
-		let i = 0;
 
 		if (!member) {
 			return errors.noUser(message, 'view warns');
 		}
 
-		warnData.findOne({
-			userID: member.id,
-			guild: message.guild.id,
+		Warn.find({
+			memberID: member.id,
+			guildID: message.guild.id,
 		}, (err, warnings) => {
 			if (err) console.log(err);
 
@@ -34,12 +33,12 @@ module.exports = {
 			}
 
 			const warnEmbed = new MessageEmbed()
-				.setAuthor(`${member.displayName} has ${warnings.warns.length} warnings in ${message.guild.name}`, member.user.displayAvatarURL())
+				.setAuthor(`${member.displayName} has ${warnings.length} warnings in ${message.guild.name}`, member.user.displayAvatarURL())
 				.setColor(colours.blurple);
 
-			warnings.warns.forEach(a => {
-				i++;
-				warnEmbed.addField(`Warning: ${i} | Moderator: ${message.guild.members.cache.get(a.Moderator).user.tag}`, `${a.Reason} - ${moment(a.Time).format('MMMM Do YYYY')}\n\`${a.id}\``);
+			warnings.forEach((a, i) => {
+				const moderator = message.guild.members.cache.get(a.moderatorID);
+				warnEmbed.addField(`Warning: ${i + 1} | Moderator: ${moderator ? moderator.user.tag : 'N/A'}`, `${a.reason} - ${moment(a.date).format('MMMM Do YYYY')}\n\`${a._id}\``);
 			});
 
 			message.channel.send(warnEmbed);

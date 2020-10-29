@@ -12,7 +12,7 @@ module.exports = {
 		accessableby: 'Staff',
 		aliases: ['nospeak'],
 	},
-	run: async ({ client: bot, message, args, utils: { getUserMod, warn: warnUtil } }) => {
+	run: async ({ client: bot, message, args, utils: { getUserMod }, databases }) => {
 
 		const member = getUserMod(message, args[0]);
 		const reason = args.slice(2).join(' ');
@@ -90,14 +90,14 @@ module.exports = {
 			.setDescription(`✅ **${member.displayName} has been muted for ${ms(ms(time))}.**`)
 			.setColor(colours.green));
 
-		const warnings = await warnUtil.addWarn({
-			user: member.id,
-			guild: message.guild.id,
-			warn: {
-				moderator: message.author.id,
-				reason: `[**${ms(ms(time))} mute**] ${reason}`,
-			},
+		const warn = new database.warn({
+			memberID: member.id,
+			guildID: message.guild.id,
+			moderatorID: message.author.id,
+			reason: `[**${ms(ms(time))} mute**] ${reason}`
 		});
+
+		await warn.save();
 
 		member.send(new MessageEmbed()
 			.setTitle('Muted')
@@ -131,7 +131,7 @@ module.exports = {
 		member.roles.add(mutedRole);
 
 		setTimeout(function() {
-			member.roles.remove(mutedRole);
+			member.roles.remove(mutedRole).catch(() => {});
 
 			member.send(new MessageEmbed()
 				.setTitle('Unmuted')

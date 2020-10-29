@@ -50,7 +50,7 @@ module.exports = {
 		}
 
 		// Bot latency
-		if (botLatency > 199 && botLatency < 600) {
+		if (botLatency > 399 && botLatency < 600) {
 			status.setColor(colours.yellow);
 			statusMsg = '⚠️ Higher than average bot latency.';
 		}

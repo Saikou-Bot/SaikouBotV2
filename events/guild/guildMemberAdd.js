@@ -2,7 +2,7 @@
 module.exports = (client, member) => {
 	const ordinal = require('ordinal');
 	const { MessageEmbed } = require('discord.js');
-	const Colour = require('../../jsonFiles/colours.json');
+	const Colour = require('../../data/colours.json');
 	const moment = require('moment');
 
 
@@ -24,7 +24,7 @@ module.exports = (client, member) => {
 
 	const WelcomeEmbed = new MessageEmbed()
 		.setTitle('👋 Welcome to the Server!')
-		.setDescription(`<@!${member.id}> ${WelcomeMessages[result]}`)
+		.setDescription(`**${member.user.username}** ${WelcomeMessages[result]}`)
 		.setColor(Colour.green)
 		.setFooter('User joined')
 		.setTimestamp();

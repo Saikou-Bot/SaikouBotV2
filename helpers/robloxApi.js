@@ -31,9 +31,16 @@ class RobloxManager {
 	}
 }
 
-class UserManager {
+class APIManager {
 	constructor(manager) {
 		this.manager = manager;
+		this.apiEndpoints = {};
+	}
+}
+
+class UserManager extends APIManager {
+	constructor() {
+		super(...arguments);
 		this.apiEndpoints = {
 			'/v1/users/avatar-headshot': (userIds) => `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userIds.join(',')}&size=48x48&format=Png&isCircular=false`,
 			'/v1/users/search': (options) => `https://users.roblox.com/v1/users/search?${Object.entries(options).map(entry => `${entry[0]}=${entry[1]}`).join('&')}`,
@@ -164,9 +171,9 @@ class GameData {
 	}
 }
 
-class GameManager {
-	constructor(manager) {
-		this.manager = manager;
+class GameManager extends APIManager {
+	constructor() {
+		super(...arguments);
 		this.apiEndpoints = {
 			'/v1/games': (universeIds) => `https://games.roblox.com/v1/games?universeIds=${universeIds.join(',')}`,
 			'/v1/games/multiget-place-details': (placeIds) => `https://games.roblox.com/v1/games/multiget-place-details?${placeIds.map(p => `placeIds=${p}`).join('&')}`,
@@ -329,6 +336,21 @@ class GameManager {
 				if (res.data.filteredKeyword) throw new RobloxError('The keyword was filtered.');
 				if (!Array.isArray(res.data.games)) throw new Error('response not array');
 				return res.data.games.map(gameOpts => new GameData(this, gameOpts));
+			});
+	}
+}
+
+class CatalogManager extends APIManager {
+	constructor() {
+		super(...arguments);
+		this.apiEndpoints = {
+			'/catalog/json': (options = {}) => `https://search.roblox.com/catalog/json?${Object.entries(options).map(entry => `${entry[0]}=${entry[1]}`).join('&')}`
+		};
+	}
+	search(options) {
+		return axios.get(this.apiEndpoints['/catalog/json'](options))
+			.then(res => {
+				return res.data;
 			});
 	}
 }

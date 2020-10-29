@@ -5,12 +5,13 @@ const { Client, Collection, MessageEmbed } = discord;
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const noblox = require('noblox.js');
+const { shorten } = require('./utils/shorten');
 
 const bot = new Client({ ws: { intents: ['GUILD_PRESENCES', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILDS', 'DIRECT_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_REACTIONS'] }, partials: ['MESSAGE', 'REACTION'] });
 
 bot.noblox = noblox;
 
-global.colours = require('./jsonFiles/colours.json');
+global.colours = require('./data/colours.json');
 global.discord = discord;
 global.MessageEmbed = MessageEmbed;
 
@@ -30,8 +31,8 @@ async function logError(err, origin) {
 	const descriptionString = stripAnsi(err.message) || na;
 
 	const embed = new MessageEmbed({
-		title: titleString.length > 50 ? titleString.substring(0, 47) + '...' : titleString,
-		description: descriptionString.length > 200 ? descriptionString.substring(0, 197) + '...' : descriptionString,
+		title: shorten(titleString, 50),
+		description: shorten(descriptionString, 200),
 		color: colours.red
 	});
 
@@ -41,7 +42,7 @@ async function logError(err, origin) {
 			if (value && typeof value.toString == 'function') {
 				const valueString = value.toString();
 				if (!valueString) return;
-				embed.addField(p.length > 50 ? p.substring(0, 47) + '...' : p, valueString.length > 50 ? valueString.substring(0, 47) + '...' : valueString, true);
+				embed.addField(shorten(p, 50), shorten(valueString, 100), true);
 			}
 		});
 

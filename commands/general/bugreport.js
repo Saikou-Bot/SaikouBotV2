@@ -6,7 +6,7 @@ module.exports = {
 		name: 'bugreport',
 		cooldown: 60 * 1000
 	},
-	async run({ client, message, utils: { octokit } }) {
+	async run({ client, message, utils: { octokit, shorten } }) {
 		const { channel, author, member } = message;
 
 
@@ -86,8 +86,8 @@ module.exports = {
 		await octokit.issues.create({
 			owner: config.githubOwner,
 			repo: config.githubRepo,
-			title: title.content,
-			body: `Bugreport by: ${author.tag}\nDescription: ${description.content}`,
+			title: shorten(title.content, 256),
+			body: `Bugreport by: ${author.tag}\nDescription: ${shorten(description.content, 3000)}`,
 			labels: [config.bugreportLabel]
 		});
 
