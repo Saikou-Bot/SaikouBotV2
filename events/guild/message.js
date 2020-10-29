@@ -32,8 +32,10 @@ function error(name, command = {}, callback, ...args) {
 module.exports = async (bot, message) => {
 	if (message.author.bot || message.channel.type === 'dm') return;
 
+	const regex = /https?:\/\/([^.\s]+\.?){2,}/;
 	if (message.channel.name.match('suggestions')) message.delete().catch(() => {});
-	if (message.channel.name.match('art') && !(message.attachments.size > 0 || message.content.startsWith('https'))) return message.delete().catch(() => {}); // TODO: Add more advanced image detection
+	if (message.channel.name.match('art') && !(message.attachments.size > 0 || regex.test(message.content))) return message.delete().catch(() => {}); // TODO: Add more advanced image detection
+	if (message.channel.name.match('memes') && !(message.attachments.size > 0 || regex.test(message.content))) return message.delete().catch(() => {}); // TODO: Add more advanced image detection
 	if (message.channel.name.match('report-abuse')) message.delete().catch(() => {});
 
 	if (!message.content.startsWith(prefix)) return;
