@@ -31,7 +31,7 @@ const command = {
 		},
 	},
 	async run({ message, args, utils: { shorten } }) {
-		const candyData = await CandyData.findOne({ userID: message.author.id });
+		let candyData = await CandyData.findOne({ userID: message.author.id });
 
 		if (!candyData || candyData.amount == 0) {
 			return message.channel.send(
@@ -66,14 +66,15 @@ const command = {
 
 		this.cooldown.add(message.member);
 
-		await candyData.updateOne({ $inc: { amount: -Math.abs(amount) } }).then(
+		candyData = await candyData.updateOne({ $inc: { 'amount': -Math.abs(amount) } }, { new: true });
 
-			message.channel.send(new MessageEmbed()
-				.setTitle(`🍬 You ate ${shorten(args.candyName, 50)}!`)
-				.setDescription(`You filled your stomach with **${amount}** ${shorten(args.candyName, 50)}! You have **${candyData.amount}** candies left.`)
-				.setFooter('Gain some candies with .trickortreat')
-				.setColor(colours.orange))
-		);
+		console.log(candyData)
+
+		return message.channel.send(new MessageEmbed()
+			.setTitle(`🍬 You ate ${shorten(args.candyName, 50)}!`)
+			.setDescription(`You filled your stomach with **${amount}** ${shorten(args.candyName, 50)}! You have **${candyData.amount}** candies left.`)
+			.setFooter('Gain some candies with .trickortreat')
+			.setColor(colours.orange));
 	},
 };
 
