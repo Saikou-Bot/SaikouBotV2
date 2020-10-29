@@ -45,7 +45,7 @@ module.exports = {
 				.setFooter(`You set a reminder for ${ms(ms(time))}`, message.author.displayAvatarURL())
 				.setTimestamp();
 			message.author.send(embed).catch(() => {
-				return message.channel.send(`<@${message.author.id}>`, embed );
+				return message.channel.send(`<@${message.author.id}>`, embed);
 			});
 		}, ms(time));
 	}
