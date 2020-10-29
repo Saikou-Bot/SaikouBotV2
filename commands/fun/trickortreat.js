@@ -12,7 +12,7 @@ const CandyData = require('../../models/candies');
 module.exports = {
 	config: {
 		name: 'trickortreat',
-		cooldown: 6 * 60 * 60 * 1000,
+		cooldown: 1 * 60 * 60 * 1000,
 		autoCooldown: true,
 		aliases: ['tt']
 	},
