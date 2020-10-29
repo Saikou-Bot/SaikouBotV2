@@ -4,7 +4,7 @@ const MAX_CANDIES = 50;
 const candiesRange = MAX_CANDIES - MIN_CANDIES;
 
 function ofCandies(percentage) {
-	return (percentage * candiesRange) + MIN_CANDIES;
+	return percentage * candiesRange + MIN_CANDIES;
 }
 
 const CandyData = require('../../models/candies');
@@ -12,31 +12,35 @@ const CandyData = require('../../models/candies');
 module.exports = {
 	config: {
 		name: 'trickortreat',
-		// cooldown: 6 * 60 * 60 * 1000,
-		// autoCooldown: true,
-		cooldownRoles: { 'Developer': 0 }
+		cooldown: 6 * 60 * 60 * 1000,
+		autoCooldown: true,
+		aliases: ['tt']
 	},
 	async run({ message }) {
 		const candies = Math.floor(Math.random() * (MAX_CANDIES - MIN_CANDIES) + MIN_CANDIES);
 
-		await CandyData.findOneAndUpdate({
-			userID: message.author.id
-		}, {
-			userID: message.author.id,
-			$inc: {
-				'amount': candies
-			}
-		}, { upsert: true });
+		await CandyData.findOneAndUpdate(
+			{
+				userID: message.author.id,
+			},
+			{
+				userID: message.author.id,
+				$inc: {
+					amount: candies,
+				},
+			},
+			{ upsert: true }
+		);
 
-		const ttEmbed = new discord.MessageEmbed({
-			title: '🍬 You got treated (idk what to put here)',
-			description: `You gained **${candies}** candies!`
-		});
+		const ttEmbed = new discord.MessageEmbed()
+			.setTitle('🎃 Trick or treat!')
+			.setDescription(`You went trick or treating and received **${candies}** candies.`)
+			.setFooter('You can eat your candies with .eat');
 
-		if (ofCandies(0.40) > candies) ttEmbed.setColor(colours.green);
-		else if (ofCandies(0.70) > candies) ttEmbed.setColor(colours.blue);
-		else ttEmbed.setColor(colours.purple);
+		if (ofCandies(0.4) > candies) ttEmbed.setColor(colours.green);
+		else if (ofCandies(0.7) > candies) ttEmbed.setColor(colours.purple);
+		else ttEmbed.setColor(colours.orange);
 
 		return message.channel.send(ttEmbed);
-	}
+	},
 };
