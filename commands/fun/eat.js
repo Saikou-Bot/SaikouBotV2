@@ -68,8 +68,6 @@ const command = {
 
 		candyData = await CandyData.findByIdAndUpdate(candyData._id, { $inc: { 'amount': -Math.abs(amount) } }, { new: true });
 
-		console.log(candyData)
-
 		return message.channel.send(new MessageEmbed()
 			.setTitle(`🍬 You ate ${shorten(args.candyName, 50)}!`)
 			.setDescription(`You filled your stomach with **${amount}** ${shorten(args.candyName, 50)}! You have **${candyData.amount}** candies left.`)
@@ -80,7 +78,7 @@ const command = {
 
 command.cooldown = new EatCooldown({
 	name: 'eat',
-	// cooldown: 12 * 60 * 60 * 1000
+	cooldown: 12 * 60 * 60 * 1000
 });
 
 module.exports = command;
