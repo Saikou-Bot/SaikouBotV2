@@ -66,7 +66,7 @@ const command = {
 
 		this.cooldown.add(message.member);
 
-		candyData = await candyData.updateOne({ $inc: { 'amount': -Math.abs(amount) } }, { new: true });
+		candyData = await CandyData.findByIdAndUpdate(candyData._id, { $inc: { 'amount': -Math.abs(amount) } }, { new: true });
 
 		console.log(candyData)
 
