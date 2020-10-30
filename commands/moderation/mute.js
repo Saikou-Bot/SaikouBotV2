@@ -99,6 +99,8 @@ module.exports = {
 
 		await warn.save();
 
+		const warnings = await databases.warnData.find({ memberID: member.id, guildID: message.guild.id });
+
 		member.send(new MessageEmbed()
 			.setTitle('Muted')
 			.setDescription('You have received a **mute** in Saikou due to your behaviour within our server. Improve how you act otherwise you will be kicked.')
@@ -110,7 +112,7 @@ module.exports = {
 			.setTimestamp()).catch(() => { return; });
 
 		modLogs.send(new MessageEmbed()
-			.setAuthor(`Case ${warnings.warns.length + 1} | ${ms(ms(time))} Mute | ${member.displayName}`, member.user.displayAvatarURL())
+			.setAuthor(`Case ${warnings.length + 1} | ${ms(ms(time))} Mute | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
 			.addField('Moderator:', `<@${message.author.id}>`, true)
 			.addField('Reason:', `${reason}`, true)
