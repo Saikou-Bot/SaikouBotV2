@@ -90,7 +90,7 @@ module.exports = {
 			.setDescription(`✅ **${member.displayName} has been muted for ${ms(ms(time))}.**`)
 			.setColor(colours.green));
 
-		const warn = new database.warn({
+		const warn = new databases.warnData({
 			memberID: member.id,
 			guildID: message.guild.id,
 			moderatorID: message.author.id,
