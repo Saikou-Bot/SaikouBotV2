@@ -90,7 +90,7 @@ module.exports = {
 			.setDescription(`✅ **${member.displayName} has been muted for ${ms(ms(time))}.**`)
 			.setColor(colours.green));
 
-		const warn = new database.warn({
+		const warn = new databases.warnData({
 			memberID: member.id,
 			guildID: message.guild.id,
 			moderatorID: message.author.id,
@@ -98,6 +98,8 @@ module.exports = {
 		});
 
 		await warn.save();
+
+		const warnings = await databases.warnData.find({ memberID: member.id, guildID: message.guild.id });
 
 		member.send(new MessageEmbed()
 			.setTitle('Muted')
@@ -110,7 +112,7 @@ module.exports = {
 			.setTimestamp()).catch(() => { return; });
 
 		modLogs.send(new MessageEmbed()
-			.setAuthor(`Case ${warnings.warns.length + 1} | ${ms(ms(time))} Mute | ${member.displayName}`, member.user.displayAvatarURL())
+			.setAuthor(`Case ${warnings.length + 1} | ${ms(ms(time))} Mute | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
 			.addField('Moderator:', `<@${message.author.id}>`, true)
 			.addField('Reason:', `${reason}`, true)
