@@ -1,212 +1,97 @@
 [
-    {
-        "question": "How much cash does the weapon `Assault Rifle` cost in Military Warfare Tycoon?",
-        "options": [
-            "$5,000",
-            "$10,000",
-            "$15,000",
-            "$2,000"
-        ],
-        "answer": 2
-    },
-    {
-        "question": "What is the name of the Halloween 2018 event weapon in Military Warfare Tycoon?",
-        "options": [
-            "Bonecage",
-            "Crossbow",
-            "Military Axe",
-            "Laser Pistol"
-        ],
-        "answer": 1
-    },
-    {
-        "question": "How much cash does the `Military Truck` cost in Military Warfare Tycoon?",
-        "options": [
-            "$30,000",
-            "$20,000",
-            "$5,000",
-            "$15,000"
-        ],
-        "answer": 4
-    },
-    {
-        "question": "Which gamepass grants you access to the `Railgun` in Military Warfare Tycoon?",
-        "options": [
-            "VIP",
-            "Mega VIP",
-            "Ultra VIP",
-            "Elite VIP"
-        ],
-        "answer": 3
-    },
-    {
-        "question": "Which gamepass grants you access to the `Railgun` in Military Warfare Tycoon?",
-        "options": [
-            "VIP",
-            "Mega VIP",
-            "Ultra VIP",
-            "Elite VIP"
-        ],
-        "answer": 3
-    },
-    {
-        "question": "Which vehicle is the most expensive in Military Warfare Tycoon?",
-        "options": [
-            "Helicopter",
-            "Jeep",
-            "Military Truck",
-            "Armoured Carrier"
-        ],
-        "answer": 1
-    },
-    {
-        "question": "How many seasonal events have happened in Military Warfare Tycoon?",
-        "options": [
-            "2",
-            "6",
-            "7",
-            "10"
-        ],
-        "answer": 3
-    },
-    {
-        "question": "Which two weapons do players spawn in with in Military Warfare Tycoon?",
-        "options": [
-            "Laser Pistol and Katana",
-            "Handgun and Knife",
-            "Railgun and Golden Pistol",
-            "Luger Pistol and Knife"
-        ],
-        "answer": 2
-    },
-    {
-        "question": "How many ranks are in Military Warfare Tycoon?",
-        "options": [
-            "5",
-            "7",
-            "8",
-            "2"
-        ],
-        "answer": 3
-    },
-    {
-        "question": "What reward do players get for reaching the `General` rank in Military Warfare Tycoon?",
-        "options": [
-            "Golden Pistol",
-            "Golden Railgun",
-            "Golden Luger",
-            "Golden Katana"
-        ],
-        "answer": 1
-    },
-    {
-        "question": "What badge is rewarded to players who kill the creator in Military Warfare Tycoon?",
-        "options": [
-            "Loyal Soldier",
-            "Elite Soldier",
-            "General",
-            "Epic Soldier"
-        ],
-        "answer": 2
-    },
-    {
-        "question": "What in-game reward do players receive for joining the Saikou group in Military Warfare Tycoon?",
-        "options": [
-            "Golden Katana",
-            "Military Axe",
-            "$2,500 starter cash",
-            "$5,000 starter cash"
-        ],
-        "answer": 4
-    },
-    {
-        "question": "What in-game reward do players receive for reaching the rank `Colonel` in Military Warfare Tycoon?",
-        "options": [
-            "$500,000 starter cash + ingame overhead rank",
-            "$500,000 starter cash",
-            "$450,000 starter cash + ingame overhead rank",
-            "$200,000 starter cash + ingame overhead rank"
-        ],
-        "answer": 1
-	},
-	{
-        "question": "How many tycoons are featured within Military Warfare Tycoon?",
-        "options": [
-            "3",
-            "7",
-            "6",
-            "8"
-        ],
-        "answer": 3
-	},
-	{
-        "question": "Which weapon is not included within the VIP gamepass?",
-        "options": [
-            "Jetpack",
-            "Auto Sniper",
-            "Jetpack",
-            "Anti tank vehicle"
-        ],
-        "answer": 2
-	},
-	{
-        "question": "How many vehicles are in Military Warfare Tycoon?",
-        "options": [
-            "7",
-            "5",
-            "4",
-            "2"
-        ],
-        "answer": 1
-	},
-	{
-        "question": "How many gamepasses contain an exclusive vehicle?",
-        "options": [
-            "5",
-            "3",
-            "1",
-            "2"
-        ],
-        "answer": 4
-	},
-	{
-        "question": "How many laser gates are there in a completed base?",
-        "options": [
-            "3",
-            "2",
-            "5",
-            "1"
-        ],
-        "answer": 1
-	},
-	{
-        "question": "How many laser gates are there in a completed base?",
-        "options": [
-            "3",
-            "2",
-            "5",
-            "1"
-        ],
-        "answer": 1
-	},
-	{
-        "question": "Who is the creator of Military Warfare Tycoon?",
-        "options": [
-            "DevRolve",
-            "forcetower",
-            "asimo3089",
-            "ObscureEntity"
-        ],
-        "answer": 2
-	},
-	{
-        "question": "How much cash does the `helipad` cost?",
-        "options": [
-            "$25,000",
-            "$100,000",
-            "$35,000",
-            "$50,000"
-        ],
-        "answer": 4
-    }
+  {
+    "question": "How much cash does the weapon `Assault Rifle` cost in Military Warfare Tycoon?",
+    "options": ["$5,000", "$10,000", "$15,000", "$2,000"],
+    "answer": 2
+  },
+  {
+    "question": "What is the name of the Halloween 2018 event weapon in Military Warfare Tycoon?",
+    "options": ["Bonecage", "Crossbow", "Military Axe", "Laser Pistol"],
+    "answer": 1
+  },
+  {
+    "question": "How much cash does the `Military Truck` cost in Military Warfare Tycoon?",
+    "options": ["$30,000", "$20,000", "$5,000", "$15,000"],
+    "answer": 4
+  },
+  {
+    "question": "Which gamepass grants you access to the `Railgun` in Military Warfare Tycoon?",
+    "options": ["VIP", "Mega VIP", "Ultra VIP", "Elite VIP"],
+    "answer": 3
+  },
+  {
+    "question": "Which vehicle is the most expensive in Military Warfare Tycoon?",
+    "options": ["Helicopter", "Jeep", "Military Truck", "Armoured Carrier"],
+    "answer": 1
+  },
+  {
+    "question": "How many seasonal events have happened in Military Warfare Tycoon?",
+    "options": ["2", "6", "7", "10"],
+    "answer": 3
+  },
+  {
+    "question": "Which two weapons do players spawn in with in Military Warfare Tycoon?",
+    "options": ["Laser Pistol and Katana", "Handgun and Knife", "Railgun and Golden Pistol", "Luger Pistol and Knife"],
+    "answer": 2
+  },
+  {
+    "question": "How many ranks are in Military Warfare Tycoon?",
+    "options": ["5", "7", "8", "2"],
+    "answer": 3
+  },
+  {
+    "question": "What reward do players get for reaching the `General` rank in Military Warfare Tycoon?",
+    "options": ["Golden Pistol", "Golden Railgun", "Golden Luger", "Golden Katana"],
+    "answer": 1
+  },
+  {
+    "question": "What badge is rewarded to players who kill the creator in Military Warfare Tycoon?",
+    "options": ["Loyal Soldier", "Elite Soldier", "General", "Epic Soldier"],
+    "answer": 2
+  },
+  {
+    "question": "What in-game reward do players receive for joining the Saikou group in Military Warfare Tycoon?",
+    "options": ["Golden Katana", "Military Axe", "$2,500 starter cash", "$5,000 starter cash"],
+    "answer": 4
+  },
+  {
+    "question": "What in-game reward do players receive for reaching the rank `Colonel` in Military Warfare Tycoon?",
+    "options": ["$500,000 starter cash + ingame overhead rank", "$500,000 starter cash", "$450,000 starter cash + ingame overhead rank", "$200,000 starter cash + ingame overhead rank"],
+    "answer": 1
+  },
+  {
+    "question": "How many tycoons are featured within Military Warfare Tycoon?",
+    "options": ["3", "7", "6", "8"],
+    "answer": 3
+  },
+  {
+    "question": "Which weapon is not included within the VIP gamepass?",
+    "options": ["Jetpack", "Auto Sniper", "Jetpack", "Anti tank vehicle"],
+    "answer": 2
+  },
+  {
+    "question": "How many vehicles are in Military Warfare Tycoon?",
+    "options": ["7", "5", "4", "2"],
+    "answer": 1
+  },
+  {
+    "question": "How many gamepasses contain an exclusive vehicle?",
+    "options": ["5", "3", "1", "2"],
+    "answer": 4
+  },
+  {
+    "question": "How many laser gates are there in a completed base?",
+    "options": ["3", "2", "5", "1"],
+    "answer": 1
+  },
+  {
+    "question": "Who is the creator of Military Warfare Tycoon?",
+    "options": ["SaikouDev", "forcetower", "asimo3089", "Dragonfire1859"],
+    "answer": 2
+  },
+  {
+    "question": "How much cash does the `helipad` cost?",
+    "options": ["$25,000", "$100,000", "$35,000", "$50,000"],
+    "answer": 4
+  }
 ]
