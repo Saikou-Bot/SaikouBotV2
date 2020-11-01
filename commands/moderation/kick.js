@@ -43,7 +43,7 @@ module.exports = {
 			return errors.noReason(message, 'kick');
 		}
 
-		const warn = new database.warn({
+		const warn = new databases.warnData({
 			memberID: member.id,
 			guildID: message.guild.id,
 			moderatorID: message.author.id,
