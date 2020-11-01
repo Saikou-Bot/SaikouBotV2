@@ -52,6 +52,8 @@ module.exports = {
 
 		await warn.save();
 
+		const warnings = await databases.warnData.find({ memberID: member.id, guildID: message.guild.id });
+
 		member.kick();
 
 		const embed2 = new MessageEmbed()
@@ -70,7 +72,7 @@ module.exports = {
 			.setTimestamp()).catch(() => { return; });
 
 		modLogs.send(new MessageEmbed()
-			.setAuthor(`Case ${warnings.warns.length + 1} | Kick | ${member.displayName}`, member.user.displayAvatarURL())
+			.setAuthor(`Case ${warnings.length + 1} | Kick | ${member.displayName}`, member.user.displayAvatarURL())
 			.addField('User:', `<@${member.id}>`, true)
 			.addField('Moderator', `<@${message.author.id}>`, true)
 			.addField('Reason', `${args.slice(1).join(' ')}`, true)
