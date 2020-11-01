@@ -13,6 +13,7 @@ class RobloxManager {
 		this.noblox = noblox;
 		this.users = new UserManager(this);
 		this.games = new GameManager(this);
+		this.catalog = new CatalogManager(this);
 	}
 	get token() {
 		try {
