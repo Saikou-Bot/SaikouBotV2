@@ -36,12 +36,14 @@ module.exports = {
 
 
 		const question = argString;
-		if (!question) return message.channel.send(new MessageEmbed()
-			.setTitle('✍️ No question asked!')
-			.setDescription('Please ask a question for the 8ball to answer.')
-			.setFooter('Input question')
-			.setTimestamp()
-			.setColor(colours.red));
+		if (!question) {
+			return message.channel.send(new MessageEmbed()
+				.setTitle('✍️ No question asked!')
+				.setDescription('Please ask a question for the 8ball to answer.')
+				.setFooter('Input question')
+				.setTimestamp()
+				.setColor(colours.red));
+		}
 
 		const questionShortener = question.length > 1900 ? question.substring(0, 1800) + '...' : question;
 		const result = Math.floor((Math.random() * replies.length));
