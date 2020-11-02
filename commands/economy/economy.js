@@ -9,11 +9,11 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message, args }) => {
+	run: async ({ client, message }) => {
 
 		message.channel.send(new MessageEmbed()
 			.setTitle('Upcoming Economy')
-			.setThumbnail(bot.user.displayAvatarURL())
+			.setThumbnail(client.user.displayAvatarURL())
 			.setDescription('Hey! Our developers are working on getting out the economy release in phases, make sure to keep an eye on our <#642026652796452865> channel, planned to include...\n\n• Entire revamp of previous commands\n• Full purchase and inventory system\n• And more... What you thought we were going to spoil it all?')
 			.setColor(colours.green)
 			.setFooter('Coming soon!')
