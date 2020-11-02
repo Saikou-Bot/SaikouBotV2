@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow-restricted-names */
 const { MessageEmbed, Collection } = discord;
 const colours = require('../../data/colours.json');
 
@@ -7,8 +6,8 @@ const maintainData = require('../../models/maintainData');
 const env = process.env;
 const prefix = env.PREFIX || config.prefix;
 
-function parseArguments(arguments) {
-	const entries = Object.entries(arguments);
+function parseArguments(args) {
+	const entries = Object.entries(args);
 	return entries.map((entry) => {
 		if (entry[1]) return `<${entry[0]}>`;
 
@@ -56,7 +55,7 @@ module.exports = async (bot, message) => {
 		return message.channel.send(MaintainedEmbed);
 	}
 
-	let arguments;
+	let Arguments;
 
 	if (commandfile.config.arguments) {
 		const requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
@@ -73,14 +72,14 @@ module.exports = async (bot, message) => {
 			}, message);
 
 
-		arguments = Object.keys(commandfile.config.arguments).reduce((obj, key, index) => {
+		Arguments = Object.keys(commandfile.config.arguments).reduce((obj, key, index) => {
 			return {
 				...obj,
 				[key]: args[index],
 			};
 		}, {});
 	}
-	else arguments = args;
+	else Arguments = args;
 
 
 	if (commandfile.config.channel)
@@ -134,7 +133,7 @@ module.exports = async (bot, message) => {
 	if (commandfile) {
 		try {
 			// await commandfile.run(bot, message, arguments, { maintains });
-			await commandfile.run({ client: bot, message, args: arguments, utils: bot.utils, databases: bot.databases, argString, rawArgs: args });
+			await commandfile.run({ client: bot, message, args: Arguments, utils: bot.utils, databases: bot.databases, argString, rawArgs: args });
 		}
 		catch (err) {
 			alertError(err);
