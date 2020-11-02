@@ -11,17 +11,14 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message, args }) => {
+	async run ({ client, message, args }) {
 
-		const time = args[0];
-		const remindTask = args.slice(1).join(' ');
-
+		let time = args[0];
+		if (!time) return embeds.noTime(message, 'reminder');
+		time = ms(time);
 		if (!time) return embeds.noTime(message, 'reminder');
 
-
-		if (!ms(time)) return embeds.noTime(message, 'reminder');
-
-
+		const remindTask = args.slice(1).join(' ');
 		if (!remindTask)
 			return message.channel.send(new MessageEmbed()
 				.setTitle('📥 Input reminder!')
@@ -29,22 +26,23 @@ module.exports = {
 				.setColor(colours.red)
 				.setFooter('Input reminder.'));
 
+		let timeString = ms(time, { long: true });
 
 		message.channel.send(new MessageEmbed()
-			.setDescription(`**✅ Reminder set! You will be reminded in ${ms(ms(time), { long: true })}.**`)
+			.setDescription(`**✅ Reminder set! You will be reminded in ${timeString}.**`)
 			.setColor(colours.green));
 
+		// TODO: move to database
 		setTimeout(function() {
-			const embed = new MessageEmbed()
+			message.author.send(new MessageEmbed()
 				.setTitle('⏰ Reminder!')
 				.setThumbnail(message.author.displayAvatarURL())
-				.setDescription(`You set a reminder for ${ms(ms(time), { long: true })}, down below will list the reminder you provided.\n\n**${remindTask}**`)
+				.setDescription(`You set a reminder for ${timeString}, down below will list the reminder you provided.\n\n**${remindTask}**`)
 				.setColor(colours.green)
-				.setFooter(`You set a reminder for ${ms(ms(time))}`, message.author.displayAvatarURL())
-				.setTimestamp();
-			message.author.send(embed).catch(() => {
+				.setFooter(`You set a reminder for ${ms(time)}`, message.author.displayAvatarURL())
+				.setTimestamp()).catch(() => {
 				return message.channel.send(`<@${message.author.id}>`, embed);
 			});
-		}, ms(time));
+		}, time);
 	}
 };
