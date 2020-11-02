@@ -37,19 +37,19 @@ module.exports = {
 
 		const response = msgs.first();
 
-		if (response.content == question.answer) {
+		if (response.content == question.answer)
 			return message.channel.send(new MessageEmbed()
 				.setTitle('Trivia Results')
 				.setDescription(`You answered the trivia ||correctly, good job!||\n\n**Your Answer**\n\`${response.content}\``)
 				.setColor(message.member.displayHexColor)
 				.setThumbnail(message.author.displayAvatarURL()));
-		}
-		else {
+
+		else
 			return message.channel.send(new MessageEmbed()
 				.setTitle('Trivia Results')
 				.setDescription(`You answered the trivia ||incorrectly, good try!||\n\n**Your Answer**\n\`${shorten(response.content, 500)}\``)
 				.setColor(message.member.displayHexColor)
 				.setThumbnail(message.author.displayAvatarURL()));
-		}
+
 	},
 };

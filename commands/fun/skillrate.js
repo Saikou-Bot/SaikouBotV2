@@ -12,22 +12,25 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	 async run({ message, argString, utils: { getMember } }) {
+	async run({
+		message,
+		argString,
+		utils: {
+			getMember
+		}
+	}) {
 
 		const member = getMember(message, argString);
 		const rating = Math.round(Math.random() * 100);
 
-		if (rating < 98) {
-			message.channel.send(new MessageEmbed()
-				.setTitle('Skill Rating')
-				.setDescription(`**${member.displayName}** is \`%${rating}\` skilled! 🏆`)
-				.setColor(member.displayHexColor));
-		}
-		else {
-			return message.channel.send(new MessageEmbed()
-				.setTitle('🔥 Skill Rating')
-				.setDescription(`**${member.displayName}** is 𝐁𝐄𝐘𝐎𝐍𝐃 𝐆𝐎𝐃𝐋𝐈𝐊𝐄! 🏆`)
-				.setColor(colours.red));
-		}
+		if (rating < 98) return message.channel.send(new MessageEmbed()
+			.setTitle('Skill Rating')
+			.setDescription(`**${member.displayName}** is \`%${rating}\` skilled! 🏆`)
+			.setColor(member.displayHexColor));
+		else return message.channel.send(new MessageEmbed()
+			.setTitle('🔥 Skill Rating')
+			.setDescription(`**${member.displayName}** is 𝐁𝐄𝐘𝐎𝐍𝐃 𝐆𝐎𝐃𝐋𝐈𝐊𝐄! 🏆`)
+			.setColor(colours.red));
+
 	},
 };

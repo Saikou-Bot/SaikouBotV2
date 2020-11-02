@@ -13,7 +13,8 @@
 		"colours": "readonly",
 		"embeds": "readonly",
 		"modLogs": "readonly",
-		"config": "readonly"
+		"config": "readonly",
+		"moderation": "readonly"
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
