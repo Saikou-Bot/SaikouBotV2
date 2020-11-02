@@ -17,33 +17,26 @@ module.exports = {
 		const reason = args.slice(1).join(' ');
 		let warns = '';
 
-		if (!message.member.hasPermission('BAN_MEMBERS')) {
-			return errors.noPerms(message, '<Ban Members>' || message, '.ban');
-		}
+		if (!message.member.hasPermission('BAN_MEMBERS')) return errors.noPerms(message, '<Ban Members>' || message, '.ban');
 
-		if (!member) {
-			return errors.noUser(message, 'ban');
-		}
 
-		if (member.id === message.author.id) {
-			return errors.yourself(message, 'ban');
-		}
+		if (!member) return errors.noUser(message, 'ban');
 
-		if (member.user.bot) {
-			return errors.bots(message, 'ban');
-		}
 
-		if (member.hasPermission('BAN_MEMBERS')) {
-			return errors.equalPerms(message, 'Ban Members');
-		}
+		if (member.id === message.author.id) return errors.yourself(message, 'ban');
 
-		if (!member.kickable) {
-			return errors.unable(message, 'ban');
-		}
 
-		if (!reason) {
-			return errors.noReason(message, 'ban');
-		}
+		if (member.user.bot) return errors.bots(message, 'ban');
+
+
+		if (member.hasPermission('BAN_MEMBERS')) return errors.equalPerms(message, 'Ban Members');
+
+
+		if (!member.kickable) return errors.unable(message, 'ban');
+
+
+		if (!reason) return errors.noReason(message, 'ban');
+
 
 		warnData.findOne({
 			userID: member.id,
@@ -68,12 +61,10 @@ module.exports = {
 				.setFooter('THIS IS AN AUTOMATED MESSAGE')
 				.setTimestamp()).catch(() => { return; });
 
-			if (!warnings) {
-				warns = 1;
-			}
-			else {
-				warns = warnings.warns.length + 1;
-			}
+			if (!warnings) warns = 1;
+
+			else warns = warnings.warns.length + 1;
+
 
 			modLogs.send(new MessageEmbed()
 				.setAuthor(`Case ${warns} | Ban | ${member.displayName}`, member.user.displayAvatarURL())

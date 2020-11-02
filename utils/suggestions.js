@@ -21,14 +21,14 @@ class SuggestionManager {
 		if (!messageReaction.message.channel.name.match(this.suggestionChannel) || user.bot) return;
 		const { message } = messageReaction;
 
-		if (messageReaction.partial) {
+		if (messageReaction.partial)
 			try {
 				await messageReaction.fetch();
 			}
 			catch(err) {
 				return;
 			}
-		}
+
 
 		if (message.author.id != this.client.user.id || (!Object.values(this.emojis).includes(messageReaction.emoji.name))) return;
 

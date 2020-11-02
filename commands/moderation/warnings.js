@@ -14,9 +14,8 @@ module.exports = {
 
 		const member = getUserMod(message, args[0]);
 
-		if (!member) {
-			return errors.noUser(message, 'view warns');
-		}
+		if (!member) return errors.noUser(message, 'view warns');
+
 
 		Warn.find({
 			memberID: member.id,

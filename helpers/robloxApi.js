@@ -81,7 +81,7 @@ class UserManager extends APIManager {
 				return res.data.data.map(d => d.imageUrl);
 			})
 			.catch(async res => {
-				if (res && res.response && res.response.status == 400 && res.response.data.errors) {
+				if (res && res.response && res.response.status == 400 && res.response.data.errors)
 					res.response.data.error.forEach(error => {
 						switch (error.reason) {
 						case 1: throw new Error('There are too many requested Ids.');
@@ -92,7 +92,8 @@ class UserManager extends APIManager {
 						default: throw new RobloxError(error);
 						}
 					});
-				}
+
+
 				throw res;
 			});
 	}
@@ -193,7 +194,7 @@ class GameManager extends APIManager {
 				return response.data.data;
 			})
 			.catch(async response => {
-				if (response.statusCode == 400 && response.data.errors) {
+				if (response.statusCode == 400 && response.data.errors)
 					response.data.errors.forEach(error => {
 						switch (error.reason) {
 						case 8: throw new ReferenceError('No universe IDs were specified.');
@@ -201,10 +202,10 @@ class GameManager extends APIManager {
 						default: throw new RobloxError(error);
 						}
 					});
-				}
-				else {
-					return Promise.reject(response);
-				}
+
+
+				else return Promise.reject(response);
+
 			});
 	}
 	fetchGame(universeId = '') {
@@ -224,14 +225,15 @@ class GameManager extends APIManager {
 				return res.data.map(data => new GameData(this, data));
 			})
 			.catch(async res => {
-				if (res && res.response && res.response.status == 401 && res.response.data.errors) {
+				if (res && res.response && res.response.status == 401 && res.response.data.errors)
 					res.response.data.errors.forEach(error => {
 						switch(error.reason) {
 						case 0: throw new Error('Authorization has been denied for this request.');
 						default: throw new RobloxError(error);
 						}
 					});
-				}
+
+
 				throw res;
 			});
 	}
@@ -249,7 +251,7 @@ class GameManager extends APIManager {
 				return res.data.favoritesCount;
 			})
 			.catch(async res => {
-				if (res && res.response && res.response.data.errors) {
+				if (res && res.response && res.response.data.errors)
 					res.response.data.errors.forEach(error => {
 						switch (res.response.status) {
 						case 400: if (error.reason == 3) throw new Error('The universe\'s root place is invalid.'); break;
@@ -257,7 +259,8 @@ class GameManager extends APIManager {
 						default: throw new RobloxError(error);
 						}
 					});
-				}
+
+
 				throw res;
 			});
 	}
@@ -269,7 +272,7 @@ class GameManager extends APIManager {
 				return res.data.data;
 			})
 			.catch(async res => {
-				if (res && res.response && res.response.data.errors) {
+				if (res && res.response && res.response.data.errors)
 					res.response.data.errors.forEach(error => {
 						switch (res.response.status) {
 						case 400:
@@ -283,7 +286,8 @@ class GameManager extends APIManager {
 						default: throw new RobloxError(error);
 						}
 					});
-				}
+
+
 				throw res;
 			});
 	}
@@ -303,7 +307,7 @@ class GameManager extends APIManager {
 				return res.data.data.map(d => d.imageUrl);
 			})
 			.catch(res => {
-				if (res && res.response && res.response.data.errors) {
+				if (res && res.response && res.response.data.errors)
 					res.response.data.errors.forEach(error => {
 						switch (res.response.status) {
 						case 400: switch(error.reason) {
@@ -318,7 +322,8 @@ class GameManager extends APIManager {
 						default: throw new RobloxError(error);
 						}
 					});
-				}
+
+
 				throw res;
 			});
 	}

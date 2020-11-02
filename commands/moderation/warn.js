@@ -10,23 +10,19 @@ module.exports = {
 
 		const member = getUserMod(message, args[0]);
 
-		if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-			return embeds.noPerms(message, '<Manage Messages>' || message, '.warn');
-		}
+		if (!message.member.hasPermission('MANAGE_MESSAGES')) return embeds.noPerms(message, '<Manage Messages>' || message, '.warn');
 
-		if (!member) {
-			return embeds.noUser(message, 'warn');
-		}
 
-		if (member.hasPermission('MANAGE_MESSAGES')) {
-			return embeds.equalPerms(message, 'Manage Messages');
-		}
+		if (!member) return embeds.noUser(message, 'warn');
+
+
+		if (member.hasPermission('MANAGE_MESSAGES')) return embeds.equalPerms(message, 'Manage Messages');
+
 
 		const reason = args.slice(1).join(' ');
 
-		if (!reason) {
-			return embeds.noReason(message, 'warn');
-		}
+		if (!reason) return embeds.noReason(message, 'warn');
+
 
 		const warn = new databases.warn({
 			guildID: message.guild.id,

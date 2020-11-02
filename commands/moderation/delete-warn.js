@@ -21,18 +21,16 @@ module.exports = {
 				.setColor(colours.red));
 		}
 
-		if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-			return embeds.noPerms(message, '<Manage Messages>' || message, '.delwarn');
-		}
+		if (!message.member.hasPermission('MANAGE_MESSAGES')) return embeds.noPerms(message, '<Manage Messages>' || message, '.delwarn');
 
 
-		if (!warn) {
+		if (!warn)
 			return message.channel.send(new MessageEmbed()
 				.setTitle('❌ Invalid warning!')
 				.setDescription('The warning you are trying to delete doesn\'t exist or is invalid, please try again with a correct warning ID.')
 				.setFooter('Please provide a correct warning ID.')
 				.setColor(colours.red));
-		}
+
 
 		try {
 			await warn.remove();

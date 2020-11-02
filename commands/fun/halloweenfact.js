@@ -13,11 +13,9 @@ module.exports = {
 	},
 	run: async ({ client: bot, message }) => {
 
-		const pickedFact = Math.floor((Math.random() * facts.length));
-
 		const mwtfactEmbed = new MessageEmbed()
 			.setTitle('Halloween Fact 🎃')
-			.setDescription(facts[pickedFact])
+			.setDescription(facts[Math.floor(Math.random() * facts.length)])
 			.setColor(colours.orange)
 			.setFooter(`Requested by: ${message.author.username}`, message.author.displayAvatarURL());
 

@@ -27,26 +27,20 @@ module.exports = {
 		const latencyEmbed = new MessageEmbed()
 			.setTitle('🏓 Pong!');
 
-		if (botLatency > 399 && botLatency < 600) {
-			footer = '⚠️ Higher than average bot latency.';
-		}
-		else if (botLatency > 599 && botLatency < 999999999) {
-			footer = '❗ Extremely high bot latency.';
-		}
-		else {
-			footer = '✅ Normal bot latency.';
-		}
+		if (botLatency > 399 && botLatency < 600) footer = '⚠️ Higher than average bot latency.';
+
+		else if (botLatency > 599 && botLatency < 999999999) footer = '❗ Extremely high bot latency.';
+
+		else footer = '✅ Normal bot latency.';
+
 
 		// API latency
-		if (APILatency > 199 && APILatency < 600) {
-			latencyEmbed.setFooter(`${footer}\n⚠️ Higher than average API latency.`);
-		}
-		else if (APILatency > 599 && APILatency < 999999999) {
-			latencyEmbed.setFooter(`${footer}\n❗ Extremely high API latency.`);
-		}
-		else {
-			latencyEmbed.setFooter(`${footer}\n✅ Normal API latency.`);
-		}
+		if (APILatency > 199 && APILatency < 600) latencyEmbed.setFooter(`${footer}\n⚠️ Higher than average API latency.`);
+
+		else if (APILatency > 599 && APILatency < 999999999) latencyEmbed.setFooter(`${footer}\n❗ Extremely high API latency.`);
+
+		else latencyEmbed.setFooter(`${footer}\n✅ Normal API latency.`);
+
 
 		latencyEmbed.setDescription(replies[result]);
 		latencyEmbed.addField('Bot Latency:', `${botLatency}ms`, true);

@@ -36,12 +36,11 @@ module.exports = {
 			}));
 		}
 
-		if (searchResults.length < 1) {
+		if (searchResults.length < 1)
 			return message.channel.send(new discord.MessageEmbed({
 				title: 'Item not found',
 				color: colours.green
 			}));
-		}
 
 
 		const searchResult = searchResults[0];

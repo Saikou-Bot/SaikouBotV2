@@ -6,9 +6,8 @@ module.exports = (client, message) => {
 	if (message.channel.name == '🔧project-untitled') return;
 	if (message.channel.name == '🔒classified') return;
 
-	if (message.partial) {
-		return;
-	}
+	if (message.partial) return;
+
 	if (message.author.bot) return;
 
 	const shortenMessage = message.content.length > 1900 ? message.content.substring(0, 1800) + '...' : message.content;
@@ -23,9 +22,8 @@ module.exports = (client, message) => {
 			.setFooter(`User ID: ${message.author.id}`)
 			.setTimestamp();
 
-		if (message.content) {
-			attachmentlogembed.addField('Message Content', shortenAttachment, true);
-		}
+		if (message.content) attachmentlogembed.addField('Message Content', shortenAttachment, true);
+
 
 		modLogs.send(attachmentlogembed);
 

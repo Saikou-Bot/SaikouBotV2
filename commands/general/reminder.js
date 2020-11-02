@@ -16,21 +16,19 @@ module.exports = {
 		const time = args[0];
 		const remindTask = args.slice(1).join(' ');
 
-		if (!time) {
-			return embeds.noTime(message, 'reminder');
-		}
+		if (!time) return embeds.noTime(message, 'reminder');
 
-		if (!ms(time)) {
-			return embeds.noTime(message, 'reminder');
-		}
 
-		if (!remindTask) {
+		if (!ms(time)) return embeds.noTime(message, 'reminder');
+
+
+		if (!remindTask)
 			return message.channel.send(new MessageEmbed()
 				.setTitle('📥 Input reminder!')
 				.setDescription('Please input a reminder for the bot to remind you about.')
 				.setColor(colours.red)
 				.setFooter('Input reminder.'));
-		}
+
 
 		message.channel.send(new MessageEmbed()
 			.setDescription(`**✅ Reminder set! You will be reminded in ${ms(ms(time), { long: true })}.**`)

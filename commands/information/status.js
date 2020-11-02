@@ -36,18 +36,14 @@ module.exports = {
 			.setThumbnail(bot.user.displayAvatarURL());
 
 		// Memory Usage
-		if (memoryPercentage > 29 && memoryPercentage < 50) {
-			memoryMsg = '⚠️ Higher than average memory usage.';
-		}
-		else if (memoryPercentage > 0 && memoryPercentage < 30) {
-			memoryMsg = '✅ Normal memory usage.';
-		}
-		else if (memoryPercentage > 49 && memoryPercentage < 999999999) {
-			memoryMsg = '❗ Extremely high memory usage.';
-		}
-		else {
-			memoryMsg = '✅ Normal memory usage.';
-		}
+		if (memoryPercentage > 29 && memoryPercentage < 50) memoryMsg = '⚠️ Higher than average memory usage.';
+
+		else if (memoryPercentage > 0 && memoryPercentage < 30) memoryMsg = '✅ Normal memory usage.';
+
+		else if (memoryPercentage > 49 && memoryPercentage < 999999999) memoryMsg = '❗ Extremely high memory usage.';
+
+		else memoryMsg = '✅ Normal memory usage.';
+
 
 		// Bot latency
 		if (botLatency > 399 && botLatency < 600) {

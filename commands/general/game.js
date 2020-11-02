@@ -17,13 +17,13 @@ module.exports = {
 		const reason = args.join(' ').split(', ')[2];
 
 		message.delete();
-		if (!name || !punishment || !reason) {
+		if (!name || !punishment || !reason)
 			return message.channel.send(new MessageEmbed()
 				.setTitle('📋 Incorrect Usage')
 				.setDescription('**Command Name:** moderation\n**Usage:** `game <user>, <punishment>, <reason>')
 				.setColor(colours.red)
 				.setFooter('<> - Required ● Optional - [] ')).then(m => m.delete({ timeout: 12000 }));
-		}
+
 
 		moderation.send(new MessageEmbed()
 			.setAuthor(`MWT | ${punishment}`, bot.user.displayAvatarURL())

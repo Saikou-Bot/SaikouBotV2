@@ -9,7 +9,6 @@ const regex = /skv1|sk1|saikou bot v1/i;
 module.exports = (client, message) => {
 	if (message.author.bot) return;
 
-	if (regex.test(message.content)) {
-		message.reply(responses[Math.floor(Math.random() * responses.length)]);
-	}
+	if (regex.test(message.content)) message.reply(responses[Math.floor(Math.random() * responses.length)]);
+
 };

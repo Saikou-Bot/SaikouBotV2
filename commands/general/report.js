@@ -60,13 +60,14 @@ module.exports = {
 						.setColor('2C2F33'));
 				}
 				catch(err) {
-					if (err.httpStatus == 403) {
+					if (err.httpStatus == 403)
 						return message.channel.send(new MessageEmbed({
 							title: 'Bot failed to dm',
 							description: 'Make sure you have DM\' enabled',
 							color: colours.red
 						}));
-					}
+
+
 					throw err;
 				}
 				message.channel.send(new MessageEmbed()
@@ -122,13 +123,11 @@ module.exports = {
 				const videos = [];
 
 				attachmentCollector.on('collect', async (msg) => {
-					if (await checkCancel(msg)) {
-						return attachmentCollector.stop('cancel');
-					}
+					if (await checkCancel(msg)) return attachmentCollector.stop('cancel');
 
-					if (msg.content.toLowerCase() == 'done') {
-						return attachmentCollector.stop();
-					}
+
+					if (msg.content.toLowerCase() == 'done') return attachmentCollector.stop();
+
 					let content = msg.content;
 
 					const messageAttachments = msg.attachments;
@@ -156,7 +155,7 @@ module.exports = {
 					if (mediaLinks.images.length + mediaLinks.videos.length < 1) return message.author.send('That is not a link, please retry with an actual link.');
 
 
-					if (messageAttachments.length > 0) {
+					if (messageAttachments.length > 0)
 						messageAttachments.forEach(attachment => {
 							attachments.push({
 								content,
@@ -164,8 +163,9 @@ module.exports = {
 							});
 							content = '';
 						});
-					}
-					if (mediaLinks.images.length > 0) {
+
+
+					if (mediaLinks.images.length > 0)
 						mediaLinks.images.forEach(link => {
 							attachments.push({
 								content,
@@ -173,8 +173,9 @@ module.exports = {
 							});
 							content = '';
 						});
-					}
-					if (mediaLinks.videos.length > 0) {
+
+
+					if (mediaLinks.videos.length > 0)
 						mediaLinks.videos.forEach(link => {
 							videos.push({
 								content,
@@ -182,7 +183,8 @@ module.exports = {
 							});
 							content = '';
 						});
-					}
+
+
 				});
 
 				attachmentCollector.once('end', async (collected, r) => {

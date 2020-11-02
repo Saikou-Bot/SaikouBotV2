@@ -49,9 +49,8 @@ class Cooldown {
 			this.users.delete(userid);
 			return false;
 		}
-		else {
-			return true;
-		}
+		else return true;
+
 	}
 	embed(userid) {
 		const { timestamp, role, roleEffect, end } = this.users.get(userid);

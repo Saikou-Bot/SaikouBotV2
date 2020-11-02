@@ -24,7 +24,7 @@ function swearFilter(message) {
 		// message.delete();
 		// message.channel.send('Got \'em');
 		const autoModChannel = message.client.guilds.cache.get('704621852231729212').channels.cache.get('756956104281292882');
-		if (autoModChannel) {
+		if (autoModChannel)
 			autoModChannel.send(new MessageEmbed({
 				author: {
 					name: message.member ? message.member.displayName : message.author.username,
@@ -47,10 +47,11 @@ function swearFilter(message) {
 					text: `User ID: ${message.author.id}`
 				}
 			}).setTimestamp());
-		}
+
+
 		return true;
 	}
-	else {return false;}
+	else return false;
 }
 
 module.exports = {

@@ -28,9 +28,8 @@ module.exports = {
 				});
 			}
 			catch(err) {
-				if (err.message == 'The keyword was filtered.') {
-					return message.channel.send(embeds.keywordFiltered());
-				}
+				if (err.message == 'The keyword was filtered.') return message.channel.send(embeds.keywordFiltered());
+
 				throw err;
 			}
 			if (games.length < 1) return message.channel.send(gameNotFound);

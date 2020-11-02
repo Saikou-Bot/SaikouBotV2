@@ -27,9 +27,8 @@ class Bloxlink {
 		return this.axios.get(this.options.apiEndpoint + userId)
 			.then(async res => {
 				if (!res.data) throw new Error('No data');
-				if (res.data.status != 'ok') {
-					throw new NonOkStatus(res.data);
-				}
+				if (res.data.status != 'ok') throw new NonOkStatus(res.data);
+
 
 				return res.data.primaryAccount;
 			});

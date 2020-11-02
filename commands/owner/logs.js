@@ -22,8 +22,7 @@ module.exports = {
 			color: '#36393F'
 		}));
 
-		for (var i = 0; i < messages.length; i++) {
-			await channel.send(messages[i]);
-		}
+		for (var i = 0; i < messages.length; i++) await channel.send(messages[i]);
+
 	}
 };

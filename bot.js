@@ -22,10 +22,7 @@ const ready = new Promise((res, rej) => bot.once('ready', res));
 const na = 'N/A';
 async function logError(err, origin) {
 	await ready;
-	if (!(err instanceof Error)) {
-		err = new Error(err);
-	}
-
+	if (!(err instanceof Error)) err = new Error(err);
 
 	const titleString = stripAnsi(err.name) || na;
 	const descriptionString = stripAnsi(err.message) || na;
@@ -87,9 +84,8 @@ class UnhandledRejection extends Error {
 					this[p] = reason[p];
 				});
 		}
-		else {
-			super(reason);
-		}
+		else super(reason);
+
 		this.name = 'UnhandledRejection';
 		this.stack = '';
 	}
@@ -124,15 +120,13 @@ bot.errors = '';
 bot.logs = '';
 
 intercept(process.stderr, (str) => {
-	if (typeof str == 'string') {
-		bot.errors += str;
-	}
+	if (typeof str == 'string') bot.errors += str;
+
 });
 
 intercept(process.stdout, (str) => {
-	if (typeof str == 'string') {
-		bot.logs += str;
-	}
+	if (typeof str == 'string') bot.logs += str;
+
 });
 
 ['aliases', 'commands'].forEach((x) => (bot[x] = new Collection()));
@@ -158,11 +152,9 @@ intercept(process.stdout, (str) => {
 		// ---Logging in with token or test token---
 		const token = process.env.TEST == 'true' ? process.env.TESTTOKEN : process.env.TOKEN;
 		bot.login(token);
-		if (process.env.COOKIE) {
-			noblox.setCookie(process.env.COOKIE);
-		}
+		if (process.env.COOKIE) noblox.setCookie(process.env.COOKIE);
+
 	}
-	else {
-		bot.destroy();
-	}
+	else bot.destroy();
+
 })();

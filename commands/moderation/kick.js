@@ -15,33 +15,26 @@ module.exports = {
 		const member = getUserMod(message, args[0]);
 		const reason = args.slice(1).join(' ');
 
-		if (!message.member.hasPermission('KICK_MEMBERS')) {
-			return errors.noPerms(message, '<Kick Members>' || message, '.kick');
-		}
+		if (!message.member.hasPermission('KICK_MEMBERS')) return errors.noPerms(message, '<Kick Members>' || message, '.kick');
 
-		if (!member) {
-			return errors.noUser(message, 'kick');
-		}
 
-		if (member.id === message.author.id) {
-			return errors.yourself(message, 'kick');
-		}
+		if (!member) return errors.noUser(message, 'kick');
 
-		if (member.user.bot) {
-			return errors.bots(message, 'kick');
-		}
 
-		if (member.hasPermission('KICK_MEMBERS')) {
-			return errors.equalPerms(message, 'Kick Members');
-		}
+		if (member.id === message.author.id) return errors.yourself(message, 'kick');
 
-		if (!member.kickable) {
-			return errors.unable(message, 'kick');
-		}
 
-		if (!reason) {
-			return errors.noReason(message, 'kick');
-		}
+		if (member.user.bot) return errors.bots(message, 'kick');
+
+
+		if (member.hasPermission('KICK_MEMBERS')) return errors.equalPerms(message, 'Kick Members');
+
+
+		if (!member.kickable) return errors.unable(message, 'kick');
+
+
+		if (!reason) return errors.noReason(message, 'kick');
+
 
 		const warn = new databases.warnData({
 			memberID: member.id,

@@ -11,13 +11,14 @@ class CommandManager {
 		delete require.cache[require.resolve(commandPath)];
 		const pull = require(commandPath);
 		if (!pull || !pull.config) return;
-		if (pull.config.cooldown) {
+		if (pull.config.cooldown)
 			pull.cooldown = new this.client.utils.cooldown({
 				name: pull.config.name,
 				cooldown: pull.config.cooldown === true ? undefined : pull.config.cooldown,
 				roles: pull.config.cooldownRoles,
 			});
-		}
+
+
 		pull.path = path;
 		this.client.commands.set(pull.config.name, pull);
 		if (pull.config.aliases) pull.config.aliases.forEach(a => this.client.aliases.set(a, pull.config.name));

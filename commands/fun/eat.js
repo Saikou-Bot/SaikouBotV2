@@ -33,7 +33,7 @@ const command = {
 	async run({ message, args, utils: { shorten } }) {
 		let candyData = await CandyData.findOne({ userID: message.author.id });
 
-		if (!candyData || candyData.amount == 0) {
+		if (!candyData || candyData.amount == 0)
 			return message.channel.send(
 				new discord.MessageEmbed({
 					title: 'You do not have enough candies',
@@ -41,10 +41,10 @@ const command = {
 					color: colours.red,
 				})
 			);
-		}
+
 
 		const amount = args.amount || 1;
-		if (isNaN(amount)) {
+		if (isNaN(amount))
 			return message.channel.send(
 				new discord.MessageEmbed({
 					title: '🔢 Not a number!',
@@ -52,9 +52,9 @@ const command = {
 					color: colours.red,
 				})
 			);
-		}
 
-		if (candyData.amount < amount) {
+
+		if (candyData.amount < amount)
 			return message.channel.send(
 				new discord.MessageEmbed({
 					title: 'You do not have enough candies',
@@ -62,7 +62,7 @@ const command = {
 					color: colours.red,
 				})
 			);
-		}
+
 
 		this.cooldown.add(message.member);
 

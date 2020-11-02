@@ -10,21 +10,18 @@ const prefix = env.PREFIX || config.prefix;
 function parseArguments(arguments) {
 	const entries = Object.entries(arguments);
 	return entries.map((entry) => {
-		if (entry[1]) {
-			return `<${entry[0]}>`;
-		}
-		else {
-			return `[${entry[0]}]`;
-		}
+		if (entry[1]) return `<${entry[0]}>`;
+
+		else return `[${entry[0]}]`;
+
 	}).join(' ');
 }
 
 function error(name, command = {}, callback, ...args) {
 	if (command.on) {
 		const eventFunc = command.on[name];
-		if (eventFunc && typeof eventFunc == 'function') {
-			return eventFunc(...args);
-		}
+		if (eventFunc && typeof eventFunc == 'function') return eventFunc(...args);
+
 	}
 	callback(...args);
 }
@@ -43,9 +40,8 @@ module.exports = async (bot, message) => {
 	const args = message.content.slice(prefix.length).trim().split(/ +/g);
 	const cmd = args.shift().toLowerCase();
 	let argString = '';
-	if (args.length > 0) {
-		argString = message.content.slice(message.content.indexOf(' ') + 1);
-	}
+	if (args.length > 0) argString = message.content.slice(message.content.indexOf(' ') + 1);
+
 
 	const commandfile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
 
@@ -64,9 +60,9 @@ module.exports = async (bot, message) => {
 
 	if (commandfile.config.arguments) {
 		const requiredArgs = Object.values(commandfile.config.arguments).filter(key => key);
-		if (args.length < requiredArgs.length) {
+		if (args.length < requiredArgs.length)
 			return error('incorrectArguments', commandfile, () => {
-				// im not good at embeds, you can change it to something more proper
+			// im not good at embeds, you can change it to something more proper
 				const usage = `${prefix}${commandfile.config.name} ${parseArguments(commandfile.config.arguments)}`;
 				const embed = new MessageEmbed()
 					.setTitle('📋 Incorrect Usage')
@@ -75,7 +71,8 @@ module.exports = async (bot, message) => {
 					.setFooter('<> - Required ● Optional - [] ');
 				message.channel.send(embed);
 			}, message);
-		}
+
+
 		arguments = Object.keys(commandfile.config.arguments).reduce((obj, key, index) => {
 			return {
 				...obj,
@@ -83,11 +80,10 @@ module.exports = async (bot, message) => {
 			};
 		}, {});
 	}
-	else {
-		arguments = args;
-	}
+	else arguments = args;
 
-	if (commandfile.config.channel) {
+
+	if (commandfile.config.channel)
 		if (message.channel.name.match(commandfile.config.channel) == null) {
 			error('incorrectChannel', commandfile, () => {
 				message.delete();
@@ -98,15 +94,15 @@ module.exports = async (bot, message) => {
 			}, message);
 			return;
 		}
-	}
+
 
 	const cooldown = commandfile.cooldown;
-	if (cooldown) {
+	if (cooldown)
 		if (cooldown.has(message.author.id)) {
 			const namespace = cooldown.namespace(message.author.id, message.channel.id);
 			const embed = cooldown.embed(message.author.id);
 			const embedMessage = await cooldown.embeds.get(namespace);
-			if (!embedMessage) {
+			if (!embedMessage)
 				return cooldown.embeds.set(namespace, message.channel.send(embed).then(m => {
 					setTimeout(() => {
 						cooldown.embeds.delete(namespace);
@@ -114,19 +110,18 @@ module.exports = async (bot, message) => {
 					}, 5 * 1000);
 					return m;
 				}));
-			}
-			else {
-				return embedMessage.edit(embed);
-			}
+
+
+			else return embedMessage.edit(embed);
+
 		}
 		else if (commandfile.config.autoCooldown) {
 			commandfile.cooldown.add(message.member);
 		}
-	}
 
-	if (commandfile.config.types) {
-		message.channel.startTyping();
-	}
+
+	if (commandfile.config.types) message.channel.startTyping();
+
 
 	const alertError = (errorMessage) => {
 		console.error(errorMessage);

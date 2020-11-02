@@ -12,40 +12,39 @@ module.exports = {
 
 		const user = args[0];
 
-		if (!message.member.hasPermission('BAN_MEMBERS')) {
-			return errors.noPerms(message, '<Ban Members>' || message, '.unban');
-		}
+		if (!message.member.hasPermission('BAN_MEMBERS')) return errors.noPerms(message, '<Ban Members>' || message, '.unban');
 
-		if (!user) {
+
+		if (!user)
 			return message.channel.send(new MessageEmbed()
 				.setTitle('🔍 Unable to find User!')
 				.setDescription('Please provide a valid user ID to **unban**!')
 				.setColor(colours.red)
 				.setFooter('No user!')
 				.setTimestamp());
-		}
+
 
 		message.guild.fetchBans().then(ban => {
 
-			if (ban.size === 0) {
+			if (ban.size === 0)
 				return message.channel.send(new MessageEmbed()
 					.setTitle('🔍 Unable to find User!')
 					.setDescription('Please provide a valid user ID to **unban**!')
 					.setColor(colours.red)
 					.setFooter('No user!')
 					.setTimestamp());
-			}
+
 
 			const bannedUser = ban.find(member => member.user.id === user);
 
-			if (!bannedUser) {
+			if (!bannedUser)
 				return message.channel.send(new MessageEmbed()
 					.setTitle('🔍 Unable to find User!')
 					.setDescription('Please provide a valid user ID to **unban**!')
 					.setColor(colours.red)
 					.setFooter('No user!')
 					.setTimestamp());
-			}
+
 
 			message.guild.members.unban(bannedUser.user);
 

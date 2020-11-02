@@ -1,14 +1,15 @@
 const inviteLink = /discord\.gg|discordapp.com\/invite|discord.com\/invite/m;
 
 module.exports = async (client, message) => {
-	if (message.partial) {
+	if (message.partial)
 		try {
 			await message.fetch();
 		}
 		catch(err) {
 			return;
 		}
-	}
+
+
 	if (message.author.bot) return;
 	// const { antiSpam, warn: warnUtil, swearFilter } = client.utils;
 	const { swearFilter } = client.utils;

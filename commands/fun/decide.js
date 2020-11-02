@@ -18,20 +18,23 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	async run ({ client, message, args, argString, utils: { shorten } }) {
+	async run({ client, message, args, argString, utils: { shorten } }) {
 
 		const options = argString.split(splitReg).filter(v => new Boolean(v));
-		if (options.length < 1) return message.channel.send(new MessageEmbed()
+		if (options.length < 2)
+			return message.channel.send(new MessageEmbed()
 				.setTitle('📋 Incorrect Usage')
 				.setDescription('**Command Name:** decide\n**Usage:** `decide <option1> | <option2>')
 				.setColor(colours.red)
-				.setFooter('<> - Required ● Optional - [] ')); 
+				.setFooter('<> - Required ● Optional - [] '));
+
 
 		// TODO: embed
-		if (options.length > 10) return message.channel.send(new MessageEmbed()
+		if (options.length > 10)
+			return message.channel.send(new MessageEmbed()
 				.setTitle('📋 Incorrect Usage')
 				.setDescription('Max 10 options')
-				.setColor(colour.red));
+				.setColor(colours.red));
 
 
 		const response = responses[Math.floor((Math.random() * responses.length))];
@@ -39,9 +42,9 @@ module.exports = {
 		const maxLength = 500 / options.length;
 
 		return message.channel.send(new MessageEmbed()
-				.setTitle('📝 Decide Results')
-				.setDescription(`${response} **${options[Math.floor(Math.random() * options.length)]}**`)
-				.addField('Options', options.map(o => `• ${shorten(o, maxLength)}`).join('\n'))
-				.setColor(message.member.displayHexColor));
+			.setTitle('📝 Decide Results')
+			.setDescription(`${response} **${options[Math.floor(Math.random() * options.length)]}**`)
+			.addField('Options', options.map(o => `• ${shorten(o, maxLength)}`).join('\n'))
+			.setColor(message.member.displayHexColor));
 	},
 };

@@ -19,51 +19,42 @@ module.exports = {
 		let mutedRole = message.guild.roles.cache.find(role => role.name === 'Muted');
 		const time = args[1];
 
-		if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-			return errors.noPerms(message, '<Manage Messages>' || message, '.mute');
-		}
+		if (!message.member.hasPermission('MANAGE_MESSAGES')) return errors.noPerms(message, '<Manage Messages>' || message, '.mute');
 
-		if (!member) {
-			return errors.noUser(message, 'mute');
-		}
 
-		if (!mutedRole) {
-			return message.channel.send('Muted role doesn\'t exist, please create one.');
-		}
+		if (!member) return errors.noUser(message, 'mute');
 
-		if (member.roles.cache.has(mutedRole.id)) {
+
+		if (!mutedRole) return message.channel.send('Muted role doesn\'t exist, please create one.');
+
+
+		if (member.roles.cache.has(mutedRole.id))
 			return message.channel.send(new MessageEmbed()
 				.setTitle('❌ Already Muted')
 				.setDescription('The user you are trying to mute is already muted!')
 				.setColor(colours.red)
 				.setFooter(`${member.displayName} already muted`));
-		}
 
-		if (member.id === message.author.id) {
-			return errors.yourself(message, 'mute');
-		}
 
-		if (member.user.bot) {
-			return errors.bots(message, 'mute');
-		}
+		if (member.id === message.author.id) return errors.yourself(message, 'mute');
 
-		if (member.hasPermission('MANAGE_MESSAGES')) {
-			return errors.equalPerms(message, 'Manage Messages');
-		}
 
-		if (!time) {
-			return embeds.noTime(message, 'mute');
-		}
+		if (member.user.bot) return errors.bots(message, 'mute');
 
-		if (!ms(time)) {
-			return embeds.noTime(message, 'mute');
-		}
 
-		if (!reason) {
-			return errors.noReason(message, 'mute');
-		}
+		if (member.hasPermission('MANAGE_MESSAGES')) return errors.equalPerms(message, 'Manage Messages');
 
-		if (!mutedRole) {
+
+		if (!time) return embeds.noTime(message, 'mute');
+
+
+		if (!ms(time)) return embeds.noTime(message, 'mute');
+
+
+		if (!reason) return errors.noReason(message, 'mute');
+
+
+		if (!mutedRole)
 			try {
 				mutedRole = await message.guild.roles.create({
 					data: {
@@ -84,7 +75,7 @@ module.exports = {
 			catch (err) {
 				console.log(err);
 			}
-		}
+
 
 		message.channel.send(new MessageEmbed()
 			.setDescription(`✅ **${member.displayName} has been muted for ${ms(ms(time))}.**`)

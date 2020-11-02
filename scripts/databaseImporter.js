@@ -29,13 +29,13 @@ mongoose.connect(process.env.MONGOPASSWORD, {
 			};
 
 			let userWarn = await Warn.findOne({ userID: log.user.id, guild: guildID });
-			if (!userWarn) {
+			if (!userWarn)
 				userWarn = new Warn({
 					userID: log.user.id,
 					guild: guildID,
 					warns: []
 				});
-			}
+
 
 			userWarn.warns.push(warn);
 			await userWarn.save();

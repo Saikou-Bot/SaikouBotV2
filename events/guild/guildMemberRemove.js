@@ -30,14 +30,14 @@ module.exports = (client, member) => {
 
 
 		let msg = new String();
-		if (member.roles.cache.some(r => r.name === 'Follower')) { msg += `${RoleMessages[0]}`; }
-		else if (member.roles.cache.some(r => r.name === 'Dedicated Follower')) { msg += `${RoleMessages[1]}`; }
-		else if (member.roles.cache.some(r => r.name === 'Ultimate Follower')) { msg += `${RoleMessages[2]}`; }
-		else if (member.roles.cache.some(r => r.name === 'Supreme Follower')) { msg += `${RoleMessages[3]}`; }
-		else if (member.roles.cache.some(r => r.name === 'Legendary Follower')) { msg += `${RoleMessages[4]}`; }
-		else if (member.roles.cache.some(r => r.name === 'Omega Follower')) { msg += `${RoleMessages[5]}`; }
-		else if (member.roles.cache.some(r => r.name === 'Staff')) { msg += `${RoleMessages[6]}`; }
-		else { msg += `${RoleMessages[0]}`; }
+		if (member.roles.cache.some(r => r.name === 'Follower')) msg += `${RoleMessages[0]}`;
+		else if (member.roles.cache.some(r => r.name === 'Dedicated Follower')) msg += `${RoleMessages[1]}`;
+		else if (member.roles.cache.some(r => r.name === 'Ultimate Follower')) msg += `${RoleMessages[2]}`;
+		else if (member.roles.cache.some(r => r.name === 'Supreme Follower')) msg += `${RoleMessages[3]}`;
+		else if (member.roles.cache.some(r => r.name === 'Legendary Follower')) msg += `${RoleMessages[4]}`;
+		else if (member.roles.cache.some(r => r.name === 'Omega Follower')) msg += `${RoleMessages[5]}`;
+		else if (member.roles.cache.some(r => r.name === 'Staff')) msg += `${RoleMessages[6]}`;
+		else msg += `${RoleMessages[0]}`;
 
 
 		// -- User leave embed
