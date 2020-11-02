@@ -1,3 +1,5 @@
+const missions = require('../../data/mission.json');
+
 module.exports = {
 	config: {
 		name: 'mission',
@@ -9,19 +11,14 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message }) => {
+	run: async ({ message }) => {
 
-		const missions = require('../../data/mission.json');
-		const pickedMission = Math.floor((Math.random() * missions.length));
-
-		const MissionEmbed = new MessageEmbed()
+		message.channel.send(new MessageEmbed()
 			.setTitle('Here\'s your mission Soldier...')
-			.setDescription(missions[pickedMission])
+			.setDescription(missions[Math.floor((Math.random() * missions.length))])
 			.setColor(message.member.displayHexColor)
-			.setTimestamp()
+			.setThumbnail(message.author.displayAvatarURL())
 			.setFooter('Your mission')
-			.setThumbnail(message.author.displayAvatarURL());
-
-		message.channel.send(MissionEmbed);
+			.setTimestamp());
 	},
 };
