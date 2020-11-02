@@ -114,9 +114,7 @@ module.exports = async (bot, message) => {
 			else return embedMessage.edit(embed);
 
 		}
-		else if (commandfile.config.autoCooldown) {
-			commandfile.cooldown.add(message.member);
-		}
+		else if (commandfile.config.autoCooldown) commandfile.cooldown.add(message.member);
 
 
 	if (commandfile.config.types) message.channel.startTyping();
