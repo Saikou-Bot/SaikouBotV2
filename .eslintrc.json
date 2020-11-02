@@ -19,7 +19,7 @@
 		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
 		"comma-spacing": "error",
 		"comma-style": "error",
-		"curly": ["error", "multi-line", "consistent"],
+		"curly": ["error", "multi"],
 		"dot-location": ["error", "property"],
 		"handle-callback-err": "off",
 		"indent": ["error", "tab"],
