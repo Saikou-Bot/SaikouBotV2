@@ -26,11 +26,11 @@ module.exports = {
 		const { 0: name, 1: punishment, 2: reason} = info;
 
 		if (moderation) moderation.send(new MessageEmbed()
-			.setAuthor(`MWT | ${punishment}`, bot.user.displayAvatarURL())
+			.setAuthor(`MWT | ${punishment}`, client.user.displayAvatarURL())
 			.addField('User:', `${name}`, true)
 			.addField('Moderator:', `<@${message.author.id}>`, true)
 			.addField('Reason:', `${reason}`)
-			.setThumbnail(bot.user.displayAvatarURL())
+			.setThumbnail(client.user.displayAvatarURL())
 			.setColor(colours.green)
 			.setFooter(`punishment`)
 			.setTimestamp()).catch(() => {});
