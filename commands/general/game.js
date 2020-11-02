@@ -1,4 +1,5 @@
-/* eslint-disable no-undef */
+const infoReg = /,\s*/
+
 module.exports = {
 	config: {
 		name: 'game',
@@ -10,29 +11,28 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message, args }) => {
+	async run ({ client, message, argString }) {
+		message.delete().catch(() => {});
 
-		const name = args.join(' ').split(', ')[0];
-		const punishment = args.join(' ').split(', ')[1];
-		const reason = args.join(' ').split(', ')[2];
+		const info = argString.split(infoReg)
 
-		message.delete();
-		if (!name || !punishment || !reason)
-			return message.channel.send(new MessageEmbed()
+		if (info.length < 3) return message.channel.send(new MessageEmbed()
 				.setTitle('📋 Incorrect Usage')
 				.setDescription('**Command Name:** moderation\n**Usage:** `game <user>, <punishment>, <reason>')
 				.setColor(colours.red)
 				.setFooter('<> - Required ● Optional - [] ')).then(m => m.delete({ timeout: 12000 }));
 
 
-		moderation.send(new MessageEmbed()
+		const { 0: name, 1: punishment, 2: reason} = info;
+
+		if (moderation) moderation.send(new MessageEmbed()
 			.setAuthor(`MWT | ${punishment}`, bot.user.displayAvatarURL())
 			.addField('User:', `${name}`, true)
 			.addField('Moderator:', `<@${message.author.id}>`, true)
 			.addField('Reason:', `${reason}`)
 			.setThumbnail(bot.user.displayAvatarURL())
 			.setColor(colours.green)
-			.setFooter(`${punishment}`)
-			.setTimestamp());
+			.setFooter(`punishment`)
+			.setTimestamp()).catch(() => {});
 	}
 };
