@@ -1,3 +1,12 @@
+const splitReg = /\s*\|\s*/;
+
+const responses = [
+	'That\'s a hard one... I choose',
+	'Hm... I choose',
+	'Hmmm... That\'s a tough one. I choose',
+	'Let\'s go with'
+];
+
 module.exports = {
 	config: {
 		name: 'decide',
@@ -9,47 +18,30 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message, args }) => {
+	async run ({ client, message, args, argString, utils: { shorten } }) {
 
-		const args1 = args.join(' ').split('| ')[0];
-		const args2 = args.join(' ').split('| ')[1];
-
-		if (!args1 || !args2) {
-			return message.channel.send(new MessageEmbed()
+		const options = argString.split(splitReg).filter(v => new Boolean(v));
+		if (options.length < 1) return message.channel.send(new MessageEmbed()
 				.setTitle('📋 Incorrect Usage')
 				.setDescription('**Command Name:** decide\n**Usage:** `decide <option1> | <option2>')
 				.setColor(colours.red)
-				.setFooter('<> - Required ● Optional - [] '));
-		}
+				.setFooter('<> - Required ● Optional - [] ')); 
 
-		const responses = [
-			'That\'s a hard one... I choose',
-			'Hm... I choose',
-			'Hmmm... That\'s a tough one. I choose',
-			'Let\'s go with'
-		];
-		const result = Math.floor((Math.random() * responses.length));
-		const args1Shortener = args1.length > 500 ? args1.substring(0, 100) + '...' : args1;
-		const args2Shortener = args2.length > 500 ? args2.substring(0, 100) + '...' : args2;
+		// TODO: embed
+		if (options.length > 10) return message.channel.send(new MessageEmbed()
+				.setTitle('📋 Incorrect Usage')
+				.setDescription('Max 10 options')
+				.setColor(colour.red));
 
-		const index = Math.random();
-		if (index < 0.5) {
-			const embed = new MessageEmbed()
+
+		const response = responses[Math.floor((Math.random() * responses.length))];
+
+		const maxLength = 500 / options.length;
+
+		return message.channel.send(new MessageEmbed()
 				.setTitle('📝 Decide Results')
-				.setDescription(`${responses[result]} **${args1Shortener}**`)
-				.addField('Options', `• ${args1Shortener}\n• ${args2Shortener}`)
-				.setColor(message.member.displayHexColor);
-
-			return message.channel.send(embed);
-		}
-		else {
-			const embed = new MessageEmbed()
-				.setTitle('📝 Decide Results')
-				.setDescription(`${responses[result]} **${args2Shortener}**`)
-				.addField('Options', `• ${args1Shortener}\n• ${args2Shortener}`)
-				.setColor(message.member.displayHexColor);
-
-			return message.channel.send(embed);
-		}
+				.setDescription(`${response} **${options[Math.floor(Math.random() * options.length)]}**`)
+				.addField('Options', options.map(o => `• ${shorten(o, maxLength)}`).join('\n'))
+				.setColor(message.member.displayHexColor));
 	},
 };
