@@ -1,3 +1,5 @@
+const questions = require('../../data/trivia.json');
+
 module.exports = {
 	config: {
 		name: 'trivia',
@@ -7,60 +9,47 @@ module.exports = {
 		aliases: ['quiz'],
 		channel: 'bot-commands'
 	},
-	run: async ({ client: bot, message }) => {
-		const questions = require('../../data/trivia.json');
+	run: async ({ client: bot, message, utils: { shorten } }) => {
 
-		const q = questions[Math.floor((Math.random() * questions.length))];
-		let i = 0;
-		let options = '';
+		const question = questions[Math.floor((Math.random() * questions.length))];
+		const options = question.options.map((a, i) => `**${i + 1}. ${a}**`).join('\n');
 
-		q.options.forEach(a => {
-			i++;
-			options += `**${i}. ${a}**\n`;
-		});
-
-		const Embed = new MessageEmbed()
+		message.channel.send(new MessageEmbed()
 			.setTitle('Trivia Question')
-			.setDescription(`Question\n**${q.question}**\n\n${options}\nSubmit your answer with \`1-4\``)
+			.setDescription(`Question\n**${question.question}**\n\n${options}\nSubmit your answer with \`1-4\``)
 			.setColor(message.member.displayHexColor)
 			.setThumbnail(message.author.displayAvatarURL())
 			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL())
-			.setTimestamp();
+			.setTimestamp());
 
-		message.channel.send(Embed);
+		let msgs;
 
 		try {
-			const msgs = await message.channel.awaitMessages(u2 => u2.author.id === message.author.id, { time: 20000, max: 1, errors: ['time'] });
-
-			if (parseInt(msgs.first().content) == q.answer) {
-				const correct = new MessageEmbed()
-					.setTitle('Trivia Results')
-					.setDescription(`You answered the trivia ||correctly, good job!||\n\n**Your Answer**\n\`${msgs.first().content}\``)
-					.setColor(message.member.displayHexColor)
-					.setThumbnail(message.author.displayAvatarURL());
-
-				return message.channel.send(correct);
-
-			}
-			else {
-				const msgShorten = msgs.first().content.length > 500 ? msgs.first().content.substring(0, 100) + '...' : msgs.first().content;
-				const incorrect = new MessageEmbed()
-					.setTitle('Trivia Results')
-					.setDescription(`You answered the trivia ||incorrectly, good try!||\n\n**Your Answer**\n\`${msgShorten}\``)
-					.setColor(message.member.displayHexColor)
-					.setThumbnail(message.author.displayAvatarURL());
-
-				return message.channel.send(incorrect);
-			}
+			msgs = await message.channel.awaitMessages(m => m.author.id === message.author.id, { time: 20000, max: 1, errors: ['time'] });
 		}
-		catch (e) {
-			const notime = new MessageEmbed()
+		catch (err) {
+			return message.channel.send(new MessageEmbed()
 				.setTitle('⏱ Out of time!')
 				.setDescription('You ran out of time to answer the Trivia!')
 				.setColor(message.member.displayHexColor)
-				.setThumbnail(message.author.displayAvatarURL());
+				.setThumbnail(message.author.displayAvatarURL()));
+		}
 
-			return message.channel.send(notime);
+		const response = msgs.first();
+
+		if (response.content == question.answer) {
+			return message.channel.send(new MessageEmbed()
+				.setTitle('Trivia Results')
+				.setDescription(`You answered the trivia ||correctly, good job!||\n\n**Your Answer**\n\`${response.content}\``)
+				.setColor(message.member.displayHexColor)
+				.setThumbnail(message.author.displayAvatarURL()));
+		}
+		else {
+			return message.channel.send(new MessageEmbed()
+				.setTitle('Trivia Results')
+				.setDescription(`You answered the trivia ||incorrectly, good try!||\n\n**Your Answer**\n\`${shorten(response.content, 500)}\``)
+				.setColor(message.member.displayHexColor)
+				.setThumbnail(message.author.displayAvatarURL()));
 		}
 	},
 };
