@@ -11,8 +11,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ message }) => {
-
+	async run ({ message }) {
 		return message.channel.send(new MessageEmbed()
 			.setTitle('MWT Fact')
 			.setDescription(facts[Math.floor((Math.random() * facts.length))])
