@@ -7,9 +7,8 @@ module.exports = {
 		aliases: ['pp', 'profilepic'],
 		channel: 'bot-commands'
 	},
-	run: async ({ client: bot, message, args, utils: { getMember } }) => {
-
-		const member = getMember(message, args[0]);
+	async run({ message, argString, utils: { getMember } }) {
+		const member = await getMember(message, argString);
 
 		const avatarEmbed = new MessageEmbed()
 			.setAuthor(`${member.user.tag}`, member.user.displayAvatarURL())

@@ -10,7 +10,7 @@ module.exports = {
 	},
 	run: async ({ client: bot, message, args, utils: { getMember } }) => {
 
-		const member = getMember(message, args.join(' '));
+		const member = await getMember(message, args.join(' '));
 
 		const info = new MessageEmbed()
 			.setAuthor(member.displayName, member.user.displayAvatarURL())

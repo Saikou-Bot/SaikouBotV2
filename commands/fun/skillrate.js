@@ -20,7 +20,7 @@ module.exports = {
 		}
 	}) {
 
-		const member = getMember(message, argString);
+		const member = await getMember(message, argString);
 		const rating = Math.round(Math.random() * 100);
 
 		if (rating < 98) return message.channel.send(new MessageEmbed()

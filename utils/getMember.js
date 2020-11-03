@@ -1,20 +1,22 @@
-function getMember(message, toFind = '') {
-	toFind = toFind.toLowerCase();
+async function getMember(message, content) {
+	content = (content || message.content).toLowerCase();
 
-	const userIDMatch = toFind.match(/\d{17,19}/);
+	const userIDMatch = content.match(/\d{17,19}/);
 
-	if (userIDMatch) {
-		const target = message.guild.members.cache.get(userIDMatch[0]);
-		if (target && !target.user.bot) return target;
+	if (content) {
+		if (userIDMatch) {
+			let member;
+			try {
+				member = await message.guild.members.fetch(userIDMatch[0]);
+			}
+			catch(err) {
+				if (err.httpStatus != 404) throw err;
+			}
+			if (member && !member.user.bot) return member;
+		}
+		const member = message.guild.members.cache.find(m => m.displayName.toLowerCase().includes(toFind) || m.user.username.toLowerCase().includes(toFind));
+		if (member && !member.user.bot) return member;
 	}
-
-	if (toFind) {
-		const target = message.guild.members.cache.find(member => {
-			return member.displayName.toLowerCase().includes(toFind) || member.user.tag.toLowerCase().includes(toFind);
-		});
-		if (target && !target.user.bot) return target;
-	}
-
 	return message.member;
 }
 
@@ -22,5 +24,6 @@ module.exports = {
 	name: 'getMember',
 	construct(client) {
 		return getMember;
-	}
+	},
+	getMember
 };
