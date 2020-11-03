@@ -29,6 +29,7 @@ const command = {
 			candyName: true,
 			amount: false,
 		},
+		description: 'Eats candy'
 	},
 	async run({ message, args, utils: { shorten } }) {
 		let candyData = await CandyData.findOne({ userID: message.author.id });
