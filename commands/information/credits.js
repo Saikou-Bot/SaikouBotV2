@@ -9,7 +9,7 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message, args }) => {
+	async run({ message }) {
 
 		const credits = new MessageEmbed()
 			.setTitle('📄 Credits')
@@ -18,6 +18,6 @@ module.exports = {
 			.addField('→ Contributors:', '<@341317140655243266> `[Helper/Tester]`\n<@!216266838156378114> `[Tester]`\n<@670080884249985085> `[Tester]`\n<@!202547908015423488> `[Tester]`\n<@697864119302225952> `[Tester]`\n<@!458023820129992716> `[Tester]`')
 			.setColor(colours.blurple);
 
-		message.channel.send(credits);
+		return message.channel.send(credits);
 	},
 };
