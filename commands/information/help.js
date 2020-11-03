@@ -1,6 +1,7 @@
-/* eslint-disable space-before-function-paren */
 const fs = require('fs');
 const prefix = config.prefix;
+
+// TODO: needs refactorings, better implementation would be to enable dm config and not use message collector
 
 module.exports = {
 	config: {
@@ -12,7 +13,7 @@ module.exports = {
 		channel: 'bot-commands'
 	},
 	run: async ({
-		client: bot,
+		client,
 		message,
 		args
 	}) => {
@@ -20,8 +21,8 @@ module.exports = {
 		if (!args[0]) {
 
 			const embed = new MessageEmbed()
-				.setTitle(`:book: ${bot.user.username} Commands`)
-				.setDescription(`The prefix for ${bot.user.username} is \`${prefix}\` \nCurrently featuring ${bot.commands.size} commands!`)
+				.setTitle(`:book: ${client.user.username} Commands`)
+				.setDescription(`The prefix for ${client.user.username} is \`${prefix}\` \nCurrently featuring ${client.commands.size} commands!`)
 				.addField('💵 Currency', `\`${prefix}help currency\``, true)
 				.addField('🎲 Fun', `\`${prefix}help fun\``, true)
 				.addField('<:ban:701729757909352538> Moderation', `\`${prefix}help moderation\``, true)
@@ -42,7 +43,7 @@ module.exports = {
 
 			message.channel.send(new MessageEmbed()
 				.setDescription(`📬 A message has been sent to your DM's <@${message.author.id}>`)
-				.setColor(colours.green));
+				.setColor(colours.green)).catch(() => {});
 
 			const dm = await message.author.createDM();
 			const collector = dm.createMessageCollector(msg => msg.author.id === message.author.id, {
@@ -62,7 +63,7 @@ module.exports = {
 					const embed2 = new MessageEmbed()
 						.setTitle('💵 Currency Commands')
 						.setColor(colours.blurple)
-						.setDescription(`${bot.user.username} currently features ${economy.length} currency commands!\n\n**${economy.join(',  ')}**`);
+						.setDescription(`${client.user.username} currently features ${economy.length} currency commands!\n\n**${economy.join(',  ')}**`);
 
 					message.author.send(embed2);
 				}
@@ -76,7 +77,7 @@ module.exports = {
 					const embed3 = new MessageEmbed()
 						.setTitle('🎲 Fun Commands')
 						.setColor(colours.blurple)
-						.setDescription(`${bot.user.username} currently features ${fun.length} fun commands!\n\n**${fun.join(',  ')}**`);
+						.setDescription(`${client.user.username} currently features ${fun.length} fun commands!\n\n**${fun.join(',  ')}**`);
 
 					message.author.send(embed3);
 
@@ -91,7 +92,7 @@ module.exports = {
 					const embed3 = new MessageEmbed()
 						.setTitle('<:ban:701729757909352538> Moderation Commands')
 						.setColor(colours.blurple)
-						.setDescription(`${bot.user.username} currently features ${moderation.length} moderation commands!\n\n**${moderation.join(',  ')}**`);
+						.setDescription(`${client.user.username} currently features ${moderation.length} moderation commands!\n\n**${moderation.join(',  ')}**`);
 
 					message.author.send(embed3);
 
@@ -106,7 +107,7 @@ module.exports = {
 					const embed3 = new MessageEmbed()
 						.setTitle('ℹ️ Information Commands')
 						.setColor(colours.blurple)
-						.setDescription(`${bot.user.username} currently features ${information.length} information commands!\n\n**${information.join(',  ')}**`);
+						.setDescription(`${client.user.username} currently features ${information.length} information commands!\n\n**${information.join(',  ')}**`);
 
 					message.author.send(embed3);
 
@@ -121,7 +122,7 @@ module.exports = {
 					const embed3 = new MessageEmbed()
 						.setTitle('🎮 Game Commands')
 						.setColor(colours.blurple)
-						.setDescription(`${bot.user.username} currently features ${games.length} game commands!\n\n**${games.join(',  ')}**`);
+						.setDescription(`${client.user.username} currently features ${games.length} game commands!\n\n**${games.join(',  ')}**`);
 
 					message.author.send(embed3);
 
@@ -136,7 +137,7 @@ module.exports = {
 					const embed3 = new MessageEmbed()
 						.setTitle('⚙️ General Commands')
 						.setColor(colours.blurple)
-						.setDescription(`${bot.user.username} currently features ${general.length} general commands!\n\n**${general.join(',  ')}**`);
+						.setDescription(`${client.user.username} currently features ${general.length} general commands!\n\n**${general.join(',  ')}**`);
 
 					message.author.send(embed3);
 
@@ -145,7 +146,7 @@ module.exports = {
 
 		}
 		else {
-			const command = bot.commands.get(bot.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase());
+			const command = client.commands.get(client.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase());
 
 			if (!command) {
 
