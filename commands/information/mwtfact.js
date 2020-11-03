@@ -11,16 +11,12 @@ module.exports = {
 		cooldown: true,
 		autoCooldown: true,
 	},
-	run: async ({ client: bot, message }) => {
+	run: async ({ message }) => {
 
-		const pickedFact = Math.floor((Math.random() * facts.length));
-
-		const mwtfactEmbed = new MessageEmbed()
+		return message.channel.send(new MessageEmbed()
 			.setTitle('MWT Fact')
-			.setDescription(facts[pickedFact])
+			.setDescription(facts[Math.floor((Math.random() * facts.length))])
 			.setColor(colours.blurple)
-			.setFooter(`Requested by: ${message.author.username}`, message.author.displayAvatarURL());
-
-		message.channel.send(mwtfactEmbed);
+			.setFooter(`Requested by: ${message.author.username}`, message.author.displayAvatarURL()));
 	},
 };
