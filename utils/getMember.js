@@ -14,7 +14,7 @@ async function getMember(message, content) {
 			}
 			if (member && !member.user.bot) return member;
 		}
-		const member = message.guild.members.cache.find(m => m.displayName.toLowerCase().includes(toFind) || m.user.username.toLowerCase().includes(toFind));
+		const member = message.guild.members.cache.find(m => m.displayName.toLowerCase().includes(content) || m.user.username.toLowerCase().includes(content));
 		if (member && !member.user.bot) return member;
 	}
 	return message.member;
