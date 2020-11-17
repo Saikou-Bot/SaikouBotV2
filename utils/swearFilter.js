@@ -23,7 +23,7 @@ function swearFilter(message) {
 	})) {
 		// message.delete();
 		// message.channel.send('Got \'em');
-		const autoModChannel = message.client.guilds.cache.get('704621852231729212').channels.cache.get('756956104281292882');
+		const autoModChannel = message.client.guilds.cache.get(config.autoModGuild || config.guild).channels.cache.get(config.autoModChannel);
 		if (autoModChannel) {
 			autoModChannel.send(new MessageEmbed({
 				author: {
