@@ -8,5 +8,7 @@
 	"prefix": ".",
 	"githubOwner": "Saikou-Bot",
 	"githubRepo": "SaikouBotV2",
-	"bugreportLabel": "Bug"
+	"bugreportLabel": "Bug",
+	"autoModGuild": "397791695514894341",
+	"autoModChannel": "778343619458760725"
 }
