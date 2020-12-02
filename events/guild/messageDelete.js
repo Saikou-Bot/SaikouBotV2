@@ -5,6 +5,7 @@ module.exports = (client, message) => {
 	if (message.channel.name == '👥management') return;
 	if (message.channel.name == '🔧project-untitled') return;
 	if (message.channel.name == '🔒classified') return;
+	if (message.channel.name == '🔧mwt') return;
 
 	if (message.partial) {
 		return;
