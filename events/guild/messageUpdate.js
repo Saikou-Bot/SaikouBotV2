@@ -10,6 +10,7 @@ module.exports = (client, oldMessage, newMessage) => {
 	if (oldMessage.channel.name == '👥management') return;
 	if (oldMessage.channel.name == '🔧project-untitled') return;
 	if (oldMessage.channel.name == '🔒classified') return;
+	if (oldMessage.channel.name == '🔧mwt') return;
 
 	const oldMessageShorten = oldMessage.content.length > 900 ? oldMessage.content.substring(0, 850) + '...' : oldMessage.content;
 	const newMessageShorten = newMessage.content.length > 900 ? newMessage.content.substring(0, 850) + '...' : newMessage.content;
