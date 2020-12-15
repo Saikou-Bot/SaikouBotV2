@@ -2,6 +2,7 @@ const moment = require('moment');
 
 const region = {
 	'brazil': 'Brazil',
+	'eu-central': 'Europe',
 	'europe': 'Europe',
 	'hongkong': 'Hong Kong',
 	'india': 'India',
