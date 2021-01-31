@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Saikou-Bot/SaikouBotV2#readme",
   "dependencies": {
+    "chalk": "^4.1.0",
     "discord-akairo": "^8.1.0",
     "discord.js": "^12.5.1"
   }
