@@ -1,17 +1,31 @@
 const { AkairoClient, CommandHandler } = require('discord-akairo');
 
 class SaikouBot extends AkairoClient {
-    constructor(options) {
-        options = Object.assign({}, {
-            ownerID: ['670588428970098708', '229142187382669312'],
-            intents: 513
-        }, options);
+	constructor(options) {
+		options = Object.assign({}, {
+			ownerID: ['670588428970098708', '229142187382669312'],
+			intents: 513,
+			prefix: '.'
+		}, options);
 
-        super(options);
+		super(options);
+		this.token = options.token;
+		this.prefix = options.prefix;
 
-        this.commandHandler = new CommandHandler({
-            directory: __dirname + '../commands'
-        });
-    }
+		this.commandHandler = new CommandHandler(this, {
+			directory: __dirname + '/../commands',
+			automateCategories: true,
+			commandUtil: true,
+			prefix: this.prefix
+		});
+	}
+	init() {
+		this.commandHandler.loadAll();
+		// Add types
+		// this.commandHandler.resolver.addType('userGuild', require('../types/userGuild'));
+	}
+	login(token) {
+		super.login(this.token || token);
+	}
 }
 module.exports = SaikouBot;
