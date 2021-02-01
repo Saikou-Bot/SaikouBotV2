@@ -3,10 +3,16 @@ const SaikouEmbed = require('../../structure/SaikouEmbed');
 
 const credits = {
 	bot: {
+		'229142187382669312': 'Head Developer',
 		'670588428970098708': 'Developer'
 	},
 	other: {
-
+		'341317140655243266': 'Helper/Tester',
+		'216266838156378114': 'Tester',
+		'670080884249985085': 'Tester',
+		'202547908015423488': 'Tester',
+		'697864119302225952': 'Tester',
+		'458023820129992716': 'Tester'
 	}
 }
 
@@ -20,11 +26,17 @@ function fetchCredits(userManager, credit) {
 	// 	promises.push(userManager.fetch(entry[0]).then(u => { user: u, title: entry[1] }));
 	// }
 
-	return Promise.allSettled(Object.entries(credit).map(e => userManager.fetch(e[0]).then(u => { return { user: u, title: e[1] } }))).then(results => results.filter(r => r.status === 'fulfilled').map(r => r.value));
+	return Promise.allSettled(Object.entries(credit)
+			.map(e => userManager.fetch(e[0])
+				.then(u => { return { user: u, title: e[1] } })))
+			.then(results => results
+				.filter(r => r.status === 'fulfilled')
+				.map(r => r.value));
 }
 
 function stringifyCredits(users) {
-	return users.map(d => `**${d.user.tag}** \`[${d.title}]\``);
+	return users
+		.map(d => `**${d.user.tag}** \`[${d.title}]\``);
 }
 
 class Credits extends Command {
