@@ -21,7 +21,13 @@ class SaikouBot extends AkairoClient {
 	}
 	init() {
 		this.commandHandler.loadAll();
+		
+		// this.commandHandler.categories.each(category => {
+		// 	const displayName = categoryDisplayNames[category.id];
+		// 	if (displayName) category.displayName = displayName;
+		// });
 		// Add types
+		this.commandHandler.resolver.addType('category', require('../types/category').bind(this.commandHandler));
 		// this.commandHandler.resolver.addType('userGuild', require('../types/userGuild'));
 	}
 	login(token) {
