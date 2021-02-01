@@ -12,8 +12,8 @@ class Help extends Command {
 			aliases: ['help'],
 			description: {
 				content: 'Gain a list of all saikou\'s commands!',
-				usage: '.help <resource>'
-			}
+				usage: '[resource]'
+			},
 			args: [{
 				id: 'resource',
 				type: Argument.union('category', 'commandAlias'),
@@ -60,7 +60,7 @@ Currently featuring ${this.handler.modules.size} commands!`);
 				const commandEmbed = new SaikouEmbed()
 					.setTitle(`${prefix}${name} Information`)
 					.addField('Command Description:', `${command.description ? command.description.content : undefined || 'No Description.'}`)
-					.addField('Usage:', `${command.description && command.description.usage ? `\`${commandConfig.usage}\`` : 'No Usage'}`)
+					.addField('Usage:', `${command.description && command.description.usage ? `\`${prefix}${name} ${command.description.usage}\`` : 'No Usage'}`)
 					.addField('Aliases:', `${aliases.length ? aliases.join(', ') : 'N/A'}`);
 					// .addField('Accessible to:', `${commandConfig.accessableby || 'N/A'}`)
 
