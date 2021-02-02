@@ -1,4 +1,4 @@
-const { AkairoClient, CommandHandler } = require('discord-akairo');
+const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo');
 
 class SaikouBot extends AkairoClient {
 	constructor(options) {
@@ -18,8 +18,16 @@ class SaikouBot extends AkairoClient {
 			commandUtil: true,
 			prefix: this.prefix
 		});
+
+		this.listenerHandler = new ListenerHandler(this, {
+			directory: __dirname + '/../listeners',
+			automateCategories: true
+		})
 	}
 	init() {
+		this.commandHandler.useListenerHandler(this.listenerHandler);
+
+		this.listenerHandler.loadAll();
 		this.commandHandler.loadAll();
 		
 		// this.commandHandler.categories.each(category => {
@@ -28,6 +36,7 @@ class SaikouBot extends AkairoClient {
 		// });
 		// Add types
 		this.commandHandler.resolver.addType('category', require('../types/category').bind(this.commandHandler));
+		
 		// this.commandHandler.resolver.addType('userGuild', require('../types/userGuild'));
 	}
 	login(token) {
