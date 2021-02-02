@@ -1,28 +1,31 @@
 {
-  "name": "SaikouBotV2",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "nodemon src"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Saikou-Bot/SaikouBotV2.git"
-  },
-  "keywords": [],
-  "author": "Harry Kruger <krugerh27@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Saikou-Bot/SaikouBotV2/issues"
-  },
-  "homepage": "https://github.com/Saikou-Bot/SaikouBotV2#readme",
-  "dependencies": {
-    "chalk": "^4.1.0",
-    "discord-akairo": "^8.1.0",
-    "discord.js": "^12.5.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
-  }
+	"name": "SaikouBotV2",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "nodemon src"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Saikou-Bot/SaikouBotV2.git"
+	},
+	"keywords": [],
+	"author": "Harry Kruger <krugerh27@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Saikou-Bot/SaikouBotV2/issues"
+	},
+	"homepage": "https://github.com/Saikou-Bot/SaikouBotV2#readme",
+	"dependencies": {
+		"chalk": "^4.1.0",
+		"discord-akairo": "^8.1.0",
+		"discord.js": "^12.5.1"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	},
+	"engines": {
+		"node": ">=14.15"
+	}
 }
