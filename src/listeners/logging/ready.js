@@ -9,7 +9,7 @@ class Ready extends Listener {
 		});
 	}
 	exec() {
-		console.log(`${chalk.cyan(this.client.user.username)}#${chalk.dim(this.client.user.discriminator)} is ${chalk.greenBright('online')}`);
+		console.log(`${chalk.greenBright('[SUCCESS]:')} ${chalk.cyan(this.client.user.username)}#${chalk.dim(this.client.user.discriminator)} is ${chalk.greenBright('online!')}`);
 	}
 }
 module.exports = Ready;
