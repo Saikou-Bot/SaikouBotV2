@@ -9,9 +9,11 @@ module.exports = (caseSensitive = false, wholeWord = false) => async function(me
 			return await this.client.users.fetch(match[0]);
 		} catch (err) {}
 	}
-	let member = message.guild.members.cache.find(member => checkMember(phrase, member));
-	if (member) return member.user;
-	else return null;
+	if (message.guild) {
+		let member = message.guild.members.cache.find(member => checkMember(phrase, member));
+		if (member) return member.user;		
+	}
+	return null;
 }
 
 function checkMember(text, member, caseSensitive, wholeWord) {
