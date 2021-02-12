@@ -16,7 +16,9 @@ class SaikouBot extends AkairoClient {
 			directory: __dirname + '/../commands',
 			automateCategories: true,
 			commandUtil: true,
-			prefix: this.prefix
+			prefix: this.prefix,
+			commandUtil: true,
+			handleEdits: true
 		});
 
 		this.listenerHandler = new ListenerHandler(this, {
