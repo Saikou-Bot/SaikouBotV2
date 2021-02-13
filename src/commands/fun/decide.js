@@ -12,7 +12,7 @@ class Decide extends Command {
                     id: 'choice',
                     type: 'string',
                     match: 'separate',
-                    otherwise: 'Please provide options' // needs improving, maybe auto usage
+                    otherwise: 'Incorrect usage:\n**.decide <option> | <option>**' // needs improving, maybe auto usage
                 }
             ]
 		})
