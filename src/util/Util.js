@@ -12,7 +12,7 @@ class Util {
 	static choose(arr) {
 		if (!Array.isArray(arr) || arr.length < 1) return null;
 
-		return arr[this.getRandomInt(arr.lenght)];
+		return arr[Util.getRandomInt(arr.length)];
 	}
 }
 module.exports = Util;
