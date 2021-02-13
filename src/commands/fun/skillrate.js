@@ -14,9 +14,7 @@ class Skillrate extends Command {
 			}]
 		})
 	}
-	async exec(message, args) {
-		const { user } = args;
-
+	async exec(message, { user }) {
         if (Math.random() * 100 < 98) {
         return message.util.send(new SaikouEmbed()
             .setTitle('Skill Rating')

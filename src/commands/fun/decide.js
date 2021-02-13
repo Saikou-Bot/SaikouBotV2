@@ -1,5 +1,6 @@
 const { Command } = require('discord-akairo');
 const SaikouEmbed = require('../../structure/SaikouEmbed');
+const { choose } = require('../../util/Util');
 
 class Decide extends Command {
 	constructor() {
@@ -10,25 +11,21 @@ class Decide extends Command {
                 {
                     id: 'choice',
                     type: 'string',
-                    match: 'separate'
+                    match: 'separate',
+                    otherwise: 'Please provide options' // needs improving, maybe auto usage
                 }
             ]
 		})
 	}
-	async exec(message, args) {
-
-        const options = args.choice.map((choice) => {
-             return `• ${choice}`
-         })
+	async exec(message, { choice }) {
+        const options = choice.map(choice => `• ${choice}`);
 
         return message.util.send(new SaikouEmbed()
                 .setTitle('📝 Decide Results')
-				.setDescription(`Hmmm... that's a tough one, I choose **${args.choice[Math.floor(Math.random() * args.choice.length)]}**`)
+				.setDescription(`Hmmm... that's a tough one, I choose **${choose(choice)}**`)
                 .addField('Options', options)
                 .setColor('RANDOM')
-        )
-
-
+        );
     }
 }
 module.exports = Decide;
