@@ -8,8 +8,8 @@ class SaikouEmbed extends MessageEmbed {
 	setup(data, skipValidation) {
 		super.setup(Object.assign({}, { color: 'BLURPLE' }, data), skipValidation);
 	}
-	addEmptyField(inline) {
-		this.addField('\u200b', '\u200b', inline);
+	addBlankField(inline) {
+		return this.addField('\u200b', '\u200b', inline);
 	}
 }
 module.exports = SaikouEmbed;
