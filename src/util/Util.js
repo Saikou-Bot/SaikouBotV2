@@ -1,3 +1,5 @@
+const { Collection } = require('discord.js');
+
 class Util {
 	constructor() {
 		throw new Error(`The ${this.constructor.name} class may not be instantiated.`);
@@ -13,6 +15,25 @@ class Util {
 		if (!Array.isArray(arr) || arr.length < 1) return null;
 
 		return arr[Util.getRandomInt(arr.length)];
+	}
+	static async mutualGuilds(client, guilds, user) {
+		user = client.users.resolve(user);
+
+		const mutualGuilds = new Collection();
+
+		for (guild in guilds) {
+			let member;
+			try {
+				member = await guild.members.fetch(user.id);
+			}
+			catch(err) {
+				if (err && err.httpStatus === 404) continue;
+				else throw err;
+			};
+			// member should always defined, but just checking
+			if (member) mutualGuilds.set(guild.id, guild);
+		};
+		return mutualGuilds;
 	}
 }
 module.exports = Util;
