@@ -1,5 +1,6 @@
 const { Listener } = require('discord-akairo');
-const chalk = require('chalk');
+// const chalk = require('chalk');
+const bot = require('debug')('bot:info');
 
 class Ready extends Listener {
 	constructor() {
@@ -9,7 +10,7 @@ class Ready extends Listener {
 		});
 	}
 	exec() {
-		console.log(`${chalk.greenBright('[SUCCESS]:')} ${chalk.cyan(this.client.user.username)}#${chalk.dim(this.client.user.discriminator)} is ${chalk.greenBright('online!')}`);
+		bot(`%s is ready!`, this.client.user.username);
 	}
 }
 module.exports = Ready;
