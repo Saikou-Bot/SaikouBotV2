@@ -3,6 +3,7 @@ dependencies:
   debug: 4.3.1
   discord-akairo: 8.1.0
   discord.js: 12.5.1
+  human-readable-numbers: 0.9.5
   moment: 2.29.1
 devDependencies:
   nodemon: 2.0.7
@@ -435,6 +436,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
+  /human-readable-numbers/0.9.5:
+    dev: false
+    resolution:
+      integrity: sha512-VC1uYLm7FR+4UkLaQdXPLodz7xTVLBte3X6iMCYK/uPJywoHyEZfR40+kCN4YqYd+FNCPJAJNYv2CSMvAprgsQ==
   /ignore-by-default/1.0.1:
     dev: true
     resolution:
@@ -995,5 +1000,6 @@ specifiers:
   debug: ^4.3.1
   discord-akairo: ^8.1.0
   discord.js: ^12.5.1
+  human-readable-numbers: ^0.9.5
   moment: ^2.29.1
   nodemon: ^2.0.7
