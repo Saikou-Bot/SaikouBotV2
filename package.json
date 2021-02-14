@@ -1,6 +1,6 @@
 {
 	"name": "SaikouBotV2",
-	"version": "1.0.0",
+	"version": "3.0.0-alpha",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
