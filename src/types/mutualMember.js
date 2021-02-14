@@ -21,7 +21,7 @@ module.exports = (caseSensitive = false, wholeWord = false) => async function ty
 		// else (mutualGuilds.size > 0) guild = mutualGuilds.sort((a, b) => b.memberCount - a.memberCount).first();
 
 		// return guild ? Util.resolveMember()
-		const user = Util.resolveUser(phrase);
+		const user = Util.resolveUser(phrase, message.client.users.cache);
 		// if (!user) return null;
 		// const mutualGuilds = Util.mutualGuilds(this.client.guilds.cache, user);
 		// const bestGuild = Util.bestGuild(mutualGuilds, user);

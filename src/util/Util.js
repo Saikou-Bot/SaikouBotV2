@@ -22,7 +22,6 @@ class Util {
 
 		const mutualGuilds = new Collection();
 
-		console.log(guilds);
 		for (const entry of guilds) {
 			const guild = entry[1]
 			const member = guild.members.resolve(user);
@@ -53,9 +52,8 @@ class Util {
 	}
 	static resolveUser(text, users, caseSensitive = false, wholeWord = false) {
 		const user = Util.resolveMention(text, users);
-		if (user) return user;
 
-		return users.find(user => this.checkUser(text, user, caseSensitive, wholeWord))
+		return user || users.find(u => Util.checkUser(text, u, caseSensitive, wholeWord))
 	}
 	static resolveMutualMember(user, guilds, caseSensitive = false, wholeWord = false) {
 		if (!user) return null;

@@ -24,7 +24,6 @@ class UserInfo extends Command {
 		});
 	}
 	async exec(message, { target }) {
-		console.log(target);
 		let member;
 		let user;
 		// console.log(target);
