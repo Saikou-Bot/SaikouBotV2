@@ -1,6 +1,7 @@
 module.exports.Colors = {
 	BLURPLE: 0x7289DA,
-	RED: 0xf94343
+	RED: 0xf94343,
+	GREEN: 0x2ED85F
 }
 
 module.exports.MENTION_REG = /^(?:<@!?)?(\d{17,19})(?:>)?$/;

@@ -3,7 +3,8 @@ const CategoryType = require('../../types/category');
 const SaikouEmbed = require('../../structure/SaikouEmbed');
 
 const categoryDisplayNames = {
-	'info': 'ℹ️ Information'
+	'info': 'ℹ️ Information',
+	'fun': '🎲 Fun' 
 }
 
 class Help extends Command {
@@ -31,15 +32,22 @@ class Help extends Command {
 		if (!args.resource) {
 
 			const helpEmbed = new SaikouEmbed()
-				.setTitle('📖 Saikou Commands')
+				.setTitle(`📖 Saikou Commands`)
 				.setDescription(`The prefix for Saikou is \`${prefix}\`
-Currently featuring ${this.handler.modules.size} commands!`);
+Currently featuring ${this.handler.modules.size} commands!`)
+				.setFooter('Reply back with an option in DM\'s.');
 
 			this.handler.categories.each(category => {
-				helpEmbed.addField(categoryDisplayNames[category.id] || category.id, `\`${prefix}help ${category.id}\``);
+				helpEmbed.addField(categoryDisplayNames[category.id] || category.id, `\`${prefix}help ${category.id}\``, true);
 			});
 
 			dm.send(helpEmbed);
+
+			if (message.channel.type !== 'dm') {
+			message.channel.send(new SaikouEmbed()
+				.setDescription(`📬 A message has been sent to your DM's <@${message.author.id}>`)
+				.setColor('GREEN'));
+			}
 		}
 		else {
 			if (args.resource instanceof Category) {
