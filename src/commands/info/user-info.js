@@ -1,7 +1,9 @@
-const { Command } = require('discord-akairo');
+const { Command, Argument } = require('discord-akairo');
 const UserGuild = require('../../types/userGuild');
 const SaikouEmbed = require('../../structure/SaikouEmbed');
 const moment = require('moment');
+const { GuildMember } = require('discord.js');
+const Util = require('../../util/Util');
 
 class UserInfo extends Command {
 	constructor() {
@@ -12,15 +14,28 @@ class UserInfo extends Command {
 				content: ''
 			},
 			args: [{
-				id: 'user',
-				type: UserGuild(),
-				default: message => message.author
+				id: 'target',
+				type: Argument.union('mutualMember', 'userGuild'),
+				default: (message) => {
+					let mutualMember = Util.resolveMutualMember(message.author, message.client.guilds.cache);
+					return mutualMember ? mutualMember : message.author;
+				}
 			}]
 		});
 	}
-	async exec(message, { user }) {
+	async exec(message, { target }) {
+		console.log(target);
 		let member;
-		if (message.guild) member = message.guild.members.cache.get(user.id);
+		let user;
+		// console.log(target);
+		// console.log(Member);
+		if (target instanceof GuildMember) {
+			member = target;
+			user = target.user;
+		}
+		else {
+			user = target;
+		}
 
 		const embed = new SaikouEmbed()
 			.setAuthor(member ? member.displayName : user.username, user.displayAvatarURL({ format: 'png', dynamic: false, size: 64 }))
@@ -41,7 +56,7 @@ class UserInfo extends Command {
 			.addField('Bot', user.bot, true);
 		if (member) {
 			const roles = member.roles.cache.filter(r => r.id !== member.guild.id);
-			embed.addBlankField().addField(`Roles [${roles.size}]`, roles.array().join(', '))
+			embed.addBlankField().addField(`Roles [${roles.size}]`, (message.guild && member.guild.id === message.guild ? roles.array() : roles.map(r => `@${r.name}`)).join(' '))
 		};
 
 		return message.util.send(embed);

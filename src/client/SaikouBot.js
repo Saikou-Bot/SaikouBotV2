@@ -38,6 +38,9 @@ class SaikouBot extends AkairoClient {
 		// });
 		// Add types
 		this.commandHandler.resolver.addType('category', require('../types/category').bind(this.commandHandler));
+		this.commandHandler.resolver.addType('userGuild', require('../types/userGuild')());
+		this.commandHandler.resolver.addType('mutualMember', require('../types/mutualMember')());
+		// this.commandHandler.resolver.addType('user', require('../types/user')());
 		
 		// this.commandHandler.resolver.addType('userGuild', require('../types/userGuild'));
 	}

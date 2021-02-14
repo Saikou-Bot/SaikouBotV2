@@ -17,33 +17,61 @@ class Util {
 
 		return arr[Util.getRandomInt(arr.length)];
 	}
-	static async mutualGuilds(client, guilds, user) {
-		user = client.users.resolve(user);
+	static mutualGuilds(guilds, user) {
+		if (!user) return null;
 
 		const mutualGuilds = new Collection();
 
-		for (guild in guilds) {
-			let member;
-			try {
-				member = await guild.members.fetch(user.id);
-			}
-			catch(err) {
-				if (err && err.httpStatus === 404) continue;
-				else throw err;
-			};
+		console.log(guilds);
+		for (const entry of guilds) {
+			const guild = entry[1]
+			const member = guild.members.resolve(user);
 			// member should always defined, but just checking
 			if (member) mutualGuilds.set(guild.id, guild);
 		};
 		return mutualGuilds;
 	}
-	static resolveMember(text, members, caseSensitive = false, wholeWord = false) {
-		const match = phrase.match(MENTION_REG);
-		if (match) {
-			const member = members.get(match[1]);
-			if (member) return member;
-		}
+	static bestGuild(guilds, user) {
+		let bestGuild;
+		// console.log(guilds);
+		guilds = guilds.filter(g => g.members.resolve(user))
+		if (guilds.size === 1) bestGuild = guilds.first();
+		else if (guilds.size > 0) bestGuild = guilds.sort((a, b) => b.memberCount - a.memberCount).first();
 
-		return members.get(text) || members.find(member => checkMember(text, member, caseSensitive, wholeWord));
+		return bestGuild ? bestGuild : null;
+	}
+	memberFromMutualGuilds(guilds, user) {
+		const bestGuild = Util.bestGuild(guilds, user);
+
+		return bestGuild ? bestGuild.members.resolve(user) : null;
+	}
+	static resolveMember(text, members, caseSensitive = false, wholeWord = false) {
+		const member = Util.resolveMention(text, members);
+		if (member) return member;
+
+		return members.find(member => checkMember(text, member, caseSensitive, wholeWord));
+	}
+	static resolveUser(text, users, caseSensitive = false, wholeWord = false) {
+		const user = Util.resolveMention(text, users);
+		if (user) return user;
+
+		return users.find(user => this.checkUser(text, user, caseSensitive, wholeWord))
+	}
+	static resolveMutualMember(user, guilds, caseSensitive = false, wholeWord = false) {
+		if (!user) return null;
+		const mutualGuilds = Util.mutualGuilds(guilds, user);
+		const bestGuild = Util.bestGuild(mutualGuilds, user);
+		if (!bestGuild) return null;
+
+		return bestGuild.members.resolve(user) || null;
+	}
+	static resolveMention(text, collection) {
+		const match = text.match(MENTION_REG);
+		if (match) {
+			const target = collection.get(match[1]);
+			if (target) return user;
+		}
+		return null;
 	}
 	static checkUser(text, user, caseSensitive = false, wholeWord = false) {
 		text = caseSensitive ? text : text.toLowerCase();
