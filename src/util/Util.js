@@ -30,6 +30,15 @@ class Util {
 		};
 		return mutualGuilds;
 	}
+	static toFixed(n, d) {
+		return typeof n === 'number' ? + n.toFixed(d) : NaN;
+	}
+	static round(n, e = 1) {
+		return typeof n === 'number' && typeof e === 'number' ? Math.round(n/e) * e : NaN;
+	}
+	static shorten(str, len, end) {
+		return str.length > len ? str.substring(0, len - end.length) + end : str;
+	} 
 	static bestGuild(guilds, user) {
 		let bestGuild;
 		// console.log(guilds);
