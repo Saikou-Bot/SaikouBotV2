@@ -14,8 +14,8 @@ class Avatar extends Command {
 			}]
 		})
 	}
-	async exec(message, args) {
-		const { user } = args;
+	async exec(message, { user }) {
+		// const { user } = args;
 		// console.log(args);
 		// console.log(user);
 
