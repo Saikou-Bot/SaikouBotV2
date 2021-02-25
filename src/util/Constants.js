@@ -44,4 +44,8 @@ module.exports.MWT_FACTS = [
 	"Each `seasonal event` within the game has had a unique weapon as an obtainable reward.",
 	"The `Railgun` used to have a charge time before firing, this typically meant players had to prepare their shot.",
 	"The `Burst Rifle` is the only weapon in that game that fires in burst shots."
+module.exports.CATEGORY_DISPLAY_NAMES = {
+	'info': 'ℹ️ Information',
+	'fun': '🎲 Fun' 
+}
 ]

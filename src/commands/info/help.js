@@ -1,11 +1,7 @@
 const { Command, Argument, Category } = require('discord-akairo');
 const CategoryType = require('../../types/category');
 const SaikouEmbed = require('../../structure/SaikouEmbed');
-
-const categoryDisplayNames = {
-	'info': 'ℹ️ Information',
-	'fun': '🎲 Fun' 
-}
+const { CATEGORY_DISPLAY_NAMES } = require('../../util/Constants');
 
 class Help extends Command {
 	constructor() {
@@ -38,7 +34,7 @@ Currently featuring ${this.handler.modules.size} commands!`)
 				.setFooter('Reply back with an option in DM\'s.');
 
 			this.handler.categories.each(category => {
-				helpEmbed.addField(categoryDisplayNames[category.id] || category.id, `\`${prefix}help ${category.id}\``, true);
+				helpEmbed.addField(CATEGORY_DISPLAY_NAMES[category.id] || category.id, `\`${prefix}help ${category.id}\``, true);
 			});
 
 			dm.send(helpEmbed);
@@ -54,7 +50,7 @@ Currently featuring ${this.handler.modules.size} commands!`)
 				const category = args.resource;
 
 				const categoryEmbed = new SaikouEmbed()
-					.setTitle(`${categoryDisplayNames[category.id] || category.id} Commands`)
+					.setTitle(`${CATEGORY_DISPLAY_NAMES[category.id] || category.id} Commands`)
 					.setDescription(`Saikou currently features ${category.size} ${category.id} commands!\n\n**${category.map(m => `${prefix}${m.aliases[0]}`).join(', ')}**`);
 
 				dm.send(categoryEmbed);
