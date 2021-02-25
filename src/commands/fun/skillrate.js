@@ -1,6 +1,7 @@
 const { Command } = require('discord-akairo');
 const SaikouEmbed = require('../../structure/SaikouEmbed');
 const UserGuild = require('../../types/userGuild');
+const { getRandomInt } = require('../../util/Util')
 
 class Skillrate extends Command {
 	constructor() {
@@ -15,10 +16,11 @@ class Skillrate extends Command {
 		})
 	}
 	async exec(message, { user }) {
-        if (Math.random() * 100 < 98) {
+        
+		if (getRandomInt(0, 100) < 98) {
         return message.util.send(new SaikouEmbed()
             .setTitle('Skill Rating')
-			.setDescription(`**${user.username}** is \`%${Math.floor(Math.random() * 101)}\` skilled! 🏆`)
+			.setDescription(`**${user.username}** is \`%${getRandomInt(0, 100)}\` skilled! 🏆`)
 			.setColor('RANDOM')
 			);
         }

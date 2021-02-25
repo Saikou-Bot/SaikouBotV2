@@ -43,9 +43,21 @@ module.exports.MWT_FACTS = [
 	"Military Warfare Tycoon currently features `7` vehicles for players to use.",
 	"Each `seasonal event` within the game has had a unique weapon as an obtainable reward.",
 	"The `Railgun` used to have a charge time before firing, this typically meant players had to prepare their shot.",
+	"The `Burst Rifle` is the only weapon in that game that fires in burst shots.",
+	"Military Warfare Tycoon hit a whopping `60 million` visits on the 18th January 2021!",
+	"The `Helicopter` used to shoot primarily missiles, however they were removed in favour for something more effective!",
+	"The `Tycoon` used to have no owner only doors, meaning anyone could of roamed into your base without you wanting them to!",
+	"Players used to have no `kill saving` in the game, meaning to get General they would have to do it all in one server! Ouch.",
+	"There are `13` badges that give/gave a weapon that damaged other players.",
+	"There used to be an `easter egg` that allowed you to spawn a secret AC-130 gunship on top of a mountain. The button to spawn it was hidden in one of the trees.",
+	"The `Staff of Sparks` was added as a replacement for the `Real Golden Pistol`, which deals 999 explosive damage and has unlimited ammo capacity. Only official Saikou staff members are able to spawn it in game.",
+	"The `VIP gamepass` used to be free to obtain during the Military Warfare Tycoon alpha release back in 2017. Less than 100 people signed up to grab it for free.",
+	"The `Military Axe` was the first ever seasonal event item to be introduced to Military Warfare Tycoon.",
+	"Military Warfare Tycoon's game page says the game was `created` in 2011, but this is incorrect. The game was first launched on the 1st of July 2017.",
+	"The `Halloween event` in Military Warfare Tycoon took place ever year, except 2020. There was not enough time to release it, so the developers decided to cancel the event. However two months later, they released one of the biggest events to date - the Christmas 2020 event - combined with a dark look and feel to still get some spooky Halloween vibes."
 	"The `Burst Rifle` is the only weapon in that game that fires in burst shots."
+]
 module.exports.CATEGORY_DISPLAY_NAMES = {
 	'info': 'ℹ️ Information',
 	'fun': '🎲 Fun' 
 }
-]

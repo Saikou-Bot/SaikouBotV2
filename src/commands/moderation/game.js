@@ -32,7 +32,7 @@ class Game extends Command {
         .addField('User:', `${fields[0]}`, true)
         .addField('Moderator:', `<@${message.author.id}>`, true)
         .addField('Reason:', `${fields[2]}`)
-        .setThumbnail('https://t5.rbxcdn.com/c10e24c5d8d434eb0c20aaafd5f67436')
+        .setThumbnail('https://t7.rbxcdn.com/da559f4079c9173b45639f278d683846')
         .setColor('GREEN')
         .setFooter(fields[1])
         .setTimestamp())
