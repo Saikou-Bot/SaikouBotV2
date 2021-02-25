@@ -3,5 +3,5 @@ module.exports = function (message, phrase) {
 
 	// console.log(this);
 
-	return this.categories.get(phrase.toLowerCase()) || null;
+	return this.handler.categories.get(phrase.toLowerCase()) || null;
 }
