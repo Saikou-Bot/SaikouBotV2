@@ -54,8 +54,7 @@ module.exports.MWT_FACTS = [
 	"The `VIP gamepass` used to be free to obtain during the Military Warfare Tycoon alpha release back in 2017. Less than 100 people signed up to grab it for free.",
 	"The `Military Axe` was the first ever seasonal event item to be introduced to Military Warfare Tycoon.",
 	"Military Warfare Tycoon's game page says the game was `created` in 2011, but this is incorrect. The game was first launched on the 1st of July 2017.",
-	"The `Halloween event` in Military Warfare Tycoon took place ever year, except 2020. There was not enough time to release it, so the developers decided to cancel the event. However two months later, they released one of the biggest events to date - the Christmas 2020 event - combined with a dark look and feel to still get some spooky Halloween vibes."
-	"The `Burst Rifle` is the only weapon in that game that fires in burst shots."
+	"The `Halloween event` in Military Warfare Tycoon took place ever year, except 2020. There was not enough time to release it, so the developers decided to cancel the event. However two months later, they released one of the biggest events to date - the Christmas 2020 event - combined with a dark look and feel to still get some spooky Halloween vibes.",
 ]
 module.exports.CATEGORY_DISPLAY_NAMES = {
 	'info': 'ℹ️ Information',
