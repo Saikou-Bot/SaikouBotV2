@@ -56,10 +56,36 @@ module.exports.MWT_FACTS = [
 	"Military Warfare Tycoon's game page says the game was `created` in 2011, but this is incorrect. The game was first launched on the 1st of July 2017.",
 	"The `Halloween event` in Military Warfare Tycoon took place ever year, except 2020. There was not enough time to release it, so the developers decided to cancel the event. However two months later, they released one of the biggest events to date - the Christmas 2020 event - combined with a dark look and feel to still get some spooky Halloween vibes.",
 ]
+
 module.exports.CATEGORY_DISPLAY_NAMES = {
 	'info': 'ℹ️ Information',
 	'fun': '🎲 Fun' 
 }
+
+module.exports.MISSION = {
+	WEOPONS: [
+		'Default Knife',
+		'flamethrower',
+		'Light Machine Gun'
+	],
+	BASE_ENTRANCES: [
+		'back enterance'
+	],
+	SESSION_TYPES: [
+		'one play session'
+	],
+	TASK_ADDITION: [
+		'max sensitivity',
+		'First person'
+	],
+	FRIENDSHIP_TYPES: [
+		'allies'
+	],
+	PERSONS: [
+		'another person'
+	]
+}
+
 module.exports.EIGHTBALL_REPLIES = [
 	'It is certain',
 	'It is decidedly so',
