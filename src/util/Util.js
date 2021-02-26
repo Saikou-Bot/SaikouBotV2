@@ -36,7 +36,9 @@ class Util {
 	static round(n, e = 1) {
 		return typeof n === 'number' && typeof e === 'number' ? Math.round(n/e) * e : NaN;
 	}
-	static shorten(str, len, end) {
+	static shorten(str, len = 2014, end = '...') {
+		if (typeof str !== 'string') return null;
+
 		return str.length > len ? str.substring(0, len - end.length) + end : str;
 	} 
 	static bestGuild(guilds, user) {
