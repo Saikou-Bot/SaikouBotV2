@@ -17,6 +17,12 @@ class Util {
 
 		return arr[Util.getRandomInt(arr.length)];
 	}
+	static chooseValue(obj) {
+		return this.choose(Object.values(obj))
+	}
+	static chooseKey(obj) {
+		return this.choose(Object.keys(obj));
+	}
 	static mutualGuilds(guilds, user) {
 		if (!user) return null;
 
