@@ -1,12 +1,12 @@
-module.exports.Colors = {
+exports.Colors = {
 	BLURPLE: 0x7289DA,
 	RED: 0xf94343,
 	GREEN: 0x2ED85F
 }
 
-module.exports.MENTION_REG = /^(?:<@!?)?(\d{17,19})(?:>)?$/;
+exports.MENTION_REG = /^(?:<@!?)?(\d{17,19})(?:>)?$/;
 
-module.exports.HUMAN_READABLE_PREFIXES = {
+exports.HUMAN_READABLE_PREFIXES = {
 	'24': 'Y',
 	'21': 'Z',
 	'18': 'E',
@@ -26,7 +26,7 @@ module.exports.HUMAN_READABLE_PREFIXES = {
 	'-24': 'y'
 }
 
-module.exports.MWT_FACTS = [
+exports.MWT_FACTS = [
 	"The `minigun` is the only weapon in the game that has a ready period before firing.",
 	"The `dual revolvers` are the only weapon in the game that has a dual version compared to it's standard version.",
 	"The `flamethrower` is the only obtainable weapon in the game that can deal damage over time after being hit.",
@@ -57,36 +57,163 @@ module.exports.MWT_FACTS = [
 	"The `Halloween event` in Military Warfare Tycoon took place ever year, except 2020. There was not enough time to release it, so the developers decided to cancel the event. However two months later, they released one of the biggest events to date - the Christmas 2020 event - combined with a dark look and feel to still get some spooky Halloween vibes.",
 ]
 
-module.exports.CATEGORY_DISPLAY_NAMES = {
+exports.CATEGORY_DISPLAY_NAMES = {
 	'info': 'ℹ️ Information',
 	'fun': '🎲 Fun' 
 }
 
-module.exports.MISSION = {
-	WEOPONS: [
-		'Default Knife',
-		'flamethrower',
-		'Light Machine Gun'
-	],
-	BASE_ENTRANCES: [
-		'back enterance'
-	],
-	SESSION_TYPES: [
-		'one play session'
-	],
-	TASK_ADDITION: [
-		'max sensitivity',
-		'First person'
-	],
-	FRIENDSHIP_TYPES: [
-		'allies'
-	],
-	PERSONS: [
-		'another person'
-	]
+/// Weapons
+exports.WEAPON_CATEGORIES = {
+	MISC: 0,
+	KNIFE: 1,
+	AR: 2,
+	SNIPER: 3,
+	EXPLOSIVE: 4
 }
 
-module.exports.EIGHTBALL_REPLIES = [
+exports.WEAPONS = {
+	DEFAULT_KNIFE: 0,
+	FLAMETHROWER: 1,
+	LIGHT_MACHINE_GUN: 2,
+	REMOTE_MINE: 3,
+	ROCKET_LAUNCHER: 4
+}
+
+exports.WEAPONS_CATEGORY = {
+	[exports.WEAPONS.DEFAULT_KNIFE]: exports.WEAPON_CATEGORIES.KNIFE,
+	[exports.WEAPONS.FLAMETHROWER]: exports.WEAPON_CATEGORIES.MISC,
+	[exports.WEAPONS.LIGHT_MACHINE_GUN]: exports.WEAPON_CATEGORIES.AR,
+	[exports.WEAPONS.REMOTE_MINE]: exports.WEAPON_CATEGORIES.EXPLOSIVE,
+	[exports.WEAPONS.ROCKET_LAUNCHER]: exports.WEAPON_CATEGORIES.EXPLOSIVE
+}
+
+exports.WEAPON_NAMES = {
+	[exports.WEAPONS.DEFAULT_KNIFE]: 'Default Knife',
+	[exports.WEAPONS.FLAMETHROWER]: 'Flamethrower',
+	[exports.WEAPONS.LIGHT_MACHINE_GUN]: 'Light Machine Gun'
+}
+
+/// Base entrances
+exports.BASE_ENTRANCES = {
+	BACK_ENTERANCE: 0
+}
+
+exports.BASE_ENTRANCE_NAMES = {
+	[exports.BASE_ENTRANCES.BACK_ENTERANCE]: 'back enterance'
+}
+
+/// Sessions
+exports.SESSION_TYPES = {
+	ONE_PLAY_SESSION: 0
+}
+
+exports.SESSION_TYPE_NAMES = {
+	[exports.SESSION_TYPES.ONE_PLAY_SESSION]: 'one play session'
+}
+
+/// Task Additions
+exports.MISSION_TASK_ADDITIONS = {
+	MAX_SENSITIVITY: 0,
+	FIRST_PERSON: 1
+}
+
+exports.MISSION_TASK_ADDITION_NAMES = {
+	[exports.MISSION_TASK_ADDITIONS.MAX_SENSITIVITY]: 'max sensitivity',
+	[exports.MISSION_TASK_ADDITIONS.FIRST_PERSON]: 'first person'
+}
+
+/// Persons
+exports.PERSONS = {
+	ANOTHER_PERSON: 0
+}
+
+exports.PERSON_NAMES = {
+	[exports.PERSONS.ANOTHER_PERSON]: 'another person'
+}
+
+/// Relationships
+exports.RELATIONSHIP_TYPES = {
+	ALLIES: 0
+}
+
+exports.RELATIONSHIP_TYPE_NAMES = {
+	[exports.RELATIONSHIP_TYPES.ALLIES]: 'allies'
+}
+
+/// Shot Areas
+exports.SHOT_AREAS = {
+	HEADSHOT: 0,
+	BODYSHOT: 1
+}
+
+exports.SHOT_AREA_NAMES = {
+	[exports.SHOT_AREAS.HEADSHOT]: 'headshot',
+	[exports.SHOT_AREAS.BODYSHOT]: 'bodyshot'
+}
+
+/// Vehicles
+exports.VEHICLES = {
+	JEEP: 0,
+	HELICOPTER: 1
+}
+
+exports.VEHICLE_CATEGORIES = {
+	TANKS: 0,
+	CAR: 1,
+	ARIEL: 2
+}
+
+exports.VEHICLE_CATEGORY_NAMES = {
+	[exports.VEHICLE_CATEGORIES.TANKS]: 'tanks',
+	[exports.VEHICLE_CATEGORIES.CAR]: 'car',
+	[exports.VEHICLE_CATEGORIES.ARIEL]: 'ariel'
+}
+
+exports.VEHICLE_CATEGORY = {
+	[exports.VEHICLES.JEEP]: exports.VEHICLE_CATEGORIES.CAR,
+	[exports.VEHICLES.HELICOPTER]: exports.VEHICLE_CATEGORIES.ARIEL
+}
+
+exports.VEHICLE_ARMOR_CATEGORIES = {
+	SHOOTABLE: 0, // there is prop better name for this but I can't find it
+	UNARMORED: 1
+}
+
+exports.VEHICLE_NAMES = {
+	[exports.VEHICLES.JEEP]: 'jeep',
+	[exports.VEHICLES.HELICOPTER]: 'helicopter'
+}
+
+exports.VEHICLE_ARMOR_CATEGORY = {
+	[exports.VEHICLES.JEEP]: exports.VEHICLE_ARMOR_CATEGORIES.UNARMORED,
+	[exports.VEHICLES.HELICOPTER]: exports.VEHICLE_ARMOR_CATEGORIES.SHOOTABLE
+}
+
+// exports.MISSION = {
+// 	WEOPONS: {
+// 		DEFAULT_KNIFE: exports.WEAPON_CATEGORIES.KNIFE,
+// 		FLAMETHROWER: exports.WEAPON_CATEGORIES.MISC,
+
+// 	},
+// 	BASE_ENTRANCES: [
+// 		'back enterance'
+// 	],
+// 	SESSION_TYPES: [
+// 		'one play session'
+// 	],
+// 	TASK_ADDITION: [
+// 		'max sensitivity',
+// 		'First person'
+// 	],
+// 	FRIENDSHIP_TYPES: [
+// 		'allies'
+// 	],
+// 	PERSONS: [
+// 		'another person'
+// 	]
+// }
+
+exports.EIGHTBALL_REPLIES = [
 	'It is certain',
 	'It is decidedly so',
 	'Without a doubt',
