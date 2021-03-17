@@ -2,7 +2,7 @@ const { AkairoHandler } = require('discord-akairo');
 const ModelModule = require('./ModelModule');
 const { Collection } = require('discord.js');
 
-class ModelHandler extends Handler {
+class ModelHandler extends AkairoHandler {
 	constructor(client, {
 		directory,
 		classToHandle = ModelModule,
