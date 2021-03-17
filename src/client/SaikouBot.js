@@ -1,4 +1,6 @@
 const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo');
+const { ModelHandler } = require('../structure/ModelHandler');
+const { Mongoose } = require('mongoose');
 
 class SaikouBot extends AkairoClient {
 	constructor(options) {
@@ -11,6 +13,16 @@ class SaikouBot extends AkairoClient {
 		super(options);
 		this.token = options.token;
 		this.prefix = options.prefix;
+
+		this.mongoose = new Mongoose();
+
+		this.modelHandler = new ModelHandler({
+			directory: __dirname + '/../models/',
+			mongoose: this.mongoose,
+			automateCategories: true
+		});
+
+		this.models = this.modelHandler.models;
 
 		this.commandHandler = new CommandHandler(this, {
 			directory: __dirname + '/../commands',
@@ -29,6 +41,7 @@ class SaikouBot extends AkairoClient {
 	init() {
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 
+		this.modelHandler.loadAll();
 		this.listenerHandler.loadAll();
 		this.commandHandler.loadAll();
 		
