@@ -4,7 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "DEBUG=bot:* nodemon src"
+		"test": "DEBUG=bot:* nodemon src",
+		"eslint": "eslint src/index.js",
+		"fix": "eslint src/index.js --fix"
 	},
 	"repository": {
 		"type": "git",
@@ -26,6 +28,7 @@
 		"moment": "^2.29.1"
 	},
 	"devDependencies": {
+		"eslint": "^7.22.0",
 		"nodemon": "^2.0.7"
 	},
 	"engines": {
