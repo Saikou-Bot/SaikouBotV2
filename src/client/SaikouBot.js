@@ -38,6 +38,10 @@ class SaikouBot extends AkairoClient {
 			automateCategories: true
 		})
 	}
+	start() {
+		this.init();
+		this.login();
+	}
 	init() {
 		this.commandHandler.useListenerHandler(this.listenerHandler);
 
