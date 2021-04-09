@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "DEBUG=bot:* nodemon src",
+		"dev": "DEBUG=bot:* nodemon src",
 		"eslint": "eslint src/index.js",
 		"fix": "eslint src/index.js --fix"
 	},
