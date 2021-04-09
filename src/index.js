@@ -7,7 +7,7 @@ try {
 	config = require('../config.json');
 }
 catch(err) {
-	logger.warn(err);
+	if (!err.code === 'MODULE_NOT_FOUND') logger.warn(err);
 }
 
 const bot = new SaikouBot(Object.assign({}, {
