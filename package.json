@@ -24,6 +24,7 @@
 		"debug": "^4.3.1",
 		"discord-akairo": "^8.1.0",
 		"discord.js": "^12.5.1",
+		"dotenv": "^8.2.0",
 		"human-readable-numbers": "^0.9.5",
 		"moment": "^2.29.1",
 		"mongoose": "^5.12.2",

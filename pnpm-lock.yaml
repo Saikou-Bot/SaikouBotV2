@@ -5,6 +5,7 @@ specifiers:
   debug: ^4.3.1
   discord-akairo: ^8.1.0
   discord.js: ^12.5.1
+  dotenv: ^8.2.0
   eslint: ^7.22.0
   human-readable-numbers: ^0.9.5
   moment: ^2.29.1
@@ -17,6 +18,7 @@ dependencies:
   debug: 4.3.1_supports-color@8.1.1
   discord-akairo: 8.1.0
   discord.js: 12.5.1
+  dotenv: 8.2.0
   human-readable-numbers: 0.9.5
   moment: 2.29.1
   mongoose: 5.12.2
@@ -493,6 +495,11 @@ packages:
     dependencies:
       is-obj: 2.0.0
     dev: true
+
+  /dotenv/8.2.0:
+    resolution: {integrity: sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==}
+    engines: {node: '>=8'}
+    dev: false
 
   /duplexer3/0.1.4:
     resolution: {integrity: sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=}

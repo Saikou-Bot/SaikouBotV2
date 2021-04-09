@@ -1,15 +1,18 @@
 const SaikouBot = require('./client/SaikouBot');
-// const chalk = require('chalk');
+require('dotenv').config();
+const logger = require('./util/logger');
 
 let config = {};
 try {
 	config = require('../config.json');
 }
 catch(err) {
-	console.error(err);
+	logger.warn(err);
 }
 
-const bot = new SaikouBot(config);
+const bot = new SaikouBot(Object.assign({}, {
+	prefix: process.env.PREFIX,
+	token: process.env.DISCORD_TOKEN
+}, config));
 
-bot.init();
-bot.login();
+bot.start();
