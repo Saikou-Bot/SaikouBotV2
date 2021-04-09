@@ -1,5 +1,8 @@
 const debug = require('debug');
 
-module.exports = debug('bot');
+const logger = debug('bot');
 
-module.exports.info = module.exports.extend('info');
+logger.info = logger.extend('info');
+logger.warn = logger.extend('warn');
+
+module.exports = logger;
