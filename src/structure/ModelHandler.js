@@ -11,6 +11,9 @@ class ModelHandler extends AkairoHandler {
 		loadFilter,
 		mongoose = require('mongoose')
 	} = {}) {
+		if (!(classToHandle.prototype instanceof ModelModule || classToHandle === ModelModule)) {
+            throw new AkairoError('INVALID_CLASS_TO_HANDLE', classToHandle.name, ModelModule.name);
+        }
 		super(client, {
 			directory,
 			classToHandle,
@@ -24,6 +27,7 @@ class ModelHandler extends AkairoHandler {
 		this.models = new Collection();
 	}
 	register(modelModule, filepath) {
+		console.log(modelModule);
 		super.register(modelModule, filepath);
 
 		if (modelModule._model && modelModule._model instanceof this.mongoose.Model) {
