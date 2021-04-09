@@ -1,6 +1,6 @@
 const { Listener } = require('discord-akairo');
 // const chalk = require('chalk');
-const bot = require('debug')('bot:info');
+const logger = require('../../util/logger');
 
 class Ready extends Listener {
 	constructor() {
@@ -10,7 +10,7 @@ class Ready extends Listener {
 		});
 	}
 	exec() {
-		bot(`%s is ready!`, this.client.user.username);
+		logger.info(`%s is ready!`, this.client.user.username);
 	}
 }
 module.exports = Ready;
