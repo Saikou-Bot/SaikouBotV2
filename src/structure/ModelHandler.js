@@ -27,7 +27,6 @@ class ModelHandler extends AkairoHandler {
 		this.models = new Collection();
 	}
 	register(modelModule, filepath) {
-		console.log(modelModule);
 		super.register(modelModule, filepath);
 
 		if (modelModule._model && modelModule._model instanceof this.mongoose.Model) {
