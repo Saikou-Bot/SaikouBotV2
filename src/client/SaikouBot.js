@@ -17,7 +17,7 @@ class SaikouBot extends AkairoClient {
 		this.mongoose = new Mongoose();
 
 		this.modelHandler = new ModelHandler(this, {
-			directory: __dirname + '/../models/',
+			directory: __dirname + '/../models',
 			mongoose: this.mongoose,
 			automateCategories: true
 		});
