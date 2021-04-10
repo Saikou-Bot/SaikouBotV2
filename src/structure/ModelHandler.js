@@ -6,7 +6,7 @@ class ModelHandler extends AkairoHandler {
 	constructor(client, {
 		directory,
 		classToHandle = ModelModule,
-		extensions = ['js', 'ts'],
+		extensions = ['.js', '.ts'],
 		automateCategories,
 		loadFilter,
 		mongoose = require('mongoose')
