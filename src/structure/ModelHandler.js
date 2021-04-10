@@ -40,7 +40,7 @@ class ModelHandler extends AkairoHandler {
 			else {
 				modelModule.schema = new this.mongoose.Schema(modelModule._schema);
 			}
-			modelModule.model = this.mongoose.model(modelModule.name, modelModule.schema);
+			modelModule.model = this.mongoose.model(modelModule.name || modelModule.id, modelModule.schema);
 		}
 
 		if (modelModule.model) this.models.set(modelModule.id, modelModule.model);
