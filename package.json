@@ -48,7 +48,7 @@
     "node-emoji": "^1.10.0",
     "ordinal": "^1.0.3",
     "path": "^0.12.7",
-    "strip-ansi": "^6.0.0",
+    "strip-ansi": "^7.0.0",
     "url-regex": "^5.0.0"
   },
   "devDependencies": {
