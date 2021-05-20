@@ -1,7 +1,7 @@
+const { CommandHandler, Argument } = require('discord-akairo')
+
 module.exports = function (message, phrase) {
 	if (!phrase) return null;
 
-	// console.log(this);
-
-	return this.handler.categories.get(phrase.toLowerCase()) || null;
+	return (this instanceof CommandHandler ? this : this instanceof Argument ? this.handler : message.client.commandHandler).categories.get(phrase.toLowerCase()) || null;
 }
