@@ -1,5 +1,5 @@
 const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo');
-const ModelHandler = require('../structure/ModelHandler');
+const { ModelHandler } = require('akairo-model');
 const { Mongoose } = require('mongoose');
 
 class SaikouBot extends AkairoClient {
