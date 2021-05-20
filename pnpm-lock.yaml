@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  akairo-model: ^1.1.0
   chalk: ^4.1.0
   debug: ^4.3.1
   discord-akairo: ^8.1.0
@@ -14,6 +15,7 @@ specifiers:
   supports-color: ^8.1.1
 
 dependencies:
+  akairo-model: 1.1.0_17ec17248d3b6009d43d142f8eba1b9c
   chalk: 4.1.0
   debug: 4.3.1_supports-color@8.1.1
   discord-akairo: 8.1.0
@@ -149,6 +151,16 @@ packages:
       require-from-string: 2.0.2
       uri-js: 4.4.1
     dev: true
+
+  /akairo-model/1.1.0_17ec17248d3b6009d43d142f8eba1b9c:
+    resolution: {integrity: sha512-ZhHmuFb/hIJXFpvNC6JndbAkXa6GKcttI4s5Z1mRjmhdhdCC62AKf7DQi9upx6hS4J9taz54beB8kWzMLToMFA==}
+    peerDependencies:
+      discord-akairo: ^8
+      discord.js: ^12
+    dependencies:
+      discord-akairo: 8.1.0
+      discord.js: 12.5.1
+    dev: false
 
   /ansi-align/3.0.0:
     resolution: {integrity: sha512-ZpClVKqXN3RGBmKibdfWzqCY4lnjEuoNzU5T0oEFpfd/z5qJHVarukridD4juLO2FXMiwUQxr9WqQtaYa8XRYw==}

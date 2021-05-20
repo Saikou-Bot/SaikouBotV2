@@ -20,6 +20,7 @@
 	},
 	"homepage": "https://github.com/Saikou-Bot/SaikouBotV2#readme",
 	"dependencies": {
+		"akairo-model": "^1.1.0",
 		"chalk": "^4.1.0",
 		"debug": "^4.3.1",
 		"discord-akairo": "^8.1.0",
